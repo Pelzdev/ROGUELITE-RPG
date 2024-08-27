@@ -30,7 +30,7 @@ function makePlayerCharDiv (pc) {
     let foodImg = ''
     if (pc.food) {
         foodImg =  `<img src="${pc.food.img}" style="height: 32px;margin-top: 8px;">`
-    }
+    } else {foodImg = ''}
 
     let spriteHtml = `
         <div id="pc-img-container">${pc.img}</div>

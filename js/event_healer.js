@@ -6,14 +6,14 @@ function potion () {
     eventDiv.style.backgroundPosition = 'center center'
 
     const amountRestored = rndInt(40, 60)
-    const maxH = 60
-    const charHeight = 150
+    const maxH = 70
+    const charHeight = 165
     const spriteH = (charHeight / 200) * maxH
     
     eventDiv.innerHTML += `<h3 class="window-header">HEALER!</h3>`
     eventDiv.innerHTML += `
-        <div id="healer-img-container">
-            <img id="event-healer-img" style="height:${spriteH}%" src="img/events/healer/healer_1.png">
+        <div class="event-sprite-img-container">
+            <img class="event-sprite-img" style="height:${spriteH}%" src="img/events/healer/healer_1.png">
         </div>`
 
     eventText.innerHTML = `

@@ -224,6 +224,20 @@ hr {
     text-align: left;
 }
 
+.event-sprite-img-container {
+    position: relative;
+    height: 95%;
+}
+
+.event-sprite-img {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    bottom: 8px;
+    vertical-align: bottom;
+    image-rendering: pixelated;
+}
+
 /* BATTLE EVENT */
 #enemy-img-container {
     position: relative;
@@ -280,48 +294,8 @@ hr {
     width: 50px;
 }
 
-#innkeeper-img-container {
-    position: relative;
-    height: 95%;
-}
-
-#innkeeper-img-container img {
-    margin-left: 50%;
-    transform: translateX(-50%);
-    position: absolute;
-    bottom: 5px;
-    vertical-align: bottom;
-    image-rendering: pixelated;
-}
-
 /* ##### TRAINER EVENT ##### */
-#trainer-img-container {
-    position: relative;
-    height: 95%;
-}
 
-#event-trainer-img {
-    margin-left: 50%;
-    transform: translateX(-50%);
-    position: absolute;
-    bottom: 5px;
-    vertical-align: bottom;
-    image-rendering: pixelated;
-}
-
-#healer-img-container {
-    position: relative;
-    height: 95%;
-}
-
-#event-healer-img {
-    margin-left: 50%;
-    transform: translateX(-50%);
-    position: absolute;
-    bottom: 5px;
-    vertical-align: bottom;
-    image-rendering: pixelated;
-}
 
 /* EVENT TEXT */
 #event-text-container {

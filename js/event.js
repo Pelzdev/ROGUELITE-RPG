@@ -2,8 +2,9 @@ function startEvent (pc) {
     let rndNum = rndInt(1,100)
     if (rndNum <= 10) currentEvent = 'inn'
     if (rndNum > 10 && rndNum <= 18) currentEvent = 'healer'
-    if (rndNum > 18 && rndNum <= 28) currentEvent = 'trainer'
-    if (rndNum > 28) currentEvent = 'battle'
+    if (rndNum > 18 && rndNum <= 30) currentEvent = 'trainer'
+    if (rndNum > 30) currentEvent = 'battle'
+
 
     if (currentEvent === 'inn') {
         inn(pc)
@@ -22,7 +23,7 @@ function startEvent (pc) {
             console.log('You are dead...')
             return
         }
-    } 
+    }
 
     eventHeader.innerHTML = `${currentEvent.toUpperCase()}!`
     eventDiv.classList.add(currentEvent)
@@ -43,15 +44,7 @@ function endEvent() {
     playerChar.status = ''
 
     // Remove the class added for event
-    if (currentEvent === 'battle') {
-        eventDiv.classList.remove('battle')
-    }
-    if (currentEvent === 'inn') {
-        eventDiv.classList.remove('inn')
-    }
-    if (currentEvent === 'trainer') {
-        eventDiv.classList.remove('trainer')
-    }
+    eventDiv.classList.remove(currentEvent)
 
     if (playerChar.hpLeft < 1) {
         getPlayerCharBtn.style.display = 'inline-block'
@@ -60,6 +53,7 @@ function endEvent() {
         eventStartBtn.style.display = 'inline-block'
     }
 
+    makePlayerCharDiv(playerChar)
     playerCharInfoEl.style.display = 'inline-block'
     eventDiv.style.background = 'none'
     eventDiv.style.backgroundColor = 'rgb(49, 49, 53)'

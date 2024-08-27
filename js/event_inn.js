@@ -15,8 +15,8 @@ function inn (pc) {
     
     eventDiv.innerHTML += `<h3 class="window-header">FAIRVIEW INN</h3>`
     eventDiv.innerHTML += `
-        <div id="innkeeper-img-container">
-            <img id="event-innkeeper-img" style="height:${spriteH}%" src="img/events/inn/innkeeper.png">
+        <div class="event-sprite-img-container">
+            <img class="event-sprite-img" style="height:${spriteH}%" src="img/events/inn/innkeeper.png">
         </div>`
 
     eventText.innerHTML += `<hr><p class="event-text-row">You found an inn!</p><hr>`

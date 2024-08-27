@@ -3,7 +3,7 @@ let enemyType = 'enemy'
 let enemy = {}
 
 function battle (pc) {
-    if (rndInt(1, 10) > 9) {
+    if (rndInt(1, 10) > 9 && pc.level > 4) {
         enemyType = 'boss'
         enemy = rndGetPropertyCloned(bosses)
     } else {
@@ -137,6 +137,7 @@ function doSkill(attacker, defender) {
         defender.hpLeft = 0
         text +=  `<p class="battle-text-row ${textClass}">${defender.name.toUpperCase()} DIED!</p>`
         endEventBtn.style.display = 'inline-block'
+        if (defender.isPlayer) {defender.food = null}
 
         if (attacker.isPlayer === true && attacker.hpLeft > 0) {
             text += giveExpAndUpdate(attacker, defender)
@@ -147,6 +148,7 @@ function doSkill(attacker, defender) {
         attacker.hpLeft = 0
         text +=  `<p class="battle-text-row ${textClass}">${attacker.name.toUpperCase()} DIED!</p>`
         endEventBtn.style.display = 'inline-block'
+        if (attacker.isPlayer) {attacker.food = null}
 
         if (defender.isPlayer === true && defender.hpLeft > 0) {
             text += giveExpAndUpdate(defender, attacker)
@@ -183,32 +185,42 @@ function rollPower(skill, user, target)  {
 
 // char is always playerChar
 function giveExpAndUpdate(char, enemy) {
-    let expBar, expText
+    let expBar
+    let expText
+    let text = ''
     expBar = document.querySelector('.pc-expbar-over')
     expText = document.querySelector('#pc-exp-text')
 
     let givenGold = rndInt(enemy.level, enemy.level*4)
     let givenExp = rndInt(enemy.givesExp-1, enemy.givesExp+1)
 
+
     if (!playerChar.food && rndInt(1,10) > 8) {
-        console.log('player got a potion from an enemy')
         playerChar.food = food['small_potion']
+        text += `<p id="battle-text-row">${char.name} got a Small Potion!</p>`
     }
     
-    let text = `<p id="battle-text-row">${char.name} got ${givenExp} exp and ${givenGold} gold for winning!</p>`
+    text += `<p id="battle-text-row">${char.name} got ${givenExp} exp and ${givenGold} gold for winning!</p>`
 
     char.gold += givenGold
 
     // If levelup
     if (char.exp + givenExp >= char.expToLvl) {
         let overkillExp = (char.exp + givenExp) - char.expToLvl
+        let rndAttr = rndFromArr( ['str', 'agi', 'int', 'chr', 'lck'] )
+        raiseAmount = rndFromArr( [1,1,1,1,1,1,2,2,2,3] )
         char.level++
         char.exp = overkillExp
         char.expToLvl = Math.floor(char.expToLvl * 1.2)
         char.hpMax += hpPerLvlUp
         char.hpLeft += hpPerLvlUp
+        char.baseAttr[rndAttr]++
         if (char.hpLeft > char.hpMax) {char.hpLeft = char.hpMax}
-        text += `<p id="battle-text-row">${char.name} LEVELED UP! to level ${char.level}</p>`
+        text += `
+            <p id="battle-text-row">${char.name} LEVELED UP! </p>
+            <p id="battle-text-row">${char.name} is now lvl ${char.level}.
+            <p id="battle-text-row">${char.name}'s ${rndAttr.toUpperCase()} raised by ${raiseAmount}</p>
+        `
     } else {
         char.exp += givenExp
     }
