@@ -8,11 +8,15 @@ function inn (pc) {
     eventDiv.style.backgroundBlendMode = 'multiply'
     eventDiv.style.backgroundSize = 'cover'
     eventDiv.style.backgroundPosition = 'center center'
+
+    const maxH = 60
+    const charHeight = 180
+    const spriteH = (charHeight / 200) * maxH
     
     eventDiv.innerHTML += `<h3 class="window-header">FAIRVIEW INN</h3>`
     eventDiv.innerHTML += `
         <div id="innkeeper-img-container">
-            <img id="event-innkeeper-img" style="height:${170*sizeMulti}px" src="img/events/inn/innkeeper.png">
+            <img id="event-innkeeper-img" style="height:${spriteH}%" src="img/events/inn/innkeeper.png">
         </div>`
 
     eventText.innerHTML += `<hr><p class="event-text-row">You found an inn!</p><hr>`

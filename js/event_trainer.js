@@ -8,10 +8,14 @@ function trainer () {
     eventDiv.style.backgroundSize = 'cover'
     eventDiv.style.backgroundPosition = 'center center'
 
+    const maxH = 60
+    const charHeight = 180
+    const spriteH = (charHeight / 200) * maxH
+
     eventDiv.innerHTML += `<h3 class="window-header">STRENGTH TRAINER GONZALO</h3>`
     eventDiv.innerHTML += `
         <div id="trainer-img-container">
-            <img id="event-trainer-img" style="height:${190*sizeMulti}px" src="img/events/trainer/str_trainer.png">
+            <img id="event-trainer-img" style="height:${spriteH}%" src="img/events/trainer/str_trainer.png">
         </div>`
 
     eventText.innerHTML += ``
