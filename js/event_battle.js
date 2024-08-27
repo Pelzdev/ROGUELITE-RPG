@@ -190,7 +190,7 @@ function giveExpAndUpdate(char, enemy) {
     let givenGold = rndInt(enemy.level, enemy.level*4)
     let givenExp = rndInt(enemy.givesExp-1, enemy.givesExp+1)
 
-    if (!playerChar.food && rndInt(1,10) > 4) {
+    if (!playerChar.food && rndInt(1,10) > 9) {
         console.log('player got a potion from an enemy')
         playerChar.food = food['small_potion']
     }
