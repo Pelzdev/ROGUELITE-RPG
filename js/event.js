@@ -1,9 +1,9 @@
 function startEvent (pc) {
     let rndNum = rndInt(1,100)
     if (rndNum <= 10) currentEvent = 'inn'
-    if (rndNum > 10 && rndNum <= 20) currentEvent = 'healer'
-    if (rndNum > 20 && rndNum <= 27) currentEvent = 'trainer'
-    if (rndNum > 27) currentEvent = 'battle'
+    if (rndNum > 10 && rndNum <= 18) currentEvent = 'healer'
+    if (rndNum > 18 && rndNum <= 28) currentEvent = 'trainer'
+    if (rndNum > 28) currentEvent = 'battle'
 
     if (currentEvent === 'inn') {
         inn(pc)
