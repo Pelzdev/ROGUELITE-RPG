@@ -19,7 +19,7 @@ let endEventBtn = document.getElementById('event-end-btn')
 let sizeMulti = 1.3 // for char and enemy sprites
 let hpPerLvlUp = 5
 let playerChar = {}
-let currentGameMode = ''
+let currentEvent = ''
 
 function getPlayerChar () {
     playerCharInfoEl.style.display = 'inline-block'

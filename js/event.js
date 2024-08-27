@@ -1,15 +1,21 @@
 function startEvent (pc) {
-    let event
     let rndNum = rndInt(1,100)
-    if (rndNum <= 15) event = 'inn'
-    if (rndNum > 15 && rndNum <= 23) event = 'trainer'
-    if (rndNum > 23) event = 'battle'
+    if (rndNum <= 10) currentEvent = 'inn'
+    if (rndNum > 10 && rndNum <= 20) currentEvent = 'potion'
+    if (rndNum > 20 && rndNum <= 27) currentEvent = 'trainer'
+    if (rndNum > 27) currentEvent = 'battle'
 
-    if (event === 'battle') {
+    if (currentEvent === 'inn') {
+        inn(pc)
+    }
+    if (currentEvent === 'potion') {
+        potion(pc)
+    }
+    if (currentEvent === 'trainer') {
+        trainer(pc)
+    }
+    if (currentEvent === 'battle') {
         if (playerChar.hpLeft > 0) {
-            currentGameMode = 'battle'
-            eventHeader.innerHTML = 'BATTLE!'
-            eventDiv.classList.add('battle')
             battle(pc)
         }
         else {
@@ -18,19 +24,8 @@ function startEvent (pc) {
         }
     } 
 
-    if (event === 'inn') {
-        currentGameMode = 'inn'
-        eventHeader.innerHTML = 'INN!'
-        eventDiv.classList.add('inn')
-        inn(pc)
-    }
-
-    if (event === 'trainer') {
-        currentGameMode = 'trainer'
-        eventHeader.innerHTML = 'TRAINER!'
-        eventDiv.classList.add('trainer')
-        trainer(pc)
-    }
+    eventHeader.innerHTML = `${currentEvent.toUpperCase()}!`
+    eventDiv.classList.add(currentEvent)
     
     playerCharInfoEl.style.display = 'none'
     eventStartBtn.style.display = 'none'
@@ -48,13 +43,13 @@ function endEvent() {
     playerChar.status = ''
 
     // Remove the class added for event
-    if (currentGameMode === 'battle') {
+    if (currentEvent === 'battle') {
         eventDiv.classList.remove('battle')
     }
-    if (currentGameMode === 'inn') {
+    if (currentEvent === 'inn') {
         eventDiv.classList.remove('inn')
     }
-    if (currentGameMode === 'trainer') {
+    if (currentEvent === 'trainer') {
         eventDiv.classList.remove('trainer')
     }
 
@@ -69,7 +64,7 @@ function endEvent() {
     eventDiv.style.background = 'none'
     eventDiv.style.backgroundColor = 'rgb(49, 49, 53)'
 
-    currentGameMode = ''
+    currentEvent = ''
 }
 
 function hideElements(...elArr) {
