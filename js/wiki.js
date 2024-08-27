@@ -56,6 +56,16 @@ const races = {
         },
         lastNames: ['Holt', 'Cromwell', 'Kirby', 'Stevens', 'Buckley', 'Brooks', 'Whitney', 'Williams', 'Ramsey', 'Hammett', 'Garfield', 'Alston']
     },
+    tauren: {
+        name: 'tauren',
+        height: 200,
+        bonusAttr: {str: 2},
+        names: {
+            male: ['Anoki', 'Dichali', 'Chibo', 'Matoshkah', 'Giqo', 'Shusta', 'Mojag', 'Vudri', 'Skah', 'Ommioh'],
+            female: ['Shania', 'Atepa', 'Tiva', 'Mona', 'Uyo', 'Alameda', 'Taze', 'Tiponi', 'Uwuno', 'Enge']
+        },
+        lastNames: ['']
+    },
     mouseling: {
         name: 'mouseling',
         height: 140,
@@ -64,7 +74,7 @@ const races = {
             male: ['Jasper', 'Munchkin', 'Titan', 'Bandit', 'Noodle', 'Remy', 'Bingo', 'Finnegan', 'Orbit', 'Maverick', 'Dave', 'Charm', 'Cheddar', 'Oak', 'Autumn', 'Hippie', 'Boots', 'Vinnie', 'Cosmo', 'Tigger', 'Milo', 'Skip', 'Nibbles', 'George'],
             female: ['Zara', 'Zelda', 'Hazel', 'Honey', 'Cherry', 'Sky', 'Marigold', 'Dahlia', 'Fifi', 'Flora', 'Suzy', 'Jaffa', 'Sarah', 'Xia', 'Cutie', 'Pumpkin', 'Splash', 'Adele', 'Gladiola', 'Petunia', 'Millie', 'Iris', 'Zoey']
         },
-        lastNames: ['']
+        lastNames: ['Stonemoon', 'Blacktusk', 'Ironhide', 'Oatshield', 'Spiritmane', 'Fogsong', 'Stonehoof', 'Hillmane', 'Rumblerider', 'Runehorn']
     },
     orc: {
         name: 'orc',
@@ -257,6 +267,14 @@ const numOfCharSprites = {
         warrior: {female: 12, male: 6} //
     },
     // OWLBOY DESIGN
+    tauren: {
+        bard: {female: 6, male: 6}, //
+        gambler: {female: 7, male: 6}, //
+        mage: {female: 7, male: 6}, //
+        priest: {female: 9, male: 8}, //
+        rogue: {female: 7, male: 9}, //
+        warrior: {female: 17, male: 9} //
+    },
     owlin: {
         bard: {female: 9, male: 7}, //
         gambler: {female: 8, male: 8}, //

@@ -2,3 +2,10 @@ Where Owlboy style is used:
 
 ALL priests
 ALL OWLIN
+ALL TAUREN
+
+
+male: ['Anoki', 'Dichali', 'Chibo', 'Matoshkah', 'Giqo', 'Shusta', 'Mojag', 'Vudri', 'Skah', 'Ommioh']
+female: ['Shania', 'Atepa', 'Tiva', 'Mona', 'Uyo', 'Alameda', 'Taze', 'Tiponi', 'Uwuno', 'Enge']
+
+lastNames: ['Stonemoon', 'Blacktusk', 'Ironhide', 'Oatshield', 'Spiritmane', 'Fogsong', 'Stonehoof', 'Hillmane', 'Rumblerider', 'Runehorn']
