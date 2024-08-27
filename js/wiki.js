@@ -1,5 +1,5 @@
 const baseAttr = {
-    str: 2, agi: 2, int: 2, chr: 2, lck: 2
+    str: 5, agi: 5, int: 5, chr: 5, lck: 5
 }
 // SKILLS
 const skills = {
@@ -180,11 +180,11 @@ const enemies = {
         name: 'Mouse',
         isPlayer: false,
         level: 1, 
-        givesExp: 3, 
+        givesExp: 4, 
         height: 60, 
-        hpMax: 8, 
-        hpLeft: 8,
-        totalAttr: {str: 1, agi: 3, int: 1, chr: 1, lck: 3},
+        hpMax: 10, 
+        hpLeft: 10,
+        totalAttr: {str: 1, agi: 5, int: 1, chr: 1, lck: 3},
         skills: [skills.attack], 
         status: '',
         img: 'img/enemies/mouse_small.png',
@@ -192,12 +192,12 @@ const enemies = {
     mouse_assassin: {
         name: 'Mouse Assasin',
         isPlayer: false,
-        level: 3, 
-        givesExp: 10, 
+        level: 2, 
+        givesExp: 8,
         height: 80, 
-        hpMax: 15, 
-        hpLeft: 15,
-        totalAttr: {str: 1, agi: 4, int: 1, chr: 1, lck: 3},
+        hpMax: 20, 
+        hpLeft: 20,
+        totalAttr: {str: 2, agi: 4, int: 3, chr: 1, lck: 3},
         skills: [skills.eviscerate_1], 
         status: '',
         img: 'img/enemies/mouse_assassin.png',
@@ -206,14 +206,43 @@ const enemies = {
         name: 'Goblin',
         isPlayer: false,
         level: 2, 
-        givesExp: 5, 
+        givesExp: 8, 
         height: 130, 
-        hpMax: 15, 
-        hpLeft: 15,
-        totalAttr: {str: 2, agi: 2, int: 1, chr: 1, lck: 5},
+        hpMax: 25, 
+        hpLeft: 25,
+        totalAttr: {str: 3, agi: 3, int: 2, chr: 1, lck: 1},
         skills: [skills.attack],
         status: '',
         img: 'img/enemies/goblin_warrior_small.png',
+    },
+    goblin_bat: {
+        name: 'Goblin Bat',
+        isPlayer: false,
+        level: 2, 
+        givesExp: 8, 
+        height: 60, 
+        hpMax: 15, 
+        hpLeft: 15,
+        totalAttr: {str: 2, agi: 4, int: 2, chr: 1, lck: 1},
+        skills: [skills.attack],
+        status: '',
+        img: 'img/enemies/goblin_bat.png',
+    }
+}
+
+const bosses = {
+    troll_forest: {
+        name: 'Forest Troll',
+        isPlayer: false,
+        level: 5, 
+        givesExp: 40, 
+        height: 200, 
+        hpMax: 70, 
+        hpLeft: 70,
+        totalAttr: {str: 8, agi: 2, int: 2, chr: 1, lck: 1},
+        skills: [skills.bash_1],
+        status: '',
+        img: 'img/enemies/bosses/troll_forest.png',
     }
 }
 

@@ -1,8 +1,14 @@
 // BATTLE EVENT
+let enemyType = 'enemy'
 let enemy = {}
 
 function battle (pc) {
-    enemy = rndGetPropertyCloned(enemies)
+    if (rndInt(1, 10) > 9) {
+        enemyType = 'boss'
+        enemy = rndGetPropertyCloned(bosses)
+    } else {
+        enemy = rndGetPropertyCloned(enemies)
+    }
     // background
     //eventDiv.style.background = `url("img/events/battle/bg_woods.png") rgba(0, 0, 0, 0.3)`
     //eventDiv.style.backgroundBlendMode = 'multiply'
@@ -20,7 +26,7 @@ function makeBattleDiv (enemy) {
 
     let html = ''
     html += `
-        <h3 class="window-header">ENEMY</h3>
+        <h3 class="window-header">${enemyType.toUpperCase()}</h3>
         <hr>
         <p class="enemy-info-line name">lvl ${enemy.level} ${enemy.name.toUpperCase()}</p>
         <hr>
@@ -166,8 +172,10 @@ function checkStatusApplication (skill, target) {
 
 function rollPower(skill, user, target)  {
     let attrMulti = 1
+
     if (skill.attribute != null) attrMulti = 1 + (user.totalAttr[skill.attribute] / 10)
-    let power = Math.round(skill.power/5 * attrMulti)
+    let powerBaseLine = Math.round(skill.power/5 * attrMulti)
+    let power = rndInt(powerBaseLine-1, powerBaseLine+1)
 
     return power
 }
