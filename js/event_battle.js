@@ -85,6 +85,8 @@ function decideFirstAttacker(char1, char2) {
 }
 
 function doSkill(attacker, defender) {
+    let textClass = 'enemy'
+    if (attacker.isPlayer) textClass = 'player'
     let text = ''
     let power = 0
     let skillUsed = {}
@@ -92,7 +94,7 @@ function doSkill(attacker, defender) {
     let critText = ''
     // Check if statuses that need to be checked before attacking
     if (attacker.status === 'stun') {
-        text += `<p id="battle-text-row">${attacker.name} has status ${attacker.status} and cannot move.</p>`
+        text += `<p class="battle-text-row ${textClass}">${attacker.name} has status ${attacker.status} and cannot move.</p>`
         attacker.status = ''
         return text
     }
@@ -113,12 +115,12 @@ function doSkill(attacker, defender) {
     }
     if (skillUsed.type === 'damage') {
         target.hpLeft -= power
-        text += `<p id="battle-text-row">${critText} ${attacker.name.toUpperCase()} used ${skillUsed.name.toUpperCase()} on ${target.name} for ${power} DMG!</p>` 
+        text += `<p class="battle-text-row ${textClass}">${critText} ${attacker.name.toUpperCase()} used ${skillUsed.name.toUpperCase()} on ${target.name.toUpperCase()} for ${power} DMG!</p>` 
     }
     if (skillUsed.type === 'heal') {
         target.hpLeft += power
         if (target.hpLeft > target.hpMax) {target.hpLeft = target.hpMax}
-        text += `<p id="battle-text-row">${critText} ${attacker.name.toUpperCase()} used ${skillUsed.name.toUpperCase()} on ${target.name} and healed ${power} hp!</p>`
+        text += `<p class="battle-text-row ${textClass}">${critText} ${attacker.name.toUpperCase()} used ${skillUsed.name.toUpperCase()} on ${target.name.toUpperCase()} and healed ${power} hp!</p>`
     }
     // check if skill has status/effect and if it is to be used
     if (skillUsed.status != null) {
@@ -127,13 +129,13 @@ function doSkill(attacker, defender) {
     // Check if STATUS that need to be checked after attacking
     if (attacker.status === 'bleeding') {
         let bleedDmg = rndInt(1,2)
-        text += `<p id="battle-text-row">${attacker.name.toUpperCase()} has status ${attacker.status} and takes ${bleedDmg} dmg</p>`
+        text += `<p class="battle-text-row ${textClass}">${attacker.name.toUpperCase()} has status ${attacker.status} and takes ${bleedDmg} dmg</p>`
         attacker.hpLeft -= bleedDmg
     }
     // Check if defender is dead and act accordingly
     if (defender.hpLeft <= 0) {
         defender.hpLeft = 0
-        text +=  `<p id="battle-text-row">${defender.name.toUpperCase()} DIED!</p>`
+        text +=  `<p class="battle-text-row ${textClass}">${defender.name.toUpperCase()} DIED!</p>`
         endEventBtn.style.display = 'inline-block'
 
         if (attacker.isPlayer === true && attacker.hpLeft > 0) {
@@ -143,14 +145,13 @@ function doSkill(attacker, defender) {
     // Check if attacker is dead and act accordingly
     if (attacker.hpLeft <= 0) {
         attacker.hpLeft = 0
-        text +=  `<p id="battle-text-row">${attacker.name.toUpperCase()} DIED!</p>`
+        text +=  `<p class="battle-text-row ${textClass}">${attacker.name.toUpperCase()} DIED!</p>`
         endEventBtn.style.display = 'inline-block'
 
         if (defender.isPlayer === true && defender.hpLeft > 0) {
             text += giveExpAndUpdate(defender, attacker)
         }
     }
-    text += `<p id="battle-text-divider"></p>`
 
     updateHp(attacker)
     updateHp(defender)
@@ -164,7 +165,7 @@ function checkStatusApplication (skill, target) {
     console.log('checking effect: ' + skill.status + ' from skill: ' + skill.name)
     if (rndInt(1,100) < skill.statusChance) {
         target.status = skill.status
-        text = `<p id="battle-text-row">${target.name} is now affected by ${skill.status.toUpperCase()}</p>`
+        text = `<p id="battle-text-row">${target.name.toUpperCase()} is now affected by ${skill.status.toUpperCase()}</p>`
         return text
     }
     return ''
@@ -186,8 +187,13 @@ function giveExpAndUpdate(char, enemy) {
     expBar = document.querySelector('.pc-expbar-over')
     expText = document.querySelector('#pc-exp-text')
 
-    givenGold = rndInt(enemy.level, enemy.level*4)
-    givenExp = rndInt(enemy.givesExp-1, enemy.givesExp+1)
+    let givenGold = rndInt(enemy.level, enemy.level*4)
+    let givenExp = rndInt(enemy.givesExp-1, enemy.givesExp+1)
+
+    if (!playerChar.food && rndInt(1,10) > 4) {
+        console.log('player got a potion from an enemy')
+        playerChar.food = food['small_potion']
+    }
     
     let text = `<p id="battle-text-row">${char.name} got ${givenExp} exp and ${givenGold} gold for winning!</p>`
 

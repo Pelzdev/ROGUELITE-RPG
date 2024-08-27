@@ -5,7 +5,8 @@ function getChar (race, job, gender) {
         hpLeft: 100,
         exp: 0, 
         expToLvl: 20, 
-        gold: 5, 
+        gold: 5,
+        food: food.small_potion,
         status: '',
         race: rndGetPropertyCloned(races),
         job: rndGetPropertyCloned(jobs),
@@ -26,9 +27,12 @@ function getChar (race, job, gender) {
 function makePlayerCharDiv (pc) {
     pc.totalAttr = multiAddAttr( [pc.baseAttr, pc.race.bonusAttr, pc.job.bonusAttr, pc.trait.bonusAttr] )
     let statBarPercentMulti = 5 // aka 1 point = 5% of bar filled
+    let foodImg = ''
+    if (pc.food) {
+        foodImg =  `<img src="${pc.food.img}" style="height: 32px;margin-top: 8px;">`
+    }
 
     let spriteHtml = `
-        
         <div id="pc-img-container">${pc.img}</div>
         <hr>
         <div class="hp-bar-under pc-hpbar-under"><div class="hp-bar-over pc-hpbar-over" style="width:${pc.hpLeft/pc.hpMax*100}%"></div><p id="pc-hp-text">${pc.hpLeft}/${pc.hpMax} HP<p></div>
@@ -41,8 +45,6 @@ function makePlayerCharDiv (pc) {
         <p class="pc-info-line trait">${pc.trait.name.toUpperCase()} ${pc.race.name.toUpperCase()} ${genderSymbol[pc.gender]}</p>
         <p class="pc-info-line joblvl">lvl ${pc.level} ${pc.job.name.toUpperCase()}</p>
         <hr>
-        <p class="pc-eq-line gold">GOLD:${pc.gold}</p>
-        <hr>
         <div class="pc-info-stats">
             STR: ${pc.totalAttr.str} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.str*statBarPercentMulti}%;"></div> </div> <br>
             AGI: ${pc.totalAttr.agi} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.agi*statBarPercentMulti}%;"></div> </div> <br>
@@ -50,6 +52,10 @@ function makePlayerCharDiv (pc) {
             CHR: ${pc.totalAttr.chr} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.chr*statBarPercentMulti}%;"></div> </div> <br>
             LCK: ${pc.totalAttr.lck} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.lck*statBarPercentMulti}%;"></div> </div>
         </div>
+        <hr>
+        <p class="pc-eq-line gold">GOLD:${pc.gold}</p>
+        <div class="consumable-img-container" onclick="clickConsumable()">${foodImg}</div>
+        <div class="consumable-info" style="border: 1px solid gray; display:none;"></div>
     `
 
     playerSpriteEl.innerHTML = spriteHtml
@@ -67,4 +73,30 @@ function getCharSprite (char) {
     let img = `<img class="sprite-${char.race.name}" style="height:${spriteH}%" src="img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png">`
 
     return img
+}
+
+function clickConsumable (food) {
+    if (!playerChar.food) return
+    let targetEl = document.querySelector('.consumable-info')
+    targetEl.innerHTML = `
+        ${playerChar.food.infoText}
+        Do you want to use ${playerChar.food.name}
+        <button onclick="useConsumable('yes')">YES</button><button onclick="useConsumable('no')">NO</button>
+    `
+    targetEl.style.display = 'block'
+}
+
+function useConsumable (answer) {
+    if (answer === 'no') {
+        
+    }
+    if (answer === 'yes') {
+        let givesBonusTo = playerChar.food.givesBonusTo
+        let amount = playerChar.food.amount
+        playerChar[givesBonusTo] += amount
+        playerChar.food = null,
+        document.querySelector('.consumable-img-container').innerHTML = ''
+        updateHp(playerChar)
+    }
+    document.querySelector('.consumable-info').style.display = 'none'
 }

@@ -5,7 +5,7 @@ function potion () {
     eventDiv.style.backgroundSize = 'cover'
     eventDiv.style.backgroundPosition = 'center center'
 
-    const amountRestored = rndInt(15,50)
+    const amountRestored = rndInt( food['medium_potion'].amount - 5, food['medium_potion'].amount + 5 )
     const maxH = 60
     const itemHeight = 150
     const spriteH = (itemHeight / 200) * maxH

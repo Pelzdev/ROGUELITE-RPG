@@ -11,6 +11,7 @@
 * {
     margin: 0;
     padding: 0;
+    user-select: none;
 }
 
 /* GENERAL */
@@ -199,6 +200,20 @@ hr {
     background-color: rgb(66, 132, 170);
 }
 
+.consumable-img-container {
+    margin-left: 5px;
+    height: 48px;
+    width: 48px;
+    border: 1px solid gray;
+    border-radius: 25%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.consumable-info button {
+    width: 50px;
+}
+
 /* ##### EVENT STUFF ##### */
 .event-div {
     image-rendering: pixelated;
@@ -210,7 +225,6 @@ hr {
 }
 
 /* BATTLE EVENT */
-
 #enemy-img-container {
     position: relative;
     height: calc(100% - 70px);
@@ -253,8 +267,11 @@ hr {
     text-align: center;
 }
 
-#battle-text-divider {
-    border-bottom: 1px solid rgba(255,255,255, 0.2)
+.battle-text-row.player {
+    color: rgb(150, 255, 150);
+}
+.battle-text-row.enemy {
+    color: rgb(255, 150, 150);
 }
 
 /*##### INN EVENT #####*/

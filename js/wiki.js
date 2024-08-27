@@ -15,6 +15,11 @@ const skills = {
     scream_1:           {name: 'scream I',          target: 'enemy', type: 'damage', attribute: 'chr', chance: 30, power: 30, status: 'stun',       statusChance: 30,   critChance: 5}
 }
 
+const food = {
+    small_potion:   {name: 'small potion',  ref: 'small_potion',  infoText: 'Heals you a little.', givesBonusTo: 'hpLeft', amount: 25, img: 'img/items/potion_small.png'},
+    medium_potion:  {name: 'medium potion', ref: 'medium_potion', infoText: 'Heals you.',          givesBonusTo: 'hpLeft', amount: 50, img: 'img/items/potion_medium.png'}
+}
+
 const races = {
     dwarf: {
         name: 'dwarf',
