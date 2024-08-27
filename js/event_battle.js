@@ -8,7 +8,7 @@ function battle (pc) {
     //eventDiv.style.backgroundBlendMode = 'multiply'
     //eventDiv.style.backgroundSize = 'cover'
     //eventDiv.style.backgroundPosition = 'center center'
-    eventText.innerHTML += `<p class="event-text-row">It's a ${enemy.name.toUpperCase()}... FIGHT!</p><hr>`
+    eventText.innerHTML += `<hr><p class="event-text-row">It's a ${enemy.name.toUpperCase()}... FIGHT!</p><hr>`
 
     makeBattleDiv(enemy)
 }
@@ -23,14 +23,14 @@ function makeBattleDiv (enemy) {
     html += `
         <h3 class="window-header">ENEMY</h3>
         <hr>
-        <p class="enemy-info-line name">${enemy.name.toUpperCase()}</p>
+        <p class="enemy-info-line name">lvl ${enemy.level} ${enemy.name.toUpperCase()}</p>
         <hr>
         <div id="enemy-img-container" onclick="doBattleTurn(event)">
             <img id="battle-enemy-img" style="height:${spriteH}%" src="${enemy.img}">
         </div>
         <hr>
         <div class="hp-bar-under enemy-hpbar-under"><div class="hp-bar-over enemy-hpbar-over" style="width:${enemy.hpLeft/enemy.hpMax*100}%"></div><p id="enemy-hp-text">${enemy.hpLeft}/${enemy.hpMax} HP</p></div> 
-        <p class="enemy-info-line joblvl">lvl ${enemy.level}</p> 
+        
         <div id="battle-text-div"></div>
     `
 
@@ -145,6 +145,7 @@ function doSkill(attacker, defender) {
             text += giveExpAndUpdate(defender, attacker)
         }
     }
+    text += `<p id="battle-text-divider"></p>`
 
     updateHp(attacker)
     updateHp(defender)

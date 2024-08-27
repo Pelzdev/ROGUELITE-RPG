@@ -15,7 +15,7 @@ function inn (pc) {
             <img id="event-innkeeper-img" style="height:${170*sizeMulti}px" src="img/events/inn/innkeeper.png">
         </div>`
 
-    eventText.innerHTML += `<p class="event-text-row">You found an inn!</p><hr>`
+    eventText.innerHTML += `<hr><p class="event-text-row">You found an inn!</p><hr>`
     eventText.innerHTML = `
     <p id="inn-text-row">The inn looks inviting. Do you want to pay innkeeper Aerion ${innCost} gold to stay the night? You have ${playerChar.gold} gold.</p>
     <br>

@@ -8,7 +8,7 @@ function startEvent (pc) {
     if (event === 'battle') {
         if (playerChar.hpLeft > 0) {
             currentGameMode = 'battle'
-            eventHeader.innerHTML = 'BATTLE!<hr>'
+            eventHeader.innerHTML = 'BATTLE!'
             eventDiv.classList.add('battle')
             battle(pc)
         }
@@ -20,14 +20,14 @@ function startEvent (pc) {
 
     if (event === 'inn') {
         currentGameMode = 'inn'
-        eventHeader.innerHTML = 'INN!<hr>'
+        eventHeader.innerHTML = 'INN!'
         eventDiv.classList.add('inn')
         inn(pc)
     }
 
     if (event === 'trainer') {
         currentGameMode = 'trainer'
-        eventHeader.innerHTML = 'TRAINER!<hr>'
+        eventHeader.innerHTML = 'TRAINER!'
         eventDiv.classList.add('trainer')
         trainer(pc)
     }

@@ -181,7 +181,7 @@ hr {
     width: 100%;
     display: inline-block;
     height: 20px;
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(0,0,0, 0.3);
 }
 
 #pc-exp-text {
@@ -206,16 +206,14 @@ hr {
 }
 
 #event-header {
-    margin-bottom: 20px;
-    color: rgba(255,255,255,0.7);
-    text-align: center;
+    text-align: left;
 }
 
 /* BATTLE EVENT */
 
 #enemy-img-container {
     position: relative;
-    height: calc(100% - 84px);
+    height: calc(100% - 70px);
     cursor: pointer;
 }
 
@@ -253,6 +251,10 @@ hr {
 }
 .enemy-info-line.joblvl {
     text-align: center;
+}
+
+#battle-text-divider {
+    border-bottom: 1px solid rgba(255,255,255, 0.2)
 }
 
 /*##### INN EVENT #####*/
