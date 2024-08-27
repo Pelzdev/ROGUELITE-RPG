@@ -32,7 +32,8 @@ function makePlayerCharDiv (pc) {
         <p class="pc-info-line name">${pc.name.toUpperCase()} ${pc.lastName.toUpperCase()}</p>
         <p class="pc-info-line trait">${pc.trait.name.toUpperCase()}</p>
         <p class="pc-info-line race">${genderSymbol[pc.gender]} ${pc.race.name.toUpperCase()}<p><hr>
-        <div class="hp-bar-under pc-hpbar-under"><div class="hp-bar-over pc-hpbar-over" style="width:${pc.hpLeft/pc.hpMax*270}px"></div><p id="pc-hp-text">${pc.hpLeft}/${pc.hpMax} HP<p></div>
+        <div class="hp-bar-under pc-hpbar-under"><div class="hp-bar-over pc-hpbar-over" style="width:${pc.hpLeft/pc.hpMax*100}%"></div><p id="pc-hp-text">${pc.hpLeft}/${pc.hpMax} HP<p></div>
+        <hr>
         <div id="pc-img-container">${pc.img}</div>
         <hr>
         <p class="pc-info-line joblvl">lvl ${pc.level} ${pc.job.name.toUpperCase()}</p>

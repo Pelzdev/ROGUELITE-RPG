@@ -23,7 +23,8 @@ function makeBattleDiv (enemy) {
         <br>
         <br>
         <hr>
-        <div class="hp-bar-under enemy-hpbar-under"><div class="hp-bar-over enemy-hpbar-over" style="width:${enemy.hpLeft/enemy.hpMax*270}px"></div><p id="enemy-hp-text">${enemy.hpLeft}/${enemy.hpMax} HP</p></div> 
+        <div class="hp-bar-under enemy-hpbar-under"><div class="hp-bar-over enemy-hpbar-over" style="width:${enemy.hpLeft/enemy.hpMax*100}%"></div><p id="enemy-hp-text">${enemy.hpLeft}/${enemy.hpMax} HP</p></div> 
+        <hr>
         <div id="enemy-img-container" onclick="doBattleTurn(event)">
             <img id="battle-enemy-img" style="height:${enemy.height*sizeMulti}px" src="${enemy.img}">
         </div>
