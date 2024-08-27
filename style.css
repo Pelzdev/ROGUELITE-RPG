@@ -309,6 +309,20 @@ hr {
     image-rendering: pixelated;
 }
 
+#healer-img-container {
+    position: relative;
+    height: 95%;
+}
+
+#event-healer-img {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    bottom: 5px;
+    vertical-align: bottom;
+    image-rendering: pixelated;
+}
+
 /* EVENT TEXT */
 #event-text-container {
     display: none;

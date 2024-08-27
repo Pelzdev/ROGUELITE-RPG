@@ -1,14 +1,14 @@
 function startEvent (pc) {
     let rndNum = rndInt(1,100)
     if (rndNum <= 10) currentEvent = 'inn'
-    if (rndNum > 10 && rndNum <= 20) currentEvent = 'potion'
+    if (rndNum > 10 && rndNum <= 20) currentEvent = 'healer'
     if (rndNum > 20 && rndNum <= 27) currentEvent = 'trainer'
     if (rndNum > 27) currentEvent = 'battle'
 
     if (currentEvent === 'inn') {
         inn(pc)
     }
-    if (currentEvent === 'potion') {
+    if (currentEvent === 'healer') {
         potion(pc)
     }
     if (currentEvent === 'trainer') {
