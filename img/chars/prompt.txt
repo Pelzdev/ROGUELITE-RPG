@@ -1,0 +1,15 @@
+PROMPMT:
+a [gender] [race] [job/class] DnD character, (body description optional), (weapon description optional), full-body portrait, simple, flat colors, Pokemon style
+
+or
+
+a male orc bard DnD character, playing a accordion, full-body, simple, flat colors, Final Fantasy Tactics style, perfect pixel art
+
+humanoid
+
+a dnd female humanoid mouse fantasy gambler with long hair holding dice or a deck of cards, full-body, simple, flat colors, Final Fantasy Tactics style, perfect pixel art
+
+ENEMY GENERATION
+
+
+['Gruzz', 'Denekx', 'Vrisb', 'Weact']

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Roguelite</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+
+        <h1 class="window-header"  id="game-header">ROGUELITE RPG</h1>
+
+        <div id="game">
+            <div id="button-bar">
+                <button id="get-player-char-btn" onclick="getPlayerChar()">START</button>
+                <button id="event-start-btn" onclick="startEvent(playerChar)">EVENT</button>
+                <button id="event-end-btn" onclick="endEvent()">END EVENT</button>
+            </div>
+            <!-- <button id="re-randomize-char-btn" onclick="getPlayerChar()">Re Randomize</button> -->
+            <!-- <button id="show-all-chars-btn" onclick="showAllImages()">Show all chars</button> -->
+            <div id="game-row-1">
+                <div class="info-card" id="player-eq"></div>
+                <div class="info-card" id="player-char" ></div>
+                <div class="info-card event-div" ></div> 
+            </div>
+            
+            <div id="event-text-container">
+                <h3 class="window-header" id="event-header"></h3>
+                <div id="event-text"></div>
+            </div>
+            <!--<div id="player-char2"></div>
+            <div id="player-char3"></div> -->
+        
+            <!-- <div id="all-chars"></div> -->
+        </div>
+
+
+
+        <script src="js/main.js" defer></script>
+        <script src="js/player_char.js" defer></script>
+        <script src="js/event.js"></script>
+        <script src="js/event_battle.js"></script>
+        <script src="js/event_inn.js"></script>
+        <script src="js/event_trainer.js"></script>
+        <script src="js/wiki.js"></script>
+        <script src="js/base_functions.js"></script>
+    </body>
+</html>
