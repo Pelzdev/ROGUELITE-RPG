@@ -10,10 +10,11 @@ function battle (pc) {
         enemy = rndGetPropertyCloned(enemies)
     }
     // background
-    //eventDiv.style.background = `url("img/events/battle/bg_woods.png") rgba(0, 0, 0, 0.3)`
-    //eventDiv.style.backgroundBlendMode = 'multiply'
-    //eventDiv.style.backgroundSize = 'cover'
-    //eventDiv.style.backgroundPosition = 'center center'
+    eventDiv.style.background = `url("img/events/battle/bg_woods.png") rgba(0, 0, 0, 0.3)`
+    eventDiv.style.backgroundBlendMode = 'multiply'
+    eventDiv.style.backgroundSize = 'cover'
+    eventDiv.style.backgroundPosition = 'center center'
+    
     eventText.innerHTML += `<hr><p class="event-text-row">It's a ${enemy.name.toUpperCase()}... FIGHT!</p><hr>`
 
     makeBattleDiv(enemy)

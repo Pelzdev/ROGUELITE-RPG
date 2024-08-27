@@ -159,6 +159,7 @@ hr {
 .pc-statbar-under {
     margin-left: 5px;
     width: calc(100% - 95px);
+    left: 0;
     display: inline-block;
     height: 12px;
     background-color: rgba(255, 255, 255, 0.15);
