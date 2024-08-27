@@ -101,7 +101,7 @@ function doSkill(attacker, defender) {
     // Roll skill damage (TO DO FIX DMG)
     power = rollPower(skillUsed, attacker, target)
     // Check crit
-    if (rndInt(1, 100) < (5 + attacker.totalAttr.lck) ) {
+    if (rndInt(1, 100) < (skillUsed.critChance + attacker.totalAttr.lck) ) {
         power = power*2
         critText = 'CRIT!'
     }

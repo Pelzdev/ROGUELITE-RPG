@@ -4,15 +4,15 @@ const baseAttr = {
 // SKILLS
 const skills = {
     // base skills
-    attack: {name: 'attack', target: 'enemy', type: 'damage', attribute: 'str', power: 20, chance: 100, status: null, statusChance: null},
-    // physical skills
-    eviscerate_1: {name: 'eviscerate I', target: 'enemy', type: 'damage', attribute: 'agi', chance: 20, power: 30, status: 'bleeding', statusChance: 35},
-    bash_1: {name: 'bash I', target: 'enemy', type: 'damage', attribute: 'str', chance: 30, power: 40, chance: 30, status: 'stun', statusChance: 30},
+    attack:             {name: 'attack',            target: 'enemy', type: 'damage', attribute: null, chance: 100, power: 20, status: null,         statusChance: null, critChance: 5},
     // attribute skills
-    gambling_strike_1: {name: 'gambling strike I', target: 'enemy', type: 'damage', attribute: 'lck', chance: 30, power: 40, status: null, statusChance: 0},
-    magic_bolt_1: {name: 'magic bolt I', target: 'enemy', type: 'damage', attribute: 'int', chance: 40, power: 40, status: null, statusChance: null},
-    scream_1: {name: 'scream I', target: 'enemy',type: 'damage', attribute: 'chr', chance: 30, power: 30, status: 'stun', statusChance: 30},
-    heal_self_1: {name: 'heal self I', target: 'self', type: 'heal', attribute: 'int', chance: 20, power: 50, status: null, statusChance: null}
+    bash_1:             {name: 'bash I',            target: 'enemy', type: 'damage', attribute: 'str', chance: 30, power: 40, status: 'stun',       statusChance: 30,   critChance: 5},
+    eviscerate_1:       {name: 'eviscerate I',      target: 'enemy', type: 'damage', attribute: 'agi', chance: 20, power: 30, status: 'bleeding',   statusChance: 35,   critChance: 5},
+    gambling_strike_1:  {name: 'gambling strike I', target: 'enemy', type: 'damage', attribute: 'lck', chance: 30, power: 40, status: null,         statusChance: 0,    critChance: 5},
+    heal_self_1:        {name: 'heal self I',       target: 'self',  type: 'heal',   attribute: 'int', chance: 20, power: 50, status: null,         statusChance: null, critChance: 5},
+    magic_bolt_1:       {name: 'magic bolt I',      target: 'enemy', type: 'damage', attribute: 'int', chance: 40, power: 40, status: null,         statusChance: null, critChance: 5},
+    power_shot_1:       {name: 'power shot I',      target: 'enemy', type: 'damage', attribute: 'agi', chance: 30, power: 40, status: 'stun',       statusChance: 15,   critChance: 10},
+    scream_1:           {name: 'scream I',          target: 'enemy', type: 'damage', attribute: 'chr', chance: 30, power: 30, status: 'stun',       statusChance: 30,   critChance: 5}
 }
 
 const races = {
@@ -99,6 +99,11 @@ const races = {
 }
 
 const jobs = {
+    archer: {
+        name: 'archer',
+        bonusAttr: {agi: 2},
+        startSkill: 'power_shot_1'
+    },
     bard: {
         name: 'bard',
         bonusAttr: {chr: 2},
@@ -219,68 +224,76 @@ const genderSymbol = {
 
 const numOfCharSprites = {
     dwarf: {
+        archer: {female: 2, male: 2}, //
         bard: {female: 4, male: 7}, // 
         gambler: {female: 7, male: 11}, //
         mage: {female: 4, male: 11}, //
         priest: {female: 6, male: 5}, //
-        rogue: {female: 7, male: 5}, //
+        rogue: {female: 5, male: 3}, //
         warrior: {female: 5, male: 6} //
     },
     gnome: {
+        archer: {female: 2, male: 2}, //
         bard: {female: 7, male: 8}, // 
         gambler: {female: 7, male: 12}, //
         mage: {female: 10, male: 13}, //
         priest: {female: 6, male: 7}, //
-        rogue: {female: 7, male: 11}, //
+        rogue: {female: 5, male: 8}, //
         warrior: {female: 8, male: 8} //
     },
     highelf: {
+        archer: {female: 2, male: 3}, //
         bard: {female: 7, male: 6}, //
         gambler: {female: 8, male: 7}, //
         mage: {female: 6, male: 6}, //
         priest: {female: 13, male: 7}, //
-        rogue: {female: 5, male: 7}, //
+        rogue: {female: 3, male: 4}, //
         warrior: {female: 5, male: 5} //
     },
     human: {
+        archer: {female: 2, male: 1}, //
         bard: {female: 4, male: 4}, //
         gambler: {female: 6, male: 7}, //
         mage: {female: 6, male: 5}, //
         priest: {female: 9, male: 7}, //
-        rogue: {female: 6, male: 4}, //
+        rogue: {female: 4, male: 3}, //
         warrior: {female: 8, male: 6} //
     },
     mouseling: {
+        archer: {female: 2, male: 2}, //
         bard: {female: 8, male: 11}, //
         gambler: {female: 9, male: 10}, //
         mage: {female: 11, male: 8}, //
         priest: {female: 8, male: 7}, //
-        rogue: {female: 12, male: 8}, //
+        rogue: {female: 10, male: 6}, //
         warrior: {female: 7, male: 9} //
     },
     orc: {
+        archer: {female: 2, male: 3}, //
         bard: {female: 5, male: 6}, //
         gambler: {female: 8, male: 8}, //
         mage: {female: 11, male: 12}, //
         priest: {female: 6, male: 10}, //
-        rogue: {female: 7, male: 8}, //
+        rogue: {female: 5, male: 5}, //
         warrior: {female: 12, male: 6} //
     },
     // OWLBOY DESIGN
     tauren: {
+        archer: {female: 3, male: 4}, //
         bard: {female: 6, male: 6}, //
         gambler: {female: 7, male: 6}, //
         mage: {female: 7, male: 6}, //
         priest: {female: 9, male: 8}, //
-        rogue: {female: 7, male: 9}, //
+        rogue: {female: 4, male: 5}, //
         warrior: {female: 17, male: 9} //
     },
     owlin: {
+        archer: {female: 4, male: 5}, //
         bard: {female: 9, male: 7}, //
         gambler: {female: 8, male: 8}, //
         mage: {female: 15, male: 13}, //
         priest: {female: 7, male: 9}, //
-        rogue: {female: 11, male: 12}, //
+        rogue: {female: 7, male: 7}, //
         warrior: {female: 16, male: 11} //
     }
 }
