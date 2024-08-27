@@ -97,7 +97,7 @@ hr {
     background-color: rgb(49, 49, 53);
     border: 3px solid rgb(19, 19, 19);
     border-radius: 8px;
-    width: 32%;
+    width: 31%;
     height: 95%;
     color: rgb(219, 219, 219);
     margin: 2px;
@@ -297,7 +297,7 @@ hr {
     display: none;
     vertical-align: top;
     height: 95%;
-    width: 32%;
+    width: 31%;
     margin: 2px;
     background-color: rgb(49, 49, 53);
     border: 3px solid rgba(0,0,0, 0.6);
