@@ -21,11 +21,6 @@ let hpPerLvlUp = 5
 let playerChar = {}
 let currentGameMode = ''
 
-document.addEventListener("DOMContentLoaded", function(event){
-    console.log('loaded' +  '. innerWidth: ' + window.innerWidth)
-  });
-
-
 function getPlayerChar () {
     playerCharInfoEl.style.display = 'inline-block'
     playerChar = getChar('human')
@@ -74,3 +69,49 @@ function updateHp (char) {
     hpBar.style=`width:${char.hpLeft/char.hpMax*100}%`
     hpText.innerHTML = `${char.hpLeft}/${char.hpMax} HP`
 }
+
+// CHECK PORTRAIT/LANDSCAPE OF DEVICE, AND LISTEN, MAKE CHANGES
+
+document.addEventListener("DOMContentLoaded", function(event){
+    console.log('loaded' +  '. innerWidth: ' + window.innerWidth)
+    let el = document.getElementsByClassName('info-card');
+    const portrait = window.matchMedia("(orientation: portrait)").matches; // returns true if portrait
+    if (portrait) {
+        console.log('portrait')
+        w = '95%'
+        h = '31%'
+    } else {
+        console.log('landscape') 
+        w = '31%'
+        h = '95%'
+    }
+    for (let i = 0; i < el.length; i++ ) {
+        el[i].style.width = w
+        el[i].style.height = h
+        if (portrait && i === el.length -1) playerCharInfoEl.style.height = '66%'
+    }
+});
+
+window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
+    const portrait = e.matches;
+    let el = document.getElementsByClassName('info-card');
+    let w = ''
+    let h = ''
+
+    if (portrait) {
+        console.log('portrait')
+        w = '95%'
+        h = '31%'
+        playerCharInfoEl.style.height = '66%'
+    } else {
+        console.log('landscape') 
+        w = '31%'
+        h = '95%'
+    }
+
+    for (let i = 0; i < el.length; i++ ) {
+        el[i].style.width = w
+        el[i].style.height = h
+        if (portrait && i === el.length -1) playerCharInfoEl.style.height = '66%'
+    }
+});

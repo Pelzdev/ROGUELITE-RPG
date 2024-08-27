@@ -38,15 +38,10 @@ function makePlayerCharDiv (pc) {
         <p class="window-header">PLAYER</p>
         <hr>
         <p class="pc-info-line name">${pc.name.toUpperCase()} ${pc.lastName.toUpperCase()}</p>
-        <p class="pc-info-line trait">${pc.trait.name.toUpperCase()}</p>
+        <p class="pc-info-line trait">${pc.trait.name.toUpperCase()} ${pc.race.name.toUpperCase()} ${genderSymbol[pc.gender]}</p>
         <p class="pc-info-line joblvl">lvl ${pc.level} ${pc.job.name.toUpperCase()}</p>
-        <p class="pc-info-line race">${genderSymbol[pc.gender]} ${pc.race.name.toUpperCase()}<p><hr> 
-        <p class="window-header">EQUIPMENT</p>
         <hr>
         <p class="pc-eq-line gold">GOLD:${pc.gold}</p>
-        <p class="pc-eq-line weapon">WEAP:IRON GREATSWORD</p>
-        <hr>
-        <p class="window-header">ATTRIBUTES</p>
         <hr>
         <div class="pc-info-stats">
             STR: ${pc.totalAttr.str} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.str*statBarPercentMulti}%;"></div> </div> <br>
@@ -64,7 +59,7 @@ function makePlayerCharDiv (pc) {
 }
 
 function getCharSprite (char) {
-    const maxH = 99
+    const maxH = 95
     const spriteH = (char.race.height / 200) * maxH
 
     let numOfAvailebleSprites = numOfCharSprites[char.race.name][char.job.name][char.gender]

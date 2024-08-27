@@ -43,5 +43,5 @@ function trainerYes () {
 }
 
 function trainerNo () {
-
+    eventText.innerHTML = `You decide to leave the trainer.`
 }

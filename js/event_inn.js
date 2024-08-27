@@ -37,7 +37,6 @@ function innYes () {
         console.log('not enough gold')
         return
     }
-    console.log('selected inn yes')
     playerChar.gold -= innCost
     eventText.innerHTML = `You paid ${innCost} gold to stay the night... You wake up refreshed.`
     playerChar.hpLeft += 25
@@ -46,6 +45,5 @@ function innYes () {
 }
 
 function innNo() {
-    console.log('selected inn no')
     eventText.innerHTML = `You decide to leave the inn.`
 }

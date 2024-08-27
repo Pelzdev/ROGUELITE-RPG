@@ -58,7 +58,6 @@ function endEvent() {
         eventDiv.classList.remove('trainer')
     }
 
-    console.log('event leaving:' + currentGameMode)
     if (playerChar.hpLeft < 1) {
         getPlayerCharBtn.style.display = 'inline-block'
         eventStartBtn.style.display = 'none'
