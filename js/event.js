@@ -2,8 +2,8 @@ function startEvent (pc) {
     let event
     let rndNum = rndInt(1,100)
     if (rndNum <= 15) event = 'inn'
-    if (rndNum > 15 && rndNum <= 20) event = 'trainer'
-    if (rndNum > 20) event = 'battle'
+    if (rndNum > 15 && rndNum <= 23) event = 'trainer'
+    if (rndNum > 23) event = 'battle'
 
     if (event === 'battle') {
         if (playerChar.hpLeft > 0) {

@@ -73,7 +73,7 @@ function updateHp (char) {
 // CHECK PORTRAIT/LANDSCAPE OF DEVICE, AND LISTEN, MAKE CHANGES
 
 document.addEventListener("DOMContentLoaded", function(event){
-    console.log('loaded' +  '. innerWidth: ' + window.innerWidth)
+    console.log('DOMContentloaded')
     let el = document.getElementsByClassName('info-card');
     const portrait = window.matchMedia("(orientation: portrait)").matches; // returns true if portrait
     if (portrait) {

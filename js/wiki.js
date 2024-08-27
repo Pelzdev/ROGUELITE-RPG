@@ -92,37 +92,31 @@ const jobs = {
     bard: {
         name: 'bard',
         bonusAttr: {chr: 2},
-        attack: [2,3],
         startSkill: 'scream_1'
     },
     gambler: {
         name: 'gambler',
         bonusAttr: {lck: 2},
-        attack: [0,5],
         startSkill: 'gambling_strike_1'
     },
     mage: {
         name: 'mage',
         bonusAttr: {int: 2},
-        attack: [1,2],
         startSkill: 'magic_bolt_1'
     },
     priest: {
         name: 'priest',
         bonusAttr: {int: 1, chr: 1},
-        attack: [2,2],
         startSkill: 'heal_self_1'
     },
     rogue: {
         name: 'rogue',
         bonusAttr: {agi: 1, lck: 1},
-        attack: [2,4],
         startSkill: 'eviscerate_1'
     },
     warrior: {
         name: 'warrior',
         bonusAttr: {str: 1, agi: 1},
-        attack: [2,5],
         startSkill: 'bash_1'
     }
 }

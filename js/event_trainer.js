@@ -1,7 +1,10 @@
-let trainCost = 30
-let attrToTrain = 'str'
+let trainCost = 0
+let attrToTrain = ''
 
 function trainer () {
+    trainCost = rndInt(15, 30)
+    attrToTrain = rndFromArr( ['str', 'agi', 'int', 'chr', 'lck'] )
+
     eventDiv.innerHTML = ''
     eventDiv.style.background = `url("img/events/trainer/bg_trainer.png") rgba(0, 0, 0, 0.3)`
     eventDiv.style.backgroundBlendMode = 'multiply'
@@ -11,8 +14,8 @@ function trainer () {
     const maxH = 60
     const charHeight = 180
     const spriteH = (charHeight / 200) * maxH
-
-    eventDiv.innerHTML += `<h3 class="window-header">STRENGTH TRAINER GONZALO</h3>`
+    
+    eventDiv.innerHTML += `<h3 class="window-header">${attrToTrain.toUpperCase()} TRAINER GONZALO</h3>`
     eventDiv.innerHTML += `
         <div id="trainer-img-container">
             <img id="event-trainer-img" style="height:${spriteH}%" src="img/events/trainer/str_trainer.png">
@@ -22,7 +25,7 @@ function trainer () {
     eventText.innerHTML = `
         <hr>
         <p class="event-text-row">You found a trainer willing to help!</p><hr>
-        <p id="event-text-row">Gonzalo the Strength Trainer will help you raise the power of your ${attrToTrain.toUpperCase()} attribute for ${trainCost} gold. Do you accept? You have ${playerChar.gold} gold.</p>
+        <p id="event-text-row">Gonzalo the Trainer will help you raise the power of your ${attrToTrain.toUpperCase()} attribute for ${trainCost} gold. Do you accept? You have ${playerChar.gold} gold.</p>
         <br>
         <div id="event-btn-container">
             <button class="btn-trainer yes" onclick="trainerYes()">YES</button><button class="btn-trainer no" onclick="trainerNo()">NO</button>
