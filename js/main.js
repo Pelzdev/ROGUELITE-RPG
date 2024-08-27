@@ -66,6 +66,6 @@ function updateHp (char) {
         hpText = document.querySelector('#enemy-hp-text')
     }
 
-    hpBar.style=`width:${char.hpLeft/char.hpMax*270}px`
+    hpBar.style=`width:${char.hpLeft/char.hpMax*100}%`
     hpText.innerHTML = `${char.hpLeft}/${char.hpMax} HP`
 }
