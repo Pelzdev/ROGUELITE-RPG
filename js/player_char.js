@@ -26,21 +26,21 @@ function getChar (race, job, gender) {
 function makePlayerCharDiv (pc) {
     pc.totalAttr = multiAddAttr( [pc.baseAttr, pc.race.bonusAttr, pc.job.bonusAttr, pc.trait.bonusAttr] )
     let statBarPercentMulti = 5 // aka 1 point = 5% of bar filled
+
+    let spriteHtml = `
+        
+        <div id="pc-img-container">${pc.img}</div>
+        <hr>
+        <div class="hp-bar-under pc-hpbar-under"><div class="hp-bar-over pc-hpbar-over" style="width:${pc.hpLeft/pc.hpMax*100}%"></div><p id="pc-hp-text">${pc.hpLeft}/${pc.hpMax} HP<p></div>
+        <div class="pc-expbar-under"><div class="pc-expbar-over" style="width:${pc.exp/pc.expToLvl*270}px"></div><p id="pc-exp-text">${pc.exp}/${pc.expToLvl} XP<p></div>
+    `
     let html = `
         <h3 class="window-header">PLAYER</h3>
         <hr>
         <p class="pc-info-line name">${pc.name.toUpperCase()} ${pc.lastName.toUpperCase()}</p>
         <p class="pc-info-line trait">${pc.trait.name.toUpperCase()}</p>
-        <p class="pc-info-line race">${genderSymbol[pc.gender]} ${pc.race.name.toUpperCase()}<p><hr>
-        <div class="hp-bar-under pc-hpbar-under"><div class="hp-bar-over pc-hpbar-over" style="width:${pc.hpLeft/pc.hpMax*100}%"></div><p id="pc-hp-text">${pc.hpLeft}/${pc.hpMax} HP<p></div>
-        <hr>
-        <div id="pc-img-container">${pc.img}</div>
-        <hr>
         <p class="pc-info-line joblvl">lvl ${pc.level} ${pc.job.name.toUpperCase()}</p>
-        <div class="pc-expbar-under"><div class="pc-expbar-over" style="width:${pc.exp/pc.expToLvl*270}px"></div><p id="pc-exp-text">${pc.exp}/${pc.expToLvl} exp<p></div>
-        
-    `
-    let eqHtml = `
+        <p class="pc-info-line race">${genderSymbol[pc.gender]} ${pc.race.name.toUpperCase()}<p><hr> 
         <h3 class="window-header">EQUIPMENT</h3>
         <hr>
         <p class="pc-eq-line gold">GOLD:${pc.gold}</p>
@@ -56,16 +56,20 @@ function makePlayerCharDiv (pc) {
             LCK: ${pc.totalAttr.lck} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.lck*statBarPercentMulti}%;"></div> </div>
         </div>
     `
-    playerCharEl.innerHTML = html
-    playerEqEl.innerHTML = eqHtml
+
+    playerSpriteEl.innerHTML = spriteHtml
+    playerCharInfoEl.innerHTML = html
 
     return
 }
 
 function getCharSprite (char) {
+    const maxH = 99
+    const spriteH = (char.race.height / 200) * maxH
+
     let numOfAvailebleSprites = numOfCharSprites[char.race.name][char.job.name][char.gender]
     let imgNum = rndInt(0, numOfAvailebleSprites-1)
-    let img = `<img class="sprite-${char.race.name}" style="height:${char.race.height*sizeMulti}px" src="img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png">`
+    let img = `<img class="sprite-${char.race.name}" style="height:${spriteH}%" src="img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png">`
 
     return img
 }

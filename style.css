@@ -16,8 +16,10 @@
 /* GENERAL */
 
 body {
-    width: 100vw;
-    height: 100vh;
+    width: 99vw;
+    max-width: 100vw;
+    height: 99vh;
+    max-height: 100vh;
     margin: 0;
     font-family: 'Courier New', sans-serif;
     font-size: 16px;
@@ -50,10 +52,14 @@ hr {
     background-color: rgba(0,0,0, 0.3);
 }
 
+#game-header {
+    display: inline-block;
+}
+
 /* BUTTON ROW */
 #button-bar {
+    display: block;
     min-height: 30px;
-    margin-bottom: 5px;
 }
 
 #event-start-btn {
@@ -63,10 +69,11 @@ hr {
 /* GAME ROW 1*/
 #game-row-1 {
     max-width: 100%;
+    height: 88vh;
     border: 1px solid gray;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: left;
 }
 
 .window-header {
@@ -82,10 +89,29 @@ hr {
     background-color: rgb(49, 49, 53);
     border: 3px solid rgb(19, 19, 19);
     border-radius: 8px;
-    width: 30%;
-    height: 480px;
+    width: 32%;
+    height: 95%;
     color: rgb(219, 219, 219);
-    margin: 5px;
+    margin: 2px;
+}
+
+
+#pc-img-container {
+    position: relative;
+    height: calc(100% - 44px);
+}
+
+#pc-img-container img {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    bottom: 0;
+    vertical-align: bottom;
+    image-rendering: pixelated;
+    filter: drop-shadow(1px 1px 0 rgb(219,219,219))
+        drop-shadow(-1px 1px 0 rgb(219,219,219))
+        drop-shadow(1px -1px 0 rgb(219,219,219))
+        drop-shadow(-1px -1px 0 rgb(219,219,219));
 }
 
 .hp-bar-under {
@@ -135,7 +161,8 @@ hr {
 }
 
 .pc-info-line {
-    text-align: center;
+    margin-left: 5px;
+    text-align: left;
     font-size: 16px;
 }
 
@@ -143,8 +170,7 @@ hr {
     font-family: 'Cascadia', sans-serif;
 }
 .pc-expbar-under {
-    margin-left: 15px;
-    width: 270px;
+    width: 100%;
     display: inline-block;
     height: 20px;
     background-color: rgba(255, 255, 255, 0.15);
@@ -165,25 +191,6 @@ hr {
     background-color: rgb(66, 132, 170);
 }
 
-#pc-img-container {
-    position: relative;
-    height: 280px;
-}
-
-#pc-img-container img {
-    margin-left: 50%;
-    transform: translateX(-50%);
-    position: absolute;
-    bottom: 0;
-    vertical-align: bottom;
-    image-rendering: pixelated;
-    filter: drop-shadow(1px 1px 0 rgb(219,219,219))
-        drop-shadow(-1px 1px 0 rgb(219,219,219))
-        drop-shadow(1px -1px 0 rgb(219,219,219))
-        drop-shadow(-1px -1px 0 rgb(219,219,219));
-}
-
-
 /* ##### EVENT STUFF ##### */
 .event-div {
     image-rendering: pixelated;
@@ -191,11 +198,11 @@ hr {
 }
 
 .event-div.inn {
-    width: 510px;
+    width: 300px;
 }
 
 .event-div.trainer {
-    width: 510px;
+    width: 300px;
 }
 
 #event-header {
@@ -208,7 +215,7 @@ hr {
 
 #enemy-img-container {
     position: relative;
-    height: 280px;
+    height: calc(100% - 84px);
     cursor: pointer;
 }
 
@@ -284,15 +291,24 @@ hr {
 }
 
 
+.test {
+    vertical-align: top;
+    background-color: rgb(49, 49, 53);
+    border: 3px solid rgb(19, 19, 19);
+    border-radius: 8px;
+    width: 30%;
+    height: 95%;
+    color: rgb(219, 219, 219);
+    margin: 5px;
+}
+
 /* EVENT TEXT */
 #event-text-container {
     display: none;
-    margin-left: 50%;
-    transform: translateX(-50%);
     vertical-align: top;
-    margin-top: 10px;
-    height: 400px;
-    width: 918px;
+    height: 95%;
+    width: 30%;
+    margin: 5px;
     background-color: rgb(49, 49, 53);
     border: 3px solid rgba(0,0,0, 0.6);
     border-radius: 8px;

@@ -17,7 +17,7 @@ function trainer () {
     eventText.innerHTML += ``
     eventText.innerHTML = `
         <p class="event-text-row">You found a trainer willing to help!</p><hr>
-        <p id="event-text-row">Gonzalo the Strength Trainer will help you raise the power of your ${attrToTrain.toUpperCase()} attribute for ${trainCost} gold.</p>
+        <p id="event-text-row">Gonzalo the Strength Trainer will help you raise the power of your ${attrToTrain.toUpperCase()} attribute for ${trainCost} gold. Do you accept? You have ${playerChar.gold} gold.</p>
         <br>
         <div id="event-btn-container">
             <button class="btn-trainer yes" onclick="trainerYes()">YES</button><button class="btn-trainer no" onclick="trainerNo()">NO</button>

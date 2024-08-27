@@ -17,7 +17,7 @@ function inn (pc) {
 
     eventText.innerHTML += `<p class="event-text-row">You found an inn!</p><hr>`
     eventText.innerHTML = `
-    <p id="inn-text-row">The inn looks inviting. Do you want to pay innkeeper Aerion ${innCost} gold to stay the night?</p>
+    <p id="inn-text-row">The inn looks inviting. Do you want to pay innkeeper Aerion ${innCost} gold to stay the night? You have ${playerChar.gold} gold.</p>
     <br>
     <div id="event-btn-container">
         <button class="btn-inn yes" onclick="innYes()">YES</button><button class="btn-inn no" onclick="innNo()">NO</button>

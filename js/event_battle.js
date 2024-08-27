@@ -4,10 +4,10 @@ let enemy = {}
 function battle (pc) {
     enemy = rndGetPropertyCloned(enemies)
     // background
-    eventDiv.style.background = `url("img/events/battle/bg_woods.png") rgba(0, 0, 0, 0.3)`
-    eventDiv.style.backgroundBlendMode = 'multiply'
-    eventDiv.style.backgroundSize = 'cover'
-    eventDiv.style.backgroundPosition = 'center center'
+    //eventDiv.style.background = `url("img/events/battle/bg_woods.png") rgba(0, 0, 0, 0.3)`
+    //eventDiv.style.backgroundBlendMode = 'multiply'
+    //eventDiv.style.backgroundSize = 'cover'
+    //eventDiv.style.backgroundPosition = 'center center'
     eventText.innerHTML += `<p class="event-text-row">It's a ${enemy.name.toUpperCase()}... FIGHT!</p><hr>`
 
     makeBattleDiv(enemy)
@@ -15,20 +15,21 @@ function battle (pc) {
 
 function makeBattleDiv (enemy) {
     let statBarMult = 17
+    const maxH = 99
+    const spriteH = (enemy.height / 200) * maxH
+    console.log(spriteH + '%')
+
     let html = ''
     html += `
         <h3 class="window-header">ENEMY</h3>
         <hr>
         <p class="enemy-info-line name">${enemy.name.toUpperCase()}</p>
-        <br>
-        <br>
-        <hr>
-        <div class="hp-bar-under enemy-hpbar-under"><div class="hp-bar-over enemy-hpbar-over" style="width:${enemy.hpLeft/enemy.hpMax*100}%"></div><p id="enemy-hp-text">${enemy.hpLeft}/${enemy.hpMax} HP</p></div> 
         <hr>
         <div id="enemy-img-container" onclick="doBattleTurn(event)">
-            <img id="battle-enemy-img" style="height:${enemy.height*sizeMulti}px" src="${enemy.img}">
+            <img id="battle-enemy-img" style="height:${spriteH}%" src="${enemy.img}">
         </div>
         <hr>
+        <div class="hp-bar-under enemy-hpbar-under"><div class="hp-bar-over enemy-hpbar-over" style="width:${enemy.hpLeft/enemy.hpMax*100}%"></div><p id="enemy-hp-text">${enemy.hpLeft}/${enemy.hpMax} HP</p></div> 
         <p class="enemy-info-line joblvl">lvl ${enemy.level}</p> 
         <div id="battle-text-div"></div>
     `

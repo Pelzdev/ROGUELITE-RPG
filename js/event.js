@@ -32,6 +32,7 @@ function startEvent (pc) {
         trainer(pc)
     }
     
+    playerCharInfoEl.style.display = 'none'
     eventStartBtn.style.display = 'none'
     eventTextContainer.style.display = 'block'
     eventDiv.style.display = 'inline-block'
@@ -65,6 +66,7 @@ function endEvent() {
         eventStartBtn.style.display = 'inline-block'
     }
 
+    playerCharInfoEl.style.display = 'inline-block'
     eventDiv.style.background = 'none'
     eventDiv.style.backgroundColor = 'rgb(49, 49, 53)'
 

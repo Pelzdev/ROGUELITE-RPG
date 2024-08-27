@@ -2,9 +2,11 @@ let getPlayerCharBtn = document.getElementById('get-player-char-btn')
 let reRandomizeCharBtn = document.getElementById('re-randomize-char-btn')
 let eventStartBtn = document.getElementById('event-start-btn')
 
+let playerSpriteEl = document.getElementById('player-sprite')
+
 let playerEqEl = document.getElementById('player-eq')
 
-let playerCharEl = document.getElementById('player-char')
+let playerCharInfoEl = document.getElementById('player-char-info')
 
 let eventDiv = document.querySelector('.event-div')
 let eventHeader = document.getElementById('event-header')
@@ -20,7 +22,7 @@ let playerChar = {}
 let currentGameMode = ''
 
 function getPlayerChar () {
-    playerCharEl.style.display = 'inline-block'
+    playerCharInfoEl.style.display = 'inline-block'
     playerChar = getChar('human')
     makePlayerCharDiv(playerChar)
     eventStartBtn.style.display = 'inline'
