@@ -21,6 +21,13 @@ let hpPerLvlUp = 5
 let playerChar = {}
 let currentGameMode = ''
 
+document.addEventListener("DOMContentLoaded", function(event){
+    screen.orientation.lock('landscape');
+    console.log('loaded' +  '. innerWidth: ' + window.innerWidth)
+    this.body.style.width = window.innerWidth
+  });
+
+
 function getPlayerChar () {
     playerCharInfoEl.style.display = 'inline-block'
     playerChar = getChar('human')

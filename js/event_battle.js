@@ -17,7 +17,6 @@ function makeBattleDiv (enemy) {
     let statBarMult = 17
     const maxH = 99
     const spriteH = (enemy.height / 200) * maxH
-    console.log(spriteH + '%')
 
     let html = ''
     html += `

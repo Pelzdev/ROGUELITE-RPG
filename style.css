@@ -260,7 +260,7 @@ hr {
 /*##### INN EVENT #####*/
 
 .btn-inn {
-    min-width: 100px;
+    width: 50px;
 }
 
 #innkeeper-img-container {
@@ -307,7 +307,6 @@ hr {
 }
 
 #event-btn-container {
-    border: 1px solid white;
     text-align: center;
 }
 
@@ -321,7 +320,7 @@ hr {
 }
 
 .btn-trainer {
-    min-width: 100px;
+    width: 50px;
 }
 
 .btn-trainer.no {

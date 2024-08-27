@@ -35,18 +35,18 @@ function makePlayerCharDiv (pc) {
         <div class="pc-expbar-under"><div class="pc-expbar-over" style="width:${pc.exp/pc.expToLvl*270}px"></div><p id="pc-exp-text">${pc.exp}/${pc.expToLvl} XP<p></div>
     `
     let html = `
-        <h3 class="window-header">PLAYER</h3>
+        <p class="window-header">PLAYER</p>
         <hr>
         <p class="pc-info-line name">${pc.name.toUpperCase()} ${pc.lastName.toUpperCase()}</p>
         <p class="pc-info-line trait">${pc.trait.name.toUpperCase()}</p>
         <p class="pc-info-line joblvl">lvl ${pc.level} ${pc.job.name.toUpperCase()}</p>
         <p class="pc-info-line race">${genderSymbol[pc.gender]} ${pc.race.name.toUpperCase()}<p><hr> 
-        <h3 class="window-header">EQUIPMENT</h3>
+        <p class="window-header">EQUIPMENT</p>
         <hr>
         <p class="pc-eq-line gold">GOLD:${pc.gold}</p>
         <p class="pc-eq-line weapon">WEAP:IRON GREATSWORD</p>
         <hr>
-        <h3 class="window-header">ATTRIBUTES</h3>
+        <p class="window-header">ATTRIBUTES</p>
         <hr>
         <div class="pc-info-stats">
             STR: ${pc.totalAttr.str} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.str*statBarPercentMulti}%;"></div> </div> <br>
