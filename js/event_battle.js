@@ -218,27 +218,35 @@ function giveExpAndUpdate(char, enemy) {
     char.gold += givenGold
 
     // If levelup
+    text += checkLevelUp(char, givenExp)
+
+    makePlayerCharDiv(char)
+
+    return text
+}
+
+function checkLevelUp (char, givenExp) {
+    let text = ''
     if (char.exp + givenExp >= char.expToLvl) {
         let overkillExp = (char.exp + givenExp) - char.expToLvl
-        let rndAttr = rndFromArr( ['str', 'agi', 'int', 'chr', 'lck'] )
-        raiseAmount = rndFromArr( [1,1,1,1,1,1,2,2,2,3] )
+        let attrSelected = rndFromArr( ['str', 'agi', 'int', 'chr', 'lck'] )
+        let raiseAmount = rndFromArr( [1,1,1,1,1, 1,1,1,1,1, 1,1,1,1,2] )
+
         char.level++
         char.exp = overkillExp
         char.expToLvl = Math.floor(char.expToLvl * 1.2)
         char.hpMax += hpPerLvlUp
         char.hpLeft += hpPerLvlUp
-        char.baseAttr[rndAttr]++
+        char.baseAttr[attrSelected]++
+
         if (char.hpLeft > char.hpMax) {char.hpLeft = char.hpMax}
         text += `
             <p id="battle-text-row">${char.name} LEVELED UP! </p>
             <p id="battle-text-row">${char.name} is now lvl ${char.level}.
-            <p id="battle-text-row">${char.name}'s ${rndAttr.toUpperCase()} raised by ${raiseAmount}</p>
+            <p id="battle-text-row">${char.name}'s ${attrSelected.toUpperCase()} raised by ${raiseAmount}</p>
         `
     } else {
         char.exp += givenExp
     }
-
-    makePlayerCharDiv(char)
-
     return text
 }
