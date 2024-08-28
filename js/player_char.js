@@ -54,7 +54,7 @@ function makePlayerCharDiv (pc) {
     let weaponImg = ''
     let trinketImg = ''
 
-    if (pc.eq.weapon) {eqTextWeapon = pc.eq.weapon.name.toUpperCase(); trinketImg = pc.eq.weapon.img}
+    if (pc.eq.weapon) {eqTextWeapon = pc.eq.weapon.name.toUpperCase(); weaponImg = pc.eq.weapon.img}
     if (pc.eq.armor) eqTextArmor = pc.eq.armor.name.toUpperCase()
     if (pc.eq.trinket) {eqTextTrinket = pc.eq.trinket.name.toUpperCase(); trinketImg = pc.eq.trinket.img}
 

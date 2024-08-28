@@ -292,8 +292,32 @@ const enemies = {
         status: '',
         img: 'img/enemies/crob.png',
         height: 110
+    },
+    boarian_marauder:{
+        name: 'Boarian Marauder',
+        isPlayer: false,
+        level: 6, 
+        hpMax: 60, 
+        hpLeft: 60,
+        totalAttr: {str: 6, agi: 2, int: 3, chr: 1, lck: 3},
+        skills: [skills.bash_1],
+        status: '',
+        img: 'img/enemies/boarian_marauder.png',
+        height: 110
+    },
+    troll_forest: {
+        name: 'Forest Troll',
+        isPlayer: false,
+        level: 8, 
+        givesExp: 40, 
+        height: 200, 
+        hpMax: 80, 
+        hpLeft: 80,
+        totalAttr: {str: 7, agi: 2, int: 2, chr: 1, lck: 1},
+        skills: [skills.bash_1],
+        status: '',
+        img: 'img/enemies/bosses/troll_forest.png',
     }
-
 }
 
 const bosses = {
@@ -305,7 +329,7 @@ const bosses = {
         height: 200, 
         hpMax: 80, 
         hpLeft: 80,
-        totalAttr: {str: 8, agi: 2, int: 2, chr: 1, lck: 1},
+        totalAttr: {str: 7, agi: 2, int: 2, chr: 1, lck: 1},
         skills: [skills.bash_1],
         status: '',
         img: 'img/enemies/bosses/troll_forest.png',

@@ -2,19 +2,36 @@
 let enemyType = 'enemy'
 let enemy = {}
 let enemySprite
+const enemyList = ['mouse', 'goblin_bat', 'mouse_assassin', 'goblin', 'boar', 'young_wolf', 'crob', 'boarian_marauder', 'troll_forest']
+const enemyLists = {
+    level1: ['mouse', 'goblin_bat', 'mouse_assassin', 'goblin'],
+    level5: ['boar', 'young_wolf', 'crob'],
+    level8: ['boarian_marauder', 'troll_forest']
+}
+
+let enemiesLevel1 = enemyLists.level1
+let enemiesLevel5 = enemiesLevel1.concat(enemyLists.level5)
+let enemiesLevel8 = enemiesLevel5.concat(enemyLists.level8)
+
+
 
 function battle (pc) {
+    console.log('enemieslevel1:' + enemiesLevel1)
     let rndNum = rndInt(1,10)
-    if (rndNum > 9 && pc.level > 4) {
-        enemyType = 'boss'
-        enemy = rndGetPropertyCloned(bosses)
-    } else if (rndNum > 8 && pc.level > 10) {
-        enemyType = 'adventurer'
-        enemy = getChar()
-        enemy.isPlayer = false
+
+    if (pc.level < 5) {
+        enemy = structuredClone(enemies[rndFromArr(enemiesLevel1)])
+    } else if (pc.level < 8) {
+        enemy = structuredClone(enemies[rndFromArr(enemiesLevel5)])
     } else {
-        enemy = rndGetPropertyCloned(enemies)
+        if (rndNum > 9) {
+            enemyType = 'adventurer'
+            enemy = getChar()
+            enemy.isPlayer = false
+        }
+        enemy = structuredClone(enemies[rndFromArr(enemiesLevel8)])
     }
+    console.log(enemy)
 
     // background
     eventDiv.style.background = `url("img/events/battle/bg_woods.png") rgba(0, 0, 0, 0.3)`
