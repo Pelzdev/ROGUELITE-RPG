@@ -14,7 +14,7 @@ function getChar (race, job, gender) {
         gender: rndFromArr(['male', 'female']),
         level: 1,
         baseAttr: structuredClone(baseAttr),
-        buff: '',
+        buff: false,
     }
     char.totalAttr = multiAddAttr( [char.baseAttr, char.race.bonusAttr, char.job.bonusAttr, char.trait.bonusAttr] )
     char.img = getCharSprite(char)
@@ -44,6 +44,9 @@ function makePlayerCharDiv (pc) {
         foodImg2 =  `<img src="${pc.food[2].img}" style="height: 32px;">`
     } else {foodImg2 = ''}
 
+    let buffText = '-'
+    if (pc.buff) buffText = pc.buff.type
+
     const maxH = 85
     const spriteH = (pc.height / 200) * maxH
 
@@ -70,7 +73,7 @@ function makePlayerCharDiv (pc) {
             LCK: ${checkAddZero(pc.totalAttr.lck)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.lck*statBarPercentMulti}%;"></div> </div>
         </div>
         <hr>
-        <p class="pc-eq-line gold">GOLD:${pc.gold}, BUFF:${pc.buff}</p>
+        <p class="pc-eq-line gold">GOLD:${pc.gold}, BUFF:${buffText}</p>
         <div class="consumable-container">
             <div class="consumable-img-container food0" onclick="clickConsumable(0)">${foodImg0}</div>
             <div class="consumable-img-container food1" onclick="clickConsumable(1)">${foodImg1}</div>
@@ -123,7 +126,7 @@ function useConsumable (arrPos) {
         updateHp(playerChar)
     }
     if (gives === 'buff_drunk') {
-        playerChar.buff = 'Drunk'
+        playerChar.buff = {type: 'drunk', timeLeft: 3}
         makePlayerCharDiv(playerChar)
     }
 

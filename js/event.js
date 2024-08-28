@@ -40,8 +40,13 @@ function endEvent() {
     endEventBtn.style.display = 'none' // remove btn to end event since we already clicked it 
     eventDiv.style.display = 'none' // remove event div since we ended event
     eventTextContainer.style.display = 'none'
-
+    // Remove player status
     playerChar.status = ''
+    // Remove 1 from buff timeLeft, if it reaches 0, remove buff
+    if (playerChar.buff) {
+        playerChar.buff.timeLeft--
+        if (playerChar.buff.timeLeft < 1) playerChar.buff = null
+    }
 
     // Remove the class added for event
     eventDiv.classList.remove(currentEvent)

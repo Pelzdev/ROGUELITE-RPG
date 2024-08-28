@@ -1,0 +1,12 @@
+### BUFFS ###
+- BUFFS' timeLeft is number of events left, every event that ends lowers it by 1
+- Drunk buff added, does nothing for now.
+
+### Attribute stuff ###
+CHR now gives a discount on trainers and inn costs (-chr to gold cost)
+
+
+TODO:
+- add simple EQ (weap / armor / trinket?)
+- add skillcheck events (aka get something if a certain attribute is high enough)
+- add skilltrainers that boosts skills
