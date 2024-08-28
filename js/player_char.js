@@ -4,9 +4,9 @@ function getChar (race, job, gender) {
         hpMax: 100, 
         hpLeft: 100,
         exp: 0, 
-        expToLvl: 20, 
+        expToLvl: 40, 
         gold: 5,
-        food: food.small_potion,
+        food: [food.small_potion],
         status: '',
         race: rndGetPropertyCloned(races),
         job: rndGetPropertyCloned(jobs),
@@ -29,10 +29,14 @@ function getChar (race, job, gender) {
 function makePlayerCharDiv (pc) {
     pc.totalAttr = multiAddAttr( [pc.baseAttr, pc.race.bonusAttr, pc.job.bonusAttr, pc.trait.bonusAttr] )
     let statBarPercentMulti = 5 // aka 1 point = 5% of bar filled
-    let foodImg = ''
-    if (pc.food) {
-        foodImg =  `<img src="${pc.food.img}" style="height: 32px;margin-top: 8px;">`
-    } else {foodImg = ''}
+    let foodImg0 = ''
+    let foodImg1 = ''
+    if (pc.food[0]) {
+        foodImg0 =  `<img src="${pc.food[0].img}" style="height: 32px;">`
+    } else {foodImg1 = ''}
+    if (pc.food[1]) {
+        foodImg1 =  `<img src="${pc.food[1].img}" style="height: 32px;">`
+    } else {foodImg1 = ''}
 
     const maxH = 85
     const spriteH = (pc.height / 200) * maxH
@@ -43,7 +47,7 @@ function makePlayerCharDiv (pc) {
         </div>
         <hr>
         <div class="hp-bar-under pc-hpbar-under"><div class="hp-bar-over pc-hpbar-over" style="width:${pc.hpLeft/pc.hpMax*100}%"></div><p id="pc-hp-text">${pc.hpLeft}/${pc.hpMax} HP<p></div>
-        <div class="pc-expbar-under"><div class="pc-expbar-over" style="width:${pc.exp/pc.expToLvl*270}px"></div><p id="pc-exp-text">${pc.exp}/${pc.expToLvl} XP<p></div>
+        <div class="pc-expbar-under"><div class="pc-expbar-over" style="width:${pc.exp/pc.expToLvl*100}%"></div><p id="pc-exp-text">${pc.exp}/${pc.expToLvl} XP<p></div>
     `
     let html = `
         <p class="window-header">PLAYER</p>
@@ -61,7 +65,10 @@ function makePlayerCharDiv (pc) {
         </div>
         <hr>
         <p class="pc-eq-line gold">GOLD:${pc.gold}</p>
-        <div class="consumable-img-container" onclick="clickConsumable()">${foodImg}</div>
+        <div class="consumable-container">
+            <div class="consumable-img-container food0" onclick="clickConsumable(0)">${foodImg0}</div>
+            <div class="consumable-img-container food1" onclick="clickConsumable(1)">${foodImg1}</div>
+        </div>
         <div class="consumable-info" style="border: 1px solid gray; display:none;"></div>
     `
 
@@ -71,24 +78,17 @@ function makePlayerCharDiv (pc) {
     return
 }
 
-function getCharSprite (char) {
-    let numOfAvailebleSprites = numOfCharSprites[char.race.name][char.job.name][char.gender]
-    let imgNum = rndInt(0, numOfAvailebleSprites-1)
-    //let img = `<img class="sprite-${char.race.name}" style="height:${spriteH}%" src="img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png">`
-    return `img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png`
-}
-
-function clickConsumable () {
+function clickConsumable (arrPos) {
     if (!playerChar.food) return
     document.getElementById('button-bar').classList.add('unclickable')
 
     popupDiv.innerHTML = `
-        <h3>${playerChar.food.name}</h3>
-        <img class="popup-div-img" src="${playerChar.food.img}">
-        <p>${playerChar.food.infoText}</p>
+        <h3>${playerChar.food[arrPos].name}</h3>
+        <img class="popup-div-img" src="${playerChar.food[arrPos].img}">
+        <p>${playerChar.food[arrPos].infoText}</p>
         <hr>
         <p>Use it?</p><br>
-        <button class="btn-medium" onclick="useConsumable('yes')">Yes</button><button class="btn-medium" onclick="useConsumable('no')">No</button>
+        <button class="btn-medium" onclick="useConsumable('yes', ${arrPos})">Yes</button><button class="btn-medium" onclick="useConsumable('no')">No</button>
     ` 
     popupDiv.style.display = 'block'
     centerPopup(popupDiv)
@@ -96,20 +96,28 @@ function clickConsumable () {
     //left: calc(50% - 150px);
 }
 
-function useConsumable (answer) {
+function useConsumable (answer, arrPos) {
+    let arrInt = parseInt(arrPos)
     if (answer === 'no') {
         
     }
     if (answer === 'yes') {
-        let givesBonusTo = playerChar.food.givesBonusTo
-        let amount = playerChar.food.amount
+        let givesBonusTo = playerChar.food[arrInt].givesBonusTo
+        let amount = playerChar.food[arrInt].amount
         playerChar[givesBonusTo] += amount
-        playerChar.food = null,
-        document.querySelector('.consumable-img-container').innerHTML = ''
+        playerChar.food[arrInt] = null,
+        document.querySelector(`.consumable-img-container.food${arrPos}`).innerHTML = ''
         updateHp(playerChar)
     }
     document.getElementById('button-bar').classList.remove('unclickable')
     popupDiv.style.display = 'none'
+}
+
+function getCharSprite (char) {
+    let numOfAvailebleSprites = numOfCharSprites[char.race.name][char.job.name][char.gender]
+    let imgNum = rndInt(0, numOfAvailebleSprites-1)
+    //let img = `<img class="sprite-${char.race.name}" style="height:${spriteH}%" src="img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png">`
+    return `img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png`
 }
 
 function checkAddZero (stat) {
@@ -118,11 +126,4 @@ function checkAddZero (stat) {
         numberShown = `0${stat}`
     }
     return numberShown
-}
-
-function centerPopup (el) {
-    let elW = getElementSize(el, 'width')
-    let elH = getElementSize(el, 'height')
-    el.style.top = `${0.5*gameH - elH/2}px`
-    el.style.left = `${0.5*gameW - elW/2}px`
 }

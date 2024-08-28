@@ -8,7 +8,7 @@ function battle (pc) {
     if (rndNum > 9 && pc.level > 4) {
         enemyType = 'boss'
         enemy = rndGetPropertyCloned(bosses)
-    } else if (rndNum > 8 && pc.level > 6) {
+    } else if (rndNum > 8 && pc.level > 10) {
         enemyType = 'adventurer'
         enemy = getChar()
         enemy.isPlayer = false
@@ -145,7 +145,7 @@ function doSkill(attacker, defender) {
         defender.hpLeft = 0
         text +=  `<p class="battle-text-row ${textClass}">${defender.name.toUpperCase()} DIED!</p>`
         endEventBtn.style.display = 'inline-block'
-        if (defender.isPlayer) {defender.food = null}
+        if (defender.isPlayer) {defender.food[0] = null; defender.food[1] = null}
 
         if (attacker.isPlayer === true && attacker.hpLeft > 0) {
             text += giveExpAndUpdate(attacker, defender)
@@ -156,7 +156,7 @@ function doSkill(attacker, defender) {
         attacker.hpLeft = 0
         text +=  `<p class="battle-text-row ${textClass}">${attacker.name.toUpperCase()} DIED!</p>`
         endEventBtn.style.display = 'inline-block'
-        if (attacker.isPlayer) {attacker.food = null}
+        if (attacker.isPlayer) {attacker.food[0] = null; attacker.food[1] = null}
 
         if (defender.isPlayer === true && defender.hpLeft > 0) {
             text += giveExpAndUpdate(defender, attacker)
@@ -207,10 +207,13 @@ function giveExpAndUpdate(char, enemy) {
     expBar = document.querySelector('.pc-expbar-over')
     expText = document.querySelector('#pc-exp-text')
     let givenGold = rndInt(enemy.level, enemy.level*4)
-    let givenExp = rndInt(enemy.givesExp-1, enemy.givesExp+1)
+    let expFormula = Math.floor( (enemy.level * 3) + (enemy.hpMax/3) )
+    let givenExp = rndInt(expFormula-2, expFormula+2)
+    
+    let emptyFoodSlot = getFirstEmptyfoodSlot(char)
 
-    if (!playerChar.food && rndInt(1,10) > 8) {
-        playerChar.food = food['small_potion']
+    if (emptyFoodSlot != 'none'  && rndInt(1,10) > 8) {
+        char.food[emptyFoodSlot] = food['small_potion']
         text += `<p id="battle-text-row">${char.name} got a Small Potion!</p>`
     }
     
@@ -241,12 +244,18 @@ function checkLevelUp (char, givenExp) {
 
         if (char.hpLeft > char.hpMax) {char.hpLeft = char.hpMax}
         text += `
-            <p id="battle-text-row">${char.name} LEVELED UP! </p>
+            <p id="battle-text-row">${char.name} LVL UP! </p>
             <p id="battle-text-row">${char.name} is now lvl ${char.level}.
-            <p id="battle-text-row">${char.name}'s ${attrSelected.toUpperCase()} raised by ${raiseAmount}</p>
+            <p id="battle-text-row">${char.name}'s ${attrSelected.toUpperCase()} +${raiseAmount}</p>
         `
     } else {
         char.exp += givenExp
     }
     return text
+}
+
+function getFirstEmptyfoodSlot (char) {
+    if (!char.food[0]) {return 0} 
+    if (!char.food[1]) {return 1}
+    return 'none'
 }

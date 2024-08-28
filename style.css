@@ -157,6 +157,7 @@ hr {
 #pc-img-container {
     position: relative;
     height: calc(100% - 44px);
+    max-width: 100%;
 }
 
 #pc-img-container img {
@@ -250,7 +251,16 @@ hr {
     background-color: rgb(66, 132, 170);
 }
 
+.consumable-container {
+
+}
+
 .consumable-img-container {
+    float:left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
     margin-left: 5px;
     height: 48px;
     width: 48px;
@@ -259,6 +269,7 @@ hr {
     text-align: center;
     cursor: pointer;
 }
+
 
 .consumable-info button {
     width: 50px;

@@ -73,6 +73,13 @@ function updateHp (char) {
     hpText.innerHTML = `${char.hpLeft}/${char.hpMax} HP`
 }
 
+function centerPopup (el) {
+    let elW = getElementSize(el, 'width')
+    let elH = getElementSize(el, 'height')
+    el.style.top = `${0.5*gameH - elH/2}px`
+    el.style.left = `${0.5*gameW - elW/2}px`
+}
+
 // CHECK PORTRAIT/LANDSCAPE OF DEVICE
 document.addEventListener("DOMContentLoaded", function(event){
     console.log(`DOMContentloaded`)
@@ -101,31 +108,3 @@ window.onresize = function() {
     gameH = getElementSize(gameDiv, 'height')
     centerPopup(popupDiv)
 };
-
-
-
-
-/* 
-document.addEventListener("DOMContentLoaded", function(event){
-    console.log('DOMContentloaded')
-    gameW = getElementSize(gameDiv, 'width')
-    gameH = getElementSize(gameDiv, 'height')
-    let infoCard = document.getElementsByClassName('info-card');
-    const portrait = window.matchMedia("(orientation: portrait)").matches; // returns true if portrait
-    if (portrait) {
-        console.log('Orientation changed to: Portrait')
-        w = '95%'
-        h = '31%'
-    } else {
-        console.log('Orientation changed to: Landscape') 
-        w = '31%'
-        h = '95%'
-    }
-    for (let i = 0; i < infoCard.length; i++ ) {
-        infoCard[i].style.width = w
-        infoCard[i].style.height = h
-        if (portrait && i === infoCard.length -1) playerCharInfoEl.style.height = '66%'
-    }
-});
-
-    */

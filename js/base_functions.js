@@ -38,8 +38,7 @@ function getHighestAttr (attrObj) {
             highestAttr = currentKey
             highestNum = attrObj[currentKey]
         }
-        console.log(currentKey + ': ' + attrObj[currentKey])
     }
-    console.log(highestAttr)
+
     return highestAttr
 }

@@ -5,14 +5,16 @@ let extraAttr = null
 let attrToTrainText = ''
 
 function trainer (selectedTrainer) {
+    let extraAttr = null
+    
     let trainerChosen = ''
     let rndNum = rndInt(1, 100)
     if (rndNum <= 18) {trainerChosen = 'dolf'; attrToTrain = 'str'}
-    else if (rndNum <= 36) {trainerChosen = 'dahiq'; attrToTrain = 'agi'}
-    else if (rndNum <= 54) {trainerChosen = 'riniya'; attrToTrain = 'int'}
-    else if (rndNum <= 72) {trainerChosen = 'krixi'; attrToTrain = 'chr'}
-    else if (rndNum <= 90) {trainerChosen = 'mateo'; attrToTrain = 'lck'}
-    else if (rndNum <= 100) {trainerChosen = 'christobel'; attrToTrain = 'chr'; extraAttr = 'str'}
+    if (rndNum > 18 && rndNum <= 36) {trainerChosen = 'dahiq'; attrToTrain = 'agi'}
+    if (rndNum > 36 && rndNum <= 54) {trainerChosen = 'riniya'; attrToTrain = 'int'}
+    if (rndNum > 54 && rndNum <= 72) {trainerChosen = 'krixi'; attrToTrain = 'chr'}
+    if (rndNum > 72 && rndNum <= 90) {trainerChosen = 'mateo'; attrToTrain = 'lck'}
+    if (rndNum > 90 && rndNum <= 100) {trainerChosen = 'christobel'; attrToTrain = 'chr'; extraAttr = 'str'}
 
     trainCost = rndInt(20, 30) + playerChar.totalAttr[attrToTrain]
     // Check for double training

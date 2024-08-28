@@ -7,10 +7,12 @@ const skills = {
     attack:             {name: 'attack',            target: 'enemy', type: 'damage', attribute: 'best', chance: 100, power: 20, status: null,         statusChance: null, critChance: 5},
     // attribute skills
     bash_1:             {name: 'bash I',            target: 'enemy', type: 'damage', attribute: 'str', chance: 30, power: 40, status: 'stun',       statusChance: 30,   critChance: 5},
+    bite_1:             {name: 'bite I',            target: 'enemy', type: 'damage', attribute: 'str', chance: 50, power: 30, status: 'bleeding',   statusChance: 30,   critChance: 10},
     eviscerate_1:       {name: 'eviscerate I',      target: 'enemy', type: 'damage', attribute: 'agi', chance: 20, power: 30, status: 'bleeding',   statusChance: 50,   critChance: 5},
     gambling_strike_1:  {name: 'gambling strike I', target: 'enemy', type: 'damage', attribute: 'lck', chance: 50, power: 25, status: null,         statusChance: 0,    critChance: 20},
+    tusk_attack_1:      {name: 'tusk attack I',     target: 'enemy', type: 'damage', attribute: 'str', chance: 40, power: 20, status: 'bleeding',   statusChance: 30,   critChance: 5},
     heal_self_1:        {name: 'heal self I',       target: 'self',  type: 'heal',   attribute: 'int', chance: 25, power: 40, status: null,         statusChance: null, critChance: 5},
-    magic_bolt_1:       {name: 'magic bolt I',      target: 'enemy', type: 'damage', attribute: 'int', chance: 40, power: 40, status: null,         statusChance: null, critChance: 5},
+    magic_bolt_1:       {name: 'magic bolt I',      target: 'enemy', type: 'damage', attribute: 'int', chance: 50, power: 40, status: null,         statusChance: null, critChance: 5},
     power_shot_1:       {name: 'power shot I',      target: 'enemy', type: 'damage', attribute: 'agi', chance: 30, power: 40, status: 'stun',       statusChance: 15,   critChance: 10},
     scream_1:           {name: 'scream I',          target: 'enemy', type: 'damage', attribute: 'chr', chance: 30, power: 30, status: 'stun',       statusChance: 30,   critChance: 5}
 }
@@ -69,7 +71,7 @@ const races = {
             male: ['Anoki', 'Dichali', 'Chibo', 'Matoshkah', 'Giqo', 'Shusta', 'Mojag', 'Vudri', 'Skah', 'Ommioh'],
             female: ['Shania', 'Atepa', 'Tiva', 'Mona', 'Uyo', 'Alameda', 'Taze', 'Tiponi', 'Uwuno', 'Enge']
         },
-        lastNames: ['']
+        lastNames: ['Stonemoon', 'Blacktusk', 'Ironhide', 'Oatshield', 'Spiritmane', 'Fogsong', 'Stonehoof', 'Hillmane', 'Rumblerider', 'Runehorn']
     },
     mouseling: {
         name: 'mouseling',
@@ -79,7 +81,7 @@ const races = {
             male: ['Jasper', 'Munchkin', 'Titan', 'Bandit', 'Noodle', 'Remy', 'Bingo', 'Finnegan', 'Orbit', 'Maverick', 'Dave', 'Charm', 'Cheddar', 'Oak', 'Autumn', 'Hippie', 'Boots', 'Vinnie', 'Cosmo', 'Tigger', 'Milo', 'Skip', 'Nibbles', 'George'],
             female: ['Zara', 'Zelda', 'Hazel', 'Honey', 'Cherry', 'Sky', 'Marigold', 'Dahlia', 'Fifi', 'Flora', 'Suzy', 'Jaffa', 'Sarah', 'Xia', 'Cutie', 'Pumpkin', 'Splash', 'Adele', 'Gladiola', 'Petunia', 'Millie', 'Iris', 'Zoey']
         },
-        lastNames: ['Stonemoon', 'Blacktusk', 'Ironhide', 'Oatshield', 'Spiritmane', 'Fogsong', 'Stonehoof', 'Hillmane', 'Rumblerider', 'Runehorn']
+        lastNames: ['']
     },
     orc: {
         name: 'orc',
@@ -185,65 +187,98 @@ const enemies = {
         name: 'Mouse',
         isPlayer: false,
         level: 1, 
-        givesExp: 4, 
-        height: 60, 
         hpMax: 10, 
         hpLeft: 10,
-        totalAttr: {str: 1, agi: 5, int: 1, chr: 1, lck: 3},
+        totalAttr: {str: 1, agi: 3, int: 1, chr: 1, lck: 3},
         skills: [skills.attack], 
         status: '',
         img: 'img/enemies/mouse_small.png',
-    },
-    mouse_assassin: {
-        name: 'Mouse Assasin',
-        isPlayer: false,
-        level: 2, 
-        givesExp: 8,
-        height: 80, 
-        hpMax: 20, 
-        hpLeft: 20,
-        totalAttr: {str: 2, agi: 4, int: 3, chr: 1, lck: 3},
-        skills: [skills.eviscerate_1], 
-        status: '',
-        img: 'img/enemies/mouse_assassin.png',
-    },
-    goblin: {
-        name: 'Goblin',
-        isPlayer: false,
-        level: 2, 
-        givesExp: 8, 
-        height: 130, 
-        hpMax: 25, 
-        hpLeft: 25,
-        totalAttr: {str: 3, agi: 3, int: 2, chr: 1, lck: 1},
-        skills: [skills.attack],
-        status: '',
-        img: 'img/enemies/goblin_warrior_small.png',
+        height: 60, 
     },
     goblin_bat: {
         name: 'Goblin Bat',
         isPlayer: false,
         level: 2, 
-        givesExp: 8, 
-        height: 60, 
         hpMax: 15, 
         hpLeft: 15,
         totalAttr: {str: 2, agi: 4, int: 2, chr: 1, lck: 1},
         skills: [skills.attack],
         status: '',
         img: 'img/enemies/goblin_bat.png',
+        height: 60
+    },
+    mouse_assassin: {
+        name: 'Mouse Assasin',
+        isPlayer: false,
+        level: 3, 
+        hpMax: 25, 
+        hpLeft: 25,
+        totalAttr: {str: 2, agi: 4, int: 3, chr: 1, lck: 3},
+        skills: [skills.eviscerate_1], 
+        status: '',
+        img: 'img/enemies/mouse_assassin.png',
+        height: 80
+    },
+    goblin: {
+        name: 'Goblin',
+        isPlayer: false,
+        level: 3, 
+        hpMax: 30, 
+        hpLeft: 30,
+        totalAttr: {str: 3, agi: 3, int: 2, chr: 1, lck: 1},
+        skills: [skills.attack],
+        status: '',
+        img: 'img/enemies/goblin_warrior_small.png',
+        height: 130
+    },
+    boar: {
+        name: 'Boar',
+        isPlayer: false,
+        level: 4, 
+        hpMax: 50, 
+        hpLeft: 50,
+        totalAttr: {str: 6, agi: 5, int: 1, chr: 1, lck: 2},
+        skills: [skills.tusk_attack_1],
+        status: '',
+        img: 'img/enemies/boar.png',
+        height: 110
+    },
+    young_wolf: {
+        name: 'Young Wolf',
+        isPlayer: false,
+        level: 4, 
+        hpMax: 35, 
+        hpLeft: 35,
+        totalAttr: {str: 4, agi: 5, int: 3, chr: 2, lck: 4},
+        skills: [skills.bite_1],
+        status: '',
+        img: 'img/enemies/young_wolf.png',
+        height: 100
+    },
+    crob: {
+        name: 'Crob',
+        isPlayer: false,
+        level: 5, 
+        hpMax: 45, 
+        hpLeft: 45,
+        totalAttr: {str: 3, agi: 2, int: 4, chr: 3, lck: 3},
+        skills: [skills.scream_1],
+        status: '',
+        img: 'img/enemies/crob.png',
+        height: 110
     }
+
 }
 
 const bosses = {
     troll_forest: {
         name: 'Forest Troll',
         isPlayer: false,
-        level: 5, 
+        level: 8, 
         givesExp: 40, 
         height: 200, 
-        hpMax: 70, 
-        hpLeft: 70,
+        hpMax: 80, 
+        hpLeft: 80,
         totalAttr: {str: 8, agi: 2, int: 2, chr: 1, lck: 1},
         skills: [skills.bash_1],
         status: '',
