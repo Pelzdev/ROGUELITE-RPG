@@ -32,17 +32,6 @@ function getPlayerChar () {
     getPlayerCharBtn.style.display = 'none'
 }
 
-// Use the addAttr function for all attributes given an array of objects containing attributes
-function multiAddAttr (objArr, specificAttr) {
-    let attrArr = specificAttr || ['str', 'int', 'agi', 'chr', 'lck']
-    let totalAttr = {str: 0, int: 0, agi: 0, chr: 0, lck: 0}
-
-    for (let i = 0; i < attrArr.length; i++) {
-        totalAttr[attrArr[i]] += addAttr(attrArr[i], objArr)
-    }
-
-    return totalAttr
-}
 
 // Add together the attributes with the same name for an array of objects containing attributes
 function addAttr(attr, objArr) {

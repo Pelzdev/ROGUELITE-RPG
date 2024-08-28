@@ -17,7 +17,7 @@ function getChar (race, job, gender) {
         buff: false,
         eq: {weapon: null, armor: null, trinket: structuredClone(eq.trinkets.rabbits_foot)}
     }
-    char.totalAttr = multiAddAttr( [char.baseAttr, char.race.bonusAttr, char.job.bonusAttr, char.trait.bonusAttr] )
+    char.totalAttr = updateCharTotalAttr(char)
     char.img = getCharSprite(char)
     console.log(char.img)
     char.name = rndFromArr(races[char.race.name].names[char.gender])
@@ -30,7 +30,7 @@ function getChar (race, job, gender) {
 
 function makePlayerCharDiv (pc) {
     pc.totalAttr = multiAddAttr( [pc.baseAttr, pc.race.bonusAttr, pc.job.bonusAttr, pc.trait.bonusAttr] )
-    let statBarPercentMulti = 5 // aka 1 point = 5% of bar filled
+    let statBarPercentMulti = 2 // aka 1 point = 5% of bar filled
 
     let buffText = '-'
     if (pc.buff) buffText = pc.buff.type
@@ -51,10 +51,11 @@ function makePlayerCharDiv (pc) {
     let eqTextWeapon = '-'
     let eqTextArmor = '-'
     let eqTextTrinket = '-'
+    let trinketImg = ''
 
     if (pc.eq.weapon) eqTextWeapon = pc.eq.weapon.name.toUpperCase()
     if (pc.eq.armor) eqTextArmor = pc.eq.armor.name.toUpperCase()
-    if (pc.eq.trinket) eqTextTrinket = pc.eq.trinket.name.toUpperCase()
+    if (pc.eq.trinket) {eqTextTrinket = pc.eq.trinket.name.toUpperCase(); trinketImg = pc.eq.trinket.img}
 
     
 
@@ -103,7 +104,7 @@ function makePlayerCharDiv (pc) {
             <hr>
             <p class="pc-info-line weapon">Weapon: ${eqTextWeapon}</p>
             <p class="pc-info-line weapon">Armor: ${eqTextArmor}</p>
-            <p class="pc-info-line weapon">Trinket: ${eqTextTrinket}</p>
+            <p class="pc-info-line weapon">Trinket: ${eqTextTrinket} <img src="${trinketImg}" style="vertical-align: bottom;transform:rotate(45deg);height: 16px;"></p>
         </div>
         
     `
@@ -179,3 +180,24 @@ function checkAddZero (stat) {
     return numberShown
 }
 
+function updateCharTotalAttr (char) {
+    let arrayOfAttrObj = []
+    if (char.eq.weapon) arrayOfAttrObj.push(char.eq.weapon.bonusAttr)
+    if (char.eq.armor) arrayOfAttrObj.push(char.eq.armor.bonusAttr)
+    if (char.eq.trinket) arrayOfAttrObj.push(char.eq.trinket.bonusAttr)
+       
+    arrayOfAttrObj.push(char.baseAttr, char.race.bonusAttr, char.job.bonusAttr, char.trait.bonusAttr)
+    char.totalAttr = multiAddAttr(arrayOfAttrObj)
+}
+
+// Use the addAttr function for all attributes given an array of objects containing attributes
+function multiAddAttr (objArr, specificAttr) {
+    let attrArr = specificAttr || ['str', 'int', 'agi', 'chr', 'lck']
+    let totalAttr = {str: 0, int: 0, agi: 0, chr: 0, lck: 0}
+
+    for (let i = 0; i < attrArr.length; i++) {
+        totalAttr[attrArr[i]] += addAttr(attrArr[i], objArr)
+    }
+
+    return totalAttr
+}
