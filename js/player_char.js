@@ -75,15 +75,22 @@ function getCharSprite (char) {
     return img
 }
 
-function clickConsumable (food) {
+function clickConsumable () {
     if (!playerChar.food) return
-    let targetEl = document.querySelector('.consumable-info')
-    targetEl.innerHTML = `
-        ${playerChar.food.infoText}
-        <p style="font-size:14px;">Do you want to use ${playerChar.food.name}<p>
-        <button onclick="useConsumable('yes')">YES</button><button onclick="useConsumable('no')">NO</button>
-    `
-    targetEl.style.display = 'block'
+    document.getElementById('button-bar').classList.add('unclickable')
+
+    popupDiv.innerHTML = `
+        <h3>${playerChar.food.name}</h3>
+        <img class="popup-div-img" src="${playerChar.food.img}">
+        <p>${playerChar.food.infoText}</p>
+        <hr>
+        <p>Use it?</p><br>
+        <button class="btn-medium" onclick="useConsumable('yes')">Yes</button><button class="btn-medium" onclick="useConsumable('no')">No</button>
+    ` 
+    popupDiv.style.display = 'block'
+    centerPopup(popupDiv)
+    //' top: calc(50% - 150px);
+    //left: calc(50% - 150px);
 }
 
 function useConsumable (answer) {
@@ -98,7 +105,8 @@ function useConsumable (answer) {
         document.querySelector('.consumable-img-container').innerHTML = ''
         updateHp(playerChar)
     }
-    document.querySelector('.consumable-info').style.display = 'none'
+    document.getElementById('button-bar').classList.remove('unclickable')
+    popupDiv.style.display = 'none'
 }
 
 function checkAddZero (stat) {
@@ -107,4 +115,11 @@ function checkAddZero (stat) {
         numberShown = `0${stat}`
     }
     return numberShown
+}
+
+function centerPopup (el) {
+    let elW = getElementSize(el, 'width')
+    let elH = getElementSize(el, 'height')
+    el.style.top = `${0.5*gameH - elH/2}px`
+    el.style.left = `${0.5*gameW - elW/2}px`
 }

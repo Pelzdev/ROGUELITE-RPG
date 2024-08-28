@@ -13,7 +13,7 @@
         <!-- <h1 class="window-header"  id="game-header">ROGUELITE RPG</h1> -->
 
         <div id="game">
-            <div id="button-bar">
+            <div class="game-area" id="button-bar">
                 <button id="get-player-char-btn" onclick="getPlayerChar()">START</button>
                 <button id="event-start-btn" onclick="startEvent(playerChar)">EVENT</button>
                 <button id="event-end-btn" onclick="endEvent()">END EVENT</button>
@@ -28,6 +28,15 @@
                 </div>
                 <div class="info-card" id="player-char-info" ></div>
                 <div class="info-card event-div"></div> 
+            </div>
+            
+            <div class="popup-div">
+                <h3>SMALL POTION</h3>
+                <img class="popup-div-img" src="img/items/potion_small.png">
+                <p>A small potion, it will restore your health a little.</p>
+                <hr>
+                <p>Use it?</p><br>
+                <button class="btn-medium">Yes</button><button class="btn-medium">No</button>
             </div>
             
             <!--<div id="player-char2"></div>

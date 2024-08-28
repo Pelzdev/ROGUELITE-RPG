@@ -176,11 +176,21 @@ function checkStatusApplication (skill, target) {
 
 function rollPower(skill, user, target)  {
     let attrMulti = 1
+    let attributeUsed = ''
 
-    if (skill.attribute != null) attrMulti = 1 + (user.totalAttr[skill.attribute] / 10)
+    if (skill.attribute === 'best') {
+        attributeUsed = getHighestAttr(user.totalAttr)
+        attrMulti = 1 + (user.totalAttr[attributeUsed] / 10)
+    }
+    else if (skill.attribute != null) {
+        attributeUsed = skill.attribute
+        attrMulti = 1 + (user.totalAttr[attributeUsed] / 10)
+    }
+
     let powerBaseLine = Math.round(skill.power/5 * attrMulti)
     let power = rndInt(powerBaseLine-1, powerBaseLine+1)
 
+    console.log(`skill: ${skill.name}, attriUsed: ${attributeUsed}`)
     return power
 }
 

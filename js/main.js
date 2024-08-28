@@ -1,3 +1,5 @@
+let gameDiv = document.getElementById('game')
+let popupDiv = document.querySelector('.popup-div')
 let getPlayerCharBtn = document.getElementById('get-player-char-btn')
 let reRandomizeCharBtn = document.getElementById('re-randomize-char-btn')
 let eventStartBtn = document.getElementById('event-start-btn')
@@ -20,6 +22,7 @@ let sizeMulti = 1.3 // for char and enemy sprites
 let hpPerLvlUp = 5
 let playerChar = {}
 let currentEvent = ''
+let gameW, gameH
 
 function getPlayerChar () {
     playerCharInfoEl.style.display = 'inline-block'
@@ -70,48 +73,57 @@ function updateHp (char) {
     hpText.innerHTML = `${char.hpLeft}/${char.hpMax} HP`
 }
 
-// CHECK PORTRAIT/LANDSCAPE OF DEVICE, AND LISTEN, MAKE CHANGES
+// CHECK PORTRAIT/LANDSCAPE OF DEVICE
+document.addEventListener("DOMContentLoaded", function(event){
+    console.log(`DOMContentloaded`)
+    gameW = getElementSize(gameDiv, 'width')
+    gameH = getElementSize(gameDiv, 'height')
+    let infoCard = document.getElementsByClassName('info-card');
+    const portrait = window.matchMedia("(orientation: portrait)").matches; // returns true if portrait
 
+    if (portrait) {
+        console.log('Orientation changed to: Portrait')
+    }
+    if (!portrait) console.log('Orientation changed to: Landscape') 
+});
+// Check for orientation change of device
+window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
+    gameW = getElementSize(gameDiv, 'width')
+    gameH = getElementSize(gameDiv, 'height')
+    const portrait = e.matches;
+
+    centerPopup(popupDiv)
+});
+
+window.onresize = function() { 
+    console.log(`Window size changed!, H:${window.innerHeight}, W:${window.innerWidth}`)
+    centerPopup(popupDiv)
+};
+
+
+
+
+/* 
 document.addEventListener("DOMContentLoaded", function(event){
     console.log('DOMContentloaded')
-    let el = document.getElementsByClassName('info-card');
+    gameW = getElementSize(gameDiv, 'width')
+    gameH = getElementSize(gameDiv, 'height')
+    let infoCard = document.getElementsByClassName('info-card');
     const portrait = window.matchMedia("(orientation: portrait)").matches; // returns true if portrait
     if (portrait) {
-        console.log('portrait')
+        console.log('Orientation changed to: Portrait')
         w = '95%'
         h = '31%'
     } else {
-        console.log('landscape') 
+        console.log('Orientation changed to: Landscape') 
         w = '31%'
         h = '95%'
     }
-    for (let i = 0; i < el.length; i++ ) {
-        el[i].style.width = w
-        el[i].style.height = h
-        if (portrait && i === el.length -1) playerCharInfoEl.style.height = '66%'
+    for (let i = 0; i < infoCard.length; i++ ) {
+        infoCard[i].style.width = w
+        infoCard[i].style.height = h
+        if (portrait && i === infoCard.length -1) playerCharInfoEl.style.height = '66%'
     }
 });
 
-window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
-    const portrait = e.matches;
-    let el = document.getElementsByClassName('info-card');
-    let w = ''
-    let h = ''
-
-    if (portrait) {
-        console.log('portrait')
-        w = '95%'
-        h = '31%'
-        playerCharInfoEl.style.height = '66%'
-    } else {
-        console.log('landscape') 
-        w = '31%'
-        h = '95%'
-    }
-
-    for (let i = 0; i < el.length; i++ ) {
-        el[i].style.width = w
-        el[i].style.height = h
-        if (portrait && i === el.length -1) playerCharInfoEl.style.height = '66%'
-    }
-});
+    */

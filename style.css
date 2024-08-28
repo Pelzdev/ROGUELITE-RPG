@@ -1,3 +1,23 @@
+@media screen and (orientation: portrait) {
+    .info-card {
+        width: 95%;
+        height: 31%;
+    }
+    #player-char-info{
+        height: 64%;
+    }
+    #event-text-container {
+        height: 31%;
+    }
+}
+  
+@media screen and (orientation: landscape) {
+    .info-card {
+        width: 31%;
+        height: 95%;
+    }
+}
+
 @font-face {
     font-family: 'ManaSpace'; /* Name your font family */
     src: url('manaspc.ttf'); /* Locate the .ttf file within your directory*/
@@ -32,11 +52,6 @@ img {
     user-select: none;
 }
 
-#game {
-    max-width: 1280px;
-    max-height: 720px;
-}
-
 button {
     color: rgb(219, 219, 219);
     background-color: rgb(49, 49, 53);
@@ -50,6 +65,11 @@ button {
     width: 150px;
 }
 
+.btn-medium {
+    width: 65px;
+    font-size: 16px;
+}
+
 hr {
     margin: 0;
     height: 3px;
@@ -57,8 +77,38 @@ hr {
     background-color: rgba(0,0,0, 0.3);
 }
 
+.popup-div {  
+    display: none;
+    position: fixed;
+    z-index: 10;
+    width: 300px;
+    height: 300px;
+    background-color: rgb(49, 49, 53);
+    border: 3px solid rgb(19, 19, 19);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.popup-div-img {
+    width: 20%;
+}
+
+.popup-div h3 {
+    margin-top: 5px;
+}
+
+.unclickable {
+    pointer-events: none;
+}
+
+/* GAME STUFF */
+
 #game {
+    position: relative;
     height: 100vh;
+    max-width: 960px;
+    max-height: 540px;
 }
 
 #game-header {
@@ -69,6 +119,7 @@ hr {
 #button-bar {
     display: block;
     min-height: 30px;
+    text-align: right;
 }
 
 #event-start-btn {
@@ -98,8 +149,6 @@ hr {
     background-color: rgb(49, 49, 53);
     border: 3px solid rgb(19, 19, 19);
     border-radius: 8px;
-    width: 31%;
-    height: 95%;
     color: rgb(219, 219, 219);
     margin: 2px;
 }
@@ -229,14 +278,14 @@ hr {
 .event-sprite-img-container {
     position: relative;
     height: calc(100% - 20px);
+    vertical-align: top;
 }
 
 .event-sprite-img {
     margin-left: 50%;
     transform: translateX(-50%);
     position: absolute;
-    bottom: 8px;
-    vertical-align: bottom;
+    bottom: 4px;
     image-rendering: pixelated;
 }
 
@@ -303,8 +352,6 @@ hr {
 #event-text-container {
     display: none;
     vertical-align: top;
-    height: 95%;
-    width: 31%;
     margin: 2px;
     background-color: rgb(49, 49, 53);
     border: 3px solid rgba(0,0,0, 0.6);

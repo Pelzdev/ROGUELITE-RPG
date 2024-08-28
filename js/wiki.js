@@ -4,7 +4,7 @@ const baseAttr = {
 // SKILLS
 const skills = {
     // base skills
-    attack:             {name: 'attack',            target: 'enemy', type: 'damage', attribute: null, chance: 100, power: 20, status: null,         statusChance: null, critChance: 5},
+    attack:             {name: 'attack',            target: 'enemy', type: 'damage', attribute: 'best', chance: 100, power: 20, status: null,         statusChance: null, critChance: 5},
     // attribute skills
     bash_1:             {name: 'bash I',            target: 'enemy', type: 'damage', attribute: 'str', chance: 30, power: 40, status: 'stun',       statusChance: 30,   critChance: 5},
     eviscerate_1:       {name: 'eviscerate I',      target: 'enemy', type: 'damage', attribute: 'agi', chance: 20, power: 30, status: 'bleeding',   statusChance: 50,   critChance: 5},

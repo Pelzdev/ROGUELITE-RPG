@@ -16,3 +16,30 @@ function rndGetPropertyCloned (obj) {
     let keys = Object.keys(obj)
     return structuredClone( obj[keys[keys.length * Math.random() << 0]] )
 }
+
+function getElementSize (el, widthOrHeight) {
+    let positionInfo = el.getBoundingClientRect();
+    let width = positionInfo.width;
+    let height = positionInfo.height;
+
+    console.log(`W:${width}, H:${height}`)
+    if (widthOrHeight === 'width') return width
+    if (widthOrHeight === 'height') return height 
+}
+
+function getHighestAttr (attrObj) {
+    let attrKeys = Object.keys(attrObj)
+    let highestNum = 0
+    let highestAttr = ''
+
+    for (let i = 0; i < attrKeys.length; i++) {
+        currentKey = attrKeys[i]
+        if (attrObj[currentKey] > highestNum)  {
+            highestAttr = currentKey
+            highestNum = attrObj[currentKey]
+        }
+        console.log(currentKey + ': ' + attrObj[currentKey])
+    }
+    console.log(highestAttr)
+    return highestAttr
+}
