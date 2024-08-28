@@ -14,9 +14,7 @@ function trainer (selectedTrainer) {
     else if (rndNum <= 90) {trainerChosen = 'mateo'; attrToTrain = 'lck'}
     else if (rndNum <= 100) {trainerChosen = 'christobel'; attrToTrain = 'chr'; extraAttr = 'str'}
 
-    trainerChosen = 'christobel'; attrToTrain = 'chr'; extraAttr = 'str'
-
-    trainCost = rndInt(25, 35) + playerChar.totalAttr[attrToTrain]
+    trainCost = rndInt(20, 30) + playerChar.totalAttr[attrToTrain]
     // Check for double training
     if (extraAttr) {attrToTrainText = `${attrToTrain} & ${extraAttr}`.toUpperCase(); trainCost = Math.round(trainCost *= 1.5)}
     if (!extraAttr) attrToTrainText = attrToTrain.toUpperCase()
@@ -31,7 +29,7 @@ function trainer (selectedTrainer) {
     const charHeight = 180
     const spriteH = (charHeight / 200) * maxH
     
-    eventDiv.innerHTML += `<h3 class="window-header">TRAINER ${trainerChosen.toUpperCase()}</h3>`
+    eventDiv.innerHTML += `<h3 class="window-header">TRAINER</h3>`
     eventDiv.innerHTML += `
         <div class="event-sprite-img-container">
             <img class="event-sprite-img" style="height:${spriteH}%" src="img/events/trainer/trainer_${trainerChosen}.png">

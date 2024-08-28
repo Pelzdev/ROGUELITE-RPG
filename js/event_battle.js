@@ -1,14 +1,21 @@
 // BATTLE EVENT
 let enemyType = 'enemy'
 let enemy = {}
+let enemySprite
 
 function battle (pc) {
-    if (rndInt(1, 10) > 9 && pc.level > 4) {
+    let rndNum = rndInt(1,10)
+    if (rndNum > 9 && pc.level > 4) {
         enemyType = 'boss'
         enemy = rndGetPropertyCloned(bosses)
+    } else if (rndNum > 8 && pc.level > 6) {
+        enemyType = 'adventurer'
+        enemy = getChar()
+        enemy.isPlayer = false
     } else {
         enemy = rndGetPropertyCloned(enemies)
     }
+
     // background
     eventDiv.style.background = `url("img/events/battle/bg_woods.png") rgba(0, 0, 0, 0.3)`
     eventDiv.style.backgroundBlendMode = 'multiply'
@@ -21,8 +28,8 @@ function battle (pc) {
 }
 
 function makeBattleDiv (enemy) {
-    let statBarMult = 17
-    const maxH = 99
+    // over 430px height på gameH stanna
+    let maxH = 95
     const spriteH = (enemy.height / 200) * maxH
 
     let html = ''
@@ -196,15 +203,11 @@ function rollPower(skill, user, target)  {
 
 // char is always playerChar
 function giveExpAndUpdate(char, enemy) {
-    let expBar
-    let expText
     let text = ''
     expBar = document.querySelector('.pc-expbar-over')
     expText = document.querySelector('#pc-exp-text')
-
     let givenGold = rndInt(enemy.level, enemy.level*4)
     let givenExp = rndInt(enemy.givesExp-1, enemy.givesExp+1)
-
 
     if (!playerChar.food && rndInt(1,10) > 8) {
         playerChar.food = food['small_potion']
@@ -212,7 +215,6 @@ function giveExpAndUpdate(char, enemy) {
     }
     
     text += `<p id="battle-text-row">${char.name} got ${givenExp} exp and ${givenGold} gold for winning!</p>`
-
     char.gold += givenGold
 
     // If levelup

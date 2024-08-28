@@ -97,6 +97,8 @@ window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
 
 window.onresize = function() { 
     console.log(`Window size changed!, H:${window.innerHeight}, W:${window.innerWidth}`)
+    gameW = getElementSize(gameDiv, 'width')
+    gameH = getElementSize(gameDiv, 'height')
     centerPopup(popupDiv)
 };
 

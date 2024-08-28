@@ -17,9 +17,11 @@ function getChar (race, job, gender) {
     }
     char.totalAttr = multiAddAttr( [char.baseAttr, char.race.bonusAttr, char.job.bonusAttr, char.trait.bonusAttr] )
     char.img = getCharSprite(char)
+    console.log(char.img)
     char.name = rndFromArr(races[char.race.name].names[char.gender])
     char.lastName = rndFromArr(races[char.race.name].lastNames)
     char.skills = [structuredClone(skills[char.job.startSkill])]
+    char.height = char.race.height
 
     return char
 }
@@ -32,8 +34,13 @@ function makePlayerCharDiv (pc) {
         foodImg =  `<img src="${pc.food.img}" style="height: 32px;margin-top: 8px;">`
     } else {foodImg = ''}
 
+    const maxH = 85
+    const spriteH = (pc.height / 200) * maxH
+
     let spriteHtml = `
-        <div id="pc-img-container">${pc.img}</div>
+        <div id="pc-img-container">
+            <img class="sprite-${pc.race.name}" style="height:${spriteH}%" src="${pc.img}">
+        </div>
         <hr>
         <div class="hp-bar-under pc-hpbar-under"><div class="hp-bar-over pc-hpbar-over" style="width:${pc.hpLeft/pc.hpMax*100}%"></div><p id="pc-hp-text">${pc.hpLeft}/${pc.hpMax} HP<p></div>
         <div class="pc-expbar-under"><div class="pc-expbar-over" style="width:${pc.exp/pc.expToLvl*270}px"></div><p id="pc-exp-text">${pc.exp}/${pc.expToLvl} XP<p></div>
@@ -65,14 +72,10 @@ function makePlayerCharDiv (pc) {
 }
 
 function getCharSprite (char) {
-    const maxH = 95
-    const spriteH = (char.race.height / 200) * maxH
-
     let numOfAvailebleSprites = numOfCharSprites[char.race.name][char.job.name][char.gender]
     let imgNum = rndInt(0, numOfAvailebleSprites-1)
-    let img = `<img class="sprite-${char.race.name}" style="height:${spriteH}%" src="img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png">`
-
-    return img
+    //let img = `<img class="sprite-${char.race.name}" style="height:${spriteH}%" src="img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png">`
+    return `img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png`
 }
 
 function clickConsumable () {
