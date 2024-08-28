@@ -41,6 +41,12 @@ function innYes () {
     eventText.innerHTML = `You paid ${innCost} gold to stay the night... You wake up refreshed.`
     playerChar.hpLeft += 25
     if(playerChar.hpLeft > playerChar.hpMax) {playerChar.hpLeft = playerChar.hpMax}
+
+    if (getFirstEmptyfoodSlot(playerChar) != 'none') {
+        let foodType = food['beer']
+        giveFood(playerChar, foodType)
+        eventText.innerHTML += `You got a ${foodType.name} to take with you!`
+    }
     makePlayerCharDiv(playerChar)
 }
 

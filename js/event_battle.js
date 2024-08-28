@@ -184,7 +184,6 @@ function checkStatusApplication (skill, target) {
 function rollPower(skill, user, target)  {
     let attrMulti = 1
     let attributeUsed = ''
-
     if (skill.attribute === 'best') {
         attributeUsed = getHighestAttr(user.totalAttr)
         attrMulti = 1 + (user.totalAttr[attributeUsed] / 10)
@@ -193,11 +192,8 @@ function rollPower(skill, user, target)  {
         attributeUsed = skill.attribute
         attrMulti = 1 + (user.totalAttr[attributeUsed] / 10)
     }
-
     let powerBaseLine = Math.round(skill.power/5 * attrMulti)
     let power = rndInt(powerBaseLine-1, powerBaseLine+1)
-
-    console.log(`skill: ${skill.name}, attriUsed: ${attributeUsed}`)
     return power
 }
 
@@ -210,13 +206,13 @@ function giveExpAndUpdate(char, enemy) {
     let expFormula = Math.floor( (enemy.level * 3) + (enemy.hpMax/3) )
     let givenExp = rndInt(expFormula-2, expFormula+2)
     
-    let emptyFoodSlot = getFirstEmptyfoodSlot(char)
-
-    if (emptyFoodSlot != 'none'  && rndInt(1,10) > 8) {
-        char.food[emptyFoodSlot] = food['small_potion']
-        text += `<p id="battle-text-row">${char.name} got a Small Potion!</p>`
+    // Check drops potion etc
+    if (getFirstEmptyfoodSlot(char) != 'none' && rndInt(1,10) > 8) {
+        let foodType = food['small_potion']
+        giveFood(char, foodType)
+        text += `<p id="battle-text-row">${char.name} got a ${foodType.name}</p>`
     }
-    
+   
     text += `<p id="battle-text-row">${char.name} got ${givenExp} exp and ${givenGold} gold for winning!</p>`
     char.gold += givenGold
 
@@ -226,6 +222,14 @@ function giveExpAndUpdate(char, enemy) {
     makePlayerCharDiv(char)
 
     return text
+}
+
+function giveFood (char, foodType) {
+    let emptyFoodSlot = getFirstEmptyfoodSlot(char)
+
+    if (emptyFoodSlot != 'none') {
+        char.food[emptyFoodSlot] = foodType
+    }
 }
 
 function checkLevelUp (char, givenExp) {
@@ -257,5 +261,6 @@ function checkLevelUp (char, givenExp) {
 function getFirstEmptyfoodSlot (char) {
     if (!char.food[0]) {return 0} 
     if (!char.food[1]) {return 1}
+    if (!char.food[2]) {return 2}
     return 'none'
 }

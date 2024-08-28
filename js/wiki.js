@@ -18,8 +18,24 @@ const skills = {
 }
 
 const food = {
-    small_potion:   {name: 'small potion',  ref: 'small_potion',  infoText: 'Heals you a little.', givesBonusTo: 'hpLeft', amount: 25, img: 'img/items/potion_small.png'},
-    medium_potion:  {name: 'medium potion', ref: 'medium_potion', infoText: 'Heals you.',          givesBonusTo: 'hpLeft', amount: 50, img: 'img/items/potion_medium.png'}
+    small_potion: {
+        type: 'heal',
+        name: 'small potion',  
+        ref: 'small_potion', 
+        infoText: 'Heals you a little.', 
+        gives: 'hpLeft', 
+        amount: 25, 
+        img: 'img/items/potion_small.png'
+    },
+    beer: {
+        type: 'buff',
+        name: 'beer', 
+        ref: 'beer',         
+        infoText: 'Gives you the DRUNK buff.',          
+        gives: 'buff_drunk', 
+        amount: null, 
+        img: 'img/items/beer.png'
+    }
 }
 
 const races = {

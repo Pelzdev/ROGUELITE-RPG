@@ -14,6 +14,7 @@ function getChar (race, job, gender) {
         gender: rndFromArr(['male', 'female']),
         level: 1,
         baseAttr: structuredClone(baseAttr),
+        buff: '',
     }
     char.totalAttr = multiAddAttr( [char.baseAttr, char.race.bonusAttr, char.job.bonusAttr, char.trait.bonusAttr] )
     char.img = getCharSprite(char)
@@ -29,14 +30,19 @@ function getChar (race, job, gender) {
 function makePlayerCharDiv (pc) {
     pc.totalAttr = multiAddAttr( [pc.baseAttr, pc.race.bonusAttr, pc.job.bonusAttr, pc.trait.bonusAttr] )
     let statBarPercentMulti = 5 // aka 1 point = 5% of bar filled
+
     let foodImg0 = ''
     let foodImg1 = ''
+    let foodImg2 = ''
     if (pc.food[0]) {
         foodImg0 =  `<img src="${pc.food[0].img}" style="height: 32px;">`
     } else {foodImg1 = ''}
     if (pc.food[1]) {
         foodImg1 =  `<img src="${pc.food[1].img}" style="height: 32px;">`
     } else {foodImg1 = ''}
+    if (pc.food[2]) {
+        foodImg2 =  `<img src="${pc.food[2].img}" style="height: 32px;">`
+    } else {foodImg2 = ''}
 
     const maxH = 85
     const spriteH = (pc.height / 200) * maxH
@@ -64,10 +70,11 @@ function makePlayerCharDiv (pc) {
             LCK: ${checkAddZero(pc.totalAttr.lck)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.lck*statBarPercentMulti}%;"></div> </div>
         </div>
         <hr>
-        <p class="pc-eq-line gold">GOLD:${pc.gold}</p>
+        <p class="pc-eq-line gold">GOLD:${pc.gold}, BUFF:${pc.buff}</p>
         <div class="consumable-container">
             <div class="consumable-img-container food0" onclick="clickConsumable(0)">${foodImg0}</div>
             <div class="consumable-img-container food1" onclick="clickConsumable(1)">${foodImg1}</div>
+            <div class="consumable-img-container food2" onclick="clickConsumable(2)">${foodImg2}</div>
         </div>
         <div class="consumable-info" style="border: 1px solid gray; display:none;"></div>
     `
@@ -77,7 +84,7 @@ function makePlayerCharDiv (pc) {
 
     return
 }
-
+// Clicking the consumable
 function clickConsumable (arrPos) {
     if (!playerChar.food) return
     document.getElementById('button-bar').classList.add('unclickable')
@@ -88,29 +95,40 @@ function clickConsumable (arrPos) {
         <p>${playerChar.food[arrPos].infoText}</p>
         <hr>
         <p>Use it?</p><br>
-        <button class="btn-medium" onclick="useConsumable('yes', ${arrPos})">Yes</button><button class="btn-medium" onclick="useConsumable('no')">No</button>
+        <button class="btn-medium" onclick="consumableChoice('yes', ${arrPos})">Yes</button><button class="btn-medium" onclick="consumableChoice('no')">No</button>
     ` 
     popupDiv.style.display = 'block'
     centerPopup(popupDiv)
-    //' top: calc(50% - 150px);
-    //left: calc(50% - 150px);
 }
-
-function useConsumable (answer, arrPos) {
+// Choosing whether or not to use consumable/food
+function consumableChoice (answer, arrPos) {
     let arrInt = parseInt(arrPos)
     if (answer === 'no') {
         
     }
     if (answer === 'yes') {
-        let givesBonusTo = playerChar.food[arrInt].givesBonusTo
-        let amount = playerChar.food[arrInt].amount
-        playerChar[givesBonusTo] += amount
-        playerChar.food[arrInt] = null,
-        document.querySelector(`.consumable-img-container.food${arrPos}`).innerHTML = ''
-        updateHp(playerChar)
+        useConsumable(arrInt) 
     }
     document.getElementById('button-bar').classList.remove('unclickable')
     popupDiv.style.display = 'none'
+}
+// Using the consumable
+function useConsumable (arrPos) {
+    let gives = playerChar.food[arrPos].gives
+    let type = playerChar.food[arrPos].type
+    let amount = playerChar.food[arrPos].amount
+    
+    if (type === 'heal') {
+        playerChar[gives] += amount
+        updateHp(playerChar)
+    }
+    if (gives === 'buff_drunk') {
+        playerChar.buff = 'Drunk'
+        makePlayerCharDiv(playerChar)
+    }
+
+    playerChar.food[arrPos] = null,
+    document.querySelector(`.consumable-img-container.food${arrPos}`).innerHTML = ''
 }
 
 function getCharSprite (char) {
@@ -127,3 +145,4 @@ function checkAddZero (stat) {
     }
     return numberShown
 }
+
