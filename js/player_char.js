@@ -15,11 +15,11 @@ function getChar (race, job, gender) {
         level: 1,
         baseAttr: structuredClone(baseAttr),
         buff: false,
-        eq: {weapon: null, armor: null, trinket: structuredClone(eq.trinkets.rabbits_foot)}
+        eq: {weapon: structuredClone(eq.weapons.wooden_sword), armor: null, trinket: structuredClone(eq.trinkets.rabbits_foot)}
     }
     char.totalAttr = updateCharTotalAttr(char)
     char.img = getCharSprite(char)
-    console.log(char.img)
+    console.log(char.totalAttr)
     char.name = rndFromArr(races[char.race.name].names[char.gender])
     char.lastName = rndFromArr(races[char.race.name].lastNames)
     char.skills = [structuredClone(skills[char.job.startSkill])]
@@ -29,7 +29,7 @@ function getChar (race, job, gender) {
 }
 
 function makePlayerCharDiv (pc) {
-    pc.totalAttr = multiAddAttr( [pc.baseAttr, pc.race.bonusAttr, pc.job.bonusAttr, pc.trait.bonusAttr] )
+    pc.totalAttr = updateCharTotalAttr(pc)
     let statBarPercentMulti = 2 // aka 1 point = 5% of bar filled
 
     let buffText = '-'
@@ -51,9 +51,10 @@ function makePlayerCharDiv (pc) {
     let eqTextWeapon = '-'
     let eqTextArmor = '-'
     let eqTextTrinket = '-'
+    let weaponImg = ''
     let trinketImg = ''
 
-    if (pc.eq.weapon) eqTextWeapon = pc.eq.weapon.name.toUpperCase()
+    if (pc.eq.weapon) {eqTextWeapon = pc.eq.weapon.name.toUpperCase(); trinketImg = pc.eq.weapon.img}
     if (pc.eq.armor) eqTextArmor = pc.eq.armor.name.toUpperCase()
     if (pc.eq.trinket) {eqTextTrinket = pc.eq.trinket.name.toUpperCase(); trinketImg = pc.eq.trinket.img}
 
@@ -102,9 +103,9 @@ function makePlayerCharDiv (pc) {
             <p class="pc-info-line skill-1">Skill 1: ${pc.skills[0].name.toUpperCase()}</p>
             <p class="pc-info-line skill-2">Skill 2: -</p>
             <hr>
-            <p class="pc-info-line weapon">Weapon: ${eqTextWeapon}</p>
-            <p class="pc-info-line weapon">Armor: ${eqTextArmor}</p>
-            <p class="pc-info-line weapon">Trinket: ${eqTextTrinket} <img src="${trinketImg}" style="vertical-align: bottom;transform:rotate(45deg);height: 16px;"></p>
+            <p class="pc-info-line weapon">Weapon: ${eqTextWeapon} <img src="${weaponImg}" style="vertical-align: bottom;transform:rotate(45deg);height:16px;"></p>
+            <p class="pc-info-line armor">Armor: ${eqTextArmor}</p>
+            <p class="pc-info-line trinket">Trinket: ${eqTextTrinket} <img src="${trinketImg}" style="vertical-align: bottom;transform:rotate(45deg);height: 16px;"></p>
         </div>
         
     `
@@ -187,7 +188,7 @@ function updateCharTotalAttr (char) {
     if (char.eq.trinket) arrayOfAttrObj.push(char.eq.trinket.bonusAttr)
        
     arrayOfAttrObj.push(char.baseAttr, char.race.bonusAttr, char.job.bonusAttr, char.trait.bonusAttr)
-    char.totalAttr = multiAddAttr(arrayOfAttrObj)
+    return multiAddAttr(arrayOfAttrObj)
 }
 
 // Use the addAttr function for all attributes given an array of objects containing attributes

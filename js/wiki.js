@@ -39,7 +39,9 @@ const food = {
 }
 
 const eq = {
-    weapons: {},
+    weapons: {
+        wooden_sword: {name: 'wooden sword', atk: 2, bonusAttr: {}, desc: 'A wooden sword', img: 'img/items/wooden_sword.png'}
+    },
     armors: {},
     trinkets: {
         rabbits_foot: {name: 'rabbits foot', bonusAttr: {lck: 2}, desc: 'A lucky rabbits foot.', img: 'img/items/rabbits_foot.png'}
