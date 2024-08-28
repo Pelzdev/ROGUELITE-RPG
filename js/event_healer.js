@@ -6,7 +6,7 @@ function potion () {
     eventDiv.style.backgroundPosition = 'center center'
 
     const amountRestored = rndInt(40, 60)
-    const maxH = 70
+    const maxH = 80
     const charHeight = 165
     const spriteH = (charHeight / 200) * maxH
     

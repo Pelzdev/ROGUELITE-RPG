@@ -12,7 +12,7 @@ function trainer () {
     eventDiv.style.backgroundPosition = 'center center'
 
     let trainerName = ''
-    const maxH = 70
+    const maxH = 80
     const charHeight = 180
     const spriteH = (charHeight / 200) * maxH
 

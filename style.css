@@ -213,6 +213,7 @@ hr {
 
 .consumable-info button {
     width: 50px;
+    font-size: 14px;
 }
 
 /* ##### EVENT STUFF ##### */
@@ -227,7 +228,7 @@ hr {
 
 .event-sprite-img-container {
     position: relative;
-    height: 95%;
+    height: calc(100% - 20px);
 }
 
 .event-sprite-img {

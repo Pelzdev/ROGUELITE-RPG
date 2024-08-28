@@ -9,7 +9,7 @@ function inn (pc) {
     eventDiv.style.backgroundSize = 'cover'
     eventDiv.style.backgroundPosition = 'center center'
 
-    const maxH = 60
+    const maxH = 80
     const charHeight = 180
     const spriteH = (charHeight / 200) * maxH
     

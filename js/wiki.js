@@ -7,9 +7,9 @@ const skills = {
     attack:             {name: 'attack',            target: 'enemy', type: 'damage', attribute: null, chance: 100, power: 20, status: null,         statusChance: null, critChance: 5},
     // attribute skills
     bash_1:             {name: 'bash I',            target: 'enemy', type: 'damage', attribute: 'str', chance: 30, power: 40, status: 'stun',       statusChance: 30,   critChance: 5},
-    eviscerate_1:       {name: 'eviscerate I',      target: 'enemy', type: 'damage', attribute: 'agi', chance: 20, power: 30, status: 'bleeding',   statusChance: 35,   critChance: 5},
-    gambling_strike_1:  {name: 'gambling strike I', target: 'enemy', type: 'damage', attribute: 'lck', chance: 30, power: 40, status: null,         statusChance: 0,    critChance: 5},
-    heal_self_1:        {name: 'heal self I',       target: 'self',  type: 'heal',   attribute: 'int', chance: 20, power: 50, status: null,         statusChance: null, critChance: 5},
+    eviscerate_1:       {name: 'eviscerate I',      target: 'enemy', type: 'damage', attribute: 'agi', chance: 20, power: 30, status: 'bleeding',   statusChance: 50,   critChance: 5},
+    gambling_strike_1:  {name: 'gambling strike I', target: 'enemy', type: 'damage', attribute: 'lck', chance: 50, power: 25, status: null,         statusChance: 0,    critChance: 20},
+    heal_self_1:        {name: 'heal self I',       target: 'self',  type: 'heal',   attribute: 'int', chance: 25, power: 40, status: null,         statusChance: null, critChance: 5},
     magic_bolt_1:       {name: 'magic bolt I',      target: 'enemy', type: 'damage', attribute: 'int', chance: 40, power: 40, status: null,         statusChance: null, critChance: 5},
     power_shot_1:       {name: 'power shot I',      target: 'enemy', type: 'damage', attribute: 'agi', chance: 30, power: 40, status: 'stun',       statusChance: 15,   critChance: 10},
     scream_1:           {name: 'scream I',          target: 'enemy', type: 'damage', attribute: 'chr', chance: 30, power: 30, status: 'stun',       statusChance: 30,   critChance: 5}

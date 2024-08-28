@@ -80,7 +80,7 @@ function clickConsumable (food) {
     let targetEl = document.querySelector('.consumable-info')
     targetEl.innerHTML = `
         ${playerChar.food.infoText}
-        Do you want to use ${playerChar.food.name}
+        <p style="font-size:14px;">Do you want to use ${playerChar.food.name}<p>
         <button onclick="useConsumable('yes')">YES</button><button onclick="useConsumable('no')">NO</button>
     `
     targetEl.style.display = 'block'
