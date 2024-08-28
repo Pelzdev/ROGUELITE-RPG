@@ -31,7 +31,7 @@ function trainer (selectedTrainer) {
     const charHeight = 180
     const spriteH = (charHeight / 200) * maxH
     
-    eventDiv.innerHTML += `<h3 class="window-header">TRAINER</h3>`
+    eventDiv.innerHTML += `<p class="window-header">TRAINER</p>`
     eventDiv.innerHTML += `
         <div class="event-sprite-img-container">
             <img class="event-sprite-img" style="height:${spriteH}%" src="img/events/trainer/trainer_${trainerChosen}.png">
@@ -41,7 +41,7 @@ function trainer (selectedTrainer) {
     eventText.innerHTML = `
         <hr>
         <p class="event-text-row">You found a trainer willing to help!</p><hr>
-        <p id="event-text-row">${trainerChosen.toUpperCase()} will help you raise your ${attrToTrainText} attribute(s) by ${trainAmount} for ${trainCost} gold (incl. a ${playerChar.totalAttr.chr} G discount). Do you accept? You have ${playerChar.gold} gold.</p>
+        <p id="event-text-row">${trainerChosen.toUpperCase()} will help you raise your ${attrToTrainText} attribute(s) by ${trainAmount} for ${trainCost} gold (incl a ${playerChar.totalAttr.chr}G discount). Do you accept? You have ${playerChar.gold} gold.</p>
         <br>
         <div id="event-btn-container">
             <button class="btn-trainer yes" onclick="trainerYes()">YES</button><button class="btn-trainer no" onclick="trainerNo()">NO</button>

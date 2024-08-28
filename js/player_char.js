@@ -15,6 +15,7 @@ function getChar (race, job, gender) {
         level: 1,
         baseAttr: structuredClone(baseAttr),
         buff: false,
+        eq: {weapon: null, armor: null, trinket: structuredClone(eq.trinkets.rabbits_foot)}
     }
     char.totalAttr = multiAddAttr( [char.baseAttr, char.race.bonusAttr, char.job.bonusAttr, char.trait.bonusAttr] )
     char.img = getCharSprite(char)
@@ -31,6 +32,9 @@ function makePlayerCharDiv (pc) {
     pc.totalAttr = multiAddAttr( [pc.baseAttr, pc.race.bonusAttr, pc.job.bonusAttr, pc.trait.bonusAttr] )
     let statBarPercentMulti = 5 // aka 1 point = 5% of bar filled
 
+    let buffText = '-'
+    if (pc.buff) buffText = pc.buff.type
+
     let foodImg0 = ''
     let foodImg1 = ''
     let foodImg2 = ''
@@ -44,8 +48,15 @@ function makePlayerCharDiv (pc) {
         foodImg2 =  `<img src="${pc.food[2].img}" style="height: 32px;">`
     } else {foodImg2 = ''}
 
-    let buffText = '-'
-    if (pc.buff) buffText = pc.buff.type
+    let eqTextWeapon = '-'
+    let eqTextArmor = '-'
+    let eqTextTrinket = '-'
+
+    if (pc.eq.weapon) eqTextWeapon = pc.eq.weapon.name.toUpperCase()
+    if (pc.eq.armor) eqTextArmor = pc.eq.armor.name.toUpperCase()
+    if (pc.eq.trinket) eqTextTrinket = pc.eq.trinket.name.toUpperCase()
+
+    
 
     const maxH = 85
     const spriteH = (pc.height / 200) * maxH
@@ -61,25 +72,40 @@ function makePlayerCharDiv (pc) {
     let html = `
         <p class="window-header">PLAYER</p>
         <hr>
-        <p class="pc-info-line name">${pc.name.toUpperCase()} ${pc.lastName.toUpperCase()}</p>
-        <p class="pc-info-line trait">${pc.trait.name.toUpperCase()} ${pc.race.name.toUpperCase()} ${genderSymbol[pc.gender]}</p>
-        <p class="pc-info-line joblvl">lvl ${pc.level} ${pc.job.name.toUpperCase()}</p>
-        <hr>
-        <div class="pc-info-stats">
-            STR: ${checkAddZero(pc.totalAttr.str)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.str*statBarPercentMulti}%;"></div> </div> <br>
-            AGI: ${checkAddZero(pc.totalAttr.agi)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.agi*statBarPercentMulti}%;"></div> </div> <br>
-            INT: ${checkAddZero(pc.totalAttr.int)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.int*statBarPercentMulti}%;"></div> </div> <br>
-            CHR: ${checkAddZero(pc.totalAttr.chr)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.chr*statBarPercentMulti}%;"></div> </div> <br>
-            LCK: ${checkAddZero(pc.totalAttr.lck)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.lck*statBarPercentMulti}%;"></div> </div>
+        <div class="player-info-section section-1">
+            <p class="pc-info-line name">${pc.name.toUpperCase()} ${pc.lastName.toUpperCase()}</p>
+            <p class="pc-info-line trait">${pc.trait.name.toUpperCase()} ${pc.race.name.toUpperCase()} ${genderSymbol[pc.gender]}</p>
+            <p class="pc-info-line joblvl">lvl ${pc.level} ${pc.job.name.toUpperCase()}</p>
+            <br>
+            <hr>
+            <div class="pc-attr-container">
+                STR: ${checkAddZero(pc.totalAttr.str)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.str*statBarPercentMulti}%;"></div> </div> <br>
+                AGI: ${checkAddZero(pc.totalAttr.agi)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.agi*statBarPercentMulti}%;"></div> </div> <br>
+                INT: ${checkAddZero(pc.totalAttr.int)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.int*statBarPercentMulti}%;"></div> </div> <br>
+                CHR: ${checkAddZero(pc.totalAttr.chr)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.chr*statBarPercentMulti}%;"></div> </div> <br>
+                LCK: ${checkAddZero(pc.totalAttr.lck)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.lck*statBarPercentMulti}%;"></div> </div>
+            </div>
+            <br>
+            <hr>
+            <p class="pc-info-line gold">GOLD: ${pc.gold}</p>
+            <p class="pc-info-line buff">BUFF: ${buffText}</p>
+            <br>
+            <hr>
+            <div class="consumable-container">
+                <div class="consumable-img-container food0" onclick="clickConsumable(0)">${foodImg0}</div>
+                <div class="consumable-img-container food1" onclick="clickConsumable(1)">${foodImg1}</div>
+                <div class="consumable-img-container food2" onclick="clickConsumable(2)">${foodImg2}</div>
+            </div>
         </div>
-        <hr>
-        <p class="pc-eq-line gold">GOLD:${pc.gold}, BUFF:${buffText}</p>
-        <div class="consumable-container">
-            <div class="consumable-img-container food0" onclick="clickConsumable(0)">${foodImg0}</div>
-            <div class="consumable-img-container food1" onclick="clickConsumable(1)">${foodImg1}</div>
-            <div class="consumable-img-container food2" onclick="clickConsumable(2)">${foodImg2}</div>
+        <div class="player-info-section section-2">
+            <p class="pc-info-line skill-1">Skill 1: ${pc.skills[0].name.toUpperCase()}</p>
+            <p class="pc-info-line skill-2">Skill 2: -</p>
+            <hr>
+            <p class="pc-info-line weapon">Weapon: ${eqTextWeapon}</p>
+            <p class="pc-info-line weapon">Armor: ${eqTextArmor}</p>
+            <p class="pc-info-line weapon">Trinket: ${eqTextTrinket}</p>
         </div>
-        <div class="consumable-info" style="border: 1px solid gray; display:none;"></div>
+        
     `
 
     playerSpriteEl.innerHTML = spriteHtml
@@ -93,11 +119,15 @@ function clickConsumable (arrPos) {
     document.getElementById('button-bar').classList.add('unclickable')
 
     popupDiv.innerHTML = `
-        <h3>${playerChar.food[arrPos].name}</h3>
+        <br>
+        <p style="font-size: 12px;">${playerChar.food[arrPos].name.toUpperCase()}</p>
         <img class="popup-div-img" src="${playerChar.food[arrPos].img}">
         <p>${playerChar.food[arrPos].infoText}</p>
+        <br>
         <hr>
-        <p>Use it?</p><br>
+        <br>
+        <p>Use it?</p>
+        <br>
         <button class="btn-medium" onclick="consumableChoice('yes', ${arrPos})">Yes</button><button class="btn-medium" onclick="consumableChoice('no')">No</button>
     ` 
     popupDiv.style.display = 'block'

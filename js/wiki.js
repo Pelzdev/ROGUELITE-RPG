@@ -38,11 +38,19 @@ const food = {
     }
 }
 
+const eq = {
+    weapons: {},
+    armors: {},
+    trinkets: {
+        rabbits_foot: {name: 'rabbits foot', bonusAttr: {lck: 2}, desc: 'A lucky rabbits foot.'}
+    }
+}
+
 const races = {
     dwarf: {
         name: 'dwarf',
         height: 160,
-        bonusAttr: {str: 1, lck: 1},
+        bonusAttr: {str: 2, lck: 1},
         names: {
             male: ['Onos', 'Gular', 'Ognugg', 'Kamegg', 'Agnihm', 'Grulond', 'Irrok', 'Murduk', 'Endok', 'Bhaldun', 'Bundain', 'Thurrigg', 'Kharnus', 'Armdur', 'Harrim', 'Mornom', 'Thogram', 'Brombek', 'Ebren', 'Banram'],
             female: ['Eidi', 'Samma', 'Yduan', 'Simde', 'Gille', 'Gumda', 'Ennolli', 'Brumua', 'Kannu', 'Daza', 'Baerwaen', 'Dimras', 'Raenryl', 'Jyngwyn', 'Tyshdelle', 'Maerryl', 'Bellenura', 'Armera', 'Tyswyn', 'Tiznyss']
@@ -52,7 +60,7 @@ const races = {
     gnome: {
         name: 'gnome',
         height: 150,
-        bonusAttr: {int: 1, lck: 1},
+        bonusAttr: {int: 1, lck: 2},
         names: {
             male: ['Pinik', 'Krickleck', 'Glinkik', 'Finbu', 'Leeni','Ortix', 'Arifan', 'Pippin', 'Sprocket', 'Twiggle', 'Wizzlewort', 'Oswald', 'Glimbol', 'Elrik', 'Oakleaf', 'Zephyr', 'Tinkerspark', 'Bimble', 'Quigley', 'Widget', 'Tinkerbob', 'Tinkertop', 'Jinglehops'],
             female: ['Milbick', 'Gluxilin', 'Nysi', 'Yorhana', 'Follin', 'Myxis', 'Isona', 'Selphina', 'Rosiwyse', 'Krilin', 'Bimble', 'Fizzlina', 'Ember', 'Mira', 'Glimmerdust', 'Jinglebelle', 'Snickerhuff', 'Nibbly', 'Petal', 'Gretel', 'Faeleaf', 'Willow']
@@ -62,7 +70,7 @@ const races = {
     highelf: {
         name: 'highelf',
         height: 200,
-        bonusAttr: {int: 1, agi: 1},
+        bonusAttr: {int: 2, agi: 1},
         names: {
             male: ['Aerendil', 'Belthorion', 'Caeldor', 'Diorion', 'Elenion', 'Thalion', 'Aldaril', 'Thalmor', 'Aurelian', 'Galerion', 'Pellril', 'Ravelanar', 'Vingron', 'Angoaril', 'Murian', 'Karved', 'Telve', 'Olqudur', 'Glaon', 'Mithril'],
             female: ['Aelnora', 'Clara', 'Firira', 'Zaonna', 'Garabella', 'Ravielle', 'Astnirya', 'Ayryeminde', 'Elelenya', 'Thramfaere', 'Helmaire', 'Erien', 'Inielina', 'Taalae', 'Tanarie', 'Aurtha', 'Camiril', 'Calmtaire', 'Cirine', 'Niraahil']
@@ -72,7 +80,7 @@ const races = {
     human: {
         name: 'human',
         height: 180,
-        bonusAttr: {int: 1, chr: 1},
+        bonusAttr: {int: 1, chr: 2},
         names: {
             male: ['Alexander',  'Benjamin', 'Christopher', 'Daniel', 'Ethan',  'Frederick', 'Gabriel', 'Henry', 'Isaac', 'James', 'Arnall', 'Estevan', 'Claude', 'Lenard', 'Kalle', 'Colby', 'Ulises', 'Gary', 'Victor', 'Hubert', 'Aldo'],
             female: ['Amelia', 'Beatrice', 'Charlotte', 'Diana', 'Eleanor',  'Fiona',  'Grace',  'Hannah', 'Isabella', 'Julia', 'Berty', 'Thabita', 'Madison', 'Margot', 'Charline', 'Livia', 'Aubrie', 'Camile', 'Leyla', 'Rosina', 'Chantel', 'Maira', 'Autumn']
@@ -82,7 +90,7 @@ const races = {
     tauren: {
         name: 'tauren',
         height: 200,
-        bonusAttr: {str: 2},
+        bonusAttr: {str: 3},
         names: {
             male: ['Anoki', 'Dichali', 'Chibo', 'Matoshkah', 'Giqo', 'Shusta', 'Mojag', 'Vudri', 'Skah', 'Ommioh'],
             female: ['Shania', 'Atepa', 'Tiva', 'Mona', 'Uyo', 'Alameda', 'Taze', 'Tiponi', 'Uwuno', 'Enge']
@@ -92,7 +100,7 @@ const races = {
     mouseling: {
         name: 'mouseling',
         height: 140,
-        bonusAttr: {agi: 2},
+        bonusAttr: {agi: 3},
         names: {
             male: ['Jasper', 'Munchkin', 'Titan', 'Bandit', 'Noodle', 'Remy', 'Bingo', 'Finnegan', 'Orbit', 'Maverick', 'Dave', 'Charm', 'Cheddar', 'Oak', 'Autumn', 'Hippie', 'Boots', 'Vinnie', 'Cosmo', 'Tigger', 'Milo', 'Skip', 'Nibbles', 'George'],
             female: ['Zara', 'Zelda', 'Hazel', 'Honey', 'Cherry', 'Sky', 'Marigold', 'Dahlia', 'Fifi', 'Flora', 'Suzy', 'Jaffa', 'Sarah', 'Xia', 'Cutie', 'Pumpkin', 'Splash', 'Adele', 'Gladiola', 'Petunia', 'Millie', 'Iris', 'Zoey']
@@ -102,7 +110,7 @@ const races = {
     orc: {
         name: 'orc',
         height: 185,
-        bonusAttr: {str: 1, agi: 1},
+        bonusAttr: {str: 2, agi: 1},
         names: {
             male: ['Gruluk', 'Throg', 'Gornak', 'Morbash', 'Bugrash', 'Wogharod', 'Julakgh', 'Ghamorz', 'Atulg', 'Korgak', 'Rohlegg', 'Dreknir', 'Zanol', 'Throztarak', 'Rorn', 'Krohlme', 'Kogdurm', 'Krakk', 'Crati', 'Grosush', 'Gremdenk'],
             female: ['Atrarim', 'Azrash', 'Borgakh', 'Dushara', 'Ede', 'Geshatis', 'Igruk', 'Kraga', 'Lazara', 'Lursha', 'Ewdi', 'Sata', 'Rohzi', 'Gusu', 'Sena', 'Tohka', 'Ergit', 'Grohta', 'Modi', 'Okida', 'Rane']
@@ -112,7 +120,7 @@ const races = {
     owlin: {
         name: 'owlin',
         height: 170,
-        bonusAttr: {agi: 1, lck: 1},
+        bonusAttr: {agi: 2, lck: 1},
         names: {
             male: ['Elyndor', 'Celestrion', 'Whiskerwing', 'Vornisarak', 'Stormrider', 'Talonheart', 'Garrick', 'Quillon', 'Moonshadow', 'Skyfeather', 'Silas', 'Aeris', 'Aerithius', 'Songbird', 'Sunwing', 'Hoothgar', 'Hawklyn', 'Ravenshade', 'Thadriel', 'Vireldor', 'Gwyndor'],
             female: ['Saphira', 'Liora', 'Vespera', 'Thalindra', 'Sylara', 'Elysia', 'Willow', 'Callista', 'Aelara', 'Luna', 'Lunaflight', 'Aelaril', 'Moonstone', 'Lunareen', 'Ivy', 'Elianna', 'Kaelith', 'Nyxora', 'Thalia', 'Zenobia', 'Lunara', 'Thissa', 'Eirwynn', 'Aurora']
@@ -124,37 +132,37 @@ const races = {
 const jobs = {
     archer: {
         name: 'archer',
-        bonusAttr: {agi: 2},
+        bonusAttr: {agi: 3},
         startSkill: 'power_shot_1'
     },
     bard: {
         name: 'bard',
-        bonusAttr: {chr: 2},
+        bonusAttr: {chr: 3},
         startSkill: 'scream_1'
     },
     gambler: {
         name: 'gambler',
-        bonusAttr: {lck: 2},
+        bonusAttr: {lck: 3},
         startSkill: 'gambling_strike_1'
     },
     mage: {
         name: 'mage',
-        bonusAttr: {int: 2},
+        bonusAttr: {int: 3},
         startSkill: 'magic_bolt_1'
     },
     priest: {
         name: 'priest',
-        bonusAttr: {int: 1, chr: 1},
+        bonusAttr: {int: 2, chr: 1},
         startSkill: 'heal_self_1'
     },
     rogue: {
         name: 'rogue',
-        bonusAttr: {agi: 1, lck: 1},
+        bonusAttr: {agi: 2, lck: 1},
         startSkill: 'eviscerate_1'
     },
     warrior: {
         name: 'warrior',
-        bonusAttr: {str: 1, agi: 1},
+        bonusAttr: {str: 2, agi: 1},
         startSkill: 'bash_1'
     }
 }

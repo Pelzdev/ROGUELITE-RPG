@@ -34,7 +34,7 @@ function makeBattleDiv (enemy) {
 
     let html = ''
     html += `
-        <h3 class="window-header">${enemyType.toUpperCase()}</h3>
+        <p class="window-header">${enemyType.toUpperCase()}</p>
         <hr>
         <p class="enemy-info-line name">lvl ${enemy.level} ${enemy.name.toUpperCase()}</p>
         <hr>

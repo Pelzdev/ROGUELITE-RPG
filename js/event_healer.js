@@ -10,7 +10,7 @@ function potion () {
     const charHeight = 165
     const spriteH = (charHeight / 200) * maxH
     
-    eventDiv.innerHTML += `<h3 class="window-header">HEALER!</h3>`
+    eventDiv.innerHTML += `<p class="window-header">HEALER!</p>`
     eventDiv.innerHTML += `
         <div class="event-sprite-img-container">
             <img class="event-sprite-img" style="height:${spriteH}%" src="img/events/healer/healer_1.png">
