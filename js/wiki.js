@@ -1,5 +1,5 @@
 const baseAttr = {
-    str: 5, agi: 5, int: 5, chr: 5, lck: 5
+    end: 5, str: 5, agi: 5, dex: 5, int: 5, chr: 5, lck: 5
 }
 // SKILLS
 const skills = {
@@ -52,7 +52,8 @@ const races = {
     dwarf: {
         name: 'dwarf',
         height: 160,
-        bonusAttr: {str: 2, lck: 1},
+        dmg: 5, def: 5,
+        bonusAttr: {end: 2, str: 2, lck: 1},
         names: {
             male: ['Onos', 'Gular', 'Ognugg', 'Kamegg', 'Agnihm', 'Grulond', 'Irrok', 'Murduk', 'Endok', 'Bhaldun', 'Bundain', 'Thurrigg', 'Kharnus', 'Armdur', 'Harrim', 'Mornom', 'Thogram', 'Brombek', 'Ebren', 'Banram'],
             female: ['Eidi', 'Samma', 'Yduan', 'Simde', 'Gille', 'Gumda', 'Ennolli', 'Brumua', 'Kannu', 'Daza', 'Baerwaen', 'Dimras', 'Raenryl', 'Jyngwyn', 'Tyshdelle', 'Maerryl', 'Bellenura', 'Armera', 'Tyswyn', 'Tiznyss']
@@ -62,7 +63,8 @@ const races = {
     gnome: {
         name: 'gnome',
         height: 150,
-        bonusAttr: {int: 1, lck: 2},
+        dmg: 5, def: 5,
+        bonusAttr: {dex: 2, int: 1, lck: 2},
         names: {
             male: ['Pinik', 'Krickleck', 'Glinkik', 'Finbu', 'Leeni','Ortix', 'Arifan', 'Pippin', 'Sprocket', 'Twiggle', 'Wizzlewort', 'Oswald', 'Glimbol', 'Elrik', 'Oakleaf', 'Zephyr', 'Tinkerspark', 'Bimble', 'Quigley', 'Widget', 'Tinkerbob', 'Tinkertop', 'Jinglehops'],
             female: ['Milbick', 'Gluxilin', 'Nysi', 'Yorhana', 'Follin', 'Myxis', 'Isona', 'Selphina', 'Rosiwyse', 'Krilin', 'Bimble', 'Fizzlina', 'Ember', 'Mira', 'Glimmerdust', 'Jinglebelle', 'Snickerhuff', 'Nibbly', 'Petal', 'Gretel', 'Faeleaf', 'Willow']
@@ -72,7 +74,8 @@ const races = {
     highelf: {
         name: 'highelf',
         height: 200,
-        bonusAttr: {int: 2, agi: 1},
+        dmg: 5, def: 5,
+        bonusAttr: {int: 2, agi: 2, chr: 1},
         names: {
             male: ['Aerendil', 'Belthorion', 'Caeldor', 'Diorion', 'Elenion', 'Thalion', 'Aldaril', 'Thalmor', 'Aurelian', 'Galerion', 'Pellril', 'Ravelanar', 'Vingron', 'Angoaril', 'Murian', 'Karved', 'Telve', 'Olqudur', 'Glaon', 'Mithril'],
             female: ['Aelnora', 'Clara', 'Firira', 'Zaonna', 'Garabella', 'Ravielle', 'Astnirya', 'Ayryeminde', 'Elelenya', 'Thramfaere', 'Helmaire', 'Erien', 'Inielina', 'Taalae', 'Tanarie', 'Aurtha', 'Camiril', 'Calmtaire', 'Cirine', 'Niraahil']
@@ -82,7 +85,8 @@ const races = {
     human: {
         name: 'human',
         height: 180,
-        bonusAttr: {int: 1, chr: 2},
+        dmg: 5, def: 5,
+        bonusAttr: {dex: 2, int: 2, chr: 2},
         names: {
             male: ['Alexander',  'Benjamin', 'Christopher', 'Daniel', 'Ethan',  'Frederick', 'Gabriel', 'Henry', 'Isaac', 'James', 'Arnall', 'Estevan', 'Claude', 'Lenard', 'Kalle', 'Colby', 'Ulises', 'Gary', 'Victor', 'Hubert', 'Aldo'],
             female: ['Amelia', 'Beatrice', 'Charlotte', 'Diana', 'Eleanor',  'Fiona',  'Grace',  'Hannah', 'Isabella', 'Julia', 'Berty', 'Thabita', 'Madison', 'Margot', 'Charline', 'Livia', 'Aubrie', 'Camile', 'Leyla', 'Rosina', 'Chantel', 'Maira', 'Autumn']
@@ -92,7 +96,8 @@ const races = {
     tauren: {
         name: 'tauren',
         height: 200,
-        bonusAttr: {str: 3},
+        dmg: 5, def: 5,
+        bonusAttr: {end: 2, str: 3},
         names: {
             male: ['Anoki', 'Dichali', 'Chibo', 'Matoshkah', 'Giqo', 'Shusta', 'Mojag', 'Vudri', 'Skah', 'Ommioh'],
             female: ['Shania', 'Atepa', 'Tiva', 'Mona', 'Uyo', 'Alameda', 'Taze', 'Tiponi', 'Uwuno', 'Enge']
@@ -102,7 +107,8 @@ const races = {
     mouseling: {
         name: 'mouseling',
         height: 140,
-        bonusAttr: {agi: 3},
+        dmg: 5, def: 5,
+        bonusAttr: {agi: 3, dex: 1, lck: 1},
         names: {
             male: ['Jasper', 'Munchkin', 'Titan', 'Bandit', 'Noodle', 'Remy', 'Bingo', 'Finnegan', 'Orbit', 'Maverick', 'Dave', 'Charm', 'Cheddar', 'Oak', 'Autumn', 'Hippie', 'Boots', 'Vinnie', 'Cosmo', 'Tigger', 'Milo', 'Skip', 'Nibbles', 'George'],
             female: ['Zara', 'Zelda', 'Hazel', 'Honey', 'Cherry', 'Sky', 'Marigold', 'Dahlia', 'Fifi', 'Flora', 'Suzy', 'Jaffa', 'Sarah', 'Xia', 'Cutie', 'Pumpkin', 'Splash', 'Adele', 'Gladiola', 'Petunia', 'Millie', 'Iris', 'Zoey']
@@ -112,7 +118,8 @@ const races = {
     orc: {
         name: 'orc',
         height: 185,
-        bonusAttr: {str: 2, agi: 1},
+        dmg: 5, def: 5,
+        bonusAttr: {end: 2, str: 2, agi: 1},
         names: {
             male: ['Gruluk', 'Throg', 'Gornak', 'Morbash', 'Bugrash', 'Wogharod', 'Julakgh', 'Ghamorz', 'Atulg', 'Korgak', 'Rohlegg', 'Dreknir', 'Zanol', 'Throztarak', 'Rorn', 'Krohlme', 'Kogdurm', 'Krakk', 'Crati', 'Grosush', 'Gremdenk'],
             female: ['Atrarim', 'Azrash', 'Borgakh', 'Dushara', 'Ede', 'Geshatis', 'Igruk', 'Kraga', 'Lazara', 'Lursha', 'Ewdi', 'Sata', 'Rohzi', 'Gusu', 'Sena', 'Tohka', 'Ergit', 'Grohta', 'Modi', 'Okida', 'Rane']
@@ -122,7 +129,8 @@ const races = {
     owlin: {
         name: 'owlin',
         height: 170,
-        bonusAttr: {agi: 2, lck: 1},
+        dmg: 5, def: 5,
+        bonusAttr: {agi: 2, int: 1, lck: 2},
         names: {
             male: ['Elyndor', 'Celestrion', 'Whiskerwing', 'Vornisarak', 'Stormrider', 'Talonheart', 'Garrick', 'Quillon', 'Moonshadow', 'Skyfeather', 'Silas', 'Aeris', 'Aerithius', 'Songbird', 'Sunwing', 'Hoothgar', 'Hawklyn', 'Ravenshade', 'Thadriel', 'Vireldor', 'Gwyndor'],
             female: ['Saphira', 'Liora', 'Vespera', 'Thalindra', 'Sylara', 'Elysia', 'Willow', 'Callista', 'Aelara', 'Luna', 'Lunaflight', 'Aelaril', 'Moonstone', 'Lunareen', 'Ivy', 'Elianna', 'Kaelith', 'Nyxora', 'Thalia', 'Zenobia', 'Lunara', 'Thissa', 'Eirwynn', 'Aurora']
@@ -215,6 +223,7 @@ const enemies = {
         level: 1, 
         hpMax: 10, 
         hpLeft: 10,
+        dmg: 1, def: 1,
         totalAttr: {str: 1, agi: 3, int: 1, chr: 1, lck: 3},
         skills: [skills.attack], 
         status: '',
@@ -227,6 +236,7 @@ const enemies = {
         level: 2, 
         hpMax: 15, 
         hpLeft: 15,
+        dmg: 2, def: 1,
         totalAttr: {str: 2, agi: 4, int: 2, chr: 1, lck: 1},
         skills: [skills.attack],
         status: '',
@@ -239,6 +249,7 @@ const enemies = {
         level: 3, 
         hpMax: 25, 
         hpLeft: 25,
+        dmg: 4, def: 2,
         totalAttr: {str: 2, agi: 4, int: 3, chr: 1, lck: 3},
         skills: [skills.eviscerate_1], 
         status: '',
@@ -251,6 +262,7 @@ const enemies = {
         level: 3, 
         hpMax: 30, 
         hpLeft: 30,
+        dmg: 3, def: 3,
         totalAttr: {str: 3, agi: 3, int: 2, chr: 1, lck: 1},
         skills: [skills.attack],
         status: '',
@@ -263,6 +275,7 @@ const enemies = {
         level: 4, 
         hpMax: 50, 
         hpLeft: 50,
+        dmg: 4, def: 4,
         totalAttr: {str: 6, agi: 5, int: 1, chr: 1, lck: 2},
         skills: [skills.tusk_attack_1],
         status: '',
@@ -275,6 +288,7 @@ const enemies = {
         level: 4, 
         hpMax: 35, 
         hpLeft: 35,
+        dmg: 5, def: 2,
         totalAttr: {str: 4, agi: 5, int: 3, chr: 2, lck: 4},
         skills: [skills.bite_1],
         status: '',
@@ -287,6 +301,7 @@ const enemies = {
         level: 5, 
         hpMax: 45, 
         hpLeft: 45,
+        dmg: 2, def: 5,
         totalAttr: {str: 3, agi: 2, int: 4, chr: 3, lck: 3},
         skills: [skills.scream_1],
         status: '',
@@ -299,6 +314,7 @@ const enemies = {
         level: 6, 
         hpMax: 60, 
         hpLeft: 60,
+        dmg: 5, def: 5,
         totalAttr: {str: 6, agi: 2, int: 3, chr: 1, lck: 3},
         skills: [skills.bash_1],
         status: '',
@@ -313,6 +329,7 @@ const enemies = {
         height: 200, 
         hpMax: 80, 
         hpLeft: 80,
+        dmg: 6, def: 6,
         totalAttr: {str: 7, agi: 2, int: 2, chr: 1, lck: 1},
         skills: [skills.bash_1],
         status: '',

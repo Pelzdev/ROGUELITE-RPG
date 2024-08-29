@@ -78,27 +78,32 @@ function makePlayerCharDiv (pc) {
             <p class="pc-info-line name">${pc.name.toUpperCase()} ${pc.lastName.toUpperCase()}</p>
             <p class="pc-info-line trait">${pc.trait.name.toUpperCase()} ${pc.race.name.toUpperCase()} ${genderSymbol[pc.gender]}</p>
             <p class="pc-info-line joblvl">lvl ${pc.level} ${pc.job.name.toUpperCase()}</p>
-            <br>
+            <p class="pc-info-line atkdef"><i class="icon-sword"></i> ${pc.race.dmg} <i class="icon-shield"></i> ${pc.race.def}</p>
             <hr>
-            <div class="pc-attr-container">
-                STR: ${checkAddZero(pc.totalAttr.str)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.str*statBarPercentMulti}%;"></div> </div> <br>
-                AGI: ${checkAddZero(pc.totalAttr.agi)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.agi*statBarPercentMulti}%;"></div> </div> <br>
-                INT: ${checkAddZero(pc.totalAttr.int)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.int*statBarPercentMulti}%;"></div> </div> <br>
-                CHR: ${checkAddZero(pc.totalAttr.chr)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.chr*statBarPercentMulti}%;"></div> </div> <br>
-                LCK: ${checkAddZero(pc.totalAttr.lck)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.lck*statBarPercentMulti}%;"></div> </div>
+            <div class="pc-attr-stats-container">
+                <div class="pc-attr-container" style="width:62%;">
+                    END:${checkAddZero(pc.totalAttr.end)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.end*statBarPercentMulti}%;"></div> </div> <br>
+                    STR:${checkAddZero(pc.totalAttr.str)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.str*statBarPercentMulti}%;"></div> </div> <br>
+                    AGI:${checkAddZero(pc.totalAttr.agi)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.agi*statBarPercentMulti}%;"></div> </div> <br>
+                    DEX:${checkAddZero(pc.totalAttr.dex)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.dex*statBarPercentMulti}%;"></div> </div> <br>
+                    INT:${checkAddZero(pc.totalAttr.int)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.int*statBarPercentMulti}%;"></div> </div> <br>
+                    CHR:${checkAddZero(pc.totalAttr.chr)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.chr*statBarPercentMulti}%;"></div> </div> <br>
+                    LCK:${checkAddZero(pc.totalAttr.lck)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.lck*statBarPercentMulti}%;"></div> </div>
+                </div>
+                <div class="res-container">
+                    <p>Resists:</p>
+                    <p><i class="icon-physical"></i>0% <i class="icon-fire"></i>0%</p>
+                    <p><i class="icon-cold"></i>0% <i class="icon-electric"></i>0%</p>
+                    <p><i class="icon-water"></i>0% <i class="icon-nature"></i>0%</p>
+                    <p><i class="icon-poison"></i>0% <i class="icon-holy"></i>0%</p>
+                </div>
             </div>
-            <br>
             <hr>
             <p class="pc-info-line gold">GOLD: ${pc.gold}</p>
             <p class="pc-info-line buff">BUFF: ${buffText}</p>
-            <br>
             <hr>
-            <div class="consumable-container">
-                <div class="consumable-img-container food0" onclick="clickConsumable(0)">${foodImg0}</div>
-                <div class="consumable-img-container food1" onclick="clickConsumable(1)">${foodImg1}</div>
-                <div class="consumable-img-container food2" onclick="clickConsumable(2)">${foodImg2}</div>
-            </div>
         </div>
+
         <div class="player-info-section section-2">
             <p class="pc-info-line skill-1">Skill 1: ${pc.skills[0].name.toUpperCase()}</p>
             <p class="pc-info-line skill-2">Skill 2: -</p>
@@ -106,6 +111,12 @@ function makePlayerCharDiv (pc) {
             <p class="pc-info-line weapon">Weapon: ${eqTextWeapon} <img src="${weaponImg}" style="vertical-align: bottom;transform:rotate(45deg);height:16px;"></p>
             <p class="pc-info-line armor">Armor: ${eqTextArmor}</p>
             <p class="pc-info-line trinket">Trinket: ${eqTextTrinket} <img src="${trinketImg}" style="vertical-align: bottom;transform:rotate(45deg);height: 16px;"></p>
+            <hr>
+            <div class="consumable-container">
+                <div class="consumable-img-container food0" onclick="clickConsumable(0)">${foodImg0}</div>
+                <div class="consumable-img-container food1" onclick="clickConsumable(1)">${foodImg1}</div>
+                <div class="consumable-img-container food2" onclick="clickConsumable(2)">${foodImg2}</div>
+            </div>
         </div>
         
     `
@@ -176,7 +187,7 @@ function getCharSprite (char) {
 function checkAddZero (stat) {
     let numberShown = stat
     if (stat < 10) {
-        numberShown = `0${stat}`
+        numberShown = `<span style="color: rgba(255,255,255,0.3)">0</span>${stat}`
     }
     return numberShown
 }
@@ -193,8 +204,8 @@ function updateCharTotalAttr (char) {
 
 // Use the addAttr function for all attributes given an array of objects containing attributes
 function multiAddAttr (objArr, specificAttr) {
-    let attrArr = specificAttr || ['str', 'int', 'agi', 'chr', 'lck']
-    let totalAttr = {str: 0, int: 0, agi: 0, chr: 0, lck: 0}
+    let attrArr = specificAttr || ['end', 'str', 'int', 'agi', 'dex', 'chr', 'lck']
+    let totalAttr = {end: 0, str: 0, int: 0, agi: 0, dex: 0, chr: 0, lck: 0}
 
     for (let i = 0; i < attrArr.length; i++) {
         totalAttr[attrArr[i]] += addAttr(attrArr[i], objArr)

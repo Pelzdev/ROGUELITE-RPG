@@ -7,6 +7,8 @@ CHR now gives a discount on trainers and inn costs (-chr to gold cost)
 
 
 TODO:
+- ADD END and DEX things
+- INCORPORATE DMG AND DEF
 - add simple EQ (weap / armor / trinket?)
 - add skillcheck events (aka get something if a certain attribute is high enough)
 - add skilltrainers that boosts skills
