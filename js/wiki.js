@@ -21,18 +21,21 @@ const baseRes = {
 
 // SKILLS
 const skills = {
-    // base skills
-    attack:             {name: 'attack',            target: 'enemy', type: 'damage', attribute: 'str', chance: 100, power: 20, status: null,         statusChance: null, critChance: 5},
-    // attribute skills
-    bash_1:             {name: 'bash I',            target: 'enemy', type: 'damage', attribute: 'str', chance: 30, power: 40, status: 'stun',       statusChance: 30,   critChance: 5},
-    bite_1:             {name: 'bite I',            target: 'enemy', type: 'damage', attribute: 'str', chance: 50, power: 30, status: 'bleeding',   statusChance: 30,   critChance: 10},
-    eviscerate_1:       {name: 'eviscerate I',      target: 'enemy', type: 'damage', attribute: 'agi', chance: 20, power: 30, status: 'bleeding',   statusChance: 50,   critChance: 5},
-    gambling_strike_1:  {name: 'gambling strike I', target: 'enemy', type: 'damage', attribute: 'lck', chance: 50, power: 25, status: null,         statusChance: 0,    critChance: 20},
-    tusk_attack_1:      {name: 'tusk attack I',     target: 'enemy', type: 'damage', attribute: 'str', chance: 40, power: 20, status: 'bleeding',   statusChance: 30,   critChance: 5},
-    heal_self_1:        {name: 'heal self I',       target: 'self',  type: 'heal',   attribute: 'int', chance: 25, power: 30, status: null,         statusChance: null, critChance: 5},
-    magic_bolt_1:       {name: 'magic bolt I',      target: 'enemy', type: 'damage', attribute: 'int', chance: 50, power: 40, status: null,         statusChance: null, critChance: 5},
-    power_shot_1:       {name: 'power shot I',      target: 'enemy', type: 'damage', attribute: 'agi', chance: 30, power: 40, status: 'stun',       statusChance: 15,   critChance: 10},
-    scream_1:           {name: 'scream I',          target: 'enemy', type: 'damage', attribute: 'chr', chance: 30, power: 30, status: 'stun',       statusChance: 30,   critChance: 5}
+    // base skill (used if other skill isn't)
+    attack:             {name: 'attack',            target: 'enemy', type: 'damage', attribute: 'str', chance: 100, power: 20,   status: null,         statusChance: null, critChance: 5},
+    // other skills
+    bash_1:             {name: 'bash I',            target: 'enemy', type: 'damage', attribute: 'str', chance: 30,  power: 35,   status: 'stun',       statusChance: 25,   critChance: 5},
+    bite_1:             {name: 'bite I',            target: 'enemy', type: 'damage', attribute: 'agi', chance: 50,  power: 25,   status: 'bleeding',   statusChance: 30,   critChance: 10},
+    body_slam_1:        {name: 'body slam I',       target: 'enemy', type: 'damage', attribute: 'end', chance: 35,  power: 25,   status: 'stun',       statusChance: 25,   critChance: 5},
+    eviscerate_1:       {name: 'eviscerate I',      target: 'enemy', type: 'damage', attribute: 'agi', chance: 20,  power: 30,   status: 'bleeding',   statusChance: 50,   critChance: 5},
+    gambling_strike_1:  {name: 'gambling strike I', target: 'enemy', type: 'damage', attribute: 'lck', chance: 50,  power: 25,   status: null,         statusChance: 0,    critChance: 20},
+    tusk_attack_1:      {name: 'tusk attack I',     target: 'enemy', type: 'damage', attribute: 'str', chance: 40,  power: 20,   status: 'bleeding',   statusChance: 30,   critChance: 5},
+    heal_self_1:        {name: 'heal self I',       target: 'self',  type: 'heal',   attribute: 'int', chance: 25,  power: 30,   status: null,         statusChance: null, critChance: 5},
+    magic_bolt_1:       {name: 'magic bolt I',      target: 'enemy', type: 'damage', attribute: 'int', chance: 50,  power: 35,   status: null,         statusChance: null, critChance: 5},
+    power_shot_1:       {name: 'power shot I',      target: 'enemy', type: 'damage', attribute: 'dex', chance: 30,  power: 40,   status: 'stun',       statusChance: 15,   critChance: 10},
+    quick_shot_1:       {name: 'quick shot I',      target: 'enemy', type: 'damage', attribute: 'dex', chance: 50,  power: 25,   status: null,         statusChance: null, critChance: 5},
+    scream_1:           {name: 'scream I',          target: 'enemy', type: 'damage', attribute: 'chr', chance: 30,  power: 30,   status: 'stun',       statusChance: 30,   critChance: 5},
+    attract_1:          {name: 'attract I',         target: 'enemy', type: 'status', attribute: 'chr', chance: 30,  power: null, status: 'charmed',    statusChance: 100,  critChance: 5}
 }
 
 const food = {
@@ -161,37 +164,37 @@ const jobs = {
     archer: {
         name: 'archer',
         bonusAttr: {str: 1, agi: 1, dex: 3},
-        startSkill: 'power_shot_1'
+        startSkills: ['power_shot_1', 'quick_shot_1']
     },
     bard: {
         name: 'bard',
         bonusAttr: {dex: 1, chr: 4},
-        startSkill: 'scream_1'
+        startSkills: ['scream_1', 'attract_1']
     },
     gambler: {
         name: 'gambler',
         bonusAttr: {dex: 1, chr: 1, lck: 3},
-        startSkill: 'gambling_strike_1'
+        startSkills: ['gambling_strike_1']
     },
     mage: {
         name: 'mage',
         bonusAttr: {int: 4, lck: 1},
-        startSkill: 'magic_bolt_1'
+        startSkills: ['magic_bolt_1']
     },
     priest: {
         name: 'priest',
         bonusAttr: {int: 3, chr: 1, lck: 1},
-        startSkill: 'heal_self_1'
+        startSkills: ['heal_self_1']
     },
     rogue: {
         name: 'rogue',
         bonusAttr: {agi: 3, dex: 1, lck: 1},
-        startSkill: 'eviscerate_1'
+        startSkills: ['eviscerate_1']
     },
     warrior: {
         name: 'warrior',
         bonusAttr: {end: 2, str: 2, agi: 1},
-        startSkill: 'bash_1'
+        startSkills: ['bash_1', 'body_slam_1']
     }
 }
 

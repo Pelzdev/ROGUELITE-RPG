@@ -8,7 +8,7 @@ function getChar (race, job, gender) {
         status: '',
         buff: false,
         race: rndGetPropertyCloned(races),
-        job: rndGetPropertyCloned(jobs),
+        job: jobs[cheatedJob] || rndGetPropertyCloned(jobs), // cheated job stuff for testing
         trait: rndGetPropertyCloned(traits),
         gender: rndFromArr(['male', 'female']),
         level: 1,
@@ -23,7 +23,7 @@ function getChar (race, job, gender) {
     char.img = getCharSprite(char)
     char.name = rndFromArr(races[char.race.name].names[char.gender])
     char.lastName = rndFromArr(races[char.race.name].lastNames)
-    char.skills = [structuredClone(skills[char.job.startSkill])]
+    char.skills = [getStartSkill(char)]
     char.height = char.race.height
 
     getSkillIcon(char.skills[0])
@@ -174,6 +174,11 @@ function useConsumable (arrPos) {
 
     playerChar.food[arrPos] = null,
     document.querySelector(`.consumable-img-container.food${arrPos}`).innerHTML = ''
+}
+
+function getStartSkill (char) {
+    let rndSkill = rndFromArr(char.job.startSkills)
+    return structuredClone(skills[rndSkill])
 }
 
 function getCharSprite (char) {

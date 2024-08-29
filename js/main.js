@@ -39,6 +39,9 @@ const icons = {
     agi: '<i class="icon-agi"></i>'
 }
 
+// for testing
+let cheatedJob = null
+
 // #######################################
 let sizeMulti = 1.3 // for char and enemy sprites
 let hpPerLvlUp = 5

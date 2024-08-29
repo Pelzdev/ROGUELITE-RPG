@@ -119,9 +119,15 @@ function doSkill(attacker, defender) {
     let critText = ''
     // Check if statuses that need to be checked before attacking
     if (attacker.status === 'stun') {
-        text += `<p class="battle-text-row ${textClass}">${attacker.name} has status ${attacker.status} and cannot move.</p>`
+        text += `<p class="battle-text-row">${attacker.name.toUpperCase()} is STUNNED and cannot move.</p>`
         attacker.status = ''
         return text
+    }
+    if (attacker.status === 'charmed') {
+        if (rndInt(1,10) < 4) {
+            text += `<p class="battle-text-row">${attacker.name.toUpperCase()} is too CHARMED to move.</p>`
+            return text
+        }
     }
     // CHECK WHAT SKILL IS USED
     if (rndInt(1,100) < attacker.skills[0].chance) {
@@ -133,12 +139,13 @@ function doSkill(attacker, defender) {
     if (skillUsed.target === 'self') target = attacker
     // Roll skill damage (TO DO FIX DMG)
     power = rollPower(skillUsed, attacker, target)
-    // Check crit
-    if (rndInt(1, 100) < (skillUsed.critChance + attacker.totalAttr.lck) ) {
-        power = power*2
-        critText = 'CRIT!'
-    }
+    //Check skill type (dmg, heal, status)
     if (skillUsed.type === 'damage') {
+        // Check crit
+        if (rndInt(1, 100) < (skillUsed.critChance + attacker.totalAttr.lck) ) {
+            power = power*2
+            critText = 'CRIT!'
+        }
         target.hpLeft -= power
         text += `<p class="battle-text-row ${textClass}">${critText} ${attacker.name.toUpperCase()} used ${skillUsed.name.toUpperCase()} on ${target.name.toUpperCase()} for ${power} DMG!</p>` 
     }
@@ -146,6 +153,9 @@ function doSkill(attacker, defender) {
         target.hpLeft += power
         if (target.hpLeft > target.hpMax) {target.hpLeft = target.hpMax}
         text += `<p class="battle-text-row ${textClass}">${critText} ${attacker.name.toUpperCase()} used ${skillUsed.name.toUpperCase()} on ${target.name.toUpperCase()} and healed ${power} hp!</p>`
+    }
+    if (skillUsed.type === 'status') {
+        text += `<p class="battle-text-row ${textClass}">${critText} ${attacker.name.toUpperCase()} used ${skillUsed.name.toUpperCase()} on ${target.name.toUpperCase()}!</p>`
     }
     // check if skill has status/effect and if it is to be used
     if (skillUsed.status != null) {
@@ -191,8 +201,12 @@ function checkStatusApplication (skill, target) {
     text = ''
     console.log('checking effect: ' + skill.status + ' from skill: ' + skill.name)
     if (rndInt(1,100) < skill.statusChance) {
-        target.status = skill.status
-        text = `<p id="battle-text-row">${target.name.toUpperCase()} is now affected by ${skill.status.toUpperCase()}</p>`
+        if (target.status === skill.status) {
+            text = `<p id="battle-text-row">${target.name.toUpperCase()} is already affected by ${skill.status.toUpperCase()}</p>`
+        } else {
+            target.status = skill.status
+            text = `<p id="battle-text-row">${target.name.toUpperCase()} is now affected by ${skill.status.toUpperCase()}</p>`
+        }
         return text
     }
     return ''
