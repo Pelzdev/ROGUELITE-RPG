@@ -84,13 +84,13 @@ function makePlayerCharDiv (pc) {
             <hr>
             <div class="pc-attr-stats-container">
                 <div class="pc-attr-container" style="width:62%;">
-                    ${icons.end}END:${checkAddZero(pc.totalAttr.end)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.end*statBarPercentMulti}%;"></div> </div> <br>
-                    ${icons.str}STR:${checkAddZero(pc.totalAttr.str)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.str*statBarPercentMulti}%;"></div> </div> <br>
-                    ${icons.agi}AGI:${checkAddZero(pc.totalAttr.agi)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.agi*statBarPercentMulti}%;"></div> </div> <br>
-                    ${icons.dex}DEX:${checkAddZero(pc.totalAttr.dex)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.dex*statBarPercentMulti}%;"></div> </div> <br>
-                    ${icons.int}INT:${checkAddZero(pc.totalAttr.int)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.int*statBarPercentMulti}%;"></div> </div> <br>
-                    ${icons.chr}CHR:${checkAddZero(pc.totalAttr.chr)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.chr*statBarPercentMulti}%;"></div> </div> <br>
-                    ${icons.lck}LCK:${checkAddZero(pc.totalAttr.lck)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.lck*statBarPercentMulti}%;"></div> </div>
+                    ${icons.end} END:${checkAddZero(pc.totalAttr.end)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.end*statBarPercentMulti}%;"></div> </div> <br>
+                    ${icons.str} STR:${checkAddZero(pc.totalAttr.str)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.str*statBarPercentMulti}%;"></div> </div> <br>
+                    ${icons.agi} AGI:${checkAddZero(pc.totalAttr.agi)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.agi*statBarPercentMulti}%;"></div> </div> <br>
+                    ${icons.dex} DEX:${checkAddZero(pc.totalAttr.dex)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.dex*statBarPercentMulti}%;"></div> </div> <br>
+                    ${icons.int} INT:${checkAddZero(pc.totalAttr.int)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.int*statBarPercentMulti}%;"></div> </div> <br>
+                    ${icons.chr} CHR:${checkAddZero(pc.totalAttr.chr)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.chr*statBarPercentMulti}%;"></div> </div> <br>
+                    ${icons.lck} LCK:${checkAddZero(pc.totalAttr.lck)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.lck*statBarPercentMulti}%;"></div> </div>
                 </div>
                 <div class="res-container">
                     <p>Resists:</p>
@@ -107,7 +107,7 @@ function makePlayerCharDiv (pc) {
         </div>
 
         <div class="player-info-section section-2">
-            <p class="pc-info-line skill-1">Skill 1: ${pc.skills[0].name.toUpperCase()}</p>
+            <p class="pc-info-line skill-1">Skill 1: ${icons[pc.skills[0].attribute]} ${pc.skills[0].name.toUpperCase()}</p>
             <p class="pc-info-line skill-2">Skill 2: -</p>
             <hr>
             <p class="pc-info-line weapon">Weapon: ${eqTextWeapon} <img src="${weaponImg}" style="vertical-align: bottom;transform:rotate(45deg);height:16px;"></p>
