@@ -53,8 +53,8 @@ let eventsDone = 0
 // Location (changes BG etc, will add more later)
 let currentLocationType = 'woods'
 let currentLocationName = 'Wolfroy Grove'
-let locationBg = `img/events/location_bg/woods/${rndInt(0,7)}.png`
-let innBg = 'img/events/location_bg/woods/bg_inn.png'
+let locationBg = `img/location_bg/woods/${rndInt(0,7)}.png`
+let innBg = 'img/location_bg/woods/bg_inn.png'
 
 function getPlayerChar () {
     playerCharInfoEl.style.display = 'inline-block'

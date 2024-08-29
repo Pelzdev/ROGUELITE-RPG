@@ -68,7 +68,7 @@ function endEvent() {
     }
 
     if (eventsDone%10 === 0) {
-        locationBg = `img/events/location_bg/woods/${rndInt(0,7)}.png`;console.log(`changed BG, eventsDone: ${eventsDone}`);
+        locationBg = `img/location_bg/woods/${rndInt(0,7)}.png`;console.log(`changed BG, eventsDone: ${eventsDone}`);
         updateEventBg('player')
     }
     makePlayerCharDiv(playerChar)
