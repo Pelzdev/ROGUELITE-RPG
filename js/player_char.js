@@ -28,7 +28,9 @@ function getChar (race, job, gender) {
 }
 
 function makePlayerCharDiv (pc) {
+    // Make sure attributes, hp etc is up-to-date
     pc.totalAttr = updateCharTotalAttr(pc)
+    pc.maxHp = 50 + (pc.totalAttr.end * 5)
     let statBarPercentMulti = 2 // aka 1 point = 5% of bar filled
 
     let buffText = '-'

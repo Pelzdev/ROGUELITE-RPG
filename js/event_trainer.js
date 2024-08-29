@@ -14,7 +14,6 @@ function trainer (selectedTrainer) {
     if (rndNum > 72 && rndNum <= 90) {trainerChosen = 'mateo'; attrToTrain = 'lck'}
     if (rndNum > 90 && rndNum <= 100) {trainerChosen = 'christobel'; attrToTrain = 'chr'; extraAttr = 'str'}
 
-    trainerChosen = 'christobel'; attrToTrain = 'chr'; extraAttr = 'str'
     trainCost = rndInt(20, 30) + playerChar.totalAttr[attrToTrain] - playerChar.totalAttr.chr
     // Check for double training
     if (extraAttr) {attrToTrainText = `${attrToTrain} & ${extraAttr}`.toUpperCase(); trainCost = Math.round(trainCost *= 1.5)}

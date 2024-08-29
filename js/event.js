@@ -5,8 +5,6 @@ function startEvent (pc, chosenEvent) {
     if (rndNum > 18 && rndNum <= 30) currentEvent = 'trainer'
     if (rndNum > 30) currentEvent = 'battle'
 
-    currentEvent = chosenEvent
-
     if (currentEvent === 'inn') {
         inn(pc)
     }
