@@ -6,24 +6,27 @@ function getChar (race, job, gender) {
         gold: 5,
         food: [food.small_potion],
         status: '',
+        buff: false,
         race: rndGetPropertyCloned(races),
         job: rndGetPropertyCloned(jobs),
         trait: rndGetPropertyCloned(traits),
         gender: rndFromArr(['male', 'female']),
         level: 1,
         baseAttr: structuredClone(baseAttr),
-        buff: false,
+        baseRes: structuredClone(baseRes),
         eq: {weapon: structuredClone(eq.weapons.wooden_sword), armor: null, trinket: structuredClone(eq.trinkets.rabbits_foot)}
     }
     char.totalAttr = updateCharTotalAttr(char)
     char.hpMax = 50 + (char.totalAttr.end * 5)
     char.hpLeft = char.hpMax
+    char.totalRes = char.baseRes
     char.img = getCharSprite(char)
     char.name = rndFromArr(races[char.race.name].names[char.gender])
     char.lastName = rndFromArr(races[char.race.name].lastNames)
     char.skills = [structuredClone(skills[char.job.startSkill])]
     char.height = char.race.height
 
+    getSkillIcon(char.skills[0])
     return char
 }
 
@@ -31,7 +34,6 @@ function makePlayerCharDiv (pc) {
     // Make sure attributes, hp etc is up-to-date
     pc.totalAttr = updateCharTotalAttr(pc)
     pc.maxHp = 50 + (pc.totalAttr.end * 5)
-    let statBarPercentMulti = 2 // aka 1 point = 5% of bar filled
 
     let buffText = '-'
     if (pc.buff) buffText = pc.buff.type
@@ -59,10 +61,9 @@ function makePlayerCharDiv (pc) {
     if (pc.eq.armor) eqTextArmor = pc.eq.armor.name.toUpperCase()
     if (pc.eq.trinket) {eqTextTrinket = pc.eq.trinket.name.toUpperCase(); trinketImg = pc.eq.trinket.img}
 
-    
-
     const maxH = 85
     const spriteH = (pc.height / 200) * maxH
+    let statBarPercentMulti = 2 // aka 1 point = 5% of bar filled
 
     let spriteHtml = `
         <div id="pc-img-container">
@@ -79,28 +80,28 @@ function makePlayerCharDiv (pc) {
             <p class="pc-info-line name">${pc.name.toUpperCase()} ${pc.lastName.toUpperCase()}</p>
             <p class="pc-info-line trait">${pc.trait.name.toUpperCase()} ${pc.race.name.toUpperCase()} ${genderSymbol[pc.gender]}</p>
             <p class="pc-info-line joblvl">lvl ${pc.level} ${pc.job.name.toUpperCase()}</p>
-            <p class="pc-info-line atkdef"><i class="icon-sword"></i> ${pc.race.dmg} <i class="icon-shield"></i> ${pc.race.def}</p>
+            <p class="pc-info-line atkdef">${icons.sword} ${pc.race.dmg} ${icons.shield} ${pc.race.def}</p>
             <hr>
             <div class="pc-attr-stats-container">
                 <div class="pc-attr-container" style="width:62%;">
-                    END:${checkAddZero(pc.totalAttr.end)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.end*statBarPercentMulti}%;"></div> </div> <br>
-                    STR:${checkAddZero(pc.totalAttr.str)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.str*statBarPercentMulti}%;"></div> </div> <br>
-                    AGI:${checkAddZero(pc.totalAttr.agi)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.agi*statBarPercentMulti}%;"></div> </div> <br>
-                    DEX:${checkAddZero(pc.totalAttr.dex)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.dex*statBarPercentMulti}%;"></div> </div> <br>
-                    INT:${checkAddZero(pc.totalAttr.int)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.int*statBarPercentMulti}%;"></div> </div> <br>
-                    CHR:${checkAddZero(pc.totalAttr.chr)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.chr*statBarPercentMulti}%;"></div> </div> <br>
-                    LCK:${checkAddZero(pc.totalAttr.lck)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.lck*statBarPercentMulti}%;"></div> </div>
+                    ${icons.end}END:${checkAddZero(pc.totalAttr.end)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.end*statBarPercentMulti}%;"></div> </div> <br>
+                    ${icons.str}STR:${checkAddZero(pc.totalAttr.str)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.str*statBarPercentMulti}%;"></div> </div> <br>
+                    ${icons.agi}AGI:${checkAddZero(pc.totalAttr.agi)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.agi*statBarPercentMulti}%;"></div> </div> <br>
+                    ${icons.dex}DEX:${checkAddZero(pc.totalAttr.dex)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.dex*statBarPercentMulti}%;"></div> </div> <br>
+                    ${icons.int}INT:${checkAddZero(pc.totalAttr.int)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.int*statBarPercentMulti}%;"></div> </div> <br>
+                    ${icons.chr}CHR:${checkAddZero(pc.totalAttr.chr)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.chr*statBarPercentMulti}%;"></div> </div> <br>
+                    ${icons.lck}LCK:${checkAddZero(pc.totalAttr.lck)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.lck*statBarPercentMulti}%;"></div> </div>
                 </div>
                 <div class="res-container">
                     <p>Resists:</p>
-                    <p><i class="icon-physical"></i>0% <i class="icon-fire"></i>0%</p>
-                    <p><i class="icon-cold"></i>0% <i class="icon-electric"></i>0%</p>
-                    <p><i class="icon-water"></i>0% <i class="icon-nature"></i>0%</p>
-                    <p><i class="icon-poison"></i>0% <i class="icon-holy"></i>0%</p>
+                    <p>${icons.physical}${pc.totalRes.physical}% ${icons.fire}${pc.totalRes.fire}%</p>
+                    <p>${icons.cold}${pc.totalRes.cold}% ${icons.electric}${pc.totalRes.electric}%</p>
+                    <p>${icons.water}${pc.totalRes.water}% ${icons.nature}${pc.totalRes.nature}%</p>
+                    <p>${icons.poison}${pc.totalRes.poison}% ${icons.holy}${pc.totalRes.holy}%</p>
                 </div>
             </div>
             <hr>
-            <p class="pc-info-line gold">${goldIcon} ${pc.gold}</p>
+            <p class="pc-info-line gold">${icons.gold} ${pc.gold}</p>
             <p class="pc-info-line buff">BUFF: ${buffText}</p>
             <hr>
         </div>
@@ -127,21 +128,18 @@ function makePlayerCharDiv (pc) {
 
     return
 }
+// CONSUMABLE STUFF
 // Clicking the consumable
 function clickConsumable (arrPos) {
-    if (!playerChar.food) return
+    if (!playerChar.food[arrPos]) return
     document.getElementById('button-bar').classList.add('unclickable')
 
     popupDiv.innerHTML = `
         <br>
         <p style="font-size: 12px;">${playerChar.food[arrPos].name.toUpperCase()}</p>
         <img class="popup-div-img" src="${playerChar.food[arrPos].img}">
-        <p>${playerChar.food[arrPos].infoText}</p>
-        <br>
-        <hr>
-        <br>
-        <p>Use it?</p>
-        <br>
+        <p>${playerChar.food[arrPos].infoText}</p><br><hr><br>
+        <p>Use it?</p><br>
         <button class="btn-medium" onclick="consumableChoice('yes', ${arrPos})">Yes</button><button class="btn-medium" onclick="consumableChoice('no')">No</button>
     ` 
     popupDiv.style.display = 'block'

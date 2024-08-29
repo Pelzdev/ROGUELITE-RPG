@@ -190,11 +190,7 @@ hr {
 .hp-bar-over {
     width: 100%;
     height: 100%;
-    background-color: rgb(64, 110, 59);
-}
-
-#test {
-    color: rgb(131, 199, 67);
+    background-color: rgb(72, 136, 65);
 }
 
 #pc-hp-text {
@@ -436,12 +432,22 @@ hr {
 .icon-physical:before{content:'\0046';}
 .icon-poison:before{content:'\0047';}
 .icon-water:before{content:'\0049';}
+.icon-chr:before{content:'\004e';}
+.icon-dex:before{content:'\004f';}
+.icon-end:before{content:'\0050';}
+.icon-int:before{content:'\0051';}
+.icon-lck:before{content:'\0052';}
+.icon-lck2:before{content:'\0053';}
+.icon-str:before{content:'\0054';}
+.icon-wis:before{content:'\0055';}
+.icon-agi:before{content:'\0056';}
 
 .icon-gold{color: gold;}
 .icon-sword {color: white;}
 .icon-shield {color: white;}
 .icon-female {color: white; line-height: 0.8;}
 .icon-male {color: white; line-height: 0.8;}
+
 .icon-cold {color: lightblue;}
 .icon-electric  {color: yellow;}
 .icon-fire  {color: rgb(255, 136, 0);}
@@ -450,6 +456,16 @@ hr {
 .icon-physical {color: burlywood;}
 .icon-poison {color: rgb(157, 130, 255);}
 .icon-water {color: rgb(95, 176, 252);}
+
+.icon-chr {color: white;}
+.icon-dex {color: white;}
+.icon-end {color: white;}
+.icon-int {color: white;}
+.icon-lck {color: white;}
+.icon-lck2 {color: white;}
+.icon-str {color: white;}
+.icon-wis {color: white;}
+.icon-agi {color: white;}
 
 
 

@@ -39,7 +39,7 @@ function trainer (selectedTrainer) {
     eventText.innerHTML = `
         <hr>
         <p class="event-text-row">You found a trainer willing to help!</p><hr>
-        <p id="event-text-row">${trainerChosen.toUpperCase()} will help you raise your ${attrToTrainText} attribute(s) by ${trainAmount} for ${trainCost} ${goldIcon} (discounted by ${playerChar.totalAttr.chr}). Do you accept? You have ${playerChar.gold} ${goldIcon}.</p>
+        <p id="event-text-row">${trainerChosen.toUpperCase()} will help you raise your ${attrToTrainText} attribute(s) by ${trainAmount} for ${trainCost} ${icons.gold} (discounted by ${playerChar.totalAttr.chr}). Do you accept? You have ${playerChar.gold} ${icons.gold}.</p>
         <br>
         <div id="event-btn-container">
             <button class="btn-trainer yes" onclick="trainerYes()">YES</button><button class="btn-trainer no" onclick="trainerNo()">NO</button>
@@ -59,7 +59,7 @@ function trainerYes () {
     if (extraAttr) {
         playerChar.baseAttr[extraAttr] += trainAmount
     }
-    eventText.innerHTML = `You paid ${trainCost} ${goldIcon} to raise your ${attrToTrainText} by ${trainAmount}`
+    eventText.innerHTML = `You paid ${trainCost} ${icons.gold} to raise your ${attrToTrainText} by ${trainAmount}`
     makePlayerCharDiv(playerChar)
     extraAttr = null
 }

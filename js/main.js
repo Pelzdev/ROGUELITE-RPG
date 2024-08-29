@@ -17,7 +17,27 @@ let eventTextContainer = document.getElementById('event-text-container')
 let eventText = document.getElementById('event-text')
 let endEventBtn = document.getElementById('event-end-btn') 
 
-let goldIcon = '<i class="icon-gold"></i>'
+// ICONS
+const icons = {
+    gold: '<i class="icon-gold"></i>',
+    sword: '<i class="icon-sword"></i>',
+    shield: '<i class="icon-shield"></i>',
+    cold: '<i class="icon-cold"></i>',
+    electric: '<i class="icon-electric"></i>',
+    fire: '<i class="icon-fire"></i>',
+    holy: '<i class="icon-holy"></i>',
+    nature: '<i class="icon-nature"></i>',
+    physical: '<i class="icon-physical"></i>',
+    poison: '<i class="icon-poison"></i>',
+    water: '<i class="icon-water"></i>',
+    chr: '<i class="icon-chr"></i>',
+    dex: '<i class="icon-dex"></i>',
+    end: '<i class="icon-end"></i>',
+    int: '<i class="icon-int"></i>',
+    lck: '<i class="icon-lck"></i>',
+    str: '<i class="icon-str"></i>',
+    agi: '<i class="icon-agi"></i>'
+}
 
 // #######################################
 let sizeMulti = 1.3 // for char and enemy sprites
@@ -69,6 +89,10 @@ function centerPopup (el) {
     let elH = getElementSize(el, 'height')
     el.style.top = `${0.5*gameH - elH/2}px`
     el.style.left = `${0.5*gameW - elW/2}px`
+}
+function getSkillIcon (skill) {
+    console.log(icons[skill.attribute])
+    return icons[skill.attribute]
 }
 
 // CHECK PORTRAIT/LANDSCAPE OF DEVICE

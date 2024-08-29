@@ -1,10 +1,28 @@
 const baseAttr = {
-    end: 5, str: 5, agi: 5, dex: 5, int: 5, chr: 5, lck: 5
+    end: 5, 
+    str: 5, 
+    agi: 5, 
+    dex: 5, 
+    int: 5, 
+    chr: 5, 
+    lck: 5
 }
+
+const baseRes = {
+    cold: 0,
+    electric: 0,
+    fire: 0,
+    holy: 0,
+    nature: 0,
+    physical: 0,
+    poison: 0,
+    water: 0
+}
+
 // SKILLS
 const skills = {
     // base skills
-    attack:             {name: 'attack',            target: 'enemy', type: 'damage', attribute: 'best', chance: 100, power: 20, status: null,         statusChance: null, critChance: 5},
+    attack:             {name: 'attack',            target: 'enemy', type: 'damage', attribute: 'str', chance: 100, power: 20, status: null,         statusChance: null, critChance: 5},
     // attribute skills
     bash_1:             {name: 'bash I',            target: 'enemy', type: 'damage', attribute: 'str', chance: 30, power: 40, status: 'stun',       statusChance: 30,   critChance: 5},
     bite_1:             {name: 'bite I',            target: 'enemy', type: 'damage', attribute: 'str', chance: 50, power: 30, status: 'bleeding',   statusChance: 30,   critChance: 10},

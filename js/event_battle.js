@@ -230,7 +230,7 @@ function giveExpAndUpdate(char, enemy) {
         text += `<p id="battle-text-row">${char.name} got a ${foodType.name}</p>`
     }
    
-    text += `<p id="battle-text-row">${char.name} got ${givenExp} exp and ${givenGold} gold for winning!</p>`
+    text += `<p id="battle-text-row">${char.name} got ${givenExp} exp and ${givenGold} ${icons.gold}!</p>`
     char.gold += givenGold
 
     // If levelup
