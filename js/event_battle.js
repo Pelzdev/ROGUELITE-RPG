@@ -150,9 +150,14 @@ function doSkill(attacker, defender) {
         text += checkStatusApplication(skillUsed, defender)
         console.log('CHECKING IF EFFECT SHOULD BE USED')
     }
-    /*if (skillUsed.effect === null) {
-        text += checkStatusApplication(skillUsed, defender)
-    }*/
+    // Check if skill has EFFECT that cannot put status
+    if (['lifesteal'].includes(skillUsed.effect)) {
+        let lifeStolen = Math.round(power/2)
+        attacker.hpLeft += lifeStolen
+        text += `<p class="battle-text-row">${attacker.name.toUpperCase()} stole ${lifeStolen} HP!</p>`
+    }
+
+
     // Check if attacker has STATUS that need to be checked after attacking
     if (attacker.status === 'bleed') {
         let bleedDmg = rndInt(1,3)
@@ -194,7 +199,7 @@ function checkStatusApplication (skill, target) {
     console.log('checking effect: ' + skill.effect + ' from skill: ' + skill.name)
     if (rndInt(1,100) < skill.effectChance) {
         if (target.status === skill.effect) {
-            text = `<p id="battle-text-row">${target.name.toUpperCase()} is already affected by ${skill.status.toUpperCase()}</p>`
+            text = `<p id="battle-text-row">${target.name.toUpperCase()} is already affected by ${skill.effect.toUpperCase()}</p>`
         } else {
             target.status = skill.effect
             text = `<p id="battle-text-row">${target.name.toUpperCase()} is now affected by ${skill.effect.toUpperCase()}</p>`
