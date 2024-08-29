@@ -1,4 +1,5 @@
 function startEvent (pc, chosenEvent) {
+    eventDiv.innerHTML = ''
     let rndNum = rndInt(1,100)
     if (rndNum <= 10) currentEvent = 'inn'
     if (rndNum > 10 && rndNum <= 18) currentEvent = 'healer'
@@ -9,7 +10,7 @@ function startEvent (pc, chosenEvent) {
         inn(pc)
     }
     if (currentEvent === 'healer') {
-        potion(pc)
+        healer(pc)
     }
     if (currentEvent === 'trainer') {
         trainer(pc)
@@ -57,6 +58,10 @@ function endEvent() {
         eventStartBtn.style.display = 'inline-block'
     }
 
+    if (rndInt(0,4)) {
+        locationBg = `img/events/location_bg/woods/${rndInt(0,7)}.png`;console.log('changed BG!');
+        updateEventBg('player')
+    }
     makePlayerCharDiv(playerChar)
     playerCharInfoEl.style.display = 'inline-block'
     eventDiv.style.background = 'none'

@@ -20,10 +20,8 @@ function trainer (selectedTrainer) {
     if (!extraAttr) attrToTrainText = attrToTrain.toUpperCase()
 
     eventDiv.innerHTML = ''
-    eventDiv.style.background = `url("img/events/trainer/bg_${trainerChosen}.png") rgba(0, 0, 0, 0.5)`
-    eventDiv.style.backgroundBlendMode = 'multiply'
-    eventDiv.style.backgroundSize = 'cover'
-    eventDiv.style.backgroundPosition = 'center bottom'
+    //update bg
+    updateEventBg('trainer')
 
     const maxH = 80
     const charHeight = 180

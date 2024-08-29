@@ -1,9 +1,6 @@
-function potion () {
+function healer () {
     eventDiv.innerHTML = ''
-    eventDiv.style.background = `url("img/events/healer/bg_healer.png") rgba(0, 0, 0, 0.3)`
-    eventDiv.style.backgroundBlendMode = 'multiply'
-    eventDiv.style.backgroundSize = 'cover'
-    eventDiv.style.backgroundPosition = 'center center'
+    updateEventBg('healer')
 
     const amountRestored = rndInt(40, 60)
     const maxH = 80

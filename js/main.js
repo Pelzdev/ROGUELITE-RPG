@@ -4,6 +4,7 @@ let getPlayerCharBtn = document.getElementById('get-player-char-btn')
 let reRandomizeCharBtn = document.getElementById('re-randomize-char-btn')
 let eventStartBtn = document.getElementById('event-start-btn')
 
+let playerSpriteDiv = document.getElementById('#pc-img-container')
 let playerSpriteEl = document.getElementById('player-sprite')
 
 let playerEqEl = document.getElementById('player-eq')
@@ -48,6 +49,11 @@ let hpPerLvlUp = 5
 let playerChar = {}
 let currentEvent = ''
 let gameW, gameH
+// Location (changes BG etc, will add more later)
+let currentLocationType = 'woods'
+let currentLocationName = 'Wolfroy Grove'
+let locationBg = `img/events/location_bg/woods/${rndInt(0,7)}.png`
+let innBg = 'img/events/location_bg/woods/bg_inn.png'
 
 function getPlayerChar () {
     playerCharInfoEl.style.display = 'inline-block'
@@ -126,3 +132,18 @@ window.onresize = function() {
     gameH = getElementSize(gameDiv, 'height')
     centerPopup(popupDiv)
 };
+
+function updateEventBg (event) {
+    let targetDiv = eventDiv
+    let bgUrl = locationBg
+    if (event === 'inn') bgUrl = innBg
+
+    targetDiv.style.background = `url(${bgUrl}) rgba(0, 0, 0, 0.3)`
+    targetDiv.style.backgroundBlendMode = 'multiply'
+    targetDiv.style.backgroundSize = 'cover'
+    targetDiv.style.backgroundPosition = 'center center'
+}
+
+function updatePlayerBg () {
+    
+}

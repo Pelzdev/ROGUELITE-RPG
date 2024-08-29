@@ -16,9 +16,7 @@ let enemiesLevel8 = enemiesLevel5.concat(enemyLists.level8)
 
 
 function battle (pc) {
-    console.log('enemieslevel1:' + enemiesLevel1)
     let rndNum = rndInt(1,10)
-
     if (pc.level < 5) {
         enemy = structuredClone(enemies[rndFromArr(enemiesLevel1)])
     } else if (pc.level < 8) {
@@ -34,10 +32,11 @@ function battle (pc) {
     console.log(enemy)
 
     // background
-    eventDiv.style.background = `url("img/events/battle/bg_woods.png") rgba(0, 0, 0, 0.3)`
+    /*eventDiv.style.background = `url("img/events/battle/bg_woods.png") rgba(0, 0, 0, 0.3)`
     eventDiv.style.backgroundBlendMode = 'multiply'
     eventDiv.style.backgroundSize = 'cover'
-    eventDiv.style.backgroundPosition = 'center center'
+    eventDiv.style.backgroundPosition = 'center center' */
+    updateEventBg('battle')
     
     eventText.innerHTML += `<hr><p class="event-text-row">It's a ${enemy.name.toUpperCase()}... FIGHT!</p><hr>`
 

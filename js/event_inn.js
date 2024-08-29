@@ -4,10 +4,7 @@ let innHeal = 20
 
 function inn (pc) {
     eventDiv.innerHTML = ''
-    eventDiv.style.background = `url("img/events/inn/bg_inn.png") rgba(0, 0, 0, 0.3)`
-    eventDiv.style.backgroundBlendMode = 'multiply'
-    eventDiv.style.backgroundSize = 'cover'
-    eventDiv.style.backgroundPosition = 'center center'
+    updateEventBg('inn')
 
     const maxH = 80
     const charHeight = 180

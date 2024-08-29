@@ -88,11 +88,16 @@ hr {
     /*font-size: 14px;*/
 }
 
+
 .player-info-section {
     display: inline-block;
     width: 48%;
     border: 1px solid rgb(29, 29, 29);
     vertical-align: top;
+}
+
+.popup-div p {
+    font-size: 12px;
 }
 
 .popup-div-img {
@@ -164,6 +169,10 @@ hr {
     position: relative;
     height: calc(100% - 29px);
     max-width: 100%;
+    background: url("img/events/location_bg/woods/0.png") rgba(0, 0, 0, 0.3);
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-position: center center;
 }
 
 #pc-img-container img {
@@ -209,7 +218,6 @@ hr {
 
 .pc-statbar-under {
     margin-left: 1px;
-    /*width: calc(100% - 95px);*/
     width: calc(56% - 20px);
     left: 0;
     display: inline-block;
@@ -285,6 +293,10 @@ hr {
 .event-div {
     image-rendering: pixelated;
     display: none;
+    background: url("img/events/location_bg/woods/0.png") rgba(0, 0, 0, 0.3);
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-position: center center;
 }
 
 #event-header {

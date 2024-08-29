@@ -84,13 +84,13 @@ function makePlayerCharDiv (pc) {
             <hr>
             <div class="pc-attr-stats-container">
                 <div class="pc-attr-container" style="width:62%;">
-                    ${icons.end} END:${checkAddZero(pc.totalAttr.end)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.end*statBarPercentMulti}%;"></div> </div> <br>
-                    ${icons.str} STR:${checkAddZero(pc.totalAttr.str)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.str*statBarPercentMulti}%;"></div> </div> <br>
-                    ${icons.agi} AGI:${checkAddZero(pc.totalAttr.agi)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.agi*statBarPercentMulti}%;"></div> </div> <br>
-                    ${icons.dex} DEX:${checkAddZero(pc.totalAttr.dex)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.dex*statBarPercentMulti}%;"></div> </div> <br>
-                    ${icons.int} INT:${checkAddZero(pc.totalAttr.int)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.int*statBarPercentMulti}%;"></div> </div> <br>
-                    ${icons.chr} CHR:${checkAddZero(pc.totalAttr.chr)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.chr*statBarPercentMulti}%;"></div> </div> <br>
-                    ${icons.lck} LCK:${checkAddZero(pc.totalAttr.lck)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.lck*statBarPercentMulti}%;"></div> </div>
+                    ${icons.end} END ${checkAddZero(pc.totalAttr.end)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.end*statBarPercentMulti}%;"></div> </div> <br>
+                    ${icons.str} STR ${checkAddZero(pc.totalAttr.str)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.str*statBarPercentMulti}%;"></div> </div> <br>
+                    ${icons.agi} AGI ${checkAddZero(pc.totalAttr.agi)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.agi*statBarPercentMulti}%;"></div> </div> <br>
+                    ${icons.dex} DEX ${checkAddZero(pc.totalAttr.dex)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.dex*statBarPercentMulti}%;"></div> </div> <br>
+                    ${icons.int} INT ${checkAddZero(pc.totalAttr.int)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.int*statBarPercentMulti}%;"></div> </div> <br>
+                    ${icons.chr} CHR ${checkAddZero(pc.totalAttr.chr)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.chr*statBarPercentMulti}%;"></div> </div> <br>
+                    ${icons.lck} LCK ${checkAddZero(pc.totalAttr.lck)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.lck*statBarPercentMulti}%;"></div> </div>
                 </div>
                 <div class="res-container">
                     <p>Resists:</p>
@@ -101,6 +101,7 @@ function makePlayerCharDiv (pc) {
                 </div>
             </div>
             <hr>
+            <p class="pc-info-line location">LOCATION: ${currentLocationName}</p>
             <p class="pc-info-line gold">${icons.gold} ${pc.gold}</p>
             <p class="pc-info-line buff">BUFF: ${buffText}</p>
             <hr>
@@ -135,6 +136,10 @@ function clickSkill (arrPos) {
     if (skill.type === 'heal') dmgOrHealText = 'Heal'
     let statusText = '-'
     if (skill.status) statusText = `5% chance to ${skill.status.toUpperCase()}`
+    let boostedText = ''
+    if (skill.type === 'damage' || skill.type === 'heal') {
+        boostedText = `<p>${skill.type.toUpperCase()} boosted by ${icons[skill.attribute]} ${skill.attribute.toUpperCase()}</p>`
+    }
 
     document.getElementById('button-bar').classList.add('unclickable')
     popupDiv.innerHTML = `
@@ -150,6 +155,7 @@ function clickSkill (arrPos) {
         <p>${dmgOrHealText}: ${skill.power || '-'}</p>
         <p>Crit chance: ${skill.critChance}%</p>
         <p>Extra effect: ${statusText}</p>
+        ${boostedText}
         <br><hr><br><br>
         <button class="btn-medium" onclick="closePopup()">BACK</button>
     ` 
