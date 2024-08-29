@@ -1,6 +1,6 @@
 function healer () {
     eventDiv.innerHTML = ''
-    updateEventBg('healer')
+    //updateEventBg('healer')
 
     const amountRestored = rndInt(40, 60)
     const maxH = 80

@@ -49,6 +49,7 @@ let hpPerLvlUp = 5
 let playerChar = {}
 let currentEvent = ''
 let gameW, gameH
+let eventsDone = 0
 // Location (changes BG etc, will add more later)
 let currentLocationType = 'woods'
 let currentLocationName = 'Wolfroy Grove'

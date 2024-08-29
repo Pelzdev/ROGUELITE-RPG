@@ -1,10 +1,13 @@
 function startEvent (pc, chosenEvent) {
+    eventsDone++
     eventDiv.innerHTML = ''
     let rndNum = rndInt(1,100)
     if (rndNum <= 10) currentEvent = 'inn'
     if (rndNum > 10 && rndNum <= 18) currentEvent = 'healer'
     if (rndNum > 18 && rndNum <= 30) currentEvent = 'trainer'
     if (rndNum > 30) currentEvent = 'battle'
+
+    updateEventBg(currentEvent)
 
     if (currentEvent === 'inn') {
         inn(pc)
@@ -58,8 +61,8 @@ function endEvent() {
         eventStartBtn.style.display = 'inline-block'
     }
 
-    if (rndInt(0,4)) {
-        locationBg = `img/events/location_bg/woods/${rndInt(0,7)}.png`;console.log('changed BG!');
+    if (eventsDone%10 === 0) {
+        locationBg = `img/events/location_bg/woods/${rndInt(0,7)}.png`;console.log(`changed BG, eventsDone: ${eventsDone}`);
         updateEventBg('player')
     }
     makePlayerCharDiv(playerChar)

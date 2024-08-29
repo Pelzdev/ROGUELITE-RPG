@@ -73,6 +73,16 @@ hr {
     background-color: rgba(0,0,0, 0.3);
 }
 
+.disabled {
+    pointer-events: none;
+    opacity: 60%;
+}
+
+.clickable {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 /* GAMING STUFF */
 
 .popup-div {  
@@ -166,9 +176,8 @@ hr {
 
 #player-sprite {
     position: relative;
-    height: calc(100% - 29px);
     max-width: 100%;
-    background: url("img/events/location_bg/woods/0.png") rgba(0, 0, 0, 0.3);
+    /*background: url("img/events/location_bg/woods/0.png") rgba(0, 0, 0, 0.3);*/
     background-blend-mode: multiply;
     background-size: cover;
     background-position: center center;
@@ -299,7 +308,7 @@ hr {
 .event-div {
     image-rendering: pixelated;
     display: none;
-    background: url("img/events/location_bg/woods/0.png") rgba(0, 0, 0, 0.3);
+    /*background: url("img/events/location_bg/woods/0.png") rgba(0, 0, 0, 0.3);*/
     background-blend-mode: multiply;
     background-size: cover;
     background-position: center center;

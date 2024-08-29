@@ -1,14 +1,21 @@
 // INN EVENT
 let innCost = 15
-let innHeal = 20
+let innHeal = 25
 
 function inn (pc) {
     eventDiv.innerHTML = ''
-    updateEventBg('inn')
+    //updateEventBg('inn')
+
+    innCost = rndInt(15,25)
+    innHeal = rndInt(25, 40)
 
     const maxH = 80
     const charHeight = 180
     const spriteH = (charHeight / 200) * maxH
+
+    // disable button to click YES if not enough gold
+    let disableYesBtn = `disabled`
+    if (playerChar.gold >= innCost) disableYesBtn = ''
     
     eventDiv.innerHTML += `<p class="window-header">FAIRVIEW INN</p>`
     eventDiv.innerHTML += `
@@ -21,7 +28,7 @@ function inn (pc) {
     <p id="inn-text-row">The inn looks inviting. Do you want to pay innkeeper Aerion ${innCost} ${icons.gold}, (discounted by ${pc.totalAttr.chr}), to stay the night? You have ${pc.gold} ${icons.gold}.</p>
     <br>
     <div id="event-btn-container">
-        <button class="btn-inn yes" onclick="innYes()">YES</button><button class="btn-inn no" onclick="innNo()">NO</button>
+        <button class="btn-inn yes ${disableYesBtn}" onclick="innYes()">YES</button><button class="btn-inn no" onclick="innNo()">NO</button>
     </div>
     `
 

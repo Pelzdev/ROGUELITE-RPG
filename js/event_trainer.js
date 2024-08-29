@@ -21,11 +21,14 @@ function trainer (selectedTrainer) {
 
     eventDiv.innerHTML = ''
     //update bg
-    updateEventBg('trainer')
+    //updateEventBg('trainer')
 
     const maxH = 80
     const charHeight = 180
     const spriteH = (charHeight / 200) * maxH
+    // disable button to click YES if not enough gold
+    let disableYesBtn = `disabled`
+    if (playerChar.gold >= trainCost) disableYesBtn = ''
     
     eventDiv.innerHTML += `<p class="window-header">TRAINER</p>`
     eventDiv.innerHTML += `
@@ -40,14 +43,13 @@ function trainer (selectedTrainer) {
         <p id="event-text-row">${trainerChosen.toUpperCase()} will help you raise your ${attrToTrainText} attribute(s) by ${trainAmount} for ${trainCost} ${icons.gold} (discounted by ${playerChar.totalAttr.chr}). Do you accept? You have ${playerChar.gold} ${icons.gold}.</p>
         <br>
         <div id="event-btn-container">
-            <button class="btn-trainer yes" onclick="trainerYes()">YES</button><button class="btn-trainer no" onclick="trainerNo()">NO</button>
+            <button class="btn-trainer yes ${disableYesBtn}" onclick="trainerYes()">YES</button><button class="btn-trainer no" onclick="trainerNo()">NO</button>
         </div>`
 
     endEventBtn.style.display = 'inline-block' // end event btn
 }
 
 function trainerYes () {
-    console.log(extraAttr)
     if (playerChar.gold < trainCost) {
         console.log('not enough gold')
         return

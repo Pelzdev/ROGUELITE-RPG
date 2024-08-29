@@ -32,10 +32,8 @@ function battle (pc) {
     console.log(enemy)
 
     // background
-    updateEventBg('battle')
-    
+    //updateEventBg('battle')
     eventText.innerHTML += `<hr><p class="event-text-row">It's a ${enemy.name.toUpperCase()}... FIGHT!</p><hr>`
-
     makeBattleDiv(enemy)
 }
 

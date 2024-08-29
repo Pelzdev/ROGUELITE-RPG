@@ -109,7 +109,7 @@ function makePlayerCharDiv (pc) {
         </div>
 
         <div class="player-info-section section-2">
-            <p class="pc-info-line skill-1">Skill 1: <span onclick="clickSkill(0)">${icons[pc.skills[0].attribute]} ${pc.skills[0].name.toUpperCase()}</span></p>
+            <p class="pc-info-line skill-1">Skill 1: <span class="clickable" onclick="clickSkill(0)">${icons[pc.skills[0].attribute]} ${pc.skills[0].name.toUpperCase()}</span></p>
             <p class="pc-info-line skill-2">Skill 2: -</p>
             <hr>
             <p class="pc-info-line weapon">Weapon: ${eqTextWeapon} <img src="${weaponImg}" style="vertical-align: bottom;transform:rotate(45deg);height:16px;"></p>
@@ -218,7 +218,7 @@ function useConsumable (arrPos) {
     playerChar.food[arrPos] = null,
     document.querySelector(`.consumable-img-container.food${arrPos}`).innerHTML = ''
 }
-
+// Choose start skill for char
 function getStartSkill (char) {
     let rndSkill = rndFromArr(char.job.startSkills)
     return structuredClone(skills[rndSkill])
