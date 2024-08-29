@@ -5,29 +5,23 @@ let enemySprite
 const enemyList = ['mouse', 'goblin_bat', 'mouse_assassin', 'goblin', 'boar', 'young_wolf', 'crob', 'boarian_marauder', 'troll_forest']
 const enemyLists = {
     level1: ['mouse', 'goblin_bat', 'mouse_assassin', 'goblin'],
-    level5: ['boar', 'young_wolf', 'crob'],
-    level8: ['boarian_marauder', 'troll_forest']
+    level5: ['mouse_assassin', 'goblin', 'boar', 'young_wolf', 'crob'],
+    level8: [ 'boar', 'young_wolf', 'crob', 'boarian_marauder', 'troll_forest']
 }
-
-let enemiesLevel1 = enemyLists.level1
-let enemiesLevel5 = enemiesLevel1.concat(enemyLists.level5)
-let enemiesLevel8 = enemiesLevel5.concat(enemyLists.level8)
-
-
 
 function battle (pc) {
     let rndNum = rndInt(1,10)
     if (pc.level < 5) {
-        enemy = structuredClone(enemies[rndFromArr(enemiesLevel1)])
+        enemy = structuredClone(enemies[rndFromArr(enemyLists.level1)])
     } else if (pc.level < 8) {
-        enemy = structuredClone(enemies[rndFromArr(enemiesLevel5)])
+        enemy = structuredClone(enemies[rndFromArr(enemyLists.level5)])
     } else {
         if (rndNum > 9) {
             enemyType = 'adventurer'
             enemy = getChar()
             enemy.isPlayer = false
         }
-        enemy = structuredClone(enemies[rndFromArr(enemiesLevel8)])
+        enemy = structuredClone(enemies[rndFromArr(enemyList.level8)])
     }
     console.log(enemy)
 
@@ -150,11 +144,16 @@ function doSkill(attacker, defender) {
     if (skillUsed.type === 'status') {
         text += `<p class="battle-text-row ${textClass}">${critText} ${attacker.name.toUpperCase()} used ${skillUsed.name.toUpperCase()} on ${target.name.toUpperCase()}!</p>`
     }
-    // check if skill has status/effect and if it is to be used
-    if (skillUsed.status != null) {
+
+    // Check if skill has EFFECT that can give STATUS and if it is to be used
+    if (['stun','bleed','charmed', 'poison', 'confused'].includes(skillUsed.effect)) {
         text += checkStatusApplication(skillUsed, defender)
+        console.log('CHECKING IF EFFECT SHOULD BE USED')
     }
-    // Check if STATUS that need to be checked after attacking
+    /*if (skillUsed.effect === null) {
+        text += checkStatusApplication(skillUsed, defender)
+    }*/
+    // Check if attacker has STATUS that need to be checked after attacking
     if (attacker.status === 'bleed') {
         let bleedDmg = rndInt(1,3)
         text += `<p class="battle-text-row">${attacker.name.toUpperCase()} is Bleeding and takes ${bleedDmg} dmg</p>`
@@ -192,13 +191,13 @@ function doSkill(attacker, defender) {
 // function to return possible effect including turn time for effect. Or 0/null if no effect
 function checkStatusApplication (skill, target) {
     text = ''
-    console.log('checking effect: ' + skill.status + ' from skill: ' + skill.name)
-    if (rndInt(1,100) < skill.statusChance) {
-        if (target.status === skill.status) {
+    console.log('checking effect: ' + skill.effect + ' from skill: ' + skill.name)
+    if (rndInt(1,100) < skill.effectChance) {
+        if (target.status === skill.effect) {
             text = `<p id="battle-text-row">${target.name.toUpperCase()} is already affected by ${skill.status.toUpperCase()}</p>`
         } else {
-            target.status = skill.status
-            text = `<p id="battle-text-row">${target.name.toUpperCase()} is now affected by ${skill.status.toUpperCase()}</p>`
+            target.status = skill.effect
+            text = `<p id="battle-text-row">${target.name.toUpperCase()} is now affected by ${skill.effect.toUpperCase()}</p>`
         }
         return text
     }
@@ -227,7 +226,7 @@ function giveExpAndUpdate(char, enemy) {
     expBar = document.querySelector('.pc-expbar-over')
     expText = document.querySelector('#pc-exp-text')
     let givenGold = rndInt(enemy.level, enemy.level*4)
-    let expFormula = Math.floor( (enemy.level * 3) + (enemy.hpMax/3) )
+    let expFormula = Math.floor( (enemy.level * 3) + (enemy.hpMax/3) *  (1 + (char.totalAttr.int / 10) ) )
     let givenExp = rndInt(expFormula-2, expFormula+2)
     
     // Check drops potion etc

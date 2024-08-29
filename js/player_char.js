@@ -17,7 +17,7 @@ function getChar (race, job, gender) {
         eq: {weapon: structuredClone(eq.weapons.wooden_sword), armor: null, trinket: structuredClone(eq.trinkets.rabbits_foot)}
     }
     char.totalAttr = updateCharTotalAttr(char)
-    char.hpMax = 50 + (char.totalAttr.end * 5)
+    char.hpMax = 50 + (char.totalAttr.end * 5) + char.level * 5
     char.hpLeft = char.hpMax
     char.totalRes = char.baseRes
     char.img = getCharSprite(char)
@@ -34,7 +34,7 @@ function makePlayerCharDiv (pc) {
     updatePlayerBg()
     // Make sure attributes, hp etc is up-to-date
     pc.totalAttr = updateCharTotalAttr(pc)
-    pc.maxHp = 50 + (pc.totalAttr.end * 5)
+    pc.hpMax = 50 + (pc.totalAttr.end * 5) + pc.level * 5
 
     let buffText = '-'
     if (pc.buff) buffText = pc.buff.type
@@ -135,8 +135,8 @@ function clickSkill (arrPos) {
     let skill = playerChar.skills[arrPos]
     let dmgOrHealText = 'Damage'
     if (skill.type === 'heal') dmgOrHealText = 'Heal'
-    let statusText = '-'
-    if (skill.status) statusText = `5% chance to ${skill.status.toUpperCase()}`
+    let effectText = '-'
+    if (skill.effect) effectText = `${skill.effectChance}% chance to ${skill.effect.toUpperCase()}`
     let boostedText = ''
     if (skill.type === 'damage' || skill.type === 'heal') {
         boostedText = `<p>${skill.type.toUpperCase()} boosted by ${icons[skill.attribute]} ${skill.attribute.toUpperCase()}</p>`
@@ -155,7 +155,8 @@ function clickSkill (arrPos) {
         <p>Chance to use: ${skill.chance}%</p>
         <p>${dmgOrHealText}: ${skill.power || '-'}</p>
         <p>Crit chance: ${skill.critChance}%</p>
-        <p>Extra effect: ${statusText}</p>
+        <br>
+        <p>Extra effect: ${effectText}</p>
         ${boostedText}
         <br><hr><br><br>
         <button class="btn-medium" onclick="closePopup()">BACK</button>
