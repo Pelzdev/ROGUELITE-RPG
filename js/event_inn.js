@@ -26,7 +26,6 @@ function inn (pc) {
     `
 
     endEventBtn.style.display = 'inline-block' // end event btn
-    //makeBattleDiv(enemy)
 }
 
 function innYes () {

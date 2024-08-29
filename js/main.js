@@ -4,7 +4,7 @@ let getPlayerCharBtn = document.getElementById('get-player-char-btn')
 let reRandomizeCharBtn = document.getElementById('re-randomize-char-btn')
 let eventStartBtn = document.getElementById('event-start-btn')
 
-let playerSpriteDiv = document.getElementById('#pc-img-container')
+let playerSpriteDiv = document.getElementById('pc-img-container')
 let playerSpriteEl = document.getElementById('player-sprite')
 
 let playerEqEl = document.getElementById('player-eq')
@@ -142,8 +142,4 @@ function updateEventBg (event) {
     targetDiv.style.backgroundBlendMode = 'multiply'
     targetDiv.style.backgroundSize = 'cover'
     targetDiv.style.backgroundPosition = 'center center'
-}
-
-function updatePlayerBg () {
-    
 }
