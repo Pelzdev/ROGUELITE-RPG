@@ -23,13 +23,14 @@ function inn (pc) {
             <img class="event-sprite-img" style="height:${spriteH}%" src="img/events/inn/innkeeper.png">
         </div>`
 
-    eventText.innerHTML += `<hr><p class="event-text-row">You found an inn!</p><hr>`
-    eventText.innerHTML = `
-    <p id="inn-text-row">The inn looks inviting. Do you want to pay innkeeper Aerion ${innCost} ${icons.gold}, (discounted by ${pc.totalAttr.chr}), to stay the night? You have ${pc.gold} ${icons.gold}.</p>
-    <br>
-    <div id="event-btn-container">
-        <button class="btn-inn yes ${disableYesBtn}" onclick="innYes()">YES</button><button class="btn-inn no" onclick="innNo()">NO</button>
-    </div>
+    eventText.innerHTML += `
+        <hr><p class="event-text-row">You found an inn!</p><hr>
+        <br>
+        <p id="inn-text-row">The inn looks inviting. Do you want to pay innkeeper Aerion ${innCost} ${icons.gold}, (discounted by ${pc.totalAttr.chr}), to stay the night? You have ${pc.gold} ${icons.gold}.</p>
+        <br>
+        <div id="event-btn-container">
+            <button class="btn-inn yes ${disableYesBtn}" onclick="innYes()">YES</button><button class="btn-inn no" onclick="innNo()">NO</button>
+        </div>
     `
 
     endEventBtn.style.display = 'inline-block' // end event btn

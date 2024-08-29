@@ -24,6 +24,7 @@ function getChar (race, job, gender) {
     char.name = rndFromArr(races[char.race.name].names[char.gender])
     char.lastName = rndFromArr(races[char.race.name].lastNames)
     char.skills = [getStartSkill(char)]
+    char.skills[0].level = 1
     char.height = char.race.height
 
     getSkillIcon(char.skills[0])

@@ -3,9 +3,12 @@ function startEvent (pc, chosenEvent) {
     eventDiv.innerHTML = ''
     let rndNum = rndInt(1,100)
     if (rndNum <= 10) currentEvent = 'inn'
-    if (rndNum > 10 && rndNum <= 18) currentEvent = 'healer'
-    if (rndNum > 18 && rndNum <= 30) currentEvent = 'trainer'
+    if (rndNum > 10 && rndNum <= 16) currentEvent = 'healer'
+    if (rndNum > 16 && rndNum <= 26) currentEvent = 'trainer'
+    if (rndNum > 26 && rndNum <= 30) currentEvent = 'oracle'
     if (rndNum > 30) currentEvent = 'battle'
+
+    
 
     updateEventBg(currentEvent)
 
@@ -17,6 +20,9 @@ function startEvent (pc, chosenEvent) {
     }
     if (currentEvent === 'trainer') {
         trainer(pc)
+    }
+    if (currentEvent === 'oracle') {
+        oracle(pc)
     }
     if (currentEvent === 'battle') {
         if (playerChar.hpLeft > 0) {

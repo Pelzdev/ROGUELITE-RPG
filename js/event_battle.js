@@ -21,7 +21,7 @@ function battle (pc) {
             enemy = getChar()
             enemy.isPlayer = false
         }
-        enemy = structuredClone(enemies[rndFromArr(enemyList.level8)])
+        enemy = structuredClone(enemies[rndFromArr(enemyLists.level8)])
     }
     console.log(enemy)
 
@@ -151,7 +151,8 @@ function doSkill(attacker, defender) {
         console.log('CHECKING IF EFFECT SHOULD BE USED')
     }
     // Check if skill has EFFECT that cannot put status
-    if (['lifesteal'].includes(skillUsed.effect)) {
+    //if (['lifesteal'].includes(skillUsed.effect)) {
+    if ([skillUsed.effect].includes('lifesteal')) {
         let lifeStolen = Math.round(power/2)
         attacker.hpLeft += lifeStolen
         text += `<p class="battle-text-row">${attacker.name.toUpperCase()} stole ${lifeStolen} HP!</p>`

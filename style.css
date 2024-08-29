@@ -63,7 +63,11 @@ button {
 
 .btn-medium {
     width: 65px;
-    font-size: 16px;
+}
+
+.btn-small {
+    width: auto;
+    padding: 0 5px;
 }
 
 hr {

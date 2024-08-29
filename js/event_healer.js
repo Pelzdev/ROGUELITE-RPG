@@ -2,7 +2,7 @@ function healer () {
     eventDiv.innerHTML = ''
     //updateEventBg('healer')
 
-    const amountRestored = rndInt(40, 60)
+    const amountRestored = rndInt(30, 45)
     const maxH = 80
     const charHeight = 165
     const spriteH = (charHeight / 200) * maxH
@@ -15,7 +15,7 @@ function healer () {
 
     eventText.innerHTML = `
         <hr>
-        <p class="event-text-row">You met healer Brevenin!!</p><hr>
+        <p class="event-text-row">You met healer Brevenin!</p><hr>
         <p id="event-text-row">He heals you, restoring ${amountRestored} HP.</p>
         <br>
         `

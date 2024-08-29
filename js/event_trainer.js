@@ -41,10 +41,10 @@ function trainer (selectedTrainer) {
             <img class="event-sprite-img" style="height:${spriteH}%" src="img/events/trainer/trainer_${trainerChosen}.png">
         </div>`
 
-    eventText.innerHTML += ``
     eventText.innerHTML = `
         <hr>
         <p class="event-text-row">You found a trainer!</p><hr>
+        <br>
         <p id="event-text-row">${trainerChosen.toUpperCase()} will help you raise your ${attrToTrainText} attribute(s) by ${trainAmount} for ${trainCost} ${icons.gold} (discounted by ${playerChar.totalAttr.chr}). Do you accept? You have ${playerChar.gold} ${icons.gold}.</p>
         <br>
         <div id="event-btn-container">
