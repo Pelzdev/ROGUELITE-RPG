@@ -100,7 +100,7 @@ function makePlayerCharDiv (pc) {
                 </div>
             </div>
             <hr>
-            <p class="pc-info-line gold"><i class="icon-gold"></i> ${pc.gold}</p>
+            <p class="pc-info-line gold">${goldIcon} ${pc.gold}</p>
             <p class="pc-info-line buff">BUFF: ${buffText}</p>
             <hr>
         </div>

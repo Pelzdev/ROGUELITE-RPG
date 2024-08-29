@@ -18,7 +18,7 @@ function potion () {
 
     eventText.innerHTML = `
         <hr>
-        <p class="event-text-row">You met a healer!</p><hr>
+        <p class="event-text-row">You met healer Brevenin!!</p><hr>
         <p id="event-text-row">He heals you, restoring ${amountRestored} HP.</p>
         <br>
         `

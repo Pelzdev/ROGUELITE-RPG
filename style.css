@@ -421,11 +421,13 @@ hr {
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
    transform: rotateX(180deg);
-   vertical-align: middle;
+   vertical-align: top;
 }
 .icon-gold:before{content:'\004b';}
 .icon-sword:before{content:'\004a';}
 .icon-shield:before{content:'\0048';}
+.icon-female:before{content:'\004c';}
+.icon-male:before{content:'\004d';}
 .icon-cold:before{content:'\0041';}
 .icon-electric:before{content:'\0042';}
 .icon-fire:before{content:'\0043';}
@@ -438,6 +440,8 @@ hr {
 .icon-gold{color: gold;}
 .icon-sword {color: white;}
 .icon-shield {color: white;}
+.icon-female {color: white; line-height: 0.8;}
+.icon-male {color: white; line-height: 0.8;}
 .icon-cold {color: lightblue;}
 .icon-electric  {color: yellow;}
 .icon-fire  {color: rgb(255, 136, 0);}

@@ -354,8 +354,8 @@ const bosses = {
 }
 
 const genderSymbol = {
-    male: '&#9794;',
-    female: '&#9792;'
+    male: '<i class="icon-male"></i>',
+    female: '<i class="icon-female"></i>'
 }
 
 const numOfCharSprites = {
