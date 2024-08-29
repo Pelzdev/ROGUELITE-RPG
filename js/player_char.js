@@ -107,7 +107,7 @@ function makePlayerCharDiv (pc) {
         </div>
 
         <div class="player-info-section section-2">
-            <p class="pc-info-line skill-1">Skill 1: ${icons[pc.skills[0].attribute]} ${pc.skills[0].name.toUpperCase()}</p>
+            <p class="pc-info-line skill-1">Skill 1: <span onclick="clickSkill(0)">${icons[pc.skills[0].attribute]} ${pc.skills[0].name.toUpperCase()}</span></p>
             <p class="pc-info-line skill-2">Skill 2: -</p>
             <hr>
             <p class="pc-info-line weapon">Weapon: ${eqTextWeapon} <img src="${weaponImg}" style="vertical-align: bottom;transform:rotate(45deg);height:16px;"></p>
@@ -128,6 +128,42 @@ function makePlayerCharDiv (pc) {
 
     return
 }
+// CLICKING skills etc on char screen
+function clickSkill (arrPos) {
+    let skill = playerChar.skills[arrPos]
+    let dmgOrHealText = 'Damage'
+    if (skill.type === 'heal') dmgOrHealText = 'Heal'
+    let statusText = '-'
+    if (skill.status) statusText = `5% chance to ${skill.status.toUpperCase()}`
+
+    document.getElementById('button-bar').classList.add('unclickable')
+    popupDiv.innerHTML = `
+        <br>
+        <p style="font-size: 12px;">${skill.name.toUpperCase()}</p>
+        <br>
+        <p style="font-size:24px;"><i class="icon-${skill.attribute}"></i></p>
+        <br>
+        <p>Type: ${skill.type.toUpperCase()}</p>
+        <br><hr>
+        <br>
+        <p>Chance to use: ${skill.chance}%</p>
+        <p>${dmgOrHealText}: ${skill.power || '-'}</p>
+        <p>Crit chance: ${skill.critChance}%</p>
+        <p>Extra effect: ${statusText}</p>
+        <br><hr><br><br>
+        <button class="btn-medium" onclick="closePopup()">BACK</button>
+    ` 
+
+    popupDiv.style.display = 'block'
+    centerPopup(popupDiv)
+    console.log(`clicked skill: ${playerChar.skills[0].name}`) 
+}
+
+function closePopup () {
+    document.getElementById('button-bar').classList.remove('unclickable')
+    popupDiv.style.display = 'none'
+}
+
 // CONSUMABLE STUFF
 // Clicking the consumable
 function clickConsumable (arrPos) {

@@ -162,9 +162,9 @@ function doSkill(attacker, defender) {
         text += checkStatusApplication(skillUsed, defender)
     }
     // Check if STATUS that need to be checked after attacking
-    if (attacker.status === 'bleeding') {
-        let bleedDmg = rndInt(1,2)
-        text += `<p class="battle-text-row ${textClass}">${attacker.name.toUpperCase()} has status ${attacker.status} and takes ${bleedDmg} dmg</p>`
+    if (attacker.status === 'bleed') {
+        let bleedDmg = rndInt(1,3)
+        text += `<p class="battle-text-row">${attacker.name.toUpperCase()} is Bleeding and takes ${bleedDmg} dmg</p>`
         attacker.hpLeft -= bleedDmg
     }
     // Check if defender is dead and act accordingly
