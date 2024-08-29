@@ -164,8 +164,7 @@ hr {
     margin: 2px;
 }
 
-
-#pc-img-container {
+#player-sprite {
     position: relative;
     height: calc(100% - 29px);
     max-width: 100%;
@@ -173,6 +172,12 @@ hr {
     background-blend-mode: multiply;
     background-size: cover;
     background-position: center center;
+}
+
+#pc-img-container {
+    position: relative;
+    height: calc(100% - 30px);
+    cursor: pointer;
 }
 
 #pc-img-container img {
@@ -183,6 +188,7 @@ hr {
     vertical-align: bottom;
     image-rendering: pixelated;
 }
+
 
 
 
@@ -331,10 +337,6 @@ hr {
     bottom: 0;
     vertical-align: bottom;
     image-rendering: pixelated;
-    /*filter: drop-shadow(1px 1px 0 rgb(219, 219, 219))
-        drop-shadow(-1px 1px 0 rgb(219, 219, 219))
-        drop-shadow(1px -1px 0 rgb(219, 219, 219))
-        drop-shadow(-1px -1px 0 rgb(219, 219, 219));*/
 }
 
 #enemy-hp-text {

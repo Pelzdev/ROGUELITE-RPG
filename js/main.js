@@ -143,3 +143,11 @@ function updateEventBg (event) {
     targetDiv.style.backgroundSize = 'cover'
     targetDiv.style.backgroundPosition = 'center center'
 }
+
+function updatePlayerBg () {
+    let bgUrl = locationBg
+    playerSpriteEl.style.background = `url(${bgUrl}) rgba(0, 0, 0, 0.3)`
+    playerSpriteEl.style.backgroundBlendMode = 'multiply'
+    playerSpriteEl.style.backgroundSize = 'cover'
+    playerSpriteEl.style.backgroundPosition = 'center center'
+}

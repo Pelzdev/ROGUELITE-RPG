@@ -31,6 +31,7 @@ function getChar (race, job, gender) {
 }
 
 function makePlayerCharDiv (pc) {
+    updatePlayerBg()
     // Make sure attributes, hp etc is up-to-date
     pc.totalAttr = updateCharTotalAttr(pc)
     pc.maxHp = 50 + (pc.totalAttr.end * 5)
