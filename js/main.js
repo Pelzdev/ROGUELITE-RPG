@@ -17,6 +17,8 @@ let eventTextContainer = document.getElementById('event-text-container')
 let eventText = document.getElementById('event-text')
 let endEventBtn = document.getElementById('event-end-btn') 
 
+let goldIcon = '<i class="icon-gold"></i>'
+
 // #######################################
 let sizeMulti = 1.3 // for char and enemy sprites
 let hpPerLvlUp = 5

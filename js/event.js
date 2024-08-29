@@ -1,10 +1,11 @@
-function startEvent (pc) {
+function startEvent (pc, chosenEvent) {
     let rndNum = rndInt(1,100)
     if (rndNum <= 10) currentEvent = 'inn'
     if (rndNum > 10 && rndNum <= 18) currentEvent = 'healer'
     if (rndNum > 18 && rndNum <= 30) currentEvent = 'trainer'
     if (rndNum > 30) currentEvent = 'battle'
 
+    currentEvent = chosenEvent
 
     if (currentEvent === 'inn') {
         inn(pc)

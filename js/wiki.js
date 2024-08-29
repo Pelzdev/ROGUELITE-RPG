@@ -142,37 +142,37 @@ const races = {
 const jobs = {
     archer: {
         name: 'archer',
-        bonusAttr: {agi: 3},
+        bonusAttr: {str: 1, agi: 1, dex: 3},
         startSkill: 'power_shot_1'
     },
     bard: {
         name: 'bard',
-        bonusAttr: {chr: 3},
+        bonusAttr: {dex: 1, chr: 4},
         startSkill: 'scream_1'
     },
     gambler: {
         name: 'gambler',
-        bonusAttr: {lck: 3},
+        bonusAttr: {dex: 1, chr: 1, lck: 3},
         startSkill: 'gambling_strike_1'
     },
     mage: {
         name: 'mage',
-        bonusAttr: {int: 3},
+        bonusAttr: {int: 4, lck: 1},
         startSkill: 'magic_bolt_1'
     },
     priest: {
         name: 'priest',
-        bonusAttr: {int: 2, chr: 1},
+        bonusAttr: {int: 3, chr: 1, lck: 1},
         startSkill: 'heal_self_1'
     },
     rogue: {
         name: 'rogue',
-        bonusAttr: {agi: 2, lck: 1},
+        bonusAttr: {agi: 3, dex: 1, lck: 1},
         startSkill: 'eviscerate_1'
     },
     warrior: {
         name: 'warrior',
-        bonusAttr: {str: 2, agi: 1},
+        bonusAttr: {end: 2, str: 2, agi: 1},
         startSkill: 'bash_1'
     }
 }

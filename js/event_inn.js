@@ -21,7 +21,7 @@ function inn (pc) {
 
     eventText.innerHTML += `<hr><p class="event-text-row">You found an inn!</p><hr>`
     eventText.innerHTML = `
-    <p id="inn-text-row">The inn looks inviting. Do you want to pay innkeeper Aerion ${innCost} gold, (incl a ${pc.totalAttr.chr}G discount) to stay the night? You have ${pc.gold} gold.</p>
+    <p id="inn-text-row">The inn looks inviting. Do you want to pay innkeeper Aerion ${innCost} ${goldIcon}, (discounted by ${pc.totalAttr.chr}), to stay the night? You have ${pc.gold} ${goldIcon}.</p>
     <br>
     <div id="event-btn-container">
         <button class="btn-inn yes" onclick="innYes()">YES</button><button class="btn-inn no" onclick="innNo()">NO</button>
@@ -38,7 +38,7 @@ function innYes () {
         return
     }
     playerChar.gold -= innCost
-    eventText.innerHTML = `You paid ${innCost} gold to stay the night... You wake up refreshed.`
+    eventText.innerHTML = `You paid ${innCost} ${goldIcon} to stay the night... You wake up refreshed.`
     playerChar.hpLeft += 25
     if(playerChar.hpLeft > playerChar.hpMax) {playerChar.hpLeft = playerChar.hpMax}
 

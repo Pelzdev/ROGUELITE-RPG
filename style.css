@@ -423,6 +423,9 @@ hr {
    transform: rotateX(180deg);
    vertical-align: middle;
 }
+.icon-gold:before{content:'\004b';}
+.icon-sword:before{content:'\004a';}
+.icon-shield:before{content:'\0048';}
 .icon-cold:before{content:'\0041';}
 .icon-electric:before{content:'\0042';}
 .icon-fire:before{content:'\0043';}
@@ -430,20 +433,19 @@ hr {
 .icon-nature:before{content:'\0045';}
 .icon-physical:before{content:'\0046';}
 .icon-poison:before{content:'\0047';}
-.icon-shield:before{content:'\0048';}
 .icon-water:before{content:'\0049';}
-.icon-sword:before{content:'\004a';}
 
+.icon-gold{color: gold;}
 .icon-sword {color: white;}
 .icon-shield {color: white;}
 .icon-cold {color: lightblue;}
 .icon-electric  {color: yellow;}
-.icon-fire  {color: orange;}
+.icon-fire  {color: rgb(255, 136, 0);}
 .icon-holy {color: rgb(241, 241, 171);}
 .icon-nature {color: rgb(131, 199, 67);}
 .icon-physical {color: burlywood;}
 .icon-poison {color: rgb(157, 130, 255);}
-.icon-water {color: rgb(120,180,255);}
+.icon-water {color: rgb(95, 176, 252);}
 
 
 

@@ -1,8 +1,6 @@
 function getChar (race, job, gender) {
     let char = {
         isPlayer: true,
-        hpMax: 100, 
-        hpLeft: 100,
         exp: 0, 
         expToLvl: 40, 
         gold: 5,
@@ -18,8 +16,9 @@ function getChar (race, job, gender) {
         eq: {weapon: structuredClone(eq.weapons.wooden_sword), armor: null, trinket: structuredClone(eq.trinkets.rabbits_foot)}
     }
     char.totalAttr = updateCharTotalAttr(char)
+    char.hpMax = 50 + (char.totalAttr.end * 5)
+    char.hpLeft = char.hpMax
     char.img = getCharSprite(char)
-    console.log(char.totalAttr)
     char.name = rndFromArr(races[char.race.name].names[char.gender])
     char.lastName = rndFromArr(races[char.race.name].lastNames)
     char.skills = [structuredClone(skills[char.job.startSkill])]
@@ -99,7 +98,7 @@ function makePlayerCharDiv (pc) {
                 </div>
             </div>
             <hr>
-            <p class="pc-info-line gold">GOLD: ${pc.gold}</p>
+            <p class="pc-info-line gold"><i class="icon-gold"></i> ${pc.gold}</p>
             <p class="pc-info-line buff">BUFF: ${buffText}</p>
             <hr>
         </div>
@@ -187,7 +186,7 @@ function getCharSprite (char) {
 function checkAddZero (stat) {
     let numberShown = stat
     if (stat < 10) {
-        numberShown = `<span style="color: rgba(255,255,255,0.3)">0</span>${stat}`
+        numberShown = `<span style="color: rgba(255,255,255,0.2)">0</span>${stat}`
     }
     return numberShown
 }
