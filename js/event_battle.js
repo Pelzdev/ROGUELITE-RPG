@@ -85,7 +85,9 @@ function doTurn(attacker, defender) {
     let canMove = true
     let statusText = attacker.status
     // Check if statuses that need to be checked before attacking
-    canMove = canCharMove(attacker, canMove) 
+    canMove = canCharMove(attacker) 
+    if (!canMove) text += `<p class="battle-text-row">${attacker.name.toUpperCase()} can't move due to ${attacker.status}</p>`
+    if (attacker.status === 'stun') attacker.status = ''
     // If attacker can move, do skill
     if (canMove) {
         text += doSkill(attacker, target, textClass)
@@ -121,13 +123,10 @@ function decideFirstAttacker(char1, char2) {
 
 function canCharMove (char) {
     if (char.status === 'stun') {
-        text += `<p class="battle-text-row">${char.name.toUpperCase()} is STUNNED and cannot move.</p>`
-        char.status = ''
         return false
     }
     if (char.status === 'charmed') {
         if (rndInt(1,10) < 4) {
-            text += `<p class="battle-text-row">${char.name.toUpperCase()} is too CHARMED to move.</p>`
             return false
         }
     }
@@ -159,7 +158,7 @@ function doSkill (attacker, target, textClass) {
         text += `<p class="battle-text-row ${textClass}">${critText} ${attacker.name.toUpperCase()} used ${skillUsed.name.toUpperCase()} on ${target.name.toUpperCase()}!</p>`
     }
     text += checkSkillEffects(skillUsed, attacker, target, power) // Check if skill has EFFECT that can give STATUS or Lifesteal etc and if it is to be used
-    
+
     return text
 }
 
@@ -216,7 +215,7 @@ function checkIfDead (char, charsEnemy, textClass) {
 function checkStatusApplication (skill, target) {
     let text = ''
     console.log('checking effect: ' + skill.effect + ' from skill: ' + skill.name)
-    if (rndInt(1,100) < skill.effectChance) {
+    if (rndInt(1,100) <= skill.effectChance) {
         if (target.status === skill.effect) {
             text = `<p id="battle-text-row">${target.name.toUpperCase()} is already affected by ${skill.effect.toUpperCase()}</p>`
         } else {
