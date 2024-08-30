@@ -4,8 +4,8 @@ let enemy = {}
 let enemySprite
 const enemyList = ['mouse', 'goblin_bat', 'mouse_assassin', 'goblin', 'boar', 'young_wolf', 'crob', 'boarian_marauder', 'troll_forest']
 const enemyLists = {
-    level1: ['mouse', 'goblin_bat', 'mouse_assassin', 'goblin'],
-    level5: ['mouse_assassin', 'goblin', 'boar', 'young_wolf', 'crob'],
+    level1: ['mouse', 'forest_gecko', 'goblin_bat', 'mouse_assassin', 'goblin'],
+    level5: ['mouse_assassin', 'goblin', 'boar', 'rabid_deer', 'young_wolf', 'crob'],
     level8: [ 'boar', 'young_wolf', 'crob', 'boarian_marauder', 'troll_forest']
 }
 
@@ -23,8 +23,6 @@ function battle (pc) {
         }
         enemy = structuredClone(enemies[rndFromArr(enemyLists.level8)])
     }
-    console.log(enemy)
-
     // background
     //updateEventBg('battle')
     eventText.innerHTML += `<hr><p class="event-text-row">It's a ${enemy.name.toUpperCase()}... FIGHT!</p><hr>`
@@ -42,7 +40,7 @@ function makeBattleDiv (enemy) {
         <hr>
         <p class="enemy-info-line name">lvl ${enemy.level} ${enemy.name.toUpperCase()}</p>
         <hr>
-        <div id="enemy-img-container" onclick="doBattleTurn(event)">
+        <div id="enemy-img-container" onclick="doBattleTurns(event)">
             <img id="battle-enemy-img" style="height:${spriteH}%" src="${enemy.img}">
         </div>
         <hr>
@@ -54,7 +52,7 @@ function makeBattleDiv (enemy) {
     eventDiv.innerHTML = html
 }
 
-function doBattleTurn() {
+function doBattleTurns() {
     let text = ''
     let attOrder = decideFirstAttacker(playerChar, enemy)
     let first = attOrder[0]
@@ -64,11 +62,11 @@ function doBattleTurn() {
         console.log('cant attack, enemy or you are dead...')
         return
     }
-    // FIRST attacker attacks!
-    text += doSkill(first, second)
+    // FIRST attacker attacks! 
+    text += doTurn(first, second)
     // SECOND  attacker attacks!
     if (second.hpLeft > 0) {
-        text += doSkill(second, first)
+        text += doTurn(second, first)
     }
     eventText.innerHTML += text + '<hr>';
     // automatically scroll to the bottom (to see newest text)
@@ -76,6 +74,30 @@ function doBattleTurn() {
     eventTextContainer.scrollTop = eventTextContainer.scrollHeight;
 }
 
+// NEW BATTLE FUNC
+function doTurn(attacker, defender) {
+    let textClass = 'enemy'
+    if (attacker.isPlayer) textClass = 'player'
+    let text = ''
+    let power = 0
+    let skillUsed = {}
+    let target = defender
+    let canMove = true
+    let statusText = attacker.status
+    // Check if statuses that need to be checked before attacking
+    canMove = canCharMove(attacker, canMove) 
+    // If attacker can move, do skill
+    if (canMove) {
+        text += doSkill(attacker, target, textClass)
+    }
+
+    text += proccStatus(attacker) // Check if attacker has STATUS that need to be checked AFTER attacking, and procc it
+    text += checkIfDead(defender, attacker, textClass) // Check if defender is dead and act accordingly
+    text += checkIfDead(attacker, defender, textClass) // Check if attacker is dead and act accordingly
+    updateHp(attacker)
+    updateHp(defender)
+    return text
+}
 
 // Check who gets to attack first
 function decideFirstAttacker(char1, char2) {
@@ -96,36 +118,28 @@ function decideFirstAttacker(char1, char2) {
     return [first, second]
 }
 
-function doSkill(attacker, defender) {
-    let textClass = 'enemy'
-    if (attacker.isPlayer) textClass = 'player'
-    let text = ''
-    let power = 0
-    let skillUsed = {}
-    let target = defender
-    let critText = ''
-    // Check if statuses that need to be checked before attacking
-    if (attacker.status === 'stun') {
-        text += `<p class="battle-text-row">${attacker.name.toUpperCase()} is STUNNED and cannot move.</p>`
-        attacker.status = ''
-        return text
+
+function canCharMove (char) {
+    if (char.status === 'stun') {
+        text += `<p class="battle-text-row">${char.name.toUpperCase()} is STUNNED and cannot move.</p>`
+        char.status = ''
+        return false
     }
-    if (attacker.status === 'charmed') {
+    if (char.status === 'charmed') {
         if (rndInt(1,10) < 4) {
-            text += `<p class="battle-text-row">${attacker.name.toUpperCase()} is too CHARMED to move.</p>`
-            return text
+            text += `<p class="battle-text-row">${char.name.toUpperCase()} is too CHARMED to move.</p>`
+            return false
         }
     }
-    // CHECK WHAT SKILL IS USED
-    if (rndInt(1,100) < attacker.skills[0].chance) {
-        skillUsed = attacker.skills[0]
-    } else {
-        skillUsed = skills.attack
-    }
-    // Check target of skill
-    if (skillUsed.target === 'self') target = attacker
-    // Roll skill damage (TO DO FIX DMG)
-    power = rollPower(skillUsed, attacker, target)
+    return true
+}
+
+function doSkill (attacker, target, textClass) {
+    let critText = ''
+    let text = ''
+    skillUsed = checkSkillToUse(attacker) // CHECK WHAT SKILL IS USED
+    if (skillUsed.target === 'self') target = attacker // Check target of skill
+    power = rollPower(skillUsed, attacker, target) // Roll skill damage (TO DO FIX DMG)
     //Check skill type (dmg, heal, status)
     if (skillUsed.type === 'damage') {
         // Check crit
@@ -144,59 +158,63 @@ function doSkill(attacker, defender) {
     if (skillUsed.type === 'status') {
         text += `<p class="battle-text-row ${textClass}">${critText} ${attacker.name.toUpperCase()} used ${skillUsed.name.toUpperCase()} on ${target.name.toUpperCase()}!</p>`
     }
+    text += checkSkillEffects(skillUsed, attacker, target, power) // Check if skill has EFFECT that can give STATUS or Lifesteal etc and if it is to be used
+    
+    return text
+}
 
-    // Check if skill has EFFECT that can give STATUS and if it is to be used
+function checkSkillToUse (attacker) {
+    let chosenSkill
+    if (rndInt(1,100) < attacker.skills[0].chance) {
+        chosenSkill = attacker.skills[0]
+    } else {
+        chosenSkill = skills.attack
+    }
+    return chosenSkill
+}
+
+function checkSkillEffects(skillUsed, user, target, power) {
+    let text = ''
     if (['stun','bleed','charmed', 'poison', 'confused'].includes(skillUsed.effect)) {
-        text += checkStatusApplication(skillUsed, defender)
-        console.log('CHECKING IF EFFECT SHOULD BE USED')
+        text += checkStatusApplication(skillUsed, target)
     }
     // Check if skill has EFFECT that cannot put status
-    //if (['lifesteal'].includes(skillUsed.effect)) {
     if ([skillUsed.effect].includes('lifesteal')) {
         let lifeStolen = Math.round(power/2)
-        attacker.hpLeft += lifeStolen
-        text += `<p class="battle-text-row">${attacker.name.toUpperCase()} stole ${lifeStolen} HP!</p>`
+        user.hpLeft += lifeStolen
+        text += `<p class="battle-text-row">${user.name.toUpperCase()} stole ${lifeStolen} HP!</p>`
     }
+    return text
+}
 
-
-    // Check if attacker has STATUS that need to be checked after attacking
-    if (attacker.status === 'bleed') {
+function proccStatus (user) {
+    let text = ''
+    if (user.status === 'bleed') {
         let bleedDmg = rndInt(1,3)
-        text += `<p class="battle-text-row">${attacker.name.toUpperCase()} is Bleeding and takes ${bleedDmg} dmg</p>`
-        attacker.hpLeft -= bleedDmg
+        text += `<p class="battle-text-row">${user.name.toUpperCase()} is Bleeding and takes ${bleedDmg} dmg</p>`
+        user.hpLeft -= bleedDmg
     }
-    // Check if defender is dead and act accordingly
-    if (defender.hpLeft <= 0) {
-        defender.hpLeft = 0
-        text +=  `<p class="battle-text-row ${textClass}">${defender.name.toUpperCase()} DIED!</p>`
-        endEventBtn.style.display = 'inline-block'
-        if (defender.isPlayer) {defender.food[0] = null; defender.food[1] = null}
+    return text
+}
 
-        if (attacker.isPlayer === true && attacker.hpLeft > 0) {
-            text += giveExpAndUpdate(attacker, defender)
+function checkIfDead (char, charsEnemy, textClass) {
+    let text = ''
+    if (char.hpLeft <= 0) {
+        char.hpLeft = 0
+        text +=  `<p class="battle-text-row ${textClass}">${char.name.toUpperCase()} DIED!</p>`
+        endEventBtn.style.display = 'inline-block'
+        if (char.isPlayer) {char.food[0] = null; char.food[1] = null}
+
+        if (charsEnemy.isPlayer === true && charsEnemy.hpLeft > 0) {
+            text += giveExpAndUpdate(charsEnemy, char)
         }
     }
-    // Check if attacker is dead and act accordingly
-    if (attacker.hpLeft <= 0) {
-        attacker.hpLeft = 0
-        text +=  `<p class="battle-text-row ${textClass}">${attacker.name.toUpperCase()} DIED!</p>`
-        endEventBtn.style.display = 'inline-block'
-        if (attacker.isPlayer) {attacker.food[0] = null; attacker.food[1] = null}
-
-        if (defender.isPlayer === true && defender.hpLeft > 0) {
-            text += giveExpAndUpdate(defender, attacker)
-        }
-    }
-
-    updateHp(attacker)
-    updateHp(defender)
-
     return text
 }
 
 // function to return possible effect including turn time for effect. Or 0/null if no effect
 function checkStatusApplication (skill, target) {
-    text = ''
+    let text = ''
     console.log('checking effect: ' + skill.effect + ' from skill: ' + skill.name)
     if (rndInt(1,100) < skill.effectChance) {
         if (target.status === skill.effect) {

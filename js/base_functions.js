@@ -42,3 +42,15 @@ function getHighestAttr (attrObj) {
 
     return highestAttr
 }
+
+function pkmnDmgCalc (skill, user, target) {
+    let critical = 1
+    let random = rndInt(85, 100)/100; console.log(random + ' ' + user.level)
+    let power = skill.power
+    let dmg = ( (2 * user.level / 5) * power * user.dmg/target.def ) / 50
+    console.log(dmg)
+    dmg = dmg * critical * random
+
+    console.log(`${skill.name} did ${dmg} dmg`)
+}
+

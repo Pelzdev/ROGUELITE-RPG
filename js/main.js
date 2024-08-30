@@ -101,7 +101,6 @@ function centerPopup (el) {
     el.style.left = `${0.5*gameW - elW/2}px`
 }
 function getSkillIcon (skill) {
-    console.log(icons[skill.attribute])
     return icons[skill.attribute]
 }
 

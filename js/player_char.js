@@ -26,6 +26,8 @@ function getChar (race, job, gender) {
     char.skills = [getStartSkill(char)]
     char.skills[0].level = 1
     char.height = char.race.height
+    char.dmg = char.race.dmg
+    char.def = char.race.def
 
     getSkillIcon(char.skills[0])
     return char

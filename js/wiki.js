@@ -36,7 +36,8 @@ const skills = {
     power_shot_1:       {name: 'power shot I',  target: 'enemy', type: 'damage', attribute: 'dex', chance: 30,  power: 40,   effect: 'stun',      effectChance: 15,   critChance: 10},
     quick_shot_1:       {name: 'quick shot I',  target: 'enemy', type: 'damage', attribute: 'dex', chance: 50,  power: 25,   effect: null,        effectChance: null, critChance: 5},
     scream_1:           {name: 'scream I',      target: 'enemy', type: 'damage', attribute: 'chr', chance: 30,  power: 30,   effect: 'stun',      effectChance: 30,   critChance: 5},
-    attract_1:          {name: 'attract I',     target: 'enemy', type: 'status', attribute: 'chr', chance: 30,  power: null, effect: 'charmed',   effectChance: 100,  critChance: 5}
+    attract_1:          {name: 'attract I',     target: 'enemy', type: 'status', attribute: 'chr', chance: 30,  power: null, effect: 'charmed',   effectChance: 100,  critChance: 5},
+    rabid_bite_1:       {name: 'rabid bite I',  target: 'enemy', type: 'damage', attribute: 'agi', chance: 40,  power: 25,   effect: 'poison',    effectChance: 100,  critChance: 5}
 }
 
 const food = {
@@ -252,6 +253,19 @@ const enemies = {
         img: 'img/enemies/mouse_small.png',
         height: 60, 
     },
+    forest_gecko: {
+        name: 'Forest Gecko',
+        isPlayer: false,
+        level: 1, 
+        hpMax: 10, 
+        hpLeft: 10,
+        dmg: 1, def: 1,
+        totalAttr: {str: 1, agi: 3, int: 1, chr: 1, lck: 1},
+        skills: [skills.attack],
+        status: '',
+        img: 'img/enemies/forest_gecko.png',
+        height: 70
+    },
     goblin_bat: {
         name: 'Goblin Bat',
         isPlayer: false,
@@ -303,6 +317,19 @@ const enemies = {
         status: '',
         img: 'img/enemies/boar.png',
         height: 110
+    },
+    rabid_deer: {
+        name: 'Rabid Deer',
+        isPlayer: false,
+        level: 4, 
+        hpMax: 50, 
+        hpLeft: 50,
+        dmg: 4, def: 4,
+        totalAttr: {str: 5, agi: 6, int: 1, chr: 1, lck: 1},
+        skills: [skills.rabid_bite_1],
+        status: '',
+        img: 'img/enemies/rabid_deer.png',
+        height: 130
     },
     young_wolf: {
         name: 'Young Wolf',
