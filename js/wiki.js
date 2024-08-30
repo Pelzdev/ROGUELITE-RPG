@@ -24,10 +24,10 @@ const skills = {
     // base skill (used if other skill isn't)
     attack:             {name: 'attack',        target: 'enemy', type: 'damage', attribute: 'str', chance: 100, power: 20,   effect: null,        effectChance: null, critChance: 5},
     // other skills
-    bash_1:             {name: 'bash I',        target: 'enemy', type: 'damage', attribute: 'str', chance: 30,  power: 35,   effect: 'stun',      effectChance: 25,   critChance: 5},
+    bash_1:             {name: 'bash I',        target: 'enemy', type: 'damage', attribute: 'str', chance: 30,  power: 30,   effect: 'stun',      effectChance: 25,   critChance: 5},
     bite_1:             {name: 'bite I',        target: 'enemy', type: 'damage', attribute: 'agi', chance: 50,  power: 25,   effect: 'bleed',     effectChance: 30,   critChance: 10},
     body_slam_1:        {name: 'body slam I',   target: 'enemy', type: 'damage', attribute: 'end', chance: 35,  power: 25,   effect: 'stun',      effectChance: 25,   critChance: 5},
-    eviscerate_1:       {name: 'eviscerate I',  target: 'enemy', type: 'damage', attribute: 'agi', chance: 20,  power: 30,   effect: 'bleed',     effectChance: 50,   critChance: 5},
+    eviscerate_1:       {name: 'eviscerate I',  target: 'enemy', type: 'damage', attribute: 'agi', chance: 30,  power: 30,   effect: 'bleed',     effectChance: 50,   critChance: 5},
     gamble_1:           {name: 'gamble I',      target: 'enemy', type: 'damage', attribute: 'lck', chance: 50,  power: 25,   effect: null,        effectChance: 0,    critChance: 20},
     tusk_attack_1:      {name: 'tusk attack I', target: 'enemy', type: 'damage', attribute: 'str', chance: 40,  power: 20,   effect: 'bleed',     effectChance: 30,   critChance: 5},
     heal_self_1:        {name: 'heal self I',   target: 'self',  type: 'heal',   attribute: 'int', chance: 25,  power: 30,   effect: null,        effectChance: null, critChance: 5},
@@ -264,7 +264,7 @@ const enemies = {
         skills: [skills.attack],
         status: '',
         img: 'img/enemies/forest_gecko.png',
-        height: 70
+        height: 100
     },
     goblin_bat: {
         name: 'Goblin Bat',
@@ -354,7 +354,7 @@ const enemies = {
         totalAttr: {str: 3, agi: 2, int: 4, chr: 3, lck: 3},
         skills: [skills.scream_1],
         status: '',
-        img: 'img/enemies/crob.png',
+        img: 'img/enemies/crob2.png',
         height: 110
     },
     boarian_marauder:{

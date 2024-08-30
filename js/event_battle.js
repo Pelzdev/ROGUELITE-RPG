@@ -9,6 +9,8 @@ const enemyLists = {
     level8: [ 'boar', 'young_wolf', 'crob', 'boarian_marauder', 'troll_forest']
 }
 
+
+
 function battle (pc) {
     let rndNum = rndInt(1,10)
     if (pc.level < 5) {
@@ -25,6 +27,7 @@ function battle (pc) {
     }
     // background
     //updateEventBg('battle')
+    enemy = enemies.crob
     eventText.innerHTML += `<hr><p class="event-text-row">It's a ${enemy.name.toUpperCase()}... FIGHT!</p><hr>`
     makeBattleDiv(enemy)
 }
@@ -79,11 +82,8 @@ function doTurn(attacker, defender) {
     let textClass = 'enemy'
     if (attacker.isPlayer) textClass = 'player'
     let text = ''
-    let power = 0
-    let skillUsed = {}
     let target = defender
     let canMove = true
-    let statusText = attacker.status
     // Check if statuses that need to be checked before attacking
     canMove = canCharMove(attacker) 
     if (!canMove) text += `<p class="battle-text-row">${attacker.name.toUpperCase()} can't move due to ${attacker.status}</p>`
@@ -92,7 +92,6 @@ function doTurn(attacker, defender) {
     if (canMove) {
         text += doSkill(attacker, target, textClass)
     }
-
     text += proccStatus(attacker) // Check if attacker has STATUS that need to be checked AFTER attacking, and procc it
     text += checkIfDead(defender, attacker, textClass) // Check if defender is dead and act accordingly
     text += checkIfDead(attacker, defender, textClass) // Check if attacker is dead and act accordingly
@@ -138,7 +137,7 @@ function doSkill (attacker, target, textClass) {
     let text = ''
     skillUsed = checkSkillToUse(attacker) // CHECK WHAT SKILL IS USED
     if (skillUsed.target === 'self') target = attacker // Check target of skill
-    power = rollPower(skillUsed, attacker, target) // Roll skill damage (TO DO FIX DMG)
+    let power = rollPower(skillUsed, attacker, target) // Roll skill damage (TO DO FIX DMG)
     //Check skill type (dmg, heal, status)
     if (skillUsed.type === 'damage') {
         // Check crit
