@@ -229,7 +229,7 @@ hr {
     margin-left: 50%;
     transform: translateX(-50%);
     position: absolute;
-    bottom: 0px;
+    bottom: 35px;
     vertical-align: bottom;
     image-rendering: pixelated;
 }
