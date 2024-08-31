@@ -58,7 +58,6 @@
 /* GENERAL */
 
 body {
-    touch-action: none;
     /* touch-action: manipulation; */
     width: calc(100vw - 1px);
     height: calc(100vh - 1px);
@@ -130,7 +129,7 @@ hr {
 
 
 .player-info-section {
-    touch-action: none;
+    touch-action: manipulation;
     display: inline-block;
     width: 49%;
     vertical-align: top;
@@ -375,6 +374,7 @@ hr {
     height: calc(100% - 60px);
     cursor: pointer;
     /*user-select: none;*/
+
 }
 
 #enemy-img-container img {
@@ -489,7 +489,7 @@ hr {
 }
 .icon-agi:before{content:'\0041';}
 .icon-amulet:before{content:'\0042';}
-.icon-armor:before{content:'\0043';}
+.icon-body:before{content:'\0043';}
 .icon-blood:before{content:'\0044';}
 .icon-boots:before{content:'\0045';}
 .icon-charmed:before{content:'\0046';}
@@ -518,7 +518,7 @@ hr {
 .icon-sleep:before{content:'\0063';}
 .icon-str:before{content:'\0064';}
 .icon-stunned:before{content:'\0065';}
-.icon-sword:before{content:'\0066';}
+.icon-weapon:before{content:'\0066';}
 .icon-trinket:before{content:'\0067';}
 .icon-water:before{content:'\0068';}
 .icon-wis:before{content:'\0069';}

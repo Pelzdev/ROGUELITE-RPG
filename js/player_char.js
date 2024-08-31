@@ -43,38 +43,10 @@ function makePlayerCharDiv (pc) {
     pc.totalAttr = updateCharTotalAttr(pc)
     pc.hpMax = 50 + (pc.totalAttr.end * 5) + pc.level * 5
 
-    let buffText = '-'
-    if (pc.buff) buffText = pc.buff.type
-
-    let foodImg0 = ''
-    let foodImg1 = ''
-    let foodImg2 = ''
-    if (pc.food[0]) {
-        foodImg0 =  `<img src="${pc.food[0].img}" style="height: 32px;">`
-    } else {foodImg1 = ''}
-    if (pc.food[1]) {
-        foodImg1 =  `<img src="${pc.food[1].img}" style="height: 32px;">`
-    } else {foodImg1 = ''}
-    if (pc.food[2]) {
-        foodImg2 =  `<img src="${pc.food[2].img}" style="height: 32px;">`
-    } else {foodImg2 = ''}
-
-    let eqTextHelmet = ''
-    let eqTextWeapon = ''
-    let eqTextBody = ''
-    let eqTextGloves = ''
-    let eqTextTrinket = ''
-    let eqTextBoots = ''
-    if (pc.eq.head) eqTextHelmet = pc.eq.head.name.toUpperCase()
-    if (pc.eq.weapon) eqTextWeapon = pc.eq.weapon.name.toUpperCase()
-    if (pc.eq.body) eqTextBody = pc.eq.body.name.toUpperCase()
-    if (pc.eq.gloves) eqTextGloves = pc.eq.gloves.name.toUpperCase()
-    if (pc.eq.trinket) eqTextTrinket = pc.eq.trinket.name.toUpperCase()
-    if (pc.eq.boots) eqTextBoots = pc.eq.boots.name.toUpperCase()
+    makePlayerInfo(pc)
 
     const maxH = 85
     const spriteH = (pc.height / 200) * maxH
-    let statBarPercentMulti = 2 // aka 1 point = 5% of bar filled
 
     let spriteHtml = `
         <div id="pc-img-container">
@@ -91,63 +63,12 @@ function makePlayerCharDiv (pc) {
             </div>
         </div>
     `
-    let infoText1 = `
-        <div class="player-info-section-1">
-            <p class="pc-info-line name">${pc.name.toUpperCase()} ${pc.lastName.toUpperCase()}</p>
-            <p class="pc-info-line trait">${pc.trait.name.toUpperCase()} ${pc.race.name.toUpperCase()} ${genderSymbol[pc.gender]}</p>
-            <p class="pc-info-line joblvl">lvl ${pc.level} ${pc.job.name.toUpperCase()}</p>
-            <p class="pc-info-line atkdef">${icons.sword} ${pc.race.dmg} ${icons.shield} ${pc.race.def}</p>
-            <hr>
-            <div class="pc-attr-stats-container">
-                <div class="pc-attr-container" style="width:62%;">
-                    ${icons.end} END ${checkAddZero(pc.totalAttr.end)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.end*statBarPercentMulti}%;"></div> </div> <br>
-                    ${icons.str} STR ${checkAddZero(pc.totalAttr.str)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.str*statBarPercentMulti}%;"></div> </div> <br>
-                    ${icons.agi} AGI ${checkAddZero(pc.totalAttr.agi)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.agi*statBarPercentMulti}%;"></div> </div> <br>
-                    ${icons.dex} DEX ${checkAddZero(pc.totalAttr.dex)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.dex*statBarPercentMulti}%;"></div> </div> <br>
-                    ${icons.int} INT ${checkAddZero(pc.totalAttr.int)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.int*statBarPercentMulti}%;"></div> </div> <br>
-                    ${icons.chr} CHR ${checkAddZero(pc.totalAttr.chr)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.chr*statBarPercentMulti}%;"></div> </div> <br>
-                    ${icons.lck} LCK ${checkAddZero(pc.totalAttr.lck)} <div class="pc-statbar-under"> <div class="pc-statbar-over" style="width:${pc.totalAttr.lck*statBarPercentMulti}%;"></div> </div>
-                </div>
-                <div class="res-container">
-                    <p>Resists:</p>
-                    <p>${icons.physical}${pc.totalRes.physical}% ${icons.fire}${pc.totalRes.fire}%</p>
-                    <p>${icons.cold}${pc.totalRes.cold}% ${icons.electric}${pc.totalRes.electric}%</p>
-                    <p>${icons.water}${pc.totalRes.water}% ${icons.nature}${pc.totalRes.nature}%</p>
-                    <p>${icons.poison}${pc.totalRes.poison}% ${icons.holy}${pc.totalRes.holy}%</p>
-                </div>
-            </div>
-            <hr>
-            <p class="pc-info-line location">LOCATION: ${currentLocationName}</p>
-            <p class="pc-info-line gold">${icons.gold} ${pc.gold}</p>
-            <p class="pc-info-line buff">BUFF: ${buffText}</p>
-            <hr>
-        </div>`
-    let infoText2 = `
-        <div class="player-info-section-2">
-            <p class="pc-info-line skill-1">Skill 1: <span class="clickable" onclick="clickSkill(0)">${icons[pc.skills[0].attribute]} ${pc.skills[0].name.toUpperCase()}</span></p>
-            <p class="pc-info-line skill-2">Skill 2: -</p>
-            <hr>
-            <p class="pc-info-line head">Head: <span class="clickable" onclick="clickEq('head')">${icons.helmet} ${eqTextHelmet}</span></p>
-            <p class="pc-info-line weapon">Weapon: <span class="clickable" onclick="clickEq('weapon')">${icons.sword} ${eqTextWeapon}</span></p>
-            <p class="pc-info-line body">Body: <span class="clickable" onclick="clickEq('body')">${icons.armor} ${eqTextBody}</span></p>
-            <p class="pc-info-line gloves">Gloves: <span class="clickable" onclick="clickEq('body')">${icons.gloves} ${eqTextGloves}</span></p>
-            <p class="pc-info-line trinket">Trinket: <span class="clickable" onclick="clickEq('trinket')">${icons.trinket} ${eqTextTrinket}</span></p>
-            <p class="pc-info-line boots">Boots: <span class="clickable" onclick="clickEq('trinket')">${icons.boots} ${eqTextBoots}</span></p>
-            <hr>
-            <div class="consumable-container">
-                <div class="consumable-img-container food0" onclick="clickConsumable(0)">${foodImg0}</div>
-                <div class="consumable-img-container food1" onclick="clickConsumable(1)">${foodImg1}</div>
-                <div class="consumable-img-container food2" onclick="clickConsumable(2)">${foodImg2}</div>
-            </div>
-        </div>`
-
+    makePlayerInfo(pc)
     playerSpriteEl.innerHTML = spriteHtml
-    playerCharInfoEl1.innerHTML = infoText1
-    playerCharInfoEl2.innerHTML = infoText2
 
-    getCenterOfEl(document.querySelector('.pc-expbar-under', 'x'))
     return
 }
+
 // CLICKING skills etc on char screen
 function clickSkill (arrPos) {
     let skill = playerChar.skills[arrPos]
@@ -189,72 +110,6 @@ function closePopup () {
     popupDiv.style.display = 'none'
 }
 
-// EQUIPMENT STUFF
-function clickEq (eqClicked) {
-    console.log(eqClicked)
-    document.getElementById('button-bar').classList.add('unclickable')
-    popupDiv.innerHTML = `
-        <br>
-        <p style="font-size: 12px;">${playerChar.eq[eqClicked].name.toUpperCase()}</p>
-        <br>
-        <p style="font-size:24px;"><i class="icon-${playerChar.eq[eqClicked].icon}"></i></p>
-        <br>
-        <p>Type: ${playerChar.eq[eqClicked].type.toUpperCase()}</p>
-        <br><hr>
-        <br>
-        <p>Rarity: COMMON</p>
-        <br><hr><br><br>
-        <button class="btn-medium" onclick="closePopup()">BACK</button>
-    ` 
-    popupDiv.style.display = 'block'
-    centerPopup(popupDiv)
-}
-
-// CONSUMABLE STUFF
-// Clicking the consumable
-function clickConsumable (arrPos) {
-    if (!playerChar.food[arrPos]) return
-    document.getElementById('button-bar').classList.add('unclickable')
-    popupDiv.innerHTML = `
-        <br>
-        <p style="font-size: 12px;">${playerChar.food[arrPos].name.toUpperCase()}</p>
-        <img class="popup-div-img" src="${playerChar.food[arrPos].img}">
-        <p>${playerChar.food[arrPos].infoText}</p><br><hr><br>
-        <p>Use it?</p><br>
-        <button class="btn-medium" onclick="consumableChoice('yes', ${arrPos})">Yes</button><button class="btn-medium" onclick="consumableChoice('no')">No</button>
-    ` 
-    popupDiv.style.display = 'block'
-    centerPopup(popupDiv)
-}
-// Choosing whether or not to use consumable/food
-function consumableChoice (answer, arrPos) {
-    let arrInt = parseInt(arrPos)
-    if (answer === 'no') {
-        
-    }
-    if (answer === 'yes') {
-        useConsumable(arrInt) 
-    }
-    closePopup()
-}
-// Using the consumable
-function useConsumable (arrPos) {
-    let gives = playerChar.food[arrPos].gives
-    let type = playerChar.food[arrPos].type
-    let amount = playerChar.food[arrPos].amount
-    
-    if (type === 'heal') {
-        playerChar[gives] += amount
-        updateHp(playerChar)
-    }
-    if (gives === 'buff_drunk') {
-        playerChar.buff = {type: 'drunk', timeLeft: 3}
-        makePlayerCharDiv(playerChar)
-    }
-
-    playerChar.food[arrPos] = null,
-    document.querySelector(`.consumable-img-container.food${arrPos}`).innerHTML = ''
-}
 // Choose start skill for char
 function getStartSkill (char) {
     let rndSkill = rndFromArr(char.job.startSkills)
