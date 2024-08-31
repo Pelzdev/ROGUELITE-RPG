@@ -70,13 +70,22 @@ function makePlayerCharDiv (pc) {
     const spriteH = (pc.height / 200) * maxH
     let statBarPercentMulti = 2 // aka 1 point = 5% of bar filled
 
+    
+
     let spriteHtml = `
         <div id="pc-img-container">
             <img class="sprite-${pc.race.name}" style="height:${spriteH}%" src="${pc.img}">
         </div>
-        <hr>
-        <div class="hp-bar-under pc-hpbar-under"><div class="hp-bar-over pc-hpbar-over" style="width:${pc.hpLeft/pc.hpMax*100}%"></div><p id="pc-hp-text">${pc.hpLeft}/${pc.hpMax} HP<p></div>
-        <div class="pc-expbar-under"><div class="pc-expbar-over" style="width:${pc.exp/pc.expToLvl*100}%"></div><p id="pc-exp-text">${pc.exp}/${pc.expToLvl} XP<p></div>
+        <div class="pc-hp-expbar-container style="text-align:center">
+            <div class="hp-bar-under pc-hpbar-under">
+                <div class="hp-bar-over pc-hpbar-over" style="width:${pc.hpLeft/pc.hpMax*100}%"></div>
+                <p id="pc-hp-text">${pc.hpLeft}/${pc.hpMax} HP<p>
+            </div>
+            <div class="pc-expbar-under">
+                <div class="pc-expbar-over" style="width:${pc.exp/pc.expToLvl*100}%"></div>
+                <p id="pc-exp-text">${pc.exp}/${pc.expToLvl} XP<p>
+            </div>
+        </div>
     `
     let infoText1 = `
         <div class="player-info-section-1">
@@ -129,6 +138,7 @@ function makePlayerCharDiv (pc) {
     playerCharInfoEl1.innerHTML = infoText1
     playerCharInfoEl2.innerHTML = infoText2
 
+    getCenterOfEl(document.querySelector('.pc-expbar-under', 'x'))
     return
 }
 // CLICKING skills etc on char screen

@@ -91,7 +91,7 @@ function getElementSize (el, widthOrHeight) {
 function getCenterOfEl (el, xOrY) {
     let centerX = el.offsetLeft + el.offsetWidth / 2;
     let centerY = el.offsetTop + el.offsetHeight / 2;
-    //console.log (`Center of ${el} is X: ${centerX} Y ${centerY}`)
+    console.log (`Center of ${el} is X: ${centerX} Y ${centerY}`)
     if (xOrY === 'x') return centerX
     if (xOrY === 'y') return centerY
 }
