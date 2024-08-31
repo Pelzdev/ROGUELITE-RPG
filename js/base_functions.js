@@ -64,6 +64,7 @@ window.onresize = function() {
 // CHECK PORTRAIT/LANDSCAPE OF DEVICE
 document.addEventListener("DOMContentLoaded", function(event){
     console.log(`DOMContentloaded`)
+    setTimeout( function(){ window.scrollTo(0, 1); }, 100 );
     gameW = getElementSize(gameDiv, 'width')
     gameH = getElementSize(gameDiv, 'height')
     let infoCard = document.getElementsByClassName('info-card');
