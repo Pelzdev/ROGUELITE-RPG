@@ -14,7 +14,10 @@ function getChar (race, job, gender) {
         level: 1,
         baseAttr: structuredClone(baseAttr),
         baseRes: structuredClone(baseRes),
-        eq: {weapon: structuredClone(eq.weapons.wooden_sword), armor: null, trinket: structuredClone(eq.trinkets.rabbits_foot)}
+        eq: {
+            weapon: structuredClone(eq.weapon.wooden_sword), 
+            body: structuredClone(eq.body.leather_armor), 
+            trinket: structuredClone(eq.trinket.rabbits_foot)}
     }
     char.totalAttr = updateCharTotalAttr(char)
     char.hpMax = 50 + (char.totalAttr.end * 5) + char.level * 5
@@ -56,21 +59,22 @@ function makePlayerCharDiv (pc) {
         foodImg2 =  `<img src="${pc.food[2].img}" style="height: 32px;">`
     } else {foodImg2 = ''}
 
-    let eqTextWeapon = '-'
-    let eqTextArmor = '-'
-    let eqTextTrinket = '-'
-    let weaponImg = ''
-    let trinketImg = ''
-
-    if (pc.eq.weapon) {eqTextWeapon = pc.eq.weapon.name.toUpperCase(); weaponImg = pc.eq.weapon.img}
-    if (pc.eq.armor) eqTextArmor = pc.eq.armor.name.toUpperCase()
-    if (pc.eq.trinket) {eqTextTrinket = pc.eq.trinket.name.toUpperCase(); trinketImg = pc.eq.trinket.img}
+    let eqTextHelmet = ''
+    let eqTextWeapon = ''
+    let eqTextBody = ''
+    let eqTextGloves = ''
+    let eqTextTrinket = ''
+    let eqTextBoots = ''
+    if (pc.eq.head) eqTextHelmet = pc.eq.head.name.toUpperCase()
+    if (pc.eq.weapon) eqTextWeapon = pc.eq.weapon.name.toUpperCase()
+    if (pc.eq.body) eqTextBody = pc.eq.body.name.toUpperCase()
+    if (pc.eq.gloves) eqTextGloves = pc.eq.gloves.name.toUpperCase()
+    if (pc.eq.trinket) eqTextTrinket = pc.eq.trinket.name.toUpperCase()
+    if (pc.eq.boots) eqTextBoots = pc.eq.boots.name.toUpperCase()
 
     const maxH = 85
     const spriteH = (pc.height / 200) * maxH
     let statBarPercentMulti = 2 // aka 1 point = 5% of bar filled
-
-    
 
     let spriteHtml = `
         <div id="pc-img-container">
@@ -123,9 +127,12 @@ function makePlayerCharDiv (pc) {
             <p class="pc-info-line skill-1">Skill 1: <span class="clickable" onclick="clickSkill(0)">${icons[pc.skills[0].attribute]} ${pc.skills[0].name.toUpperCase()}</span></p>
             <p class="pc-info-line skill-2">Skill 2: -</p>
             <hr>
-            <p class="pc-info-line weapon">Weapon: ${eqTextWeapon} <img src="${weaponImg}" style="vertical-align: bottom;transform:rotate(45deg);height:16px;"></p>
-            <p class="pc-info-line armor">Armor: ${eqTextArmor}</p>
-            <p class="pc-info-line trinket">Trinket: ${eqTextTrinket} <img src="${trinketImg}" style="vertical-align: bottom;transform:rotate(45deg);height: 16px;"></p>
+            <p class="pc-info-line head">Head: <span class="clickable" onclick="clickEq('head')">${icons.helmet} ${eqTextHelmet}</span></p>
+            <p class="pc-info-line weapon">Weapon: <span class="clickable" onclick="clickEq('weapon')">${icons.sword} ${eqTextWeapon}</span></p>
+            <p class="pc-info-line body">Body: <span class="clickable" onclick="clickEq('body')">${icons.armor} ${eqTextBody}</span></p>
+            <p class="pc-info-line gloves">Gloves: <span class="clickable" onclick="clickEq('body')">${icons.gloves} ${eqTextGloves}</span></p>
+            <p class="pc-info-line trinket">Trinket: <span class="clickable" onclick="clickEq('trinket')">${icons.trinket} ${eqTextTrinket}</span></p>
+            <p class="pc-info-line boots">Boots: <span class="clickable" onclick="clickEq('trinket')">${icons.boots} ${eqTextBoots}</span></p>
             <hr>
             <div class="consumable-container">
                 <div class="consumable-img-container food0" onclick="clickConsumable(0)">${foodImg0}</div>
@@ -182,12 +189,32 @@ function closePopup () {
     popupDiv.style.display = 'none'
 }
 
+// EQUIPMENT STUFF
+function clickEq (eqClicked) {
+    console.log(eqClicked)
+    document.getElementById('button-bar').classList.add('unclickable')
+    popupDiv.innerHTML = `
+        <br>
+        <p style="font-size: 12px;">${playerChar.eq[eqClicked].name.toUpperCase()}</p>
+        <br>
+        <p style="font-size:24px;"><i class="icon-${playerChar.eq[eqClicked].icon}"></i></p>
+        <br>
+        <p>Type: ${playerChar.eq[eqClicked].type.toUpperCase()}</p>
+        <br><hr>
+        <br>
+        <p>Rarity: COMMON</p>
+        <br><hr><br><br>
+        <button class="btn-medium" onclick="closePopup()">BACK</button>
+    ` 
+    popupDiv.style.display = 'block'
+    centerPopup(popupDiv)
+}
+
 // CONSUMABLE STUFF
 // Clicking the consumable
 function clickConsumable (arrPos) {
     if (!playerChar.food[arrPos]) return
     document.getElementById('button-bar').classList.add('unclickable')
-
     popupDiv.innerHTML = `
         <br>
         <p style="font-size: 12px;">${playerChar.food[arrPos].name.toUpperCase()}</p>
@@ -208,8 +235,7 @@ function consumableChoice (answer, arrPos) {
     if (answer === 'yes') {
         useConsumable(arrInt) 
     }
-    document.getElementById('button-bar').classList.remove('unclickable')
-    popupDiv.style.display = 'none'
+    closePopup()
 }
 // Using the consumable
 function useConsumable (arrPos) {

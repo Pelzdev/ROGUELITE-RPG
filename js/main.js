@@ -21,8 +21,22 @@ let endEventBtn = document.getElementById('event-end-btn')
 // ICONS
 const icons = {
     gold: '<i class="icon-gold"></i>',
+    heart: '<i class="icon-heart"></i>',
     sword: '<i class="icon-sword"></i>',
     shield: '<i class="icon-shield"></i>',
+    amulet: '<i class="icon-amulet"></i>',
+    armor: '<i class="icon-armor"></i>',
+    gloves: '<i class="icon-gloves"></i>',
+    helmet: '<i class="icon-helmet"></i>',
+    ring: '<i class="icon-ring"></i>',
+    trinket: '<i class="icon-trinket"></i>',
+    boots: '<i class="icon-boots"></i>',
+
+    blood: '<i class="icon-blood"></i>',
+    charmed: '<i class="icon-charmed"></i>',
+    love: '<i class="icon-love"></i>',
+    sleep: '<i class="icon-sleep"></i>',
+    stunned: '<i class="icon-stunned"></i>',
     cold: '<i class="icon-cold"></i>',
     electric: '<i class="icon-electric"></i>',
     fire: '<i class="icon-fire"></i>',

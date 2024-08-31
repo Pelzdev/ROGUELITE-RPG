@@ -58,6 +58,8 @@
 /* GENERAL */
 
 body {
+    touch-action: none;
+    /* touch-action: manipulation; */
     width: calc(100vw - 1px);
     height: calc(100vh - 1px);
     margin: 0;
@@ -76,7 +78,7 @@ img {
 button {
     color: rgb(219, 219, 219);
     background-color: rgb(49, 49, 53);
-    border: none;
+    border: 1px solid rgba(0,0,0, 0.3);
     border-radius: 4px;
     cursor: pointer;
     font-family: 'Fira Mono', monospace;
@@ -128,6 +130,7 @@ hr {
 
 
 .player-info-section {
+    touch-action: none;
     display: inline-block;
     width: 49%;
     vertical-align: top;
@@ -484,28 +487,41 @@ hr {
    transform: rotateX(180deg);
    vertical-align: top;
 }
-.icon-gold:before{content:'\004b';}
-.icon-sword:before{content:'\004a';}
-.icon-shield:before{content:'\0048';}
+.icon-agi:before{content:'\0041';}
+.icon-amulet:before{content:'\0042';}
+.icon-armor:before{content:'\0043';}
+.icon-blood:before{content:'\0044';}
+.icon-boots:before{content:'\0045';}
+.icon-charmed:before{content:'\0046';}
+.icon-chr:before{content:'\0047';}
+.icon-cold:before{content:'\0048';}
+.icon-dex:before{content:'\0049';}
+.icon-electric:before{content:'\004a';}
+.icon-end:before{content:'\004b';}
 .icon-female:before{content:'\004c';}
-.icon-male:before{content:'\004d';}
-.icon-cold:before{content:'\0041';}
-.icon-electric:before{content:'\0042';}
-.icon-fire:before{content:'\0043';}
-.icon-holy:before{content:'\0044';}
-.icon-nature:before{content:'\0045';}
-.icon-physical:before{content:'\0046';}
-.icon-poison:before{content:'\0047';}
-.icon-water:before{content:'\0049';}
-.icon-chr:before{content:'\004e';}
-.icon-dex:before{content:'\004f';}
-.icon-end:before{content:'\0050';}
-.icon-int:before{content:'\0051';}
-.icon-lck:before{content:'\0052';}
-.icon-lck2:before{content:'\0053';}
-.icon-str:before{content:'\0054';}
-.icon-wis:before{content:'\0055';}
-.icon-agi:before{content:'\0056';}
+.icon-fire:before{content:'\004d';}
+.icon-gloves:before{content:'\004e';}
+.icon-gold:before{content:'\004f';}
+.icon-heart:before{content:'\0050';}
+.icon-helmet:before{content:'\0051';}
+.icon-holy:before{content:'\0052';}
+.icon-int:before{content:'\0053';}
+.icon-lck:before{content:'\0054';}
+.icon-lck2:before{content:'\0055';}
+.icon-love:before{content:'\0056';}
+.icon-male:before{content:'\0057';}
+.icon-nature:before{content:'\0058';}
+.icon-physical:before{content:'\0059';}
+.icon-poison:before{content:'\005a';}
+.icon-ring:before{content:'\0061';}
+.icon-shield:before{content:'\0062';}
+.icon-sleep:before{content:'\0063';}
+.icon-str:before{content:'\0064';}
+.icon-stunned:before{content:'\0065';}
+.icon-sword:before{content:'\0066';}
+.icon-trinket:before{content:'\0067';}
+.icon-water:before{content:'\0068';}
+.icon-wis:before{content:'\0069';}
 
 .icon-gold{color: gold;}
 .icon-sword {color: white;}
