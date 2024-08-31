@@ -1,13 +1,23 @@
 @media screen and (orientation: portrait) {
     .info-card {
-        width: 95%;
-        height: 31%;
+        width: 47%;
+        height: 65%;
+    }
+    .player-sprite {
+        height: 51%;
+        width: 100%;
     }
     #player-char-info {
-        height: 64%;
+        height:45%;
+        width: 100%
     }
     #event-text-container {
         height: 31%;
+        width: 97%;
+    }
+    .in-event {
+        height: 65%;
+        width: 47%;
     }
 }
   
@@ -196,7 +206,7 @@ hr {
     margin: 2px;
 }
 
-#player-sprite {
+.player-sprite {
     position: relative;
     max-width: 100%;
     /*background: url("img/events/location_bg/woods/0.png") rgba(0, 0, 0, 0.3);*/

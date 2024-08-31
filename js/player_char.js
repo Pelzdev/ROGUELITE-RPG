@@ -131,7 +131,7 @@ function makePlayerCharDiv (pc) {
 
     playerSpriteEl.innerHTML = spriteHtml
     playerCharInfoEl.innerHTML = html
-
+    
     return
 }
 // CLICKING skills etc on char screen

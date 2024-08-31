@@ -33,7 +33,10 @@ function startEvent (pc, chosenEvent) {
     }
 
     eventHeader.innerHTML = `${currentEvent.toUpperCase()}!`
+
     eventDiv.classList.add(currentEvent)
+    playerSpriteEl.classList.add('in-event')
+    playerSpriteEl.classList.remove('not-in-event')
     
     playerCharInfoEl.style.display = 'none'
     eventStartBtn.style.display = 'none'
@@ -71,12 +74,14 @@ function endEvent() {
         locationBg = `img/location_bg/${location}/${rndInt(0,7)}.png`;console.log(`changed BG, eventsDone: ${eventsDone}`);
         updateBg(playerSpriteEl)
     }
+
+    currentEvent = ''
+    playerSpriteEl.classList.remove('in-event')
+    playerSpriteEl.classList.add('not-in-event')
     makePlayerCharDiv(playerChar)
     playerCharInfoEl.style.display = 'inline-block'
     eventDiv.style.background = 'none'
     eventDiv.style.backgroundColor = 'rgb(49, 49, 53)'
-
-    currentEvent = ''
 }
 
 function hideElements(...elArr) {

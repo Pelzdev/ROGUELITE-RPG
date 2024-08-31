@@ -49,7 +49,9 @@ function pkmnDmgCalc (skill, user, target) {
 window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
     gameW = getElementSize(gameDiv, 'width')
     gameH = getElementSize(gameDiv, 'height')
-    const portrait = e.matches;
+    portrait = e.matches;
+    if (portrait) changeInfoCardPos('portrait')
+    if (!portrait) changeInfoCardPos('landscape')
 
     centerPopup(popupDiv)
 });
@@ -67,13 +69,16 @@ document.addEventListener("DOMContentLoaded", function(event){
     setTimeout( function(){ window.scrollTo(0, 1); }, 100 );
     gameW = getElementSize(gameDiv, 'width')
     gameH = getElementSize(gameDiv, 'height')
-    let infoCard = document.getElementsByClassName('info-card');
-    const portrait = window.matchMedia("(orientation: portrait)").matches; // returns true if portrait
+
+    portrait = window.matchMedia("(orientation: portrait)").matches; // returns true if portrait
 
     if (portrait) {
         console.log('Orientation changed to: Portrait')
+        changeInfoCardPos('portrait')
     }
-    if (!portrait) console.log('Orientation changed to: Landscape') 
+    if (!portrait) {
+        changeInfoCardPos('landscape') 
+    }
 });
 
 function getElementSize (el, widthOrHeight) {
@@ -92,4 +97,12 @@ function getCenterOfEl (el, xOrY) {
     //console.log (`Center of ${el} is X: ${centerX} Y ${centerY}`)
     if (xOrY === 'x') return centerX
     if (xOrY === 'y') return centerY
+}
+
+function changeInfoCardPos(deviceOrientation) {
+    if (deviceOrientation === 'portrait') {
+        gameRow1.insertBefore(eventDiv, eventTextContainer)
+    } else {
+        gameRow1.insertBefore(eventTextContainer, eventDiv)
+    }
 }

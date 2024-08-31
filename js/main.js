@@ -8,7 +8,7 @@ let getPlayerCharBtn = document.getElementById('get-player-char-btn')
 let eventStartBtn = document.getElementById('event-start-btn')
 // PLAYER
 let playerSpriteDiv = document.getElementById('pc-img-container')
-let playerSpriteEl = document.getElementById('player-sprite')
+let playerSpriteEl = document.querySelector('.player-sprite')
 let playerCharInfoEl = document.getElementById('player-char-info')
 // EVENT
 let eventDiv = document.querySelector('.event-div')
@@ -43,11 +43,13 @@ const icons = {
 let cheatedJob = null
 
 // #######################################
+let gameW, gameH
+let portrait, landscape
 let sizeMulti = 1.3 // for char and enemy sprites
+
 let hpPerLvlUp = 5
 let playerChar = {}
 let currentEvent = ''
-let gameW, gameH
 let eventsDone = 0
 // Location (changes BG etc, will add more later)
 let currentLocationType = 'woods'
