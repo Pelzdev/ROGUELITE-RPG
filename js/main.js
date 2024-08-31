@@ -9,7 +9,8 @@ let eventStartBtn = document.getElementById('event-start-btn')
 // PLAYER
 let playerSpriteDiv = document.getElementById('pc-img-container')
 let playerSpriteEl = document.querySelector('.player-sprite')
-let playerCharInfoEl = document.getElementById('player-char-info')
+let playerCharInfoEl1 = document.getElementById('player-char-info1')
+let playerCharInfoEl2 = document.getElementById('player-char-info2')
 // EVENT
 let eventDiv = document.querySelector('.event-div')
 let eventHeader = document.getElementById('event-header')
@@ -60,7 +61,8 @@ let innBg = 'img/location_bg/woods/bg_inn.png'
 function getPlayerChar () {
     gameStartArea.style.display = 'none' // Hide game start area
     gameRow1.style.display = 'flex' // Show the area for PLAYING aka seeing char, battles etc
-    playerCharInfoEl.style.display = 'inline-block'
+    playerCharInfoEl1.style.display = 'inline-block'
+    playerCharInfoEl1.style.display = 'inline-block'
     playerChar = getChar('human')
     makePlayerCharDiv(playerChar)
     eventStartBtn.style.display = 'inline'

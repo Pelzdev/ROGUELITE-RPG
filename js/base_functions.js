@@ -50,8 +50,6 @@ window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
     gameW = getElementSize(gameDiv, 'width')
     gameH = getElementSize(gameDiv, 'height')
     portrait = e.matches;
-    if (portrait) changeInfoCardPos('portrait')
-    if (!portrait) changeInfoCardPos('landscape')
 
     centerPopup(popupDiv)
 });
@@ -74,10 +72,9 @@ document.addEventListener("DOMContentLoaded", function(event){
 
     if (portrait) {
         console.log('Orientation changed to: Portrait')
-        changeInfoCardPos('portrait')
     }
     if (!portrait) {
-        changeInfoCardPos('landscape') 
+        
     }
 });
 

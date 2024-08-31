@@ -78,10 +78,8 @@ function makePlayerCharDiv (pc) {
         <div class="hp-bar-under pc-hpbar-under"><div class="hp-bar-over pc-hpbar-over" style="width:${pc.hpLeft/pc.hpMax*100}%"></div><p id="pc-hp-text">${pc.hpLeft}/${pc.hpMax} HP<p></div>
         <div class="pc-expbar-under"><div class="pc-expbar-over" style="width:${pc.exp/pc.expToLvl*100}%"></div><p id="pc-exp-text">${pc.exp}/${pc.expToLvl} XP<p></div>
     `
-    let html = `
-        <p class="window-header">PLAYER</p>
-        <hr>
-        <div class="player-info-section section-1">
+    let infoText1 = `
+        <div class="player-info-section-1">
             <p class="pc-info-line name">${pc.name.toUpperCase()} ${pc.lastName.toUpperCase()}</p>
             <p class="pc-info-line trait">${pc.trait.name.toUpperCase()} ${pc.race.name.toUpperCase()} ${genderSymbol[pc.gender]}</p>
             <p class="pc-info-line joblvl">lvl ${pc.level} ${pc.job.name.toUpperCase()}</p>
@@ -110,9 +108,9 @@ function makePlayerCharDiv (pc) {
             <p class="pc-info-line gold">${icons.gold} ${pc.gold}</p>
             <p class="pc-info-line buff">BUFF: ${buffText}</p>
             <hr>
-        </div>
-
-        <div class="player-info-section section-2">
+        </div>`
+    let infoText2 = `
+        <div class="player-info-section-2">
             <p class="pc-info-line skill-1">Skill 1: <span class="clickable" onclick="clickSkill(0)">${icons[pc.skills[0].attribute]} ${pc.skills[0].name.toUpperCase()}</span></p>
             <p class="pc-info-line skill-2">Skill 2: -</p>
             <hr>
@@ -125,13 +123,12 @@ function makePlayerCharDiv (pc) {
                 <div class="consumable-img-container food1" onclick="clickConsumable(1)">${foodImg1}</div>
                 <div class="consumable-img-container food2" onclick="clickConsumable(2)">${foodImg2}</div>
             </div>
-        </div>
-        
-    `
+        </div>`
 
     playerSpriteEl.innerHTML = spriteHtml
-    playerCharInfoEl.innerHTML = html
-    
+    playerCharInfoEl1.innerHTML = infoText1
+    playerCharInfoEl2.innerHTML = infoText2
+
     return
 }
 // CLICKING skills etc on char screen

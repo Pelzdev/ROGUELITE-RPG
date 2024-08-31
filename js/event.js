@@ -35,10 +35,9 @@ function startEvent (pc, chosenEvent) {
     eventHeader.innerHTML = `${currentEvent.toUpperCase()}!`
 
     eventDiv.classList.add(currentEvent)
-    playerSpriteEl.classList.add('in-event')
-    playerSpriteEl.classList.remove('not-in-event')
     
-    playerCharInfoEl.style.display = 'none'
+    playerCharInfoEl1.style.display = 'none'
+    playerCharInfoEl2.style.display = 'none'
     eventStartBtn.style.display = 'none'
     eventTextContainer.style.display = 'block'
     eventDiv.style.display = 'inline-block'
@@ -76,10 +75,9 @@ function endEvent() {
     }
 
     currentEvent = ''
-    playerSpriteEl.classList.remove('in-event')
-    playerSpriteEl.classList.add('not-in-event')
     makePlayerCharDiv(playerChar)
-    playerCharInfoEl.style.display = 'inline-block'
+    playerCharInfoEl1.style.display = 'block'
+    playerCharInfoEl2.style.display = 'block'
     eventDiv.style.background = 'none'
     eventDiv.style.backgroundColor = 'rgb(49, 49, 53)'
 }
