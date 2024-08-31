@@ -8,9 +8,7 @@ function startEvent (pc, chosenEvent) {
     if (rndNum > 26 && rndNum <= 30) currentEvent = 'oracle'
     if (rndNum > 30) currentEvent = 'battle'
 
-    
-
-    updateEventBg(currentEvent)
+    updateBg(eventDiv, currentEvent)
 
     if (currentEvent === 'inn') {
         inn(pc)
@@ -68,8 +66,10 @@ function endEvent() {
     }
 
     if (eventsDone%10 === 0) {
-        locationBg = `img/location_bg/woods/${rndInt(0,7)}.png`;console.log(`changed BG, eventsDone: ${eventsDone}`);
-        updateEventBg('player')
+        let location = ''
+        if (currentLocationType === 'woods') location = 'woods'
+        locationBg = `img/location_bg/${location}/${rndInt(0,7)}.png`;console.log(`changed BG, eventsDone: ${eventsDone}`);
+        updateBg(playerSpriteEl)
     }
     makePlayerCharDiv(playerChar)
     playerCharInfoEl.style.display = 'inline-block'

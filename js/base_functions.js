@@ -17,16 +17,6 @@ function rndGetPropertyCloned (obj) {
     return structuredClone( obj[keys[keys.length * Math.random() << 0]] )
 }
 
-function getElementSize (el, widthOrHeight) {
-    let positionInfo = el.getBoundingClientRect();
-    let width = positionInfo.width;
-    let height = positionInfo.height;
-
-    console.log(`W:${width}, H:${height}`)
-    if (widthOrHeight === 'width') return width
-    if (widthOrHeight === 'height') return height 
-}
-
 function getHighestAttr (attrObj) {
     let attrKeys = Object.keys(attrObj)
     let highestNum = 0
@@ -54,3 +44,51 @@ function pkmnDmgCalc (skill, user, target) {
     console.log(`${skill.name} did ${dmg} dmg`)
 }
 
+// DOM stuff
+// Check for orientation change of device
+window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
+    gameW = getElementSize(gameDiv, 'width')
+    gameH = getElementSize(gameDiv, 'height')
+    const portrait = e.matches;
+
+    centerPopup(popupDiv)
+});
+
+window.onresize = function() { 
+    console.log(`Window size changed!, H:${window.innerHeight}, W:${window.innerWidth}`)
+    gameW = getElementSize(gameDiv, 'width')
+    gameH = getElementSize(gameDiv, 'height')
+    centerPopup(popupDiv)
+};
+
+// CHECK PORTRAIT/LANDSCAPE OF DEVICE
+document.addEventListener("DOMContentLoaded", function(event){
+    console.log(`DOMContentloaded`)
+    gameW = getElementSize(gameDiv, 'width')
+    gameH = getElementSize(gameDiv, 'height')
+    let infoCard = document.getElementsByClassName('info-card');
+    const portrait = window.matchMedia("(orientation: portrait)").matches; // returns true if portrait
+
+    if (portrait) {
+        console.log('Orientation changed to: Portrait')
+    }
+    if (!portrait) console.log('Orientation changed to: Landscape') 
+});
+
+function getElementSize (el, widthOrHeight) {
+    let positionInfo = el.getBoundingClientRect();
+    let width = positionInfo.width;
+    let height = positionInfo.height;
+
+    //console.log(`W:${width}, H:${height}`)
+    if (widthOrHeight === 'width') return width
+    if (widthOrHeight === 'height') return height 
+}
+
+function getCenterOfEl (el, xOrY) {
+    let centerX = el.offsetLeft + el.offsetWidth / 2;
+    let centerY = el.offsetTop + el.offsetHeight / 2;
+    //console.log (`Center of ${el} is X: ${centerX} Y ${centerY}`)
+    if (xOrY === 'x') return centerX
+    if (xOrY === 'y') return centerY
+}

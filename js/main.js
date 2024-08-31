@@ -1,19 +1,18 @@
+// ELEMENTS 
 let gameDiv = document.getElementById('game')
+let gameStartArea = document.getElementById('game-start-area') // Start "menu" area
+let gameRow1 = document.getElementById('game-row-1') // Area when playing, aka seeing the char, battles events etc
 let popupDiv = document.querySelector('.popup-div')
+// TOP/MAIN BUTTONS
 let getPlayerCharBtn = document.getElementById('get-player-char-btn')
-let reRandomizeCharBtn = document.getElementById('re-randomize-char-btn')
 let eventStartBtn = document.getElementById('event-start-btn')
-
+// PLAYER
 let playerSpriteDiv = document.getElementById('pc-img-container')
 let playerSpriteEl = document.getElementById('player-sprite')
-
-let playerEqEl = document.getElementById('player-eq')
-
 let playerCharInfoEl = document.getElementById('player-char-info')
-
+// EVENT
 let eventDiv = document.querySelector('.event-div')
 let eventHeader = document.getElementById('event-header')
-
 let eventTextContainer = document.getElementById('event-text-container')
 let eventText = document.getElementById('event-text')
 let endEventBtn = document.getElementById('event-end-btn') 
@@ -57,24 +56,13 @@ let locationBg = `img/location_bg/woods/${rndInt(0,7)}.png`
 let innBg = 'img/location_bg/woods/bg_inn.png'
 
 function getPlayerChar () {
+    gameStartArea.style.display = 'none' // Hide game start area
+    gameRow1.style.display = 'flex' // Show the area for PLAYING aka seeing char, battles etc
     playerCharInfoEl.style.display = 'inline-block'
     playerChar = getChar('human')
     makePlayerCharDiv(playerChar)
     eventStartBtn.style.display = 'inline'
     getPlayerCharBtn.style.display = 'none'
-}
-
-
-// Add together the attributes with the same name for an array of objects containing attributes
-function addAttr(attr, objArr) {
-    let totalAttr = 0
-    for (let i = 0; i < objArr.length; i++) {
-        if (attr in objArr[i]) {
-            totalAttr += objArr[i][attr]
-        }
-    }
-
-    return totalAttr
 }
 
 function updateHp (char) {
@@ -104,37 +92,7 @@ function getSkillIcon (skill) {
     return icons[skill.attribute]
 }
 
-// CHECK PORTRAIT/LANDSCAPE OF DEVICE
-document.addEventListener("DOMContentLoaded", function(event){
-    console.log(`DOMContentloaded`)
-    gameW = getElementSize(gameDiv, 'width')
-    gameH = getElementSize(gameDiv, 'height')
-    let infoCard = document.getElementsByClassName('info-card');
-    const portrait = window.matchMedia("(orientation: portrait)").matches; // returns true if portrait
-
-    if (portrait) {
-        console.log('Orientation changed to: Portrait')
-    }
-    if (!portrait) console.log('Orientation changed to: Landscape') 
-});
-// Check for orientation change of device
-window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
-    gameW = getElementSize(gameDiv, 'width')
-    gameH = getElementSize(gameDiv, 'height')
-    const portrait = e.matches;
-
-    centerPopup(popupDiv)
-});
-
-window.onresize = function() { 
-    console.log(`Window size changed!, H:${window.innerHeight}, W:${window.innerWidth}`)
-    gameW = getElementSize(gameDiv, 'width')
-    gameH = getElementSize(gameDiv, 'height')
-    centerPopup(popupDiv)
-};
-
-function updateEventBg (event) {
-    let targetDiv = eventDiv
+function updateBg (targetDiv, event) {
     let bgUrl = locationBg
     if (event === 'inn') bgUrl = innBg
 
@@ -143,11 +101,29 @@ function updateEventBg (event) {
     targetDiv.style.backgroundSize = 'cover'
     targetDiv.style.backgroundPosition = 'center center'
 }
+// Animation for attack right now, more to come
+function animation (type, targetEl, time) {
+    time = time || 100
+    let x = getCenterOfEl(targetEl, 'x')
+    let y = getCenterOfEl(targetEl, 'y')
+    let iconSize = 64
+    let html = ''
+    let bg = ''
 
-function updatePlayerBg () {
-    let bgUrl = locationBg
-    playerSpriteEl.style.background = `url(${bgUrl}) rgba(0, 0, 0, 0.3)`
-    playerSpriteEl.style.backgroundBlendMode = 'multiply'
-    playerSpriteEl.style.backgroundSize = 'cover'
-    playerSpriteEl.style.backgroundPosition = 'center center'
+    if (type === 'damageEnemy') {
+        bg = targetEl.style.background
+        html = `<i class="icon-sword attack-animation" style="position:absolute; z-index:10; font-size:${iconSize}px; top:${y-(iconSize/2)}px; left:${x-(iconSize/2)}px;"></i>`
+    }
+
+    eventDiv.innerHTML +=  html
+
+    setTimeout(function () {
+        targetEl.style.background = bg
+        document.querySelector('.attack-animation').remove()
+    }, time);
 }
+
+function fadeOutEl(el) {
+    el.classList.add('fade-out')
+}
+

@@ -34,7 +34,8 @@ function getChar (race, job, gender) {
 }
 
 function makePlayerCharDiv (pc) {
-    updatePlayerBg()
+    //updatePlayerBg()
+    updateBg(playerSpriteEl)
     // Make sure attributes, hp etc is up-to-date
     pc.totalAttr = updateCharTotalAttr(pc)
     pc.hpMax = 50 + (pc.totalAttr.end * 5) + pc.level * 5
@@ -167,7 +168,6 @@ function clickSkill (arrPos) {
 
     popupDiv.style.display = 'block'
     centerPopup(popupDiv)
-    console.log(`clicked skill: ${playerChar.skills[0].name}`) 
 }
 
 function closePopup () {
@@ -260,6 +260,18 @@ function multiAddAttr (objArr, specificAttr) {
 
     for (let i = 0; i < attrArr.length; i++) {
         totalAttr[attrArr[i]] += addAttr(attrArr[i], objArr)
+    }
+
+    return totalAttr
+}
+
+// Add together the attributes with the same name for an array of objects containing attributes
+function addAttr(attr, objArr) {
+    let totalAttr = 0
+    for (let i = 0; i < objArr.length; i++) {
+        if (attr in objArr[i]) {
+            totalAttr += objArr[i][attr]
+        }
     }
 
     return totalAttr

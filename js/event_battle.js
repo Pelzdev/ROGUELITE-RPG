@@ -9,8 +9,6 @@ const enemyLists = {
     level8: [ 'boar', 'young_wolf', 'crob', 'boarian_marauder', 'troll_forest']
 }
 
-
-
 function battle (pc) {
     let rndNum = rndInt(1,10)
     if (pc.level < 5) {
@@ -43,7 +41,7 @@ function makeBattleDiv (enemy) {
         <p class="enemy-info-line name">lvl ${enemy.level} ${enemy.name.toUpperCase()}</p>
         <hr>
         <div id="enemy-img-container" onclick="doBattleTurns(event)">
-            <img id="battle-enemy-img" style="height:${spriteH}%" src="${enemy.img}">
+            <img id="battle-enemy-img" style="height:${spriteH}%" src="${enemy.img}"/>
         </div>
         <hr>
         <div class="hp-bar-under enemy-hpbar-under"><div class="hp-bar-over enemy-hpbar-over" style="width:${enemy.hpLeft/enemy.hpMax*100}%"></div><p id="enemy-hp-text">${enemy.hpLeft}/${enemy.hpMax} HP</p></div> 
@@ -74,6 +72,7 @@ function doBattleTurns() {
     // automatically scroll to the bottom (to see newest text)
     eventText.scrollTop = eventText.scrollHeight;
     eventTextContainer.scrollTop = eventTextContainer.scrollHeight;
+    animation('damageEnemy', eventDiv, 50)
 }
 
 // NEW BATTLE FUNC
@@ -96,6 +95,7 @@ function doTurn(attacker, defender) {
     text += checkIfDead(attacker, defender, textClass) // Check if attacker is dead and act accordingly
     updateHp(attacker)
     updateHp(defender)
+
     return text
 }
 
@@ -200,10 +200,12 @@ function checkIfDead (char, charsEnemy, textClass) {
         char.hpLeft = 0
         text +=  `<p class="battle-text-row ${textClass}">${char.name.toUpperCase()} DIED!</p>`
         endEventBtn.style.display = 'inline-block'
-        if (char.isPlayer) {char.food[0] = null; char.food[1] = null}
-
+        if (char.isPlayer) {
+            char.food[0] = null; char.food[1] = null
+        }
         if (charsEnemy.isPlayer === true && charsEnemy.hpLeft > 0) {
             text += giveExpAndUpdate(charsEnemy, char)
+            fadeOutEl(document.getElementById('battle-enemy-img'))
         }
     }
     return text
@@ -212,7 +214,6 @@ function checkIfDead (char, charsEnemy, textClass) {
 // function to return possible effect including turn time for effect. Or 0/null if no effect
 function checkStatusApplication (skill, target) {
     let text = ''
-    console.log('checking effect: ' + skill.effect + ' from skill: ' + skill.name)
     if (rndInt(1,100) <= skill.effectChance) {
         if (target.status === skill.effect) {
             text = `<p id="battle-text-row">${target.name.toUpperCase()} is already affected by ${skill.effect.toUpperCase()}</p>`

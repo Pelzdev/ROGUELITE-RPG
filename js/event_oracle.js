@@ -3,7 +3,6 @@ let oracleName = 'Xander'
 
 function oracle () {
     eventDiv.innerHTML = ''
-    updateEventBg('oracle')
 
     const maxH = 80
     const charHeight = 190
@@ -34,19 +33,19 @@ function upgradeSkill (arrPos) {
     let text = ''
 
     if ([1,5,10].includes(skill.level)) {
-        console.log(`${skill.name} has 1 roman numeral`)
+        //console.log(`${skill.name} has 1 roman numeral`)
         skill.name = skill.name.slice(0, -1)
     }
     if ([2,4,6,9,11,15].includes(skill.level)) {
-        console.log(`${skill.name} has 2 roman numerals`)
+        //console.log(`${skill.name} has 2 roman numerals`)
         skill.name = skill.name.slice(0, -2)
     }
     if ([3,7,12,14].includes(skill.level)) {
-        console.log(`${skill.name} has 3 roman numerals`)
+        //console.log(`${skill.name} has 3 roman numerals`)
         skill.name = skill.name.slice(0, -3)
     }
     if ([8,13,17].includes(skill.level)) {
-        console.log(`${skill.name} has 4 roman numerals`)
+        //console.log(`${skill.name} has 4 roman numerals`)
         skill.name = skill.name.slice(0, -4)
     }
     // Add correct roman numeral to name, give skill +1 level, make text
