@@ -201,7 +201,7 @@ function checkIfDead (char, charsEnemy, textClass) {
         text +=  `<p class="battle-text-row ${textClass}">${char.name.toUpperCase()} DIED!</p>`
         endEventBtn.style.display = 'inline-block'
         if (char.isPlayer) {
-            char.food = null
+            char.food = []
         }
         if (charsEnemy.isPlayer === true && charsEnemy.hpLeft > 0) {
             text += giveExpAndUpdate(charsEnemy, char)
