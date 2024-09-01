@@ -48,6 +48,7 @@ function makePlayerCharDiv (pc) {
     const maxH = 85
     const spriteH = (pc.height / 200) * maxH
 
+
     let spriteHtml = `
         <div id="pc-img-container">
             <img class="sprite-${pc.race.name}" style="height:${spriteH}%" src="${pc.img}">
@@ -65,7 +66,6 @@ function makePlayerCharDiv (pc) {
     `
     makePlayerInfo(pc)
     playerSpriteEl.innerHTML = spriteHtml
-
     return
 }
 

@@ -23,7 +23,7 @@ function makePlayerInfo (pc) {
             <p class="pc-info-line name">${pc.name.toUpperCase()} ${pc.lastName.toUpperCase()}</p>
             <p class="pc-info-line trait">${pc.trait.name.toUpperCase()} ${pc.race.name.toUpperCase()} ${genderSymbol[pc.gender]}</p>
             <p class="pc-info-line joblvl">lvl ${pc.level} ${pc.job.name.toUpperCase()}</p>
-            <p class="pc-info-line atkdef">${icons.sword} ${pc.race.dmg} ${icons.shield} ${pc.race.def}</p>
+            <p class="pc-info-line atkdef">${icons.weapon} ${pc.race.dmg} ${icons.shield} ${pc.race.def}</p>
             <hr>
             <div class="pc-attr-stats-container">
                 <div class="pc-attr-container" style="width:62%;">
