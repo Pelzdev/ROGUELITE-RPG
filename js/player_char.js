@@ -53,21 +53,11 @@ function makePlayerCharDiv (pc) {
     document.querySelector('.pc-hpbar-over').style.width = `${pc.hpLeft/pc.hpMax*100}%` 
     document.getElementById('pc-hp-text').textContent = `${pc.hpLeft}/${pc.hpMax} HP` 
     document.querySelector('.pc-expbar-over').style.width = `${pc.exp/pc.expToLvl*100}%`
-    console.log(pc.exp/pc.expToLvl*100) 
     document.getElementById('pc-exp-text').textContent = `${pc.exp}/${pc.expToLvl} XP`
     
     makePlayerInfo(pc)
 
     return
-}
-
-function makeEl (type, className, idName, style) {
-    let el = document.createElement(type)
-    if (className) el.className = className
-    if (idName) el.id = idName
-    if (style) el.style.cssText = style
-  
-    return el
 }
 
 function closePopup () {

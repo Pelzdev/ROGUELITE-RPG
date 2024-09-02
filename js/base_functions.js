@@ -32,18 +32,6 @@ function getHighestAttr (attrObj) {
 
     return highestAttr
 }
-
-function pkmnDmgCalc (skill, user, target) {
-    let critical = 1
-    let random = rndInt(85, 100)/100; console.log(random + ' ' + user.level)
-    let power = skill.power
-    let dmg = ( (2 * user.level / 5) * power * user.dmg/target.def ) / 50
-    console.log(dmg)
-    dmg = dmg * critical * random
-
-    console.log(`${skill.name} did ${dmg} dmg`)
-}
-
 // DOM stuff
 // Check for orientation change of device
 window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
@@ -79,9 +67,9 @@ document.addEventListener("DOMContentLoaded", function(event){
 });
 
 function getElementSize (el, widthOrHeight) {
-    let positionInfo = el.getBoundingClientRect();
-    let width = positionInfo.width;
-    let height = positionInfo.height;
+    let positionInfo = el.getBoundingClientRect()
+    let width = positionInfo.width
+    let height = positionInfo.height
 
     //console.log(`W:${width}, H:${height}`)
     if (widthOrHeight === 'width') return width
@@ -89,8 +77,8 @@ function getElementSize (el, widthOrHeight) {
 }
 
 function getCenterOfEl (el, xOrY) {
-    let centerX = el.offsetLeft + el.offsetWidth / 2;
-    let centerY = el.offsetTop + el.offsetHeight / 2;
+    let centerX = el.offsetLeft + el.offsetWidth / 2
+    let centerY = el.offsetTop + el.offsetHeight / 2
     //console.log (`Center of ${el} is X: ${centerX} Y ${centerY}`)
     if (xOrY === 'x') return centerX
     if (xOrY === 'y') return centerY
@@ -115,11 +103,5 @@ function createNode (tagName, { className, classList, style, textContent, ...att
 
 return node;
 }
-/*
-let newEl = createNode ('img', {
-  className: 'image',
-  style: {height: '200px'},
-  //textContent: null,
-  src: 'https://github.com/Pelzdev/ROGUELITE-RPG/blob/main/img/chars/dwarf/archer/female/0.png?raw=true'
-})
-*/
+
+

@@ -246,18 +246,25 @@ function checkStatusApplication (skill, target) {
 }
 
 function rollPower(skill, user, target)  {
+    let userDmg = user.dmg
+    if (user.eq && user.eq.weap) userDmg = user.dmg + user.eq.weap.dmg
+    let targetDef = target.def
+    if (target.eq && target.eq.body) targetDef = target.def + target.eq.body.def
+
     let attrMulti = 1
     let attributeUsed = ''
+    let dmgVary = 1
     if (skill.attribute === 'best') {
         attributeUsed = getHighestAttr(user.totalAttr)
-        attrMulti = 1 + (user.totalAttr[attributeUsed] / 10)
+        attrMulti = 1 + ((user.totalAttr[attributeUsed] / 10))
     }
     else if (skill.attribute != null) {
         attributeUsed = skill.attribute
         attrMulti = 1 + (user.totalAttr[attributeUsed] / 10)
     }
-    let powerBaseLine = Math.round(skill.power/5 * attrMulti)
-    let power = rndInt(powerBaseLine-1, powerBaseLine+1)
+    let powerCalc = (skill.power + (userDmg*5)) / (targetDef* 3) // if pow 30, attr 10, user.dmg 5, enemy.def 2: 7,5
+    if (skill.type === 'heal') powerCalc = skill.power/4
+    let power = 1 + Math.round(rndInt(powerCalc*0.75, powerCalc))
     return power
 }
 
