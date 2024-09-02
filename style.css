@@ -385,8 +385,7 @@ hr {
     position: relative;
     height: calc(100% - 60px);
     cursor: pointer;
-    /*user-select: none;*/
-
+    user-select: none;
 }
 
 #enemy-img-container img {
