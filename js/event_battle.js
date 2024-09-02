@@ -11,8 +11,8 @@ let enemySprite
 const enemyList = ['mouse', 'goblin_bat', 'mouse_assassin', 'goblin', 'boar', 'young_wolf', 'crob', 'boarian_marauder', 'troll_forest']
 const enemyLists = {
     level1: ['mouse', 'forest_gecko', 'goblin_bat', 'mouse_assassin', 'goblin'],
-    level5: ['mouse_assassin', 'goblin', 'boar', 'rabid_deer', 'young_wolf', 'crob'],
-    level8: [ 'boar', 'young_wolf', 'crob', 'boarian_marauder', 'troll_forest']
+    level5: ['forest_gecko', 'goblin_bat', 'mouse_assassin', 'goblin', 'boar', 'rabid_deer', 'young_wolf', 'crob'],
+    level8: ['mouse_assassin', 'goblin', 'boar', 'young_wolf', 'crob', 'boarian_marauder', 'troll_forest']
 }
 
 function battle (pc) {

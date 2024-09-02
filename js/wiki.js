@@ -19,6 +19,24 @@ const baseRes = {
     water: 0
 }
 
+const baseMods = {
+    end: 5, 
+    str: 5, 
+    agi: 5, 
+    dex: 5, 
+    int: 5, 
+    chr: 5, 
+    lck: 5,
+    coldRes: 0,
+    electricRes: 0,
+    fireRes: 0,
+    holyRes: 0,
+    natureRes: 0,
+    physicalRes: 0,
+    poisonRes: 0,
+    waterRes: 0
+}
+
 // SKILLS
 const skills = {
     // base skill (used if other skill isn't)
@@ -60,16 +78,46 @@ const food = {
         img: 'img/items/beer.png'
     }
 }
-
+const eqTypes = ['head', 'weapon', 'body', 'gloves', 'trinket', 'boots']
 const eq = {
+    head: {
+        wool_cap: {name: 'wool_cap',            dmg: 0, def: 0, bonusAttr: {}, bonusRes: {}, desc: 'A wool cap.', type: 'head', icon: 'head', rarity: 'common'},
+    },
     weapon: {
-        wooden_sword: {name: 'wooden sword', dmg: 2, bonusAttr: {}, desc: 'A wooden sword', type: 'weapon', icon: 'weapon', rarity: 'common'},
+        wooden_sword: {name: 'wooden sword',    dmg: 2, def: 0, bonusAttr: {}, bonusRes: {}, desc: 'A wooden sword, mostly for training', type: 'weapon', icon: 'weapon', rarity: 'common'},
     },
     body: {
-        leather_armor: {name: 'leather armor', def: 2, bonusAttr: {}, desc: 'A leather armor', type: 'body', icon: 'body', rarity: 'common'},
+        wool_shirt: {name: 'wool shirt',        dmg: 0, def: 0, bonusAttr: {}, bonusRes: {}, desc: 'A wool shirt', type: 'body', icon: 'body', rarity: 'common'},
+    },
+    gloves: {
+        wool_gloves: {name: 'wool gloves',      dmg: 0, def: 0, bonusAttr: {}, bonusRes: {cold: 5}, desc: 'Wool gloves. Helps with the cold', type: 'body', icon: 'gloves', rarity: 'common'},
     },
     trinket: {
-        rabbits_foot: {name: 'rabbits foot', bonusAttr: {lck: 2}, desc: 'A lucky rabbits foot.', type: 'trinket', icon: 'trinket', rarity: 'common'}
+        rabbits_foot: {name: 'rabbits foot',    dmg: 0, def: 0, bonusAttr: {lck: 2}, bonusRes: {}, desc: 'A lucky rabbits foot.', type: 'trinket', icon: 'trinket', rarity: 'common'}
+    },
+    boots: {
+        old_boots: {name: 'old boots',          dmg: 0, def: 0, bonusAttr: {agi: 1}, bonusRes: {cold: 5}, desc: 'Old boots. At least keeps the cold away.', type: 'trinket', icon: 'trinket', rarity: 'common'}
+    }
+}
+
+const eq2 = {
+    head: {
+        wool_cap: {name: 'wool_cap',         desc: 'A wool cap.', type: 'head', icon: 'head', rarity: 'common', mods: {}},
+    },
+    weapon: {
+        wooden_sword: {name: 'wooden sword', desc: 'A wooden sword, mostly for training', type: 'weapon', icon: 'weapon', rarity: 'common', mods: {dmg: 2}},
+    },
+    body: {
+        wool_shirt: {name: 'wool shirt',     desc: 'A wool shirt', type: 'body', icon: 'body', rarity: 'common', mods: {}},
+    },
+    gloves: {
+        wool_gloves: {name: 'wool gloves',   desc: 'Wool gloves. Helps with the cold', type: 'body', icon: 'gloves', rarity: 'common', mods: {coldRes: 5}},
+    },
+    trinket: {
+        rabbits_foot: {name: 'rabbits foot', desc: 'A lucky rabbits foot.', type: 'trinket', icon: 'trinket', rarity: 'common', mods: {lck: 2}}
+    },
+    boots: {
+        old_boots: {name: 'old boots',       desc: 'Old boots. At least keeps the cold away.', type: 'trinket', icon: 'trinket', rarity: 'common', mods: {agi: 1, coldRes: 5}}
     }
 }
 
@@ -79,6 +127,7 @@ const races = {
         height: 160,
         dmg: 5, def: 5,
         bonusAttr: {end: 2, str: 2, lck: 1},
+        bonusRes: {},
         names: {
             male: ['Onos', 'Gular', 'Ognugg', 'Kamegg', 'Agnihm', 'Grulond', 'Irrok', 'Murduk', 'Endok', 'Bhaldun', 'Bundain', 'Thurrigg', 'Kharnus', 'Armdur', 'Harrim', 'Mornom', 'Thogram', 'Brombek', 'Ebren', 'Banram'],
             female: ['Eidi', 'Samma', 'Yduan', 'Simde', 'Gille', 'Gumda', 'Ennolli', 'Brumua', 'Kannu', 'Daza', 'Baerwaen', 'Dimras', 'Raenryl', 'Jyngwyn', 'Tyshdelle', 'Maerryl', 'Bellenura', 'Armera', 'Tyswyn', 'Tiznyss']
@@ -90,6 +139,7 @@ const races = {
         height: 150,
         dmg: 5, def: 5,
         bonusAttr: {dex: 2, int: 1, lck: 2},
+        bonusRes: {},
         names: {
             male: ['Pinik', 'Krickleck', 'Glinkik', 'Finbu', 'Leeni','Ortix', 'Arifan', 'Pippin', 'Sprocket', 'Twiggle', 'Wizzlewort', 'Oswald', 'Glimbol', 'Elrik', 'Oakleaf', 'Zephyr', 'Tinkerspark', 'Bimble', 'Quigley', 'Widget', 'Tinkerbob', 'Tinkertop', 'Jinglehops'],
             female: ['Milbick', 'Gluxilin', 'Nysi', 'Yorhana', 'Follin', 'Myxis', 'Isona', 'Selphina', 'Rosiwyse', 'Krilin', 'Bimble', 'Fizzlina', 'Ember', 'Mira', 'Glimmerdust', 'Jinglebelle', 'Snickerhuff', 'Nibbly', 'Petal', 'Gretel', 'Faeleaf', 'Willow']
@@ -101,6 +151,7 @@ const races = {
         height: 200,
         dmg: 5, def: 5,
         bonusAttr: {int: 2, agi: 2, chr: 1},
+        bonusRes: {},
         names: {
             male: ['Aerendil', 'Belthorion', 'Caeldor', 'Diorion', 'Elenion', 'Thalion', 'Aldaril', 'Thalmor', 'Aurelian', 'Galerion', 'Pellril', 'Ravelanar', 'Vingron', 'Angoaril', 'Murian', 'Karved', 'Telve', 'Olqudur', 'Glaon', 'Mithril'],
             female: ['Aelnora', 'Clara', 'Firira', 'Zaonna', 'Garabella', 'Ravielle', 'Astnirya', 'Ayryeminde', 'Elelenya', 'Thramfaere', 'Helmaire', 'Erien', 'Inielina', 'Taalae', 'Tanarie', 'Aurtha', 'Camiril', 'Calmtaire', 'Cirine', 'Niraahil']
@@ -112,6 +163,7 @@ const races = {
         height: 180,
         dmg: 5, def: 5,
         bonusAttr: {dex: 2, int: 2, chr: 2},
+        bonusRes: {},
         names: {
             male: ['Alexander',  'Benjamin', 'Christopher', 'Daniel', 'Ethan',  'Frederick', 'Gabriel', 'Henry', 'Isaac', 'James', 'Arnall', 'Estevan', 'Claude', 'Lenard', 'Kalle', 'Colby', 'Ulises', 'Gary', 'Victor', 'Hubert', 'Aldo'],
             female: ['Amelia', 'Beatrice', 'Charlotte', 'Diana', 'Eleanor',  'Fiona',  'Grace',  'Hannah', 'Isabella', 'Julia', 'Berty', 'Thabita', 'Madison', 'Margot', 'Charline', 'Livia', 'Aubrie', 'Camile', 'Leyla', 'Rosina', 'Chantel', 'Maira', 'Autumn']
@@ -123,6 +175,7 @@ const races = {
         height: 200,
         dmg: 5, def: 5,
         bonusAttr: {end: 2, str: 3},
+        bonusRes: {},
         names: {
             male: ['Anoki', 'Dichali', 'Chibo', 'Matoshkah', 'Giqo', 'Shusta', 'Mojag', 'Vudri', 'Skah', 'Ommioh'],
             female: ['Shania', 'Atepa', 'Tiva', 'Mona', 'Uyo', 'Alameda', 'Taze', 'Tiponi', 'Uwuno', 'Enge']
@@ -134,6 +187,7 @@ const races = {
         height: 140,
         dmg: 5, def: 5,
         bonusAttr: {agi: 3, dex: 1, lck: 1},
+        bonusRes: {},
         names: {
             male: ['Jasper', 'Munchkin', 'Titan', 'Bandit', 'Noodle', 'Remy', 'Bingo', 'Finnegan', 'Orbit', 'Maverick', 'Dave', 'Charm', 'Cheddar', 'Oak', 'Autumn', 'Hippie', 'Boots', 'Vinnie', 'Cosmo', 'Tigger', 'Milo', 'Skip', 'Nibbles', 'George'],
             female: ['Zara', 'Zelda', 'Hazel', 'Honey', 'Cherry', 'Sky', 'Marigold', 'Dahlia', 'Fifi', 'Flora', 'Suzy', 'Jaffa', 'Sarah', 'Xia', 'Cutie', 'Pumpkin', 'Splash', 'Adele', 'Gladiola', 'Petunia', 'Millie', 'Iris', 'Zoey']
@@ -145,6 +199,7 @@ const races = {
         height: 185,
         dmg: 5, def: 5,
         bonusAttr: {end: 2, str: 2, agi: 1},
+        bonusRes: {},
         names: {
             male: ['Gruluk', 'Throg', 'Gornak', 'Morbash', 'Bugrash', 'Wogharod', 'Julakgh', 'Ghamorz', 'Atulg', 'Korgak', 'Rohlegg', 'Dreknir', 'Zanol', 'Throztarak', 'Rorn', 'Krohlme', 'Kogdurm', 'Krakk', 'Crati', 'Grosush', 'Gremdenk'],
             female: ['Atrarim', 'Azrash', 'Borgakh', 'Dushara', 'Ede', 'Geshatis', 'Igruk', 'Kraga', 'Lazara', 'Lursha', 'Ewdi', 'Sata', 'Rohzi', 'Gusu', 'Sena', 'Tohka', 'Ergit', 'Grohta', 'Modi', 'Okida', 'Rane']
@@ -156,6 +211,7 @@ const races = {
         height: 170,
         dmg: 5, def: 5,
         bonusAttr: {agi: 2, int: 1, lck: 2},
+        bonusRes: {},
         names: {
             male: ['Elyndor', 'Celestrion', 'Whiskerwing', 'Vornisarak', 'Stormrider', 'Talonheart', 'Garrick', 'Quillon', 'Moonshadow', 'Skyfeather', 'Silas', 'Aeris', 'Aerithius', 'Songbird', 'Sunwing', 'Hoothgar', 'Hawklyn', 'Ravenshade', 'Thadriel', 'Vireldor', 'Gwyndor'],
             female: ['Saphira', 'Liora', 'Vespera', 'Thalindra', 'Sylara', 'Elysia', 'Willow', 'Callista', 'Aelara', 'Luna', 'Lunaflight', 'Aelaril', 'Moonstone', 'Lunareen', 'Ivy', 'Elianna', 'Kaelith', 'Nyxora', 'Thalia', 'Zenobia', 'Lunara', 'Thissa', 'Eirwynn', 'Aurora']
@@ -168,36 +224,43 @@ const jobs = {
     archer: {
         name: 'archer',
         bonusAttr: {str: 1, agi: 1, dex: 3},
+        bonusRes: {},
         startSkills: ['power_shot_1', 'quick_shot_1']
     },
     bard: {
         name: 'bard',
         bonusAttr: {dex: 1, chr: 4},
+        bonusRes: {},
         startSkills: ['scream_1', 'attract_1']
     },
     gambler: {
         name: 'gambler',
         bonusAttr: {dex: 1, chr: 1, lck: 3},
+        bonusRes: {},
         startSkills: ['gamble_1']
     },
     mage: {
         name: 'mage',
         bonusAttr: {int: 4, lck: 1},
+        bonusRes: {},
         startSkills: ['magic_bolt_1', 'siphon_life_1']
     },
     priest: {
         name: 'priest',
         bonusAttr: {int: 3, chr: 1, lck: 1},
+        bonusRes: {},
         startSkills: ['heal_self_1']
     },
     rogue: {
         name: 'rogue',
         bonusAttr: {agi: 3, dex: 1, lck: 1},
+        bonusRes: {},
         startSkills: ['eviscerate_1']
     },
     warrior: {
         name: 'warrior',
         bonusAttr: {end: 2, str: 2, agi: 1},
+        bonusRes: {},
         startSkills: ['bash_1', 'body_slam_1']
     }
 }
@@ -205,39 +268,48 @@ const jobs = {
 const traits = {
     strong: {
         name: 'the strong',
-        bonusAttr: {str: 1}
+        bonusAttr: {str: 1},
+        bonusRes: {}
     },
     intelligent: {
         name: 'the intelligent',
-        bonusAttr: {int: 1}
+        bonusAttr: {int: 1},
+        bonusRes: {}
     },
     quick: {
         name: 'the quick',
-        bonusAttr: {agi: 1}
+        bonusAttr: {agi: 1},
+        bonusRes: {}
     },
     charming: {
         name: 'the charming',
-        bonusAttr: {chr: 1}
+        bonusAttr: {chr: 1},
+        bonusRes: {}
     },
     lucky: {
         name: 'the lucky',
-        bonusAttr: {lck: 1}
+        bonusAttr: {lck: 1},
+        bonusRes: {}
     },
     reckless: {
         name: 'the reckless',
-        bonusAttr: {str: 2, int: -1}
+        bonusAttr: {str: 2, int: -1},
+        bonusRes: {}
     },
     savant: {
         name: 'the savant',
-        bonusAttr: {int: 2, str: -1}
+        bonusAttr: {int: 2, str: -1},
+        bonusRes: {}
     },
     rash: {
         name: 'the rash',
-        bonusAttr: {agi: 2, int: -1}
+        bonusAttr: {agi: 2, int: -1},
+        bonusRes: {}
     },
     pleasant: {
         name: 'the pleasant',
-        bonusAttr: {chr: 2, str: -1}
+        bonusAttr: {chr: 2, str: -1},
+        bonusRes: {}
     }
 }
 

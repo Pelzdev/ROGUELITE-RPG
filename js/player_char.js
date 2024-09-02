@@ -8,21 +8,25 @@ function getChar (race, job, gender) {
         status: '',
         buff: false,
         race: rndGetPropertyCloned(races),
-        job: jobs[cheatedJob] || rndGetPropertyCloned(jobs), // cheated job stuff for testing
+        job: rndGetPropertyCloned(jobs),
         trait: rndGetPropertyCloned(traits),
         gender: rndFromArr(['male', 'female']),
         level: 1,
         baseAttr: structuredClone(baseAttr),
         baseRes: structuredClone(baseRes),
         eq: {
-            weapon: structuredClone(eq.weapon.wooden_sword), 
-            body: structuredClone(eq.body.leather_armor), 
-            trinket: structuredClone(eq.trinket.rabbits_foot)}
+            head: structuredClone(eq.head.wool_cap),
+            weapon: structuredClone(eq.weapon.wooden_sword),
+            body: structuredClone(eq.body.wool_shirt),
+            gloves: structuredClone(eq.gloves.wool_gloves),
+            trinket: structuredClone(eq.trinket.rabbits_foot),
+            boots: structuredClone(eq.boots.old_boots)
+        }
     }
-    char.totalAttr = updateCharTotalAttr(char)
+    char.totalAttr = getCharTotalAttr(char)
     char.hpMax = 50 + (char.totalAttr.end * 5) + char.level * 5
     char.hpLeft = char.hpMax
-    char.totalRes = char.baseRes
+    char.totalRes = getCharTotalRes(char)
     char.img = getCharSprite(char)
     char.name = rndFromArr(races[char.race.name].names[char.gender])
     char.lastName = rndFromArr(races[char.race.name].lastNames)
@@ -40,7 +44,7 @@ function makePlayerCharDiv (pc) {
     //updatePlayerBg()
     updateBg(playerSpriteEl)
     // Make sure attributes, hp etc is up-to-date
-    pc.totalAttr = updateCharTotalAttr(pc)
+    pc.totalAttr = getCharTotalAttr(pc)
     pc.hpMax = 50 + (pc.totalAttr.end * 5) + pc.level * 5
 
     const maxH = 85
@@ -79,37 +83,73 @@ function getCharSprite (char) {
     //let img = `<img class="sprite-${char.race.name}" style="height:${spriteH}%" src="img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png">`
     return `img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png`
 }
-
-function updateCharTotalAttr (char) {
+// Multi add together objects of attribute property:value
+function getCharTotalAttr (char) {
+    let eqTypeArr = eqTypes
     let arrayOfAttrObj = []
-    if (char.eq.weapon) arrayOfAttrObj.push(char.eq.weapon.bonusAttr)
-    if (char.eq.armor) arrayOfAttrObj.push(char.eq.armor.bonusAttr)
-    if (char.eq.trinket) arrayOfAttrObj.push(char.eq.trinket.bonusAttr)
+    eqTypeArr.forEach((item) => {
+        if (char.eq[item]) arrayOfAttrObj.push(char.eq[item].bonusAttr)
+    });
        
     arrayOfAttrObj.push(char.baseAttr, char.race.bonusAttr, char.job.bonusAttr, char.trait.bonusAttr)
     return multiAddAttr(arrayOfAttrObj)
 }
-
 // Use the addAttr function for all attributes given an array of objects containing attributes
-function multiAddAttr (objArr, specificAttr) {
-    let attrArr = specificAttr || ['end', 'str', 'int', 'agi', 'dex', 'chr', 'lck']
+function multiAddAttr (objArr) {
+    let attrArr = Object.keys(baseAttr)
+    //let attrArr = ['end', 'str', 'int', 'agi', 'dex', 'chr', 'lck']
     let totalAttr = {end: 0, str: 0, int: 0, agi: 0, dex: 0, chr: 0, lck: 0}
 
-    for (let i = 0; i < attrArr.length; i++) {
-        totalAttr[attrArr[i]] += addAttr(attrArr[i], objArr)
-    }
+    attrArr.forEach((item) => {
+        totalAttr[item] += addAttr(item, objArr)
+    }); 
 
     return totalAttr
 }
-
 // Add together the attributes with the same name for an array of objects containing attributes
 function addAttr(attr, objArr) {
     let totalAttr = 0
-    for (let i = 0; i < objArr.length; i++) {
-        if (attr in objArr[i]) {
-            totalAttr += objArr[i][attr]
+
+    for (const property in objArr) {
+        if (attr in objArr[property]) {
+            totalAttr += objArr[property][attr]
         }
     }
 
     return totalAttr
 }
+// Multi add together objects of resistance property:value
+function getCharTotalRes(char) {
+    let eqTypeArr = eqTypes
+    
+    let arrayOfAttrObj = []
+    eqTypeArr.forEach((item) => {
+        if (char.eq[item]) arrayOfAttrObj.push(char.eq[item].bonusRes)
+    });
+       
+    arrayOfAttrObj.push(char.baseRes, char.race.bonusRes, char.job.bonusRes, char.trait.bonusRes)
+    return multiAddRes(arrayOfAttrObj)
+}
+
+function multiAddRes (objArr) {
+    let resArr = Object.keys(baseRes)
+    let totalRes = {cold: 0, electric: 0, fire: 0, holy: 0, nature: 0, physical: 0, poison: 0, water: 0}
+
+    resArr.forEach((item) => {
+        totalRes[item] += addAttr(item, objArr)
+    }); 
+
+    return totalRes
+}
+
+function addRes (res, objArr) {
+    let totalRes = 0
+    for (const property in objArr) {
+        if (res in objArr[property]) {
+            totalRes += objArr[property][res]
+        }
+    }
+    return totalRes
+}
+
+

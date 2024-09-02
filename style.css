@@ -296,8 +296,8 @@ hr {
     display: inline-block;
 }
 
-.pc-info-line {
-    text-align: left;
+.eq-info-line {
+    margin-bottom: 2px;
 }
 
 .pc-expbar-under {
@@ -509,7 +509,7 @@ hr {
 .icon-gloves:before{content:'\004e';}
 .icon-gold:before{content:'\004f';}
 .icon-heart:before{content:'\0050';}
-.icon-helmet:before{content:'\0051';}
+.icon-head:before{content:'\0051';}
 .icon-holy:before{content:'\0052';}
 .icon-int:before{content:'\0053';}
 .icon-lck:before{content:'\0054';}

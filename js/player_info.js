@@ -73,34 +73,40 @@ function makeEqElement (pc) {
 
     eqTypes.forEach((item) => {
         if (pc.eq[item]) {
-            let lineDiv = createNode('div', {className: `pc-info-line ${item} clickable`, onclick: `clickEq('${item}')`})
+            lineDiv = createNode('div', {className: `eq-info-line ${item} clickable`, onclick: `clickEq('${item}')`})
             let icon = createNode('i', {className: `icon-${item}`})
             let text = createNode('span', {textContent: `${pc.eq[item].name}`})
             lineDiv.append(icon, text)
-            eqDiv.append(lineDiv)
         } else {
+            let lineDiv = createNode('div', {className: `pc-info-line ${item}`})
             let icon = createNode('i', {className: `icon-${item}`})
-            eqDiv.append(icon)
+            lineDiv.append(icon)
         }
+        eqDiv.append(lineDiv)
     });
 }
 
 function clickEq (eqClicked) {
+    let item = playerChar.eq[eqClicked]
+
     document.querySelector('.popup-graphic').innerHTML = ''
     document.querySelector('.popup-text').innerHTML = ''
     document.getElementById('button-bar').classList.add('unclickable')
   
     popupDiv.style.display = 'block'
     centerPopup(popupDiv)
-
-    document.querySelector('.popup-header').textContent = playerChar.eq[eqClicked].name
-
-    let graphic = createNode( 'i', { className: `icon-${playerChar.eq[eqClicked].icon}`, style: {fontSize: '24px'} } )
+    // HEADER
+    document.querySelector('.popup-header').textContent = item.name
+    // GRAPHIC / ICON
+    let graphic = createNode( 'i', { className: `icon-${item.icon}`, style: {fontSize: '24px'} } )
     document.querySelector('.popup-graphic').append(graphic)
 
     let textDiv = document.querySelector('.popup-text')
-    textDiv.append( makeParagraph(`Type: ${playerChar.eq[eqClicked].type}`))
-    textDiv.append( makeParagraph(`Rarity: ${playerChar.eq[eqClicked].rarity}`))
+    textDiv.append( makeParagraph(`Type: ${item.type}`))
+    textDiv.append( makeParagraph(`Rarity: ${item.rarity}`))
+
+    if (item.dmg > 0) textDiv.append( createNode('p', {textContent: `dmg: ${item.dmg}`}) )
+    if (item.def > 0) textDiv.append( createNode('p', {textContent: `dmg: ${item.def}`}) )
 
     let btn = createNode('button', { className: 'btn-medium',textContent: 'OK', onclick: 'closePopup()' })
     textDiv.append(btn)

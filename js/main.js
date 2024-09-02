@@ -29,7 +29,7 @@ const icons = {
     amulet: '<i class="icon-amulet"></i>',
     body: '<i class="icon-body"></i>',
     gloves: '<i class="icon-gloves"></i>',
-    head: '<i class="icon-helmet"></i>',
+    head: '<i class="icon-head"></i>',
     ring: '<i class="icon-ring"></i>',
     trinket: '<i class="icon-trinket"></i>',
     boots: '<i class="icon-boots"></i>',
@@ -108,6 +108,7 @@ function centerPopup (el) {
     el.style.top = `${0.5*gameH - elH/2}px`
     el.style.left = `${0.5*gameW - elW/2}px`
 }
+
 function getSkillIcon (skill) {
     return icons[skill.attribute]
 }
