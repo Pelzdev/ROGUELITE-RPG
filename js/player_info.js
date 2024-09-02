@@ -107,6 +107,7 @@ function clickEq (eqClicked) {
 
     if (item.dmg > 0) textDiv.append( createNode('p', {textContent: `dmg: ${item.dmg}`}) )
     if (item.def > 0) textDiv.append( createNode('p', {textContent: `dmg: ${item.def}`}) )
+    // Add that checks everything
 
     let btn = createNode('button', { className: 'btn-medium',textContent: 'OK', onclick: 'closePopup()' })
     textDiv.append(btn)
