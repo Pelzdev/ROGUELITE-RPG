@@ -40,8 +40,8 @@ function makeBattleDiv (enemy) {
     const spriteH = (enemy.height / 200) * maxH
     let enemyImg = document.getElementById('battle-enemy-img')
     // Add ability to click the enemy container
-    document.getElementById('enemy-img-container').style.cursor = 'pointer'
-    document.getElementById('enemy-img-container').style.pointerEvents = 'auto'
+    //document.getElementById('enemy-img-container').style.cursor = 'pointer'
+    //document.getElementById('enemy-img-container').style.pointerEvents = 'auto'
 
     document.querySelector('.window-header').textContent = `${enemyType.toUpperCase()}`
     document.querySelector('.enemy-info-line').textContent = `lvl ${enemy.level} ${enemy.name.toUpperCase()}`
@@ -54,6 +54,10 @@ function makeBattleDiv (enemy) {
 
 
 function doBattleTurns() {
+    if (playerChar.hpLeft < 1 || enemy.hpLeft < 1) {
+        endEvent()
+        console.log('dead')
+    }
     let text = ''
     let attOrder = decideFirstAttacker(playerChar, enemy)
     let first = attOrder[0]
@@ -71,8 +75,8 @@ function doBattleTurns() {
     }
    
     // automatically scroll to the bottom (to see newest text)
-    eventText.scrollTop = eventText.scrollHeight;
-    eventTextContainer.scrollTop = eventTextContainer.scrollHeight;
+    eventText.scrollTop = eventText.scrollHeight; // FIX DOESNT WORK NOW
+    eventTextContainer.scrollTop = eventTextContainer.scrollHeight; // FIX DOESNT WORK NOW
     animation('damageEnemy', eventDiv, 50)
 }
 
@@ -221,8 +225,8 @@ function checkIfDead (char, charsEnemy, textClass) {
             fadeOutEl(document.getElementById('battle-enemy-img'))
         }
         // Remove ability to click the enemy container
-        document.getElementById('enemy-img-container').style.cursor = 'default'
-        document.getElementById('enemy-img-container').style.pointerEvents = 'none'
+        //document.getElementById('enemy-img-container').style.cursor = 'default'
+        //document.getElementById('enemy-img-container').style.pointerEvents = 'none'
     }
 }
 

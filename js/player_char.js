@@ -52,7 +52,8 @@ function makePlayerCharDiv (pc) {
     sprite.style.height = `${spriteH}%`
     document.querySelector('.pc-hpbar-over').style.width = `${pc.hpLeft/pc.hpMax*100}%;` 
     document.getElementById('pc-hp-text').textContent = `${pc.hpLeft}/${pc.hpMax} HP` 
-    document.querySelector('.pc-expbar-over').style.width = `${pc.exp/pc.expToLvl*100}%;` 
+    document.querySelector('.pc-expbar-over').style.width = `${pc.exp/pc.expToLvl*100}%`
+    console.log(pc.exp/pc.expToLvl*100) 
     document.getElementById('pc-exp-text').textContent = `${pc.exp}/${pc.expToLvl} XP`
     
     makePlayerInfo(pc)
