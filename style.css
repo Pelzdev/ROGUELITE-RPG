@@ -57,6 +57,7 @@
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     touch-action: manipulation;
+    image-rendering: pixelated;
 }
 
 /* GENERAL */
@@ -236,7 +237,6 @@ hr {
     position: absolute;
     bottom: 35px;
     vertical-align: bottom;
-    image-rendering: pixelated;
 }
 
 
@@ -346,7 +346,6 @@ hr {
 
 /* ##### EVENT STUFF ##### */
 .event-div {
-    image-rendering: pixelated;
     display: none;
     background-blend-mode: multiply;
     background-size: cover;
@@ -368,12 +367,10 @@ hr {
     transform: translateX(-50%);
     position: absolute;
     bottom: 4px;
-    image-rendering: pixelated;
 }
 
 /* BATTLE EVENT */
 .battle-div {
-    image-rendering: pixelated;
     display: none;
     background-blend-mode: multiply;
     background-size: cover;
@@ -392,7 +389,6 @@ hr {
     position: absolute;
     bottom: 0;
     vertical-align: bottom;
-    image-rendering: pixelated;
 }
 
 #enemy-hp-text {

@@ -15,5 +15,7 @@ TODO:
 - INCORPORATE DMG AND DEF
 - add simple EQ (weap / armor / trinket?) ONGOING
 - add skillcheck events (aka get something if a certain attribute is high enough)
-- add skilltrainers that boosts skills
+[X]add skilltrainers that boosts skills
 - icons for status?
+- Running log that player can look at
+- SAVE LOCALLY (and add continue)
