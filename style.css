@@ -131,7 +131,6 @@ hr {
 
 
 .player-info-section {
-    touch-action: manipulation;
     display: inline-block;
     width: 49%;
     vertical-align: top;
@@ -362,6 +361,7 @@ hr {
     position: relative;
     height: calc(100% - 20px);
     vertical-align: top;
+    touch-action: manipulation;
 }
 
 .event-sprite-img {
