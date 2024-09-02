@@ -3,9 +3,6 @@ let innCost = 15
 let innHeal = 25
 
 function inn (pc) {
-    eventDiv.innerHTML = ''
-    //updateEventBg('inn')
-
     innCost = rndInt(15,25)
     innHeal = rndInt(25, 40)
 
@@ -16,44 +13,50 @@ function inn (pc) {
     // disable button to click YES if not enough gold
     let disableYesBtn = `disabled`
     if (playerChar.gold >= innCost) disableYesBtn = ''
+    // Image sprite
+    document.querySelector('.event-sprite-img').style.height = `${spriteH}%`
+    document.querySelector('.event-sprite-img').src = 'img/events/inn/innkeeper.png'
+    // Event text in text-div
+    let text1 = createNode('span', {textContent: `The inn looks inviting. Do you want to pay innkeeper Aerion ${innCost} `})
+    let icon = createNode('i', {className:  'icon-gold icon-inn-1'})
+    let text2 = createNode('span', {textContent: ` (discounted by ${pc.totalAttr.chr}), to stay \x04f the night? You have ${pc.gold}. `})
+    let icon2 = createNode('i', {className:  'icon-gold icon-inn-2'})
+    // Buttons inside text-div
+    let btnDiv = createNode('div', {className: 'event-btn-div', style: {display: 'inline-block'}})
+    let btnYes = createNode('button', {className: `btn-medium ${disableYesBtn}`, textContent: 'YES', onclick: "innYes()"})
+    let btnNo = createNode('button', {className: 'btn-medium', textContent: 'NO', onclick: "innNo()"})
+    btnDiv.append(btnYes, btnNo)
+
+    eventText.append(text1, icon, text2, icon2, btnDiv)
     
-    eventDiv.innerHTML += `<p class="window-header">FAIRVIEW INN</p>`
-    eventDiv.innerHTML += `
-        <div class="event-sprite-img-container">
-            <img class="event-sprite-img" style="height:${spriteH}%" src="img/events/inn/innkeeper.png">
-        </div>`
-
-    eventText.innerHTML += `
-        <hr><p class="event-text-row">You found an inn!</p><hr>
-        <br>
-        <p id="inn-text-row">The inn looks inviting. Do you want to pay innkeeper Aerion ${innCost} ${icons.gold}, (discounted by ${pc.totalAttr.chr}), to stay the night? You have ${pc.gold} ${icons.gold}.</p>
-        <br>
-        <div id="event-btn-container">
-            <button class="btn-inn yes ${disableYesBtn}" onclick="innYes()">YES</button><button class="btn-inn no" onclick="innNo()">NO</button>
-        </div>
-    `
-
     endEventBtn.style.display = 'inline-block' // end event btn
 }
 
 function innYes () {
-    if (playerChar.gold < innCost) {
-        console.log('not enough gold')
-        return
-    }
+    document.querySelector('.event-btn-div').style.display = 'none'
     playerChar.gold -= innCost
-    eventText.innerHTML = `You paid ${innCost} ${icons.gold} to stay the night... You wake up refreshed.`
     playerChar.hpLeft += 25
-    if(playerChar.hpLeft > playerChar.hpMax) {playerChar.hpLeft = playerChar.hpMax}
+    if (playerChar.hpLeft > playerChar.hpMax) {
+        playerChar.hpLeft = playerChar.hpMax
+    }
+    let br = createNode('br', {className: null})
+    let text = createNode('span', {textContent: ` You paid ${innCost} `})
+    let icon = createNode('i', {className:  'icon-gold'})
+    let text2 = createNode('span', {textContent: ` to stay the night... You wake up refreshed.` })
+    eventText.append(br, text, icon, text2)
 
     if (getFirstEmptyfoodSlot(playerChar) != 'none') {
-        let foodType = food['beer']
+        let foodType = food['small_potion']
         giveFood(playerChar, foodType)
-        eventText.innerHTML += `You got a ${foodType.name} to take with you!`
+        let text = createNode('p', {textContent: `You got a ${foodType.name} to take with you!`})
+        eventText.append(text)
     }
+    
     makePlayerCharDiv(playerChar)
 }
 
 function innNo() {
-    eventText.innerHTML = `You decide to leave the inn.`
+    document.querySelector('.event-btn-div').style.display = 'none'
+    let text = createNode('p', {textContent: 'You decide to leave the inn.'})
+    eventText.append(text)
 }

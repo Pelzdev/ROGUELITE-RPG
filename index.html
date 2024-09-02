@@ -19,27 +19,97 @@
                 <button id="event-end-btn" onclick="endEvent()">END EVENT</button>
             </div>
 
-            <div id="game-start-area" style="display: flex"></div>
+            <div id="game-start-area"></div>
 
             <div id="game-row-1" style="display: none">
-                <div class="info-card player-sprite"></div>
+
+                <div class="info-card player-sprite">
+                    <div id="pc-img-container">
+                        <img class="sprite" src="">
+                    </div>
+                    <div class="pc-hp-expbar-container">
+                        <div class="hp-bar-under pc-hpbar-under">
+                            <div class="hp-bar-over pc-hpbar-over"></div>
+                            <p id="pc-hp-text"><p>
+                        </div>
+                        <div class="pc-expbar-under">
+                            <div class="pc-expbar-over"></div>
+                            <p id="pc-exp-text"><p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card" id="player-char-info1">
+                    <div class="player-info-section-1">
+                        <p class="pc-info-line name"></p>
+                        <p class="pc-info-line trait"></p>
+                        <p class="pc-info-line joblvl"></p>
+                        <i class="icon-weapon"></i><p class="pc-info-line atk" style="display:inline-block;"></p>
+                        <i class="icon-shield"></i><p class="pc-info-line def" style="display:inline-block;"></p>
+                        <hr>
+                        <div class="pc-attr-stats-container">
+                            <div class="pc-attr-container" style="width:62%;">
+                            </div>
+                            <div class="res-container" style="width: 35%; float:right">
+                            </div>
+                        </div>
+                        <hr>
+                        <p class="pc-info-line location"></p>
+                        <i class="icon-gold"></i><p class="pc-info-line gold" style="display:inline-block;"></p>
+                        <p class="pc-info-line buff"></p>
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="info-card" id="player-char-info2">
+                    <div class="player-info-section-2">
+                        <p class="pc-info-line skill-1">Skill 1: <span class="clickable" id="pc-skill1-clickable" onclick="clickSkill(0)"></span></p>
+                        <p class="pc-info-line skill-2">Skill 2: -</p>
+                        <div class="pc-eq-info">
+                            
+                        </div>  
+                        <div class="consumable-container">
+                            <div class="consumable-img-container food0" onclick="clickConsumable(0)"><img class="food-img-0"></div>
+                            <div class="consumable-img-container food1" onclick="clickConsumable(1)"><img class="food-img-1"></div>
+                            <div class="consumable-img-container food2" onclick="clickConsumable(2)"><img class="food-img-2"></div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="info-card" id="event-text-container">
                     <p class="window-header" id="event-header"></p>
                     <div id="event-text"></div>
                 </div>
-                <div class="info-card" id="player-char-info1"></div>
-                <div class="info-card" id="player-char-info2"></div>
-                <div class="info-card event-div"></div> 
+
+                <div class="info-card event-div">
+                    <div class="event-sprite-img-container">
+                        <img class="event-sprite-img"/>
+                    </div>
+                </div>
+
+                <div class="info-card battle-div" style="display:none">
+                    <p class="window-header"></p>
+                    <hr>
+                    <p class="enemy-info-line name"></p>
+                    <hr>
+                    <div id="enemy-img-container" onclick="doBattleTurns(event)">
+                        <img id="battle-enemy-img"/>
+                    </div>
+                    <hr>
+                    <div class="hp-bar-under enemy-hpbar-under"><div class="hp-bar-over enemy-hpbar-over"></div><p id="enemy-hp-text"></p></div> 
+                    
+                    <div id="battle-text-div"></div>
+                </div>
+
             </div>
             
+
             <div class="popup-div">
-                <h3>SMALL POTION</h3>
-                <img class="popup-div-img" src="img/items/potion_small.png">
-                <p>A small potion, it will restore your health a little.</p>
-                <hr>
-                <p>Use it?</p><br>
-                <button class="btn-medium">Yes</button><button class="btn-medium">No</button>
+                <h3 class="popup-header"></h3>
+                <div class="popup-graphic"></div>
+                <div class="popup-text"></div>
             </div>
+
         </div>
 
 

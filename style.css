@@ -140,9 +140,6 @@ hr {
     font-size: 12px;
 }
 
-.popup-div-img {
-    width: 20%;
-}
 
 .popup-div h3 {
     margin-top: 5px;
@@ -153,6 +150,10 @@ hr {
 }
 
 /* GAME STUFF */
+
+#game-start-area {
+    display: flex;
+}
 
 #game {
     height: 100%;
@@ -242,6 +243,7 @@ hr {
 
 /* ##### PLAYER CHAR CARD STUFF ##### */
 .pc-hp-expbar-container {
+    text-align: center;
     position: relative;
     bottom: 32px;
     z-index: 2;
@@ -275,7 +277,7 @@ hr {
 }
 
 .pc-statbar-under {
-    width: calc(56% - 20px);
+    width: 75%;
     left: 0;
     display: inline-block;
     height: 10px;
@@ -322,7 +324,7 @@ hr {
 }
 
 .consumable-img-container {
-    float:left;
+    float: left;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -370,6 +372,15 @@ hr {
 }
 
 /* BATTLE EVENT */
+.battle-div {
+    image-rendering: pixelated;
+    display: none;
+    /*background: url("img/events/location_bg/woods/0.png") rgba(0, 0, 0, 0.3);*/
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-position: center center;
+}
+
 #enemy-img-container {
     position: relative;
     height: calc(100% - 60px);

@@ -96,10 +96,30 @@ function getCenterOfEl (el, xOrY) {
     if (xOrY === 'y') return centerY
 }
 
-function changeInfoCardPos(deviceOrientation) {
-    if (deviceOrientation === 'portrait') {
-        gameRow1.insertBefore(eventDiv, eventTextContainer)
-    } else {
-        gameRow1.insertBefore(eventTextContainer, eventDiv)
-    }
+function createNode (tagName, { className, classList, style, textContent, ...attributes }) {
+    const node = document.createElement(tagName);
+
+    if (className) 	
+        node.className = className;
+    else if (classList != null && classList.length !== 0)
+        node.classList.add(...classList);
+  
+    if (style)
+        Object.assign(node.style, style);
+  
+    if (textContent)
+         node.textContent = textContent;
+  
+    for (const [k, v] of Object.entries(attributes))
+        node.setAttribute(k, v);
+
+return node;
 }
+/*
+let newEl = createNode ('img', {
+  className: 'image',
+  style: {height: '200px'},
+  //textContent: null,
+  src: 'https://github.com/Pelzdev/ROGUELITE-RPG/blob/main/img/chars/dwarf/archer/female/0.png?raw=true'
+})
+*/

@@ -43,71 +43,37 @@ function makePlayerCharDiv (pc) {
     pc.totalAttr = updateCharTotalAttr(pc)
     pc.hpMax = 50 + (pc.totalAttr.end * 5) + pc.level * 5
 
-    makePlayerInfo(pc)
-
     const maxH = 85
     const spriteH = (pc.height / 200) * maxH
 
-
-    let spriteHtml = `
-        <div id="pc-img-container">
-            <img class="sprite-${pc.race.name}" style="height:${spriteH}%" src="${pc.img}">
-        </div>
-        <div class="pc-hp-expbar-container style="text-align:center">
-            <div class="hp-bar-under pc-hpbar-under">
-                <div class="hp-bar-over pc-hpbar-over" style="width:${pc.hpLeft/pc.hpMax*100}%"></div>
-                <p id="pc-hp-text">${pc.hpLeft}/${pc.hpMax} HP<p>
-            </div>
-            <div class="pc-expbar-under">
-                <div class="pc-expbar-over" style="width:${pc.exp/pc.expToLvl*100}%"></div>
-                <p id="pc-exp-text">${pc.exp}/${pc.expToLvl} XP<p>
-            </div>
-        </div>
-    `
+    // change stuff inside player image container ('.player-sprite')
+    let sprite = document.querySelector('.sprite')
+    sprite.src =`${pc.img}`
+    sprite.style.height = `${spriteH}%`
+    document.querySelector('.pc-hpbar-over').style.width = `${pc.hpLeft/pc.hpMax*100}%;` 
+    document.getElementById('pc-hp-text').textContent = `${pc.hpLeft}/${pc.hpMax} HP` 
+    document.querySelector('.pc-expbar-over').style.width = `${pc.exp/pc.expToLvl*100}%;` 
+    document.getElementById('pc-exp-text').textContent = `${pc.exp}/${pc.expToLvl} XP`
+    
     makePlayerInfo(pc)
-    playerSpriteEl.innerHTML = spriteHtml
+
     return
 }
 
-// CLICKING skills etc on char screen
-function clickSkill (arrPos) {
-    let skill = playerChar.skills[arrPos]
-    let dmgOrHealText = 'Damage'
-    if (skill.type === 'heal') dmgOrHealText = 'Heal'
-    let effectText = '-'
-    if (skill.effect) effectText = `${skill.effectChance}% chance to ${skill.effect.toUpperCase()}`
-    let boostedText = ''
-    if (skill.type === 'damage' || skill.type === 'heal') {
-        boostedText = `<p>${skill.type.toUpperCase()} boosted by ${icons[skill.attribute]} ${skill.attribute.toUpperCase()}</p>`
-    }
-
-    document.getElementById('button-bar').classList.add('unclickable')
-    popupDiv.innerHTML = `
-        <br>
-        <p style="font-size: 12px;">${skill.name.toUpperCase()}</p>
-        <br>
-        <p style="font-size:24px;"><i class="icon-${skill.attribute}"></i></p>
-        <br>
-        <p>Type: ${skill.type.toUpperCase()}</p>
-        <br><hr>
-        <br>
-        <p>Chance to use: ${skill.chance}%</p>
-        <p>${dmgOrHealText}: ${skill.power || '-'}</p>
-        <p>Crit chance: ${skill.critChance}%</p>
-        <br>
-        <p>Extra effect: ${effectText}</p>
-        ${boostedText}
-        <br><hr><br><br>
-        <button class="btn-medium" onclick="closePopup()">BACK</button>
-    ` 
-
-    popupDiv.style.display = 'block'
-    centerPopup(popupDiv)
+function makeEl (type, className, idName, style) {
+    let el = document.createElement(type)
+    if (className) el.className = className
+    if (idName) el.id = idName
+    if (style) el.style.cssText = style
+  
+    return el
 }
 
 function closePopup () {
-    document.getElementById('button-bar').classList.remove('unclickable')
+    document.querySelector('.popup-graphic').textContent = null
+    document.querySelector('.popup-text').textContent = null
     popupDiv.style.display = 'none'
+    document.getElementById('button-bar').classList.remove('unclickable')
 }
 
 // Choose start skill for char
@@ -121,14 +87,6 @@ function getCharSprite (char) {
     let imgNum = rndInt(0, numOfAvailebleSprites-1)
     //let img = `<img class="sprite-${char.race.name}" style="height:${spriteH}%" src="img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png">`
     return `img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png`
-}
-
-function checkAddZero (stat) {
-    let numberShown = stat
-    if (stat < 10) {
-        numberShown = `<span style="color: rgba(255,255,255,0.2)">0</span>${stat}`
-    }
-    return numberShown
 }
 
 function updateCharTotalAttr (char) {

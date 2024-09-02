@@ -21,43 +21,33 @@ function trainer (selectedTrainer) {
     if (extraAttr) {attrToTrainText = `${attrToTrain} & ${extraAttr}`.toUpperCase(); trainCost = Math.round(trainCost *= 1.5)}
     if (!extraAttr) attrToTrainText = attrToTrain.toUpperCase()
 
-    
-
-    eventDiv.innerHTML = ''
-    //update bg
-    //updateEventBg('trainer')
-
     const maxH = 80
     const charHeight = 180
     const spriteH = (charHeight / 200) * maxH
     // disable button to click YES if not enough gold
     let disableYesBtn = `disabled`
     if (playerChar.gold >= trainCost) disableYesBtn = ''
-    
-    eventDiv.innerHTML += `<p class="window-header">TRAINER</p>`
-    eventDiv.innerHTML += `
-        <div class="event-sprite-img-container">
-            <img class="event-sprite-img" style="height:${spriteH}%" src="img/events/trainer/trainer_${trainerChosen}.png">
-        </div>`
-
-    eventText.innerHTML = `
-        <hr>
-        <p class="event-text-row">You found a trainer!</p><hr>
-        <br>
-        <p id="event-text-row">${trainerChosen.toUpperCase()} will help you raise your ${attrToTrainText} attribute(s) by ${trainAmount} for ${trainCost} ${icons.gold} (discounted by ${playerChar.totalAttr.chr}). Do you accept? You have ${playerChar.gold} ${icons.gold}.</p>
-        <br>
-        <div id="event-btn-container">
-            <button class="btn-trainer yes ${disableYesBtn}" onclick="trainerYes()">YES</button><button class="btn-trainer no" onclick="trainerNo()">NO</button>
-        </div>`
 
     endEventBtn.style.display = 'inline-block' // end event btn
+
+    document.querySelector('.event-sprite-img').style.height = `${spriteH}%`
+    document.querySelector('.event-sprite-img').src = `img/events/trainer/trainer_${trainerChosen}.png`
+    let text = createNode('span', {textContent: `You found a trainer! ${trainerChosen.toUpperCase()} will help you raise your ${attrToTrainText} attribute(s) by ${trainAmount} for ${trainCost} ` })
+    let icon = createNode('i', {className: 'icon-gold'})
+    let text2 = createNode('span', {textContent: ` (discounted by ${playerChar.totalAttr.chr}).`})
+    let br = createNode('br', {className: null})
+    let text3 = createNode('span', {textContent: ` Do you accept? You have ${playerChar.gold} `})
+    let icon2 = createNode('i', {className: 'icon-gold'})
+    
+    let btnDiv = createNode('div', {className: 'event-btn-div', style: {display: 'inline-block'}})
+    let btnYes = createNode('button', {className: `btn-medium ${disableYesBtn}`, textContent: 'YES', onclick: "trainerYes()"})
+    let btnNo = createNode('button', {className: 'btn-medium', textContent: 'NO', onclick: "trainerNo()"})
+    btnDiv.append(btnYes, btnNo)
+    eventText.append(text, icon, text2, br, text3, icon2, btnDiv)
 }
 
 function trainerYes () {
-    if (playerChar.gold < trainCost) {
-        console.log('not enough gold')
-        return
-    }
+    document.querySelector('.event-btn-div').style.display = 'none'
     playerChar.gold -= trainCost
     playerChar.baseAttr[attrToTrain] += trainAmount
     
@@ -68,12 +58,18 @@ function trainerYes () {
     if (attrToTrain === 'end') {playerChar.hpLeft += trainAmount*5}
     if (extraAttr === 'end') {playerChar.hpLeft += trainAmount*5}
 
-    eventText.innerHTML = `You paid ${trainCost} ${icons.gold} to raise your ${attrToTrainText} by ${trainAmount}`
+    let br = createNode('br', {className: null})
+    let text = createNode('span', {textContent: ` You paid ${trainCost} `})
+    let icon = createNode('i', {className:  'icon-gold'})
+    let text2 = createNode('span', {textContent: ` to raise your ${attrToTrainText} by ${trainAmount}.` })
+    eventText.append(br, text, icon, text2)
 
     makePlayerCharDiv(playerChar)
     extraAttr = null
 }
 
 function trainerNo () {
-    eventText.innerHTML = `You decide to leave the trainer.`
+    document.querySelector('.event-btn-div').style.display = 'none'
+    let text = createNode('p', {textContent: 'You decide to leave the trainer.'})
+    eventText.append(text)
 }

@@ -17,6 +17,8 @@ let eventHeader = document.getElementById('event-header')
 let eventTextContainer = document.getElementById('event-text-container')
 let eventText = document.getElementById('event-text')
 let endEventBtn = document.getElementById('event-end-btn') 
+// BATTLE
+let battleDiv = document.querySelector('.battle-div')
 
 // ICONS
 const icons = {
@@ -27,7 +29,7 @@ const icons = {
     amulet: '<i class="icon-amulet"></i>',
     body: '<i class="icon-body"></i>',
     gloves: '<i class="icon-gloves"></i>',
-    helmet: '<i class="icon-helmet"></i>',
+    head: '<i class="icon-helmet"></i>',
     ring: '<i class="icon-ring"></i>',
     trinket: '<i class="icon-trinket"></i>',
     boots: '<i class="icon-boots"></i>',
@@ -76,7 +78,7 @@ function getPlayerChar () {
     gameStartArea.style.display = 'none' // Hide game start area
     gameRow1.style.display = 'flex' // Show the area for PLAYING aka seeing char, battles etc
     playerCharInfoEl1.style.display = 'inline-block'
-    playerCharInfoEl1.style.display = 'inline-block'
+    playerCharInfoEl1.style.display = 'inline-block' // CHECK THIS
     playerChar = getChar('human')
     makePlayerCharDiv(playerChar)
     eventStartBtn.style.display = 'inline'
@@ -144,4 +146,3 @@ function animation (type, targetEl, time) {
 function fadeOutEl(el) {
     el.classList.add('fade-out')
 }
-
