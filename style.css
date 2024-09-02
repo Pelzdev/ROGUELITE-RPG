@@ -37,10 +37,11 @@
     }
     .player-sprite {
        flex-grow: 1;
-       width: 34%
+       width: 34%;
     }
     #event-text-container {
-        width: 33%
+        height: 100%;
+        width: 33%;
     }
 }
 
