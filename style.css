@@ -54,12 +54,13 @@
     padding: 0;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    touch-action: manipulation;
 }
 
 /* GENERAL */
 
 body {
-    touch-action: manipulation;
     width: calc(100vw - 1px);
     height: calc(100vh - 1px);
     margin: 0;
@@ -218,7 +219,6 @@ hr {
 .player-sprite {
     position: relative;
     max-width: 100%;
-    /*background: url("img/events/location_bg/woods/0.png") rgba(0, 0, 0, 0.3);*/
     background-blend-mode: multiply;
     background-size: cover;
     background-position: center center;
@@ -347,7 +347,6 @@ hr {
 .event-div {
     image-rendering: pixelated;
     display: none;
-    /*background: url("img/events/location_bg/woods/0.png") rgba(0, 0, 0, 0.3);*/
     background-blend-mode: multiply;
     background-size: cover;
     background-position: center center;
@@ -361,7 +360,6 @@ hr {
     position: relative;
     height: calc(100% - 20px);
     vertical-align: top;
-    touch-action: manipulation;
 }
 
 .event-sprite-img {
@@ -376,7 +374,6 @@ hr {
 .battle-div {
     image-rendering: pixelated;
     display: none;
-    /*background: url("img/events/location_bg/woods/0.png") rgba(0, 0, 0, 0.3);*/
     background-blend-mode: multiply;
     background-size: cover;
     background-position: center center;
@@ -386,7 +383,6 @@ hr {
     position: relative;
     height: calc(100% - 60px);
     cursor: pointer;
-    user-select: none;
 }
 
 #enemy-img-container img {

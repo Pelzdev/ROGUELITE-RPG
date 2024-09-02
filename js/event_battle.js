@@ -1,4 +1,10 @@
 // BATTLE EVENT
+let enemyImgContainer = document.getElementById('enemy-img-container')
+enemyImgContainer.addEventListener("click", function (e) {
+    e.preventDefault()
+    doBattleTurns()
+  });
+
 let enemyType = 'enemy'
 let enemy = {}
 let enemySprite

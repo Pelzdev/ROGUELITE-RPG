@@ -146,3 +146,16 @@ function animation (type, targetEl, time) {
 function fadeOutEl(el) {
     el.classList.add('fade-out')
 }
+
+let tap = 0;
+
+/* 
+document.getElementById('enemy-img-container').addEventListener('touchend', function(e) {
+    console.log('tapp')
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - tap;
+    if (tapLength < 500 && tapLength > 0) {
+        e.preventDefault();
+    }
+    tap = currentTime;
+}); */ 
