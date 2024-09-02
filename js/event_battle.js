@@ -1,8 +1,8 @@
 // BATTLE EVENT
 let enemyImgContainer = document.getElementById('enemy-img-container')
-enemyImgContainer.addEventListener("click", function (e) {
-    e.preventDefault()
-    doBattleTurns()
+    enemyImgContainer.addEventListener("click", function (e) {
+        e.preventDefault()
+        doBattleTurns()
   });
 
 let enemyType = 'enemy'
@@ -39,6 +39,9 @@ function makeBattleDiv (enemy) {
     let maxH = 95
     const spriteH = (enemy.height / 200) * maxH
     let enemyImg = document.getElementById('battle-enemy-img')
+    // Add ability to click the enemy container
+    document.getElementById('enemy-img-container').style.cursor = 'pointer'
+    document.getElementById('enemy-img-container').style.pointerEvents = 'auto'
 
     document.querySelector('.window-header').textContent = `${enemyType.toUpperCase()}`
     document.querySelector('.enemy-info-line').textContent = `lvl ${enemy.level} ${enemy.name.toUpperCase()}`
@@ -217,6 +220,9 @@ function checkIfDead (char, charsEnemy, textClass) {
             giveExpAndUpdate(charsEnemy, char)
             fadeOutEl(document.getElementById('battle-enemy-img'))
         }
+        // Remove ability to click the enemy container
+        document.getElementById('enemy-img-container').style.cursor = 'default'
+        document.getElementById('enemy-img-container').style.pointerEvents = 'none'
     }
 }
 
