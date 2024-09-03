@@ -40,7 +40,6 @@ const icons = {
     ring: '<i class="icon-ring"></i>',
     trinket: '<i class="icon-trinket"></i>',
     boots: '<i class="icon-boots"></i>',
-
     blood: '<i class="icon-blood"></i>',
     charmed: '<i class="icon-charmed"></i>',
     love: '<i class="icon-love"></i>',

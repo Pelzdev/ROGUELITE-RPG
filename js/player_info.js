@@ -78,9 +78,10 @@ function makeEqElement (pc) {
 
     eqTypes.forEach((item) => {
         if (pc.eq[item]) {
-            lineDiv = createNode('div', {className: `eq-info-line ${item} clickable`, onclick: `clickEq('${item}')`})
+            lineDiv = createNode('div', {className: `eq-info-line ${item} clickable` })
+            lineDiv.addEventListener('click', () => clickEq(item))
             let icon = createNode('i', {className: `icon-${item}`})
-            let text = createNode('span', {textContent: `${pc.eq[item].name}`})
+            let text = createNode('span', {textContent: `${pc.eq[item].name}`, className: `${pc.eq[item].rarity}` })
             lineDiv.append(icon, text)
         } else {
             let lineDiv = createNode('div', {className: `pc-info-line ${item}`})
@@ -92,6 +93,7 @@ function makeEqElement (pc) {
 }
 
 function clickEq (eqClicked) {
+    let header = document.querySelector('.popup-header')
     let item = playerChar.eq[eqClicked]
 
     document.querySelector('.popup-graphic').innerHTML = ''
@@ -100,8 +102,9 @@ function clickEq (eqClicked) {
   
     popupDiv.style.display = 'block'
     centerPopup(popupDiv)
+
     // HEADER
-    document.querySelector('.popup-header').textContent = item.name.toUpperCase()
+    header.textContent = item.name.toUpperCase()
     // GRAPHIC / ICON
     let graphic = createNode( 'i', { className: `icon-${item.icon}`, style: {fontSize: '24px'} } )
     document.querySelector('.popup-graphic').append(graphic)
@@ -115,9 +118,10 @@ function clickEq (eqClicked) {
     for (const key of Object.keys(item.mods)) {
         if (key != 'dmg' && key != 'def') textDiv.append( createNode('p', {textContent: `${key}: ${item.mods[key]}`}) )
         console.log(key);
-      }
+    }
 
-    let btn = createNode('button', { className: 'btn-medium',textContent: 'OK', onclick: 'closePopup()' })
+    let btn = createNode('button', { className: 'btn-medium',textContent: 'OK' })
+    btn.addEventListener('click', () => closePopup())
     textDiv.append(btn)
 }
 
@@ -210,4 +214,11 @@ function useConsumable (arrPos) {
 
     playerChar.food[arrPos] = null,
     document.querySelector(`.food-img-${arrPos}`).src = ''
+}
+
+function closePopup () {
+    document.querySelector('.popup-graphic').textContent = null
+    document.querySelector('.popup-text').textContent = null
+    popupDiv.style.display = 'none'
+    document.getElementById('button-bar').classList.remove('unclickable')
 }

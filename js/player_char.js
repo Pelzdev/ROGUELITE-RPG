@@ -14,12 +14,12 @@ function getChar (race, job, gender) {
         level: 1,
         baseMods: structuredClone(baseMods), // TESTING
         eq: {
-            head: structuredClone(eq.head.wool_cap),
-            weapon: structuredClone(eq.weapon.wooden_sword),
-            body: structuredClone(eq.body.wool_shirt),
-            gloves: structuredClone(eq.gloves.wool_gloves),
-            trinket: structuredClone(eq.trinket.rabbits_foot),
-            boots: structuredClone(eq.boots.old_boots)
+            head: getItem('head'),
+            weapon: getItem('weapon'),
+            body: getItem('body'),
+            gloves: getItem('gloves'),
+            trinket: getItem('trinket'),
+            boots: getItem('boots')
         }
     }
     char.totalMods = getTotalMods(char)
@@ -37,6 +37,7 @@ function getChar (race, job, gender) {
 }
 
 function makePlayerCharDiv (pc) {
+    getItem(null, null, 10000)
     //updatePlayerBg()
     updateBg(playerSpriteEl)
     // Make sure attributes, hp etc is up-to-date
@@ -58,13 +59,6 @@ function makePlayerCharDiv (pc) {
     makePlayerInfo(pc)
 
     return
-}
-
-function closePopup () {
-    document.querySelector('.popup-graphic').textContent = null
-    document.querySelector('.popup-text').textContent = null
-    popupDiv.style.display = 'none'
-    document.getElementById('button-bar').classList.remove('unclickable')
 }
 
 // Choose start skill for char
@@ -112,9 +106,69 @@ function addMod (mod, objArr) {
     }
     return totalValue
 }
-// Item creation
+
+// ITEM CREATION/GENERATION
 function getItem(type, rarity) {
-    let rndNum = rndInt(0,100)
-    if (rndNum < 40) {}
-        
+    let eqType
+    if (type) eqType = type
+    else eqType = rndFromArr(eqTypes) // is it head, body, boots etc?
+     
+    let itemArr = Object.keys(eq[eqType]) // array of the different baseitems of the eqType
+    let item = structuredClone( eq[eqType][rndFromArr(itemArr)] )
+
+    if (rarity) item.rarity = rarity
+    else item.rarity = rollRarity()
+
+    let numOfMods = 0
+    if (item.rarity === 'magic') numOfMods = 2
+    if (item.rarity === 'rare') numOfMods = 4
+    if (item.rarity === 'epic') numOfMods = 6
+
+    for (let i = 0; i < numOfMods; i++) {
+        getMod(item)
+    }
+
+    return item
+}
+
+function rollRarity () {
+    let rndNum = rndInt(0, 100)
+
+    if (rndNum < 45) {
+        rarity = 'common';
+    } else if (rndNum < 85) {
+        rarity = 'magic'
+    } else if (rndNum < 97) {
+        rarity = 'rare'
+    } else {
+        rarity = 'epic'
+    }
+
+    return rarity
+}
+
+function getMod (item) {
+    // Set available mods to random from
+    let availableMods = Object.keys(baseMods)
+    // Remove weapon mods from non-weapons
+    if (item.type !== 'weapon') {
+        removeModFromArr('dmg', availableMods)
+    }
+    // Remove already used mods
+    for (const mod of Object.keys(item.mods)) {
+        availableMods = removeModFromArr(mod, availableMods)
+    }
+    // Choose mod from available mods (after filtering availableMods)
+    let mod = rndFromArr(availableMods)
+    let amount = rndInt(1,3)
+    if (mod.includes('Res')) amount = rndInt(5, 15) // Resistances can roll differently, will add to rolls later
+
+    item.mods[mod] = amount
+}
+
+function removeModFromArr (string, array) {
+    let index = array.indexOf(string)
+    array.splice(index, 1)
+    
+    return array
 }
