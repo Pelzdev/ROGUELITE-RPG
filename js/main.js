@@ -1,3 +1,5 @@
+//import * as wiki from "js/wiki.js"
+
 // ELEMENTS 
 let gameDiv = document.getElementById('game')
 let gameStartArea = document.getElementById('game-start-area') // Start "menu" area
@@ -19,6 +21,11 @@ let eventText = document.getElementById('event-text')
 let endEventBtn = document.getElementById('event-end-btn') 
 // BATTLE
 let battleDiv = document.querySelector('.battle-div')
+
+
+document.getElementById('get-player-char-btn').addEventListener("click", () => getPlayerChar())
+document.getElementById('event-start-btn').addEventListener("click", () => startEvent(playerChar))
+document.getElementById('event-end-btn').addEventListener("click", () => endEvent())
 
 // ICONS
 const icons = {
@@ -122,41 +129,7 @@ function updateBg (targetDiv, event) {
     targetDiv.style.backgroundSize = 'cover'
     targetDiv.style.backgroundPosition = 'center center'
 }
-// Animation for attack right now, more to come
-function animation (type, targetEl, time) {
-    time = time || 100
-    let x = getCenterOfEl(targetEl, 'x')
-    let y = getCenterOfEl(targetEl, 'y')
-    let iconSize = 64
-    let html = ''
-    let bg = ''
-
-    if (type === 'damageEnemy') {
-        bg = targetEl.style.background
-        html = `<i class="icon-sword attack-animation" style="position:absolute; z-index:10; font-size:${iconSize}px; top:${y-(iconSize/2)}px; left:${x-(iconSize/2)}px;"></i>`
-    }
-
-    eventDiv.innerHTML +=  html
-
-    setTimeout(function () {
-        targetEl.style.background = bg
-        document.querySelector('.attack-animation').remove()
-    }, time);
-}
 
 function fadeOutEl(el) {
     el.classList.add('fade-out')
 }
-
-let tap = 0;
-
-/* 
-document.getElementById('enemy-img-container').addEventListener('touchend', function(e) {
-    console.log('tapp')
-    const currentTime = new Date().getTime();
-    const tapLength = currentTime - tap;
-    if (tapLength < 500 && tapLength > 0) {
-        e.preventDefault();
-    }
-    tap = currentTime;
-}); */ 

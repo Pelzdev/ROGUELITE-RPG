@@ -143,9 +143,8 @@ hr {
     font-size: 12px;
 }
 
-
 .popup-div h3 {
-    margin-top: 5px;
+    margin: 5px 0 5px 0;
 }
 
 .unclickable {

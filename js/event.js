@@ -1,4 +1,4 @@
-function startEvent (pc, chosenEvent) {
+function startEvent (pc) {
     eventsDone++
     let rndNum = rndInt(1,100)
     if (rndNum <= 10) currentEvent = 'inn'

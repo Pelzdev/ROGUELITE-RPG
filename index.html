@@ -7,6 +7,7 @@
         <title>Roguelite</title>
         <link rel="icon" type="image/x-icon" href="favicon2.png">
         <link rel="stylesheet" href="style.css">
+        <script src="js/main.js" defer></script>
     </head>
     <body>
 
@@ -14,9 +15,9 @@
 
         <div id="game">
             <div class="game-area" id="button-bar">
-                <button id="get-player-char-btn" onclick="getPlayerChar()">START</button>
-                <button id="event-start-btn" onclick="startEvent(playerChar, 'trainer')">EVENT</button>
-                <button id="event-end-btn" onclick="endEvent()">END EVENT</button>
+                <button id="get-player-char-btn">START</button>
+                <button id="event-start-btn">EVENT</button>
+                <button id="event-end-btn" >END EVENT</button>
             </div>
 
             <div id="game-start-area"></div>
@@ -63,15 +64,15 @@
 
                 <div class="info-card" id="player-char-info2">
                     <div class="player-info-section-2">
-                        <p class="pc-info-line skill-1">Skill 1: <span class="clickable" id="pc-skill1-clickable" onclick="clickSkill(0)"></span></p>
-                        <p class="pc-info-line skill-2">Skill 2: -</p>
+                        <div class="pc-info-line skill-1 clickable"></div>
+                        <div class="pc-info-line skill-2"></div>
                         <div class="pc-eq-info">
                             
                         </div>  
                         <div class="consumable-container">
-                            <div class="consumable-img-container food0" onclick="clickConsumable(0)"><img class="food-img-0"></div>
-                            <div class="consumable-img-container food1" onclick="clickConsumable(1)"><img class="food-img-1"></div>
-                            <div class="consumable-img-container food2" onclick="clickConsumable(2)"><img class="food-img-2"></div>
+                            <div class="consumable-img-container food0"><img class="food-img-0"></div>
+                            <div class="consumable-img-container food1"><img class="food-img-1"></div>
+                            <div class="consumable-img-container food2"><img class="food-img-2"></div>
                         </div>
                     </div>
                 </div>
@@ -114,7 +115,6 @@
 
 
 
-        <script src="js/main.js" defer></script>
         <script src="js/player_char.js" defer></script>
         <script src="js/player_info.js" defer></script>
         <script src="js/event.js"></script>

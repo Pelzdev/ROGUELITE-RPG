@@ -19,7 +19,7 @@ function inn (pc) {
     // Event text in text-div
     let text1 = createNode('span', {textContent: `The inn looks inviting. Do you want to pay innkeeper Aerion ${innCost} `})
     let icon = createNode('i', {className:  'icon-gold icon-inn-1'})
-    let text2 = createNode('span', {textContent: ` (discounted by ${pc.totalAttr.chr}), to stay the night? You have ${pc.gold}. `})
+    let text2 = createNode('span', {textContent: ` (discounted by ${pc.totalMods.chr}), to stay the night? You have ${pc.gold}. `})
     let icon2 = createNode('i', {className:  'icon-gold icon-inn-2'})
     // Buttons inside text-div
     let btnDiv = createNode('div', {className: 'event-btn-div', style: {display: 'inline-block'}})

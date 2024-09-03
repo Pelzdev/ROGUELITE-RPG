@@ -16,7 +16,7 @@ function trainer (selectedTrainer) {
     if (rndNum > 78 && rndNum <= 91) {trainerChosen = 'mateo'; attrToTrain = 'lck'}
     if (rndNum > 91 && rndNum <= 100) {trainerChosen = 'christobel'; attrToTrain = 'chr'; extraAttr = 'str'}
 
-    trainCost = rndInt(20, 30) + playerChar.totalAttr[attrToTrain] - playerChar.totalAttr.chr
+    trainCost = rndInt(20, 30) + playerChar.totalMods[attrToTrain] - playerChar.totalMods.chr
     // Check for double training
     if (extraAttr) {attrToTrainText = `${attrToTrain} & ${extraAttr}`.toUpperCase(); trainCost = Math.round(trainCost *= 1.5)}
     if (!extraAttr) attrToTrainText = attrToTrain.toUpperCase()
@@ -34,7 +34,7 @@ function trainer (selectedTrainer) {
     document.querySelector('.event-sprite-img').src = `img/events/trainer/trainer_${trainerChosen}.png`
     let text = createNode('span', {textContent: `You found a trainer! ${trainerChosen.toUpperCase()} will help you raise your ${attrToTrainText} attribute(s) by ${trainAmount} for ${trainCost} ` })
     let icon = createNode('i', {className: 'icon-gold'})
-    let text2 = createNode('span', {textContent: ` (discounted by ${playerChar.totalAttr.chr}).`})
+    let text2 = createNode('span', {textContent: ` (discounted by ${playerChar.totalMods.chr}).`})
     let br = createNode('br', {className: null})
     let text3 = createNode('span', {textContent: ` Do you accept? You have ${playerChar.gold} `})
     let icon2 = createNode('i', {className: 'icon-gold'})

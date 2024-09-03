@@ -77,7 +77,6 @@ function doBattleTurns() {
     // automatically scroll to the bottom (to see newest text)
     eventText.scrollTop = eventText.scrollHeight; // FIX DOESNT WORK NOW
     eventTextContainer.scrollTop = eventTextContainer.scrollHeight; // FIX DOESNT WORK NOW
-    animation('damageEnemy', eventDiv, 50)
 }
 
 // NEW BATTLE FUNC
@@ -114,9 +113,9 @@ function makeParagraph (text, className, idName) {
 // Check who gets to attack first
 function decideFirstAttacker(char1, char2) {
     let first, second
-    if (char1.totalAttr.agi*3 + char1.totalAttr.lck > char2.totalAttr.agi*3 + char2.totalAttr.lck) {
+    if (char1.totalMods.agi*3 + char1.totalMods.lck > char2.totalMods.agi*3 + char2.totalMods.lck) {
         first = char1; second = char2;
-    } else if (char1.totalAttr.agi*3 + char1.totalAttr.lck < char2.totalAttr.agi*3 + char2.totalAttr.lck) {
+    } else if (char1.totalMods.agi*3 + char1.totalMods.lck < char2.totalMods.agi*3 + char2.totalMods.lck) {
         first = char2; second = char1;
     } else {
         if (rndInt(0,1) === 1) {
@@ -153,7 +152,7 @@ function doSkill (attacker, target, textClass) {
     //Check skill type (dmg, heal, status)
     if (skillUsed.type === 'damage') {
         // Check crit
-        if (rndInt(1, 100) < (skillUsed.critChance + attacker.totalAttr.lck) ) {
+        if (rndInt(1, 100) < (skillUsed.critChance + attacker.totalMods.lck) ) {
             power = power*2
             critText = 'CRIT!'
         }
@@ -246,21 +245,19 @@ function checkStatusApplication (skill, target) {
 }
 
 function rollPower(skill, user, target)  {
-    let userDmg = user.dmg
-    if (user.eq && user.eq.weap) userDmg = user.dmg + user.eq.weap.dmg
-    let targetDef = target.def
-    if (target.eq && target.eq.body) targetDef = target.def + target.eq.body.def
+    let userDmg = user.totalMods.dmg
+    let targetDef = target.totalMods.def
 
     let attrMulti = 1
     let attributeUsed = ''
     let dmgVary = 1
     if (skill.attribute === 'best') {
-        attributeUsed = getHighestAttr(user.totalAttr)
-        attrMulti = 1 + ((user.totalAttr[attributeUsed] / 10))
+        attributeUsed = getHighestAttr(user.totalMods) // FIX
+        attrMulti = 1 + ((user.totalMods[attributeUsed] / 10))
     }
     else if (skill.attribute != null) {
         attributeUsed = skill.attribute
-        attrMulti = 1 + (user.totalAttr[attributeUsed] / 10)
+        attrMulti = 1 + (user.totalMods[attributeUsed] / 10)
     }
     let powerCalc = (skill.power + (userDmg*5)) / (targetDef* 3) // if pow 30, attr 10, user.dmg 5, enemy.def 2: 7,5
     if (skill.type === 'heal') powerCalc = skill.power/4
@@ -274,7 +271,7 @@ function giveExpAndUpdate(char, enemy) {
     expBar = document.querySelector('.pc-expbar-over')
     expText = document.querySelector('#pc-exp-text')
     let givenGold = rndInt(enemy.level, enemy.level*4)
-    let expFormula = Math.floor( (enemy.level * 3) + (enemy.hpMax/3) *  (1 + (char.totalAttr.int / 10) ) )
+    let expFormula = Math.floor( (enemy.level * 3) + (enemy.hpMax/3) *  (1 + (char.totalMods.int / 10) ) )
     let givenExp = rndInt(expFormula-2, expFormula+2)
     
     // Check drops potion etc
@@ -314,7 +311,7 @@ function checkLevelUp (char, givenExp) {
         char.expToLvl = Math.floor(char.expToLvl * 1.2)
         char.hpMax += hpPerLvlUp
         char.hpLeft += hpPerLvlUp
-        char.baseAttr[attrSelected]++
+        char.baseMods[attrSelected]++
 
         if (char.hpLeft > char.hpMax) {char.hpLeft = char.hpMax}
         text = makeParagraph(`${char.name} LVL UP!`, 'battle-text-row')
