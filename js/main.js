@@ -109,10 +109,19 @@ function updateHp (char) {
 }
 
 function centerPopup (el) {
+    console.log(el)
     let elW = getElementSize(el, 'width')
     let elH = getElementSize(el, 'height')
     el.style.top = `${0.5*gameH - elH/2}px`
     el.style.left = `${0.5*gameW - elW/2}px`
+    if (!portrait) {
+        el.style.top = `${0.5*gameH - elH/2}px`
+        el.style.left = `${0.43*gameW - elW/2}px`
+    } else {
+        el.style.top = `${0.4*gameH - elH/2}px`
+        el.style.left = `${0.5*gameW - elW/2}px`
+    }
+    
 }
 
 function getSkillIcon (skill) {

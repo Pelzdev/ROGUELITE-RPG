@@ -429,21 +429,12 @@ hr {
 /* ##### TRAINER EVENT ##### */
 
 /* colors for rarity */
-.common {
-    color: white;
-}
-.uncommon {
-    color: rgb(142, 212, 114);
-}
-.magic {
-    color: rgb(108, 189, 255); 
-}
-.rare {
-    color: rgb(255, 238, 142);
-}
-.epic {
-    color: rgb(205, 129, 255); 
-}
+.common {color: white;}
+.uncommon {color: rgb(142, 212, 114);}
+.magic {color: rgb(108, 189, 255);}
+.rare {color: rgb(255, 238, 142);}
+.epic {color: rgb(205, 129, 255);}
+.unique {color: rgb(241, 143, 104); }
 /* colors for rarity */
 .cold {color: lightblue;}
 .electric  {color: yellow;}

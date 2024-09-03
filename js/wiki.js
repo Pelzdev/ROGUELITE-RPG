@@ -63,22 +63,22 @@ const eqTypes = ['head', 'weapon', 'body', 'gloves', 'trinket', 'boots']
 
 const eq = {
     head: {
-        wool_cap: {name: 'wool cap',         desc: 'A wool cap.', type: 'head', icon: 'head', rarity: 'common', mods: {coldRes: 5}},
+        wool_cap: {name: 'wool cap',         desc: 'A wool cap.', type: 'head', icon: 'head', rarity: 'common', mods: {}},
     },
     weapon: {
         wooden_sword: {name: 'wooden sword', desc: 'A wooden sword, mostly for training', type: 'weapon', icon: 'weapon', rarity: 'common', mods: {dmg: 2}},
     },
     body: {
-        wool_shirt: {name: 'wool shirt',     desc: 'A wool shirt', type: 'body', icon: 'body', rarity: 'common', mods: {coldRes: 5}},
+        wool_shirt: {name: 'wool shirt',     desc: 'A wool shirt', type: 'body', icon: 'body', rarity: 'common', mods: {}},
     },
     gloves: {
-        wool_gloves: {name: 'wool gloves',   desc: 'Wool gloves. Helps with the cold', type: 'gloves', icon: 'gloves', rarity: 'common', mods: {coldRes: 5}},
+        wool_gloves: {name: 'wool gloves',   desc: 'Wool gloves.', type: 'gloves', icon: 'gloves', rarity: 'common', mods: {}},
     },
     trinket: {
         rabbits_foot: {name: 'rabbits foot', desc: 'A lucky rabbits foot.', type: 'trinket', icon: 'trinket', rarity: 'common', mods: {lck: 2}}
     },
     boots: {
-        old_boots: {name: 'old boots',       desc: 'Old boots. At least keeps the cold away.', type: 'boots', icon: 'boots', rarity: 'common', mods: {agi: 1, coldRes: 5}}
+        old_boots: {name: 'old boots',       desc: 'Old boots.', type: 'boots', icon: 'boots', rarity: 'common', mods: {}}
     }
 }
 
