@@ -1,30 +1,49 @@
-//import * as wiki from "js/wiki.js"
+import {wiki} from "./wiki.js"
+import {rndInt, getElementSize} from "./base_functions.js"
+import {getChar, makePlayerCharDiv} from "./player_char.js"
+import {startEvent, endEvent} from "./event.js"
 
 // ELEMENTS 
-let gameDiv = document.getElementById('game')
-let gameStartArea = document.getElementById('game-start-area') // Start "menu" area
-let gameRow1 = document.getElementById('game-row-1') // Area when playing, aka seeing the char, battles events etc
-let popupDiv = document.querySelector('.popup-div')
-// TOP/MAIN BUTTONS
-let getPlayerCharBtn = document.getElementById('get-player-char-btn')
-let eventStartBtn = document.getElementById('event-start-btn')
-// PLAYER
-let playerSpriteDiv = document.getElementById('pc-img-container')
-let playerSpriteEl = document.querySelector('.player-sprite')
-let playerCharInfoEl1 = document.getElementById('player-char-info1')
-let playerCharInfoEl2 = document.getElementById('player-char-info2')
-// EVENT
-let eventDiv = document.querySelector('.event-div')
-let eventHeader = document.getElementById('event-header')
-let eventTextContainer = document.getElementById('event-text-container')
-let eventText = document.getElementById('event-text')
-let endEventBtn = document.getElementById('event-end-btn') 
-// BATTLE
-let battleDiv = document.querySelector('.battle-div')
-
+export const globalVars = {
+    gameDiv: document.getElementById('game'),
+    gameStartArea: document.getElementById('game-start-area'), // Start "menu" area
+    gameRow1: document.getElementById('game-row-1'), // Area when playing, aka seeing the char, battles events etc
+    popupDiv: document.querySelector('.popup-div'),
+    // TOP/MAIN BUTTONS
+    getPlayerCharBtn: document.getElementById('get-player-char-btn'),
+    eventStartBtn: document.getElementById('event-start-btn'),
+    // PLAYER
+    playerSpriteDiv: document.getElementById('pc-img-container'),
+    playerSpriteEl: document.querySelector('.player-sprite'),
+    playerCharInfoEl1: document.getElementById('player-char-info1'),
+    playerCharInfoEl2: document.getElementById('player-char-info2'),
+    // EVENT
+    eventDiv: document.querySelector('.event-div'),
+    eventHeader: document.getElementById('event-header'),
+    eventTextContainer: document.getElementById('event-text-container'),
+    eventText: document.getElementById('event-text'),
+    endEventBtn: document.getElementById('event-end-btn'),
+    // BATTLE
+    battleDiv: document.querySelector('.battle-div'),
+    gameW: 0, 
+    gameH: 0,
+    portrait: false,
+    landscape: true,
+    // CHAR stuff
+    sizeMulti: 1.3, // for char and enemy sprites
+    hpPerLvlUp: 5,
+    playerChar: {},
+    currentEvent: '',
+    eventsDone: 0,
+    // Location (changes BG etc, will add more later)
+    currentLocationType: 'woods',
+    currentLocationName: 'Wolfroy Grove',
+    locationBg: `img/location_bg/woods/${rndInt(0,7)}.png`,
+    innBg: 'img/location_bg/woods/bg_inn.png',
+}
 
 document.getElementById('get-player-char-btn').addEventListener("click", () => getPlayerChar())
-document.getElementById('event-start-btn').addEventListener("click", () => startEvent(playerChar))
+document.getElementById('event-start-btn').addEventListener("click", () => startEvent(globalVars.playerChar))
 document.getElementById('event-end-btn').addEventListener("click", () => endEvent())
 
 // ICONS
@@ -62,36 +81,21 @@ const icons = {
     agi: '<i class="icon-agi"></i>'
 }
 
-// for testing
-let cheatedJob = null
-
 // #######################################
-let gameW, gameH
-let portrait, landscape
-let sizeMulti = 1.3 // for char and enemy sprites
 
-let hpPerLvlUp = 5
-let playerChar = {}
-let currentEvent = ''
-let eventsDone = 0
-// Location (changes BG etc, will add more later)
-let currentLocationType = 'woods'
-let currentLocationName = 'Wolfroy Grove'
-let locationBg = `img/location_bg/woods/${rndInt(0,7)}.png`
-let innBg = 'img/location_bg/woods/bg_inn.png'
 
 function getPlayerChar () {
-    gameStartArea.style.display = 'none' // Hide game start area
-    gameRow1.style.display = 'flex' // Show the area for PLAYING aka seeing char, battles etc
-    playerCharInfoEl1.style.display = 'inline-block'
-    playerCharInfoEl1.style.display = 'inline-block' // CHECK THIS
-    playerChar = getChar('human')
-    makePlayerCharDiv(playerChar)
-    eventStartBtn.style.display = 'inline'
-    getPlayerCharBtn.style.display = 'none'
+    globalVars.gameStartArea.style.display = 'none' // Hide game start area
+    globalVars.gameRow1.style.display = 'flex' // Show the area for PLAYING aka seeing char, battles etc
+    globalVars.playerCharInfoEl1.style.display = 'inline-block'
+    globalVars.playerCharInfoEl1.style.display = 'inline-block' // CHECK THIS
+    globalVars.playerChar = getChar('human')
+    makePlayerCharDiv(globalVars.playerChar)
+    globalVars.eventStartBtn.style.display = 'inline'
+    globalVars.getPlayerCharBtn.style.display = 'none'
 }
 
-function updateHp (char) {
+export function updateHp (char) {
     if (char.hpLeft > char.hpMax) char.hpLeft = char.hpMax
     if (char.hpLeft < 0) char.hpLeft = 0
 
@@ -108,29 +112,28 @@ function updateHp (char) {
     hpText.innerHTML = `${char.hpLeft}/${char.hpMax} HP`
 }
 
-function centerPopup (el) {
-    console.log(el)
+export function centerPopup (el) {
     let elW = getElementSize(el, 'width')
     let elH = getElementSize(el, 'height')
-    el.style.top = `${0.5*gameH - elH/2}px`
-    el.style.left = `${0.5*gameW - elW/2}px`
-    if (!portrait) {
-        el.style.top = `${0.5*gameH - elH/2}px`
-        el.style.left = `${0.43*gameW - elW/2}px`
+    el.style.top = `${0.5*globalVars.gameH - elH/2}px`
+    el.style.left = `${0.5*globalVars.gameW - elW/2}px`
+    if (!globalVars.portrait) {
+        el.style.top = `${0.5*globalVars.gameH - elH/2}px`
+        el.style.left = `${0.43*globalVars.gameW - elW/2}px`
     } else {
-        el.style.top = `${0.4*gameH - elH/2}px`
-        el.style.left = `${0.5*gameW - elW/2}px`
+        el.style.top = `${0.4*globalVars.gameH - elH/2}px`
+        el.style.left = `${0.5*globalVars.gameW - elW/2}px`
     }
     
 }
 
-function getSkillIcon (skill) {
+export function getSkillIcon (skill) {
     return icons[skill.attribute]
 }
 
-function updateBg (targetDiv, event) {
-    let bgUrl = locationBg
-    if (event === 'inn') bgUrl = innBg
+export function updateBg (targetDiv, event) {
+    let bgUrl = globalVars.locationBg
+    if (event === 'inn') bgUrl = globalVars.innBg
 
     targetDiv.style.background = `url(${bgUrl}) rgba(0, 0, 0, 0.3)`
     targetDiv.style.backgroundBlendMode = 'multiply'
@@ -138,6 +141,6 @@ function updateBg (targetDiv, event) {
     targetDiv.style.backgroundPosition = 'center center'
 }
 
-function fadeOutEl(el) {
+export function fadeOutEl(el) {
     el.classList.add('fade-out')
 }

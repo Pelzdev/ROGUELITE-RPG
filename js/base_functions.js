@@ -1,23 +1,25 @@
-function rndInt(min, max) {
+import {globalVars, centerPopup} from "./main.js"
+
+export function rndInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-function rndProperty (obj) {
+export function rndProperty (obj) {
     let keys = Object.keys(obj)
     return obj[keys[keys.length * Math.random() << 0]]
 }
 
-function rndFromArr (arr) {
+export function rndFromArr (arr) {
     return arr[rndInt(0, arr.length-1)]
 }
 
 // function returns a random value of a property of an object "cloned"
-function rndGetPropertyCloned (obj) {
+export function rndGetPropertyCloned (obj) {
     let keys = Object.keys(obj)
     return structuredClone( obj[keys[keys.length * Math.random() << 0]] )
 }
 
-function getHighestAttr (attrObj) {
+export function getHighestAttr (attrObj) {
     let attrKeys = Object.keys(attrObj)
     let highestNum = 0
     let highestAttr = ''
@@ -35,38 +37,38 @@ function getHighestAttr (attrObj) {
 // DOM stuff
 // Check for orientation change of device
 window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
-    gameW = getElementSize(gameDiv, 'width')
-    gameH = getElementSize(gameDiv, 'height')
-    portrait = e.matches;
+    globalVars.gameW = getElementSize(globalVars.gameDiv, 'width')
+    globalVars.gameH = getElementSize(globalVars.gameDiv, 'height')
+    globalVars.portrait = e.matches;
 
-    centerPopup(popupDiv)
+    centerPopup(globalVars.popupDiv)
 });
 
 window.onresize = function() { 
     console.log(`Window size changed!, H:${window.innerHeight}, W:${window.innerWidth}`)
-    gameW = getElementSize(gameDiv, 'width')
-    gameH = getElementSize(gameDiv, 'height')
-    centerPopup(popupDiv)
+    globalVars.gameW = getElementSize(globalVars.gameDiv, 'width')
+    globalVars.gameH = getElementSize(globalVars.gameDiv, 'height')
+    centerPopup(globalVars.popupDiv)
 };
 
 // CHECK PORTRAIT/LANDSCAPE OF DEVICE
 document.addEventListener("DOMContentLoaded", function(event){
     console.log(`DOMContentloaded`)
     setTimeout( function(){ window.scrollTo(0, 1); }, 100 );
-    gameW = getElementSize(gameDiv, 'width')
-    gameH = getElementSize(gameDiv, 'height')
+    globalVars.gameW = getElementSize(globalVars.gameDiv, 'width')
+    globalVars.gameH = getElementSize(globalVars.gameDiv, 'height')
 
-    portrait = window.matchMedia("(orientation: portrait)").matches; // returns true if portrait
+    globalVars.portrait = window.matchMedia("(orientation: portrait)").matches; // returns true if portrait
 
-    if (portrait) {
+    if (globalVars.portrait) {
         console.log('Orientation changed to: Portrait')
     }
-    if (!portrait) {
+    if (!globalVars.portrait) {
         
     }
 });
 
-function getElementSize (el, widthOrHeight) {
+export function getElementSize (el, widthOrHeight) {
     let positionInfo = el.getBoundingClientRect()
     let width = positionInfo.width
     let height = positionInfo.height
@@ -76,7 +78,7 @@ function getElementSize (el, widthOrHeight) {
     if (widthOrHeight === 'height') return height 
 }
 
-function getCenterOfEl (el, xOrY) {
+export function getCenterOfEl (el, xOrY) {
     let centerX = el.offsetLeft + el.offsetWidth / 2
     let centerY = el.offsetTop + el.offsetHeight / 2
     //console.log (`Center of ${el} is X: ${centerX} Y ${centerY}`)
@@ -84,7 +86,7 @@ function getCenterOfEl (el, xOrY) {
     if (xOrY === 'y') return centerY
 }
 
-function createNode (tagName, { className, classList, style, textContent, ...attributes }) {
+export function createNode (tagName, { className, classList, style, textContent, ...attributes }) {
     const node = document.createElement(tagName);
 
     if (className) 	

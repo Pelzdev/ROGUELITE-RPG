@@ -1,18 +1,23 @@
-function getChar (race, job, gender) {
+import {wiki} from "./wiki.js"
+import {rndGetPropertyCloned, rndFromArr, rndInt, createNode} from "./base_functions.js"
+import {getSkillIcon, updateBg, globalVars} from "./main.js"
+import {makePlayerInfo} from "./player_info.js"
+
+export function getChar (race, job, gender) {
     let char = {
         isPlayer: true,
         exp: 0, 
         expToLvl: 40, 
         gold: 5,
-        food: [food.small_potion],
+        food: [wiki.food.small_potion],
         status: '',
         buff: false,
-        race: rndGetPropertyCloned(races),
-        job: rndGetPropertyCloned(jobs),
-        trait: rndGetPropertyCloned(traits),
+        race: rndGetPropertyCloned(wiki.races),
+        job: rndGetPropertyCloned(wiki.jobs),
+        trait: rndGetPropertyCloned(wiki.traits),
         gender: rndFromArr(['male', 'female']),
         level: 1,
-        baseMods: structuredClone(baseMods), // TESTING
+        baseMods: structuredClone(wiki.baseMods), // TESTING
         eq: {
             head: getItem('head'),
             weapon: getItem('weapon'),
@@ -26,8 +31,8 @@ function getChar (race, job, gender) {
     char.hpMax = 50 + (char.totalMods.end * 5) + char.level * 5
     char.hpLeft = char.hpMax
     char.img = getCharSprite(char)
-    char.name = rndFromArr(races[char.race.name].names[char.gender])
-    char.lastName = rndFromArr(races[char.race.name].lastNames)
+    char.name = rndFromArr(wiki.races[char.race.name].names[char.gender])
+    char.lastName = rndFromArr(wiki.races[char.race.name].lastNames)
     char.skills = [getStartSkill(char)]
     char.skills[0].level = 1
     char.height = char.race.height
@@ -36,10 +41,10 @@ function getChar (race, job, gender) {
     return char
 }
 
-function makePlayerCharDiv (pc) {
+export function makePlayerCharDiv (pc) {
     getItem(null, null, 10000)
     //updatePlayerBg()
-    updateBg(playerSpriteEl)
+    updateBg(globalVars.playerSpriteEl)
     // Make sure attributes, hp etc is up-to-date
     pc.totalMods = getTotalMods(pc)
     pc.hpMax = 50 + (pc.totalMods.end * 5) + pc.level * 5
@@ -64,11 +69,11 @@ function makePlayerCharDiv (pc) {
 // Choose start skill for char
 function getStartSkill (char) {
     let rndSkill = rndFromArr(char.job.startSkills)
-    return structuredClone(skills[rndSkill])
+    return structuredClone(wiki.skills[rndSkill])
 }
 
 function getCharSprite (char) {
-    let numOfAvailebleSprites = numOfCharSprites[char.race.name][char.job.name][char.gender]
+    let numOfAvailebleSprites = wiki.numOfCharSprites[char.race.name][char.job.name][char.gender]
     let imgNum = rndInt(0, numOfAvailebleSprites-1)
     //let img = `<img class="sprite-${char.race.name}" style="height:${spriteH}%" src="img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png">`
     return `img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png`
@@ -76,7 +81,7 @@ function getCharSprite (char) {
 // Calculate modstuff
 function getTotalMods (char) {
     // first all equipment
-    let eqTypeArr = eqTypes
+    let eqTypeArr = wiki.eqTypes
     let arrayOfModObj = []
 
     for (const item of eqTypeArr) {
@@ -88,7 +93,7 @@ function getTotalMods (char) {
 }
 
 function multiAddMod (objArr) {
-    let modArr = Object.keys(baseMods)
+    let modArr = Object.keys(wiki.baseMods)
     let allMods = {}
 
     for (const item of modArr) {
@@ -111,10 +116,10 @@ function addMod (mod, objArr) {
 function getItem(type, rarity) {
     let eqType
     if (type) eqType = type
-    else eqType = rndFromArr(eqTypes) // is it head, body, boots etc?
+    else eqType = rndFromArr(wiki.eqTypes) // is it head, body, boots etc?
      
-    let itemArr = Object.keys(eq[eqType]) // array of the different baseitems of the eqType
-    let item = structuredClone( eq[eqType][rndFromArr(itemArr)] )
+    let itemArr = Object.keys(wiki.eq[eqType]) // array of the different baseitems of the eqType
+    let item = structuredClone( wiki.eq[eqType][rndFromArr(itemArr)] )
 
     if (rarity) item.rarity = rarity
     else item.rarity = rollRarity()
@@ -134,6 +139,7 @@ function getItem(type, rarity) {
 
 function rollRarity () {
     let rndNum = rndInt(0, 100)
+    let rarity = ''
 
     if (rndNum < 45) {
         rarity = 'common';
@@ -152,7 +158,7 @@ function rollRarity () {
 
 function getMod (item) {
     // Set available mods to random from
-    let availableMods = Object.keys(baseMods)
+    let availableMods = Object.keys(wiki.baseMods)
     // Remove weapon mods from non-weapons
     if (item.type !== 'weapon') {
         removeModFromArr('dmg', availableMods)

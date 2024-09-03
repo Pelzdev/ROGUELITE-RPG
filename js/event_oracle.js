@@ -1,6 +1,10 @@
+import {globalVars} from "./main.js"
+import {createNode} from "./base_functions.js"
+
 let oracleName = 'Xander'
 
-function oracle () {
+export function oracle () {
+    let pc = globalVars.playerChar
     const maxH = 80
     const charHeight = 190
     const spriteH = (charHeight / 200) * maxH
@@ -9,18 +13,19 @@ function oracle () {
     
     document.querySelector('.event-sprite-img').style.height = `${spriteH}%`
     document.querySelector('.event-sprite-img').src = 'img/events/oracle/0.png'
-    let text = createNode('p', {textContent: `${oracleName.toUpperCase()} will empower your ${playerChar.skills[0].name.toUpperCase()} skill.`})
+    let text = createNode('p', {textContent: `${oracleName.toUpperCase()} will empower your ${pc.skills[0].name.toUpperCase()} skill.`})
     let btnDiv = createNode('div', {className: 'event-btn-div', style: {textAlign: 'center'}})
-    let btn = createNode('button', {className: 'btn-medium', textContent: 'PROCEED', onclick: `upgradeSkill(${skillArrPos})`})
+    let btn = createNode('button', {className: 'btn-medium', textContent: 'PROCEED'})
+    btn.addEventListener('click', () => upgradeSkill(pc, skillArrPos))
     btnDiv.append(btn)
-    eventText.append(text, btnDiv)
+    globalVars.eventText.append(text, btnDiv)
 }
 
-function upgradeSkill (arrPos) {
+function upgradeSkill (pc, arrPos) {
     document.querySelector('.event-btn-div').style.display = 'none'
     let text = ''
-    let skill = playerChar.skills[arrPos]
-    let oldSkill = structuredClone(playerChar.skills[arrPos])
+    let skill = pc.skills[arrPos]
+    let oldSkill = structuredClone(pc.skills[arrPos])
 
     if ([1,5,10].includes(skill.level)) {
         //console.log(`${skill.name} has 1 roman numeral`)
@@ -42,23 +47,23 @@ function upgradeSkill (arrPos) {
     skill.name += romanNumerals[skill.level + 1]
     skill.level++
     text = createNode('p', {textContent: `${oracleName} upgraded ${oldSkill.name.toUpperCase()} to ${skill.name.toUpperCase()}!`})
-    eventText.append(text)
+    globalVars.eventText.append(text)
 
     if(skill.power) {
         let healOrDmg = 'Damage'
         if (skill.type === 'heal') healOrDmg = 'Heal'
         skill.power += 5
         text = createNode('p', {textContent: `Damage upgraded from ${oldSkill.power} to ${skill.power}.`})
-        eventText.append(text)
+        globalVars.eventText.append(text)
     }
     if(!skill.power) {
         skill.power = 10
         skill.type = 'damage'
         text = createNode('p', {textContent: `This skill now does damage. Damage upgraded from 0 to ${skill.power}.`})
-        eventText.append(text)
+        globalVars.eventText.append(text)
     }
 
-    endEventBtn.style.display = 'inline-block' // end event btn
+    globalVars.endEventBtn.style.display = 'inline-block' // end event btn
 }
 
 let romanNumerals = {
