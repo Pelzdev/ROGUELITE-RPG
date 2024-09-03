@@ -56,7 +56,6 @@ function makeBattleDiv (enemy) {
 function doBattleTurns() {
     if (playerChar.hpLeft < 1 || enemy.hpLeft < 1) {
         endEvent()
-        console.log('dead')
     }
     let text = ''
     let attOrder = decideFirstAttacker(playerChar, enemy)

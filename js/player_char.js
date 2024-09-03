@@ -120,6 +120,7 @@ function getItem(type, rarity) {
     else item.rarity = rollRarity()
 
     let numOfMods = 0
+    if (item.rarity === 'uncommon') numOfMods = 1
     if (item.rarity === 'magic') numOfMods = 2
     if (item.rarity === 'rare') numOfMods = 4
     if (item.rarity === 'epic') numOfMods = 6
@@ -136,9 +137,11 @@ function rollRarity () {
 
     if (rndNum < 45) {
         rarity = 'common';
-    } else if (rndNum < 85) {
+    } else if (rndNum < 75) {
+        rarity = 'uncommon'
+    } else if (rndNum < 90) {
         rarity = 'magic'
-    } else if (rndNum < 97) {
+    } else if (rndNum < 98) {
         rarity = 'rare'
     } else {
         rarity = 'epic'

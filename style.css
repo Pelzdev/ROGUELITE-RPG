@@ -116,20 +116,6 @@ hr {
     cursor: pointer;
     text-decoration: underline;
 }
-/* colors for rarity */
-.common {
-    color: white;
-}
-.magic {
-    color: rgb(108, 189, 255); 
-}
-.rare {
-    color: rgb(255, 238, 142);
-}
-.epic {
-    color: rgb(205, 129, 255); 
-}
-
 /* GAMING STUFF */
 
 .popup-div {  
@@ -442,6 +428,31 @@ hr {
 
 /* ##### TRAINER EVENT ##### */
 
+/* colors for rarity */
+.common {
+    color: white;
+}
+.uncommon {
+    color: rgb(142, 212, 114);
+}
+.magic {
+    color: rgb(108, 189, 255); 
+}
+.rare {
+    color: rgb(255, 238, 142);
+}
+.epic {
+    color: rgb(205, 129, 255); 
+}
+/* colors for rarity */
+.cold {color: lightblue;}
+.electric  {color: yellow;}
+.fire  {color: rgb(255, 136, 0);}
+.holy {color: rgb(241, 241, 171);}
+.nature {color: rgb(131, 199, 67);}
+.physical {color: burlywood;}
+.poison {color: rgb(157, 130, 255);}
+.water {color: rgb(95, 176, 252);}
 
 /* EVENT TEXT */
 #event-text-container {

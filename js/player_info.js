@@ -94,6 +94,7 @@ function makeEqElement (pc) {
 
 function clickEq (eqClicked) {
     let header = document.querySelector('.popup-header')
+    header.textContent = ''
     let item = playerChar.eq[eqClicked]
 
     document.querySelector('.popup-graphic').innerHTML = ''
@@ -104,7 +105,8 @@ function clickEq (eqClicked) {
     centerPopup(popupDiv)
 
     // HEADER
-    header.textContent = item.name.toUpperCase()
+    let headerText = createNode('span', { textContent: item.name.toUpperCase(), className: item.rarity })
+    header.append(headerText)
     // GRAPHIC / ICON
     let graphic = createNode( 'i', { className: `icon-${item.icon}`, style: {fontSize: '24px'} } )
     document.querySelector('.popup-graphic').append(graphic)
@@ -112,13 +114,25 @@ function clickEq (eqClicked) {
     let textDiv = document.querySelector('.popup-text')
     textDiv.append( createNode('p', { textContent: `Type: ${item.type}`, style: {marginTop: '10px'}}) )
     textDiv.append( createNode('p', {textContent: `Rarity: ${item.rarity}`, style:{marginBottom: '10px'}}) )
-    if (item.mods.dmg > 0) textDiv.append( createNode('p', {textContent: `Dmg: ${item.mods.dmg}`}) )
-    if (item.mods.def > 0) textDiv.append( createNode('p', {textContent: `Def: ${item.mods.def}`}) )
+    
     // Add that checks everything
     for (const key of Object.keys(item.mods)) {
-        if (key != 'dmg' && key != 'def') textDiv.append( createNode('p', {textContent: `${key}: ${item.mods[key]}`}) )
-        console.log(key);
+        if (key === 'dmg' || key === 'def') textDiv.append( createNode('p', {textContent: `+ ${item.mods[key]} ${key}`}) )
     }
+    for (const key of Object.keys(item.mods)) {
+        if ((!key.includes('Res')) && key !== 'dmg' && key !== 'def') {
+            textDiv.append( createNode('p', {textContent: `+ ${item.mods[key]} ${key}`}) )
+        }
+    }
+    for (const key of Object.keys(item.mods)) {
+        if (key.includes('Res') && key != 'dmg' && key != 'def') {
+            let keyWithoutRes = key.slice(0, -3) // Remove last 3 letters aka. 'Res'
+            let text = createNode('p', {textContent: `${keyWithoutRes} res: ${item.mods[key]}%`})
+            text.className = keyWithoutRes
+            textDiv.append(text)
+        }
+    }
+    
 
     let btn = createNode('button', { className: 'btn-medium',textContent: 'OK' })
     btn.addEventListener('click', () => closePopup())
@@ -146,7 +160,7 @@ function clickSkill (arrPos) {
     centerPopup(popupDiv)
     
     document.querySelector('.popup-header').textContent = skill.name
-    let graphic = createNode('i', {className: `icon-${skill.attribute}`, style: {fontSize: '24px'}})
+    let graphic = createNode('i', {className: `icon-${skill.attribute}`, style: {fontSize: '24px', marginTop: '10px'}})
     document.querySelector('.popup-graphic').append(graphic)
 
     let textDiv = document.querySelector('.popup-text')
@@ -215,6 +229,8 @@ function useConsumable (arrPos) {
     playerChar.food[arrPos] = null,
     document.querySelector(`.food-img-${arrPos}`).src = ''
 }
+
+
 
 function closePopup () {
     document.querySelector('.popup-graphic').textContent = null
