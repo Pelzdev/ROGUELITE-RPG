@@ -17,8 +17,6 @@ export function startEvent (pc) {
     if (rndNum > 30) globalVars.currentEvent = 'battle'
     updateBg(globalVars.eventDiv, globalVars.currentEvent)
 
-    pc.gold = 100
-
     if (globalVars.currentEvent === 'inn') {
         inn(pc)
         globalVars.eventDiv.style.display = 'inline-block'
