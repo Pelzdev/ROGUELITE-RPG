@@ -1,8 +1,9 @@
 import {rndInt, rndFromArr, createNode} from "./base_functions.js"
 import {wiki} from "./wiki.js"
 import {eventTextContainer, eventText, windowHeaderBattle, updateHp, fadeOutEl, endEventBtn, hpPerLvlUp} from "./main.js"
-import {playerChar, makePlayerCharDiv} from "./player_char.js"
+import {playerChar, makePlayerCharDiv, getItem, getChar} from "./player_char.js"
 import {endEvent} from "./event.js"
+import {chooseEq, changeCurrentEqLoot} from "./choose_eq.js"
 
 // BATTLE EVENT
 let enemyImgContainer = document.getElementById('enemy-img-container')
@@ -11,6 +12,7 @@ enemyImgContainer.addEventListener("click", function (e) {
     doBattleTurns(playerChar)
 });
 
+let gotEqLoot = false
 let enemyType = 'enemy'
 let enemy = {}
 const enemyLists = {
@@ -19,13 +21,32 @@ const enemyLists = {
     level8: ['mouse_assassin', 'goblin', 'boar', 'young_wolf', 'crob', 'boarian_marauder', 'troll_forest']
 }
 
+export function battle (playerChar) {
+    gotEqLoot = false
+    let rndNum = rndInt(1,10)
+    if (playerChar.level < 5) {
+        enemy = structuredClone(wiki.enemies[rndFromArr(enemyLists.level1)])
+    } else if (playerChar.level < 8) {
+        enemy = structuredClone(wiki.enemies[rndFromArr(enemyLists.level5)])
+    } else {
+        if (rndNum > 9) {
+            enemyType = 'adventurer'
+            enemy = getChar('enemy') // Wrong, makes the player...
+            enemy.isPlayer = false
+        } else {
+            enemy = structuredClone(wiki.enemies[rndFromArr(enemyLists.level8)])
+        }
+    }
+
+    let text = `It's a ${enemy.name.toUpperCase()}... FIGHT!`
+    eventText.append(createP(text, 'event-text-row'))
+    makeBattleDiv(enemy)
+}
+
 function makeBattleDiv (enemy) {
     let maxH = 95
     const spriteH = (enemy.height / 200) * maxH
     let enemyImg = document.getElementById('battle-enemy-img')
-    // Add ability to click the enemy container
-    //document.getElementById('enemy-img-container').style.cursor = 'pointer'
-    //document.getElementById('enemy-img-container').style.pointerEvents = 'auto'
 
     windowHeaderBattle.textContent = `${enemyType.toUpperCase()}`
     document.querySelector('.enemy-info-line').textContent = `lvl ${enemy.level} ${enemy.name.toUpperCase()}`
@@ -36,29 +57,13 @@ function makeBattleDiv (enemy) {
     document.getElementById('enemy-hp-text').textContent = `${enemy.hpLeft}/${enemy.hpMax} HP`
 }
 
-export function battle (pc) {
-    let rndNum = rndInt(1,10)
-    if (pc.level < 5) {
-        enemy = structuredClone(wiki.enemies[rndFromArr(enemyLists.level1)])
-    } else if (pc.level < 8) {
-        enemy = structuredClone(wiki.enemies[rndFromArr(enemyLists.level5)])
-    } else {
-        if (rndNum > 9) {
-            enemyType = 'adventurer'
-            enemy = getChar()
-            enemy.isPlayer = false
-        }
-        enemy = structuredClone(wiki.enemies[rndFromArr(enemyLists.level8)])
-    }
-    
-    let text = `It's a ${enemy.name.toUpperCase()}... FIGHT!`
-    eventText.append(createP(text, 'event-text-row'))
-    makeBattleDiv(enemy)
-}
-
 function doBattleTurns(playerChar) {
     if (playerChar.hpLeft < 1 || enemy.hpLeft < 1) {
-        endEvent(playerChar)
+        if (gotEqLoot) {
+            let eqType = rndFromArr(wiki.eqTypes)
+            changeCurrentEqLoot(getItem(eqType))
+            chooseEq(playerChar)
+        } else endEvent(playerChar)
     }
     let text = ''
     let attOrder = decideFirstAttacker(playerChar, enemy)
@@ -130,7 +135,6 @@ function decideFirstAttacker(char1, char2) {
     }
     return [first, second]
 }
-
 
 function canCharMove (char) {
     if (char.status === 'stun') {
@@ -226,9 +230,6 @@ function checkIfDead (char, charsEnemy, textClass) {
             giveExpAndUpdate(charsEnemy, char)
             fadeOutEl(document.getElementById('battle-enemy-img'))
         }
-        // Remove ability to click the enemy container
-        //document.getElementById('enemy-img-container').style.cursor = 'default'
-        //document.getElementById('enemy-img-container').style.pointerEvents = 'none'
     }
 }
 
@@ -274,12 +275,17 @@ function giveExpAndUpdate(char, enemy) {
     let givenGold = rndInt(enemy.level, enemy.level*4)
     let expFormula = Math.floor( (enemy.level * 3) + (enemy.hpMax/3) *  (1 + (char.totalMods.int / 10) ) )
     let givenExp = rndInt(expFormula-2, expFormula+2)
-    
-    // Check drops potion etc
+    // Check if potion drops
     if (getFirstEmptyfoodSlot(char) != 'none' && rndInt(1,10) > 7) {
         let foodType = wiki.food['small_potion']
         giveFood(char, foodType)
         text = `${char.name} got a ${foodType.name}`
+        eventText.append(createP(text, 'battle-text-row'))
+    }
+    // Check if equipment loot drops
+    if (rndInt(1,100) <= 15) {
+        gotEqLoot = true
+        text = `${char.name} found new equipment1`
         eventText.append(createP(text, 'battle-text-row'))
     }
    
@@ -290,11 +296,12 @@ function giveExpAndUpdate(char, enemy) {
     // If levelup
     checkLevelUp(char, givenExp)
     makePlayerCharDiv(char)
+    
 }
 
 export function giveFood (char, foodType) {
     let emptyFoodSlot = getFirstEmptyfoodSlot(char)
-    
+
     if (emptyFoodSlot != 'none') {
         char.food[emptyFoodSlot] = foodType
     }
@@ -304,7 +311,7 @@ function checkLevelUp (char, givenExp) {
     let text = ''
     if (char.exp + givenExp >= char.expToLvl) {
         let overkillExp = (char.exp + givenExp) - char.expToLvl
-        let attrSelected = rndFromArr( ['str', 'agi', 'int', 'chr', 'lck'] )
+        let attrSelected = rndFromArr( ['end', 'str', 'agi', 'dex', 'int', 'chr', 'lck'] )
         let raiseAmount = rndFromArr( [1,1,1,1,1, 1,1,1,1,1, 1,1,1,1,2] )
 
         char.level++

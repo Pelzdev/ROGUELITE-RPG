@@ -1,11 +1,11 @@
 import {wiki} from "./wiki.js"
 import {rndGetPropertyCloned, rndFromArr, rndInt, createNode} from "./base_functions.js"
-import {updateBg, playerSpriteInfoCard, playerHpbarOver, playerHpbarText, playerExpbarOver, playerExpbarText, updateHp} from "./main.js"
+import {gameRow1, battleDiv, updateBg, playerSpriteInfoCard, playerHpbarOver, playerHpbarText, playerExpbarOver, playerExpbarText, updateHp} from "./main.js"
 import {makePlayerInfo} from "./player_info.js"
 
 export let playerChar = {}
 
-export function getChar (race, job, gender) {
+export function getChar (playerOrEnemy) {
     let char = {
         isPlayer: true,
         exp: 0, 
@@ -39,7 +39,13 @@ export function getChar (race, job, gender) {
     char.skills[0].level = 1
     char.height = char.race.height
 
-    playerChar = char
+    if (playerOrEnemy !== 'enemy') {
+        playerChar = char
+    }
+    if (playerOrEnemy === 'enemy') {
+        char.isPlayer = false
+        return char
+    }
 }
 
 export function makePlayerCharDiv () {
@@ -112,7 +118,7 @@ function addMod (mod, objArr) {
 }
 
 // ITEM CREATION/GENERATION
-function getItem(type, rarity) {
+export function getItem(type, rarity) {
     let eqType
     if (type) eqType = type
     else eqType = rndFromArr(wiki.eqTypes) // is it head, body, boots etc?
@@ -156,6 +162,7 @@ function rollRarity () {
 }
 
 function getMod (item) {
+    item.modTiers = {}
     // Set available mods to random from
     let availableMods = Object.keys(wiki.baseMods)
     // Remove weapon mods from non-weapons
@@ -169,7 +176,15 @@ function getMod (item) {
     // Choose mod from available mods (after filtering availableMods)
     let mod = rndFromArr(availableMods)
     let amount = rndInt(1,3)
-    if (mod.includes('Res')) amount = rndInt(5, 15) // Resistances can roll differently, will add to rolls later
+    if (mod.includes('Res')) amount = rndInt(5, 10) // Resistances can roll differently, will add to rolls later
+
+    // Check tier of mod roll
+    if (rndInt(1,10) <= 3) {
+        amount = Math.round(rndInt(amount, amount*2))
+        item.modTiers[mod] = 2
+    } else {
+        item.modTiers[mod] = 1
+    }
 
     item.mods[mod] = amount
 }
@@ -202,7 +217,7 @@ export function playerCharIsAlive() {
 export function addPlayerHpMax (amount) {
     playerChar.hpMax += amount
     playerChar.hpLeft += amount
-    updateHp()
+    updateHp(playerChar)
 }
 
 export function updatePlayerMod (mod, changeAmount) {

@@ -1,4 +1,4 @@
-import {eventDiv, eventHeader, eventTextContainer, eventText, playerCharInfoEl1, playerCharInfoEl2, battleDiv, addToEventsDone, eventsDone, updateBg, eventStartBtn, endEventBtn, changeLocationBg} from "./main.js"
+import {eventDiv, eventHeader, eventTextContainer, eventText, playerCharInfoEl1, playerCharInfoEl2, battleDiv, addToEventsDone, eventsDone, updateBg, eventStartBtn, endEventBtn, changeLocationBg, newGameBtn} from "./main.js"
 import {rndInt} from "./base_functions.js"
 import {trainer} from "./event_trainer.js"
 import {battle} from "./event_battle.js"
@@ -72,10 +72,9 @@ export function endEvent(playerChar) {
 
     // Remove the class added for event
     eventDiv.classList.remove(currentEvent)
-
     
     if (!playerCharIsAlive()) {
-        getPlayerCharBtn.style.display = 'inline-block'
+        newGameBtn.style.display = 'inline-block'
         eventStartBtn.style.display = 'none'
     } else {
         eventStartBtn.style.display = 'inline-block'

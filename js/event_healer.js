@@ -1,5 +1,6 @@
 import {rndInt, createNode} from "./base_functions.js"
 import {eventText, updateHp, endEventBtn} from "./main.js"
+import {playerChar} from "./player_char.js"
 
 export function healer () {
     const amountRestored = rndInt(30, 45)
@@ -13,7 +14,7 @@ export function healer () {
     let text2 = createNode('p', {textContent: `He heals you, restoring ${amountRestored} HP.`})
     eventText.append(text, text2)
 
-    updateHp(amountRestored)
+    updateHp(playerChar, amountRestored)
 
     endEventBtn.style.display = 'inline-block' // end event btn
 }
