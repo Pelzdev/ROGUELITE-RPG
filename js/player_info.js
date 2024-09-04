@@ -116,24 +116,28 @@ function clickEq (eqClicked) {
     document.querySelector('.popup-graphic').append(graphic)
     // Item type, rarity then mods, making sure dmg, def is top if those exist
     let textDiv = document.querySelector('.popup-text')
-    textDiv.append( createNode('p', { textContent: `Type: ${item.type}`, style: {marginTop: '10px'}}) )
-    textDiv.append( createNode('p', {textContent: `Rarity: ${item.rarity}`, style:{marginBottom: '10px'}}) )
+    textDiv.append( createNode('p', { textContent: `Type: ${item.type.toUpperCase()}`, style: {marginTop: '10px'}}) )
+    textDiv.append( createNode('p', {textContent: `Rarity: ${item.rarity.toUpperCase()}`, style:{marginBottom: '10px'}}) )
     
     // Add that checks everything
     for (const key of Object.keys(item.mods)) {
-        if (key === 'dmg' || key === 'def') textDiv.append( createNode('p', {textContent: `+ ${item.mods[key]} ${key}`}) )
+        if (key === 'dmg' || key === 'def') textDiv.append( createNode('p', {textContent: `+ ${item.mods[key]} ${key.toUpperCase()}`}) )
     }
     for (const key of Object.keys(item.mods)) {
         if ((!key.includes('Res')) && key !== 'dmg' && key !== 'def') {
-            textDiv.append( createNode('p', {textContent: `+ ${item.mods[key]} ${key}`}) )
+            textDiv.append( createNode('p', {textContent: `+ ${item.mods[key]} ${key.toUpperCase()}`}) )
         }
     }
     for (const key of Object.keys(item.mods)) {
         if (key.includes('Res') && key != 'dmg' && key != 'def') {
             let keyWithoutRes = key.slice(0, -3) // Remove last 3 letters aka. 'Res'
-            let text = createNode('p', {textContent: `${keyWithoutRes} res: ${item.mods[key]}%`})
-            text.className = keyWithoutRes
-            textDiv.append(text)
+            let resLine = createNode('div', {className: ''})
+            let uncoloredText1 = createNode('span', { textContent: `+ ${item.mods[key]}% ` } )
+            let coloredText = createNode('span', {textContent: keyWithoutRes.toUpperCase()})
+            coloredText.className = keyWithoutRes
+            let uncoloredText2 = createNode('span', {textContent: ' RES'})
+            resLine.append(uncoloredText1, coloredText, uncoloredText2)
+            textDiv.append(resLine)
         }
     }
     
