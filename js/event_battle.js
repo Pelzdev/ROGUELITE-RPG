@@ -283,7 +283,7 @@ function giveExpAndUpdate(char, enemy) {
         eventText.append(createP(text, 'battle-text-row'))
     }
     // Check if equipment loot drops
-    if (rndInt(1,100) <= 15) {
+    if (rndInt(1,100) <= 33) {
         gotEqLoot = true
         text = `${char.name} found new equipment1`
         eventText.append(createP(text, 'battle-text-row'))
