@@ -43,7 +43,6 @@ export function getChar (race, job, gender) {
 }
 
 export function makePlayerCharDiv () {
-    getItem(null, null, 10000)
     //updatePlayerBg()
     updateBg(playerSpriteInfoCard)
     // Make sure attributes, hp etc is up-to-date
@@ -198,6 +197,12 @@ export function playerCharIsAlive() {
         return true
     else
         return false
+}
+
+export function addPlayerHpMax (amount) {
+    playerChar.hpMax += amount
+    playerChar.hpLeft += amount
+    updateHp()
 }
 
 export function updatePlayerMod (mod, changeAmount) {

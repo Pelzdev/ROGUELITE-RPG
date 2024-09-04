@@ -97,7 +97,6 @@ function startNewGame () {
 
 export function updateHp (char, hpChange) {
     if (hpChange) {
-        char.hpMax += hpChange
         char.hpLeft += hpChange
     }
     
@@ -147,6 +146,7 @@ export function fadeOutEl(el) {
 }
 
 export function togglePopupDiv () {
+    document.querySelector('.popup-header').innerHTML = ''
     document.querySelector('.popup-graphic').innerHTML = ''
     document.querySelector('.popup-text').innerHTML = ''
 

@@ -1,6 +1,6 @@
 import {rndInt, createNode} from "./base_functions.js"
 import {eventSprite, eventText, updateHp, endEventBtn} from "./main.js"
-import {playerChar, makePlayerCharDiv} from "./player_char.js"
+import {playerChar, makePlayerCharDiv, addPlayerHpMax} from "./player_char.js"
 
 let trainCost = 0
 let attrToTrain = ''
@@ -63,8 +63,8 @@ function trainerYes (playerChar) {
         playerChar.baseMods[extraAttr] += trainAmount
     }
     // check if you raised ENDURANCE, which will raise your chars HP, then also raise hpLeft
-    if (attrToTrain === 'end') {updateHp(playerChar, trainAmount * 5)} 
-    if (extraAttr === 'end') {updateHp(playerChar, trainAmount * 5)}
+    if (attrToTrain === 'end') {addPlayerHpMax(trainAmount * 5)} 
+    if (extraAttr === 'end') {addPlayerHpMax(trainAmount * 5)}
 
     let br = createNode('br', {className: null})
     let text = createNode('span', {textContent: ` You paid ${trainCost} `})

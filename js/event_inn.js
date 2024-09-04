@@ -60,7 +60,7 @@ function innYes (playerChar) {
         eventText.append(text)
     }
     
-    makePlayerCharDiv(pc)
+    makePlayerCharDiv(playerChar)
 }
 
 function innNo() {

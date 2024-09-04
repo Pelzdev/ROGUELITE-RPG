@@ -1,6 +1,11 @@
 import {createNode} from "./base_functions.js"
 import {navbarTop, popupDiv, popupHeader, popupGraphic, popupText, togglePopupDiv, centerPopup, currentLocationName, playerEquipmentDiv} from "./main.js"
-import {useConsumable} from "./player_char.js"
+import {playerChar, useConsumable} from "./player_char.js"
+
+const foodSlots = 3
+for (let i = 0; i < foodSlots; i++) {
+    document.querySelector(`.food-img-${i}`).addEventListener('click', () => clickConsumable(playerChar, i))
+}
 
 export function makePlayerInfo (playerChar) {
     let buffText = '-'
@@ -23,13 +28,11 @@ export function makePlayerInfo (playerChar) {
     let skillText = createNode('span', {textContent: `${playerChar.skills[0].name.toUpperCase()}`})
     document.querySelector('.pc-info-line.skill-1').append(skillIcon, attributeIcon, skillText)
     document.querySelector('.pc-info-line.skill-1').addEventListener('click', () => clickSkill(playerChar, 0))
-    makeEqElement(playerChar)
+    makeEqElement(playerChar, playerEquipmentDiv)
     
-    const foodSlots = 3
     for (let i = 0; i < foodSlots; i++) {
         if (playerChar.food[i]) {
             document.querySelector(`.food-img-${i}`).src = `${playerChar.food[i].img}` || ''
-            document.querySelector(`.food-img-${i}`).addEventListener('click', () => clickConsumable(playerChar, i))
         } else  { 
             document.querySelector(`.food-img-${i}`).src = ''
         }
@@ -61,7 +64,7 @@ function makeAttrEl (pc, parentEl) {
 
 function makeResistanceEl (pc, parentEl) {
     parentEl.innerHTML = ''
-    let resTypes = ['physical', 'fire', 'cold', 'electric', 'water', 'nature', 'poison', 'holy']
+    let resTypes = ['physical', 'fire', 'cold', 'electric', 'water', 'nature', 'poison', 'holy', 'love']
 
     resTypes.forEach((item) => {
         let modName = `${item}Res`
@@ -72,8 +75,8 @@ function makeResistanceEl (pc, parentEl) {
     });
 }
 
-function makeEqElement (playerChar) {
-    playerEquipmentDiv.innerHTML = ''
+function makeEqElement (playerChar, targetElement) {
+    targetElement.innerHTML = ''
     let eqTypes = ['head', 'weapon', 'body', 'gloves', 'trinket', 'boots']
 
     eqTypes.forEach((item) => {
@@ -83,25 +86,24 @@ function makeEqElement (playerChar) {
             let icon = createNode('i', {className: `icon-${item}`})
             let text = createNode('span', {textContent: `${playerChar.eq[item].name}`, className: `${playerChar.eq[item].rarity}` })
             lineDiv.append(icon, text)
-            playerEquipmentDiv.append(lineDiv)
+            targetElement.append(lineDiv)
         } else {
             let lineDiv = createNode('div', {className: `pc-info-line ${item}`})
             let icon = createNode('i', {className: `icon-${item}`})
             lineDiv.append(icon)
-            playerEquipmentDiv.append(lineDiv)
+            targetElement.append(lineDiv)
         }
     });
 }
 
 function clickEq (playerChar, eqClicked) {
-    let header = popupHeader
-    header.textContent = ''
-    let item = playerChar.eq[eqClicked]
-
     togglePopupDiv()
     centerPopup(popupDiv)
+    let header = popupHeader
+    let item = playerChar.eq[eqClicked]
+
     // HEADER
-    let headerText = createNode('span', { textContent: item.name.toUpperCase(), className: item.rarity })
+    let headerText = createNode('span', { textContent: item.name, className: item.rarity })
     header.append(headerText)
     // GRAPHIC / ICON
     let graphic = createNode( 'i', { className: `icon-${item.icon}`, style: {fontSize: '24px'} } )
@@ -174,25 +176,23 @@ function clickSkill (playerChar, arrPos) {
 // CONSUMABLE STUFF
 // Clicking the consumable
 function clickConsumable (playerChar, arrPos) {
+    console.log('clicked on consumable on arrPos: ' + arrPos)
+    console.log(playerChar.food)
     if (!playerChar.food[arrPos]) return
-    popupGraphic.innerHTML = ''
-    popupText.innerHTML = ''
-    navbarTop.classList.add('unclickable')
-    popupDiv.style.display = 'block'
+    togglePopupDiv()
     centerPopup(popupDiv)
 
     document.querySelector('.popup-header').textContent = playerChar.food[arrPos].name
     
     let graphic = createNode('img', { src: playerChar.food[arrPos].img, style:{width: '24px'} })
-
-    let textDiv = document.querySelector('.popup-text')
-    textDiv.append(graphic, createNode('p', {textContent: playerChar.food[arrPos].infoText}) )
+    popupGraphic.append(graphic)
+    popupText.append(createNode('p', {textContent: playerChar.food[arrPos].infoText}) )
 
     let btnYes = createNode('button', { className: 'btn-medium', textContent: 'YES' })
     btnYes.addEventListener('click', () => consumableChoice(playerChar, 'yes', arrPos))
     let btnNo = createNode('button', { className: 'btn-medium', textContent: 'NO' })
     btnNo.addEventListener('click', () => consumableChoice(playerChar, 'no', arrPos))
-    textDiv.append(btnYes, btnNo)
+    popupText.append(btnYes, btnNo)
 
 }
 // Choosing whether or not to use consumable/food

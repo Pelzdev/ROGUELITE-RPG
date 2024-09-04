@@ -39,7 +39,7 @@
        flex-grow: 1;
        width: 34%;
     }
-    #player-char-info1 ,#player-char-info2 {
+    #player-char-info2 {
         margin-top: 5px;
     }
     .event-text-container {
@@ -134,6 +134,7 @@ hr {
     /*font-size: 14px;*/
 }
 .popup-header {
+    text-transform: uppercase;
     margin: 20px 0 20px 0;
 }
 .popup-graphic {
@@ -143,6 +144,9 @@ hr {
     margin-top: 20px;
 }
 .popup-div p {
+    font-size: 12px;
+}
+.popup-div span {
     font-size: 12px;
 }
 
@@ -216,6 +220,7 @@ hr {
     color: rgb(219, 219, 219);
 }
 
+/* ##### PLAYER CHAR CARD STUFF ##### */
 .player-sprite {
     position: relative;
     max-width: 100%;
@@ -237,9 +242,6 @@ hr {
     bottom: 35px;
     vertical-align: bottom;
 }
-
-
-/* ##### PLAYER CHAR CARD STUFF ##### */
 .pc-hp-expbar-container {
     text-align: center;
     position: relative;
@@ -267,6 +269,14 @@ hr {
     z-index: 3;
     font-size: 10px;
     text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px, rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px, rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px, rgb(0, 0, 0) 0.96017px -0.279415px 0px;
+}
+
+#player-char-info1 i, #player-char-info2 i {
+    font-size: 12px;
+}
+
+.pc-info-line.joblvl {
+    margin-bottom: 5px;
 }
 
 .pc-attr-container {
@@ -443,7 +453,7 @@ hr {
 .cold {color: lightblue;}
 .electric  {color: yellow;}
 .fire  {color: rgb(255, 136, 0);}
-.holy {color: rgb(241, 241, 171);}
+.holy {color: rgb(241, 228, 171);}
 .nature {color: rgb(131, 199, 67);}
 .physical {color: burlywood;}
 .poison {color: rgb(157, 130, 255);}
@@ -565,7 +575,7 @@ hr {
 .icon-physical {color: burlywood;}
 .icon-poison {color: rgb(157, 130, 255);}
 .icon-water {color: rgb(95, 176, 252);}
-.icon-love {color: rgb(252, 95, 160);}
+.icon-love {color: rgb(253, 116, 173);}
 
 .icon-chr {color: white;}
 .icon-dex {color: white;}
