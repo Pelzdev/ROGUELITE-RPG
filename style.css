@@ -39,6 +39,9 @@
        flex-grow: 1;
        width: 34%;
     }
+    #player-char-info1 ,#player-char-info2 {
+        margin-top: 5px;
+    }
     .event-text-container {
         height: 100%;
         width: 33%;
@@ -131,7 +134,10 @@ hr {
     /*font-size: 14px;*/
 }
 .popup-header {
-    margin: 20px 0 10px 0;
+    margin: 20px 0 20px 0;
+}
+.popup-graphic {
+    margin: 0 0 20px 0;
 }
 .popup-text button {
     margin-top: 20px;
@@ -231,8 +237,6 @@ hr {
     bottom: 35px;
     vertical-align: bottom;
 }
-
-
 
 
 /* ##### PLAYER CHAR CARD STUFF ##### */
@@ -561,6 +565,7 @@ hr {
 .icon-physical {color: burlywood;}
 .icon-poison {color: rgb(157, 130, 255);}
 .icon-water {color: rgb(95, 176, 252);}
+.icon-love {color: rgb(252, 95, 160);}
 
 .icon-chr {color: white;}
 .icon-dex {color: white;}

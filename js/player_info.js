@@ -16,7 +16,12 @@ export function makePlayerInfo (playerChar) {
     document.querySelector('.pc-info-line.location').textContent = `LOCATION: ${currentLocationName}`
     document.querySelector('.pc-info-line.gold').textContent = `${playerChar.gold}`
     document.querySelector('.pc-info-line.buff').textContent = `BUFF: ${buffText}`
-    document.querySelector('.pc-info-line.skill-1').textContent = `Skill 1: ${playerChar.skills[0].name.toUpperCase()}`
+    // SKILLS
+    document.querySelector('.pc-info-line.skill-1').innerHTML = ''
+    let skillIcon = createNode('i', {className: `icon-${playerChar.skills[0].element}`})
+    let attributeIcon = createNode('i', {className: `icon-${playerChar.skills[0].attribute}`, style: {marginRight: '5px'}})
+    let skillText = createNode('span', {textContent: `${playerChar.skills[0].name.toUpperCase()}`})
+    document.querySelector('.pc-info-line.skill-1').append(skillIcon, attributeIcon, skillText)
     document.querySelector('.pc-info-line.skill-1').addEventListener('click', () => clickSkill(playerChar, 0))
     makeEqElement(playerChar)
     
@@ -135,28 +140,27 @@ function clickEq (playerChar, eqClicked) {
 
 // CLICKING skills etc on char screen
 function clickSkill (playerChar, arrPos) {
+    navbarTop.classList.add('unclickable')
+    popupDiv.style.display = 'block'
+    centerPopup(popupDiv)
+
     popupGraphic.innerHTML = ''
     popupText.innerHTML = ''
 
     let skill = playerChar.skills[arrPos]
-    let dmgOrHealText = 'Damage'
-    if (skill.type === 'heal') dmgOrHealText = 'Heal'
+    let dmgOrHealText = 'DAMAGE'
+    if (skill.type === 'heal') dmgOrHealText = 'HEAL'
     let effectText = '-'
     if (skill.effect) effectText = `${skill.effectChance}% chance to ${skill.effect.toUpperCase()}`
-
-    navbarTop.classList.add('unclickable')
-
-    popupDiv.style.display = 'block'
-    centerPopup(popupDiv)
     
-    popupHeader.textContent = skill.name
-    let graphic = createNode('i', {className: `icon-${skill.attribute}`, style: {fontSize: '24px', marginTop: '10px'}})
-    popupGraphic.append(graphic)
+    popupHeader.textContent = skill.name.toUpperCase()
+    let elementGraphic = createNode('i', {className: `icon-${skill.element}`, style: {fontSize: '24px', marginRight: '5px'}})
+    let attributeGraphic = createNode('i', {className: `icon-${skill.attribute}`, style: {fontSize: '24px'}})
+    popupGraphic.append(elementGraphic, attributeGraphic)
 
-    popupText.append( createNode('p', {textContent: `Type: ${skill.type}`}) ) 
+    popupText.append( createNode('p', {textContent: `${dmgOrHealText}: ${skill.power || '-'}`, style: {marginBottom: '5px'}}) )
     popupText.append( createNode('p', {textContent: `Chance to use: ${skill.chance}%`}) )
-    popupText.append( createNode('p', {textContent: `${dmgOrHealText}: ${skill.power || '-'}`}) )
-    popupText.append( createNode('p', {textContent: `Crit: ${skill.critChance}`}) )
+    popupText.append( createNode('p', {textContent: `Crit: ${skill.critChance}%`}) )
     popupText.append( createNode('p', {textContent: `Extra effect: ${effectText}`}) )
     if (skill.type === 'damage' || skill.type === 'heal') {
         let text = `${skill.type.toUpperCase()} boosted by ${skill.attribute.toUpperCase()}`

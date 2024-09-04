@@ -132,10 +132,6 @@ export function centerPopup () {
     }
 }
 
-export function getSkillIcon (skill) {
-    return icons[skill.attribute]
-}
-
 export function updateBg (targetDiv, currentEvent) {
     let bgUrl = locationBg
     if (currentEvent === 'inn') bgUrl = innBg

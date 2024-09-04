@@ -1,6 +1,6 @@
 import {wiki} from "./wiki.js"
 import {rndGetPropertyCloned, rndFromArr, rndInt, createNode} from "./base_functions.js"
-import {getSkillIcon, updateBg, playerSpriteInfoCard, playerHpbarOver, playerHpbarText, playerExpbarOver, playerExpbarText, updateHp} from "./main.js"
+import {updateBg, playerSpriteInfoCard, playerHpbarOver, playerHpbarText, playerExpbarOver, playerExpbarText, updateHp} from "./main.js"
 import {makePlayerInfo} from "./player_info.js"
 
 export let playerChar = {}
@@ -38,7 +38,6 @@ export function getChar (race, job, gender) {
     char.skills = [getStartSkill(char)]
     char.skills[0].level = 1
     char.height = char.race.height
-    getSkillIcon(char.skills[0])
 
     playerChar = char
 }
@@ -77,7 +76,6 @@ function getStartSkill (char) {
 function getCharSprite (char) {
     let numOfAvailebleSprites = wiki.numOfCharSprites[char.race.name][char.job.name][char.gender]
     let imgNum = rndInt(0, numOfAvailebleSprites-1)
-    //let img = `<img class="sprite-${char.race.name}" style="height:${spriteH}%" src="img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png">`
     return `img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png`
 }
 // Calculate modstuff
