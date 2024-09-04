@@ -1,14 +1,16 @@
 import {wiki} from "./wiki.js"
 import {rndGetPropertyCloned, rndFromArr, rndInt, createNode} from "./base_functions.js"
-import {getSkillIcon, updateBg, globalVars} from "./main.js"
+import {getSkillIcon, updateBg, playerSpriteInfoCard, playerHpbarOver, playerHpbarText, playerExpbarOver, playerExpbarText, updateHp} from "./main.js"
 import {makePlayerInfo} from "./player_info.js"
+
+export let playerChar = {}
 
 export function getChar (race, job, gender) {
     let char = {
         isPlayer: true,
         exp: 0, 
         expToLvl: 40, 
-        gold: 5,
+        gold: 50,
         food: [wiki.food.small_potion],
         status: '',
         buff: false,
@@ -36,32 +38,32 @@ export function getChar (race, job, gender) {
     char.skills = [getStartSkill(char)]
     char.skills[0].level = 1
     char.height = char.race.height
-
     getSkillIcon(char.skills[0])
-    return char
+
+    playerChar = char
 }
 
-export function makePlayerCharDiv (pc) {
+export function makePlayerCharDiv () {
     getItem(null, null, 10000)
     //updatePlayerBg()
-    updateBg(globalVars.playerSpriteEl)
+    updateBg(playerSpriteInfoCard)
     // Make sure attributes, hp etc is up-to-date
-    pc.totalMods = getTotalMods(pc)
-    pc.hpMax = 50 + (pc.totalMods.end * 5) + pc.level * 5
+    playerChar.totalMods = getTotalMods(playerChar)
+    playerChar.hpMax = 50 + (playerChar.totalMods.end * 5) + playerChar.level * 5
 
     const maxH = 85
-    const spriteH = (pc.height / 200) * maxH
+    const spriteH = (playerChar.height / 200) * maxH
 
     // change stuff inside player image container ('.player-sprite')
     let sprite = document.querySelector('.sprite')
-    sprite.src =`${pc.img}`
+    sprite.src =`${playerChar.img}`
     sprite.style.height = `${spriteH}%`
-    document.querySelector('.pc-hpbar-over').style.width = `${pc.hpLeft/pc.hpMax*100}%` 
-    document.getElementById('pc-hp-text').textContent = `${pc.hpLeft}/${pc.hpMax} HP` 
-    document.querySelector('.pc-expbar-over').style.width = `${pc.exp/pc.expToLvl*100}%`
-    document.getElementById('pc-exp-text').textContent = `${pc.exp}/${pc.expToLvl} XP`
+    playerHpbarOver.style.width = `${playerChar.hpLeft/playerChar.hpMax*100}%` 
+    playerHpbarText.textContent = `${playerChar.hpLeft}/${playerChar.hpMax} HP` 
+    playerExpbarOver.style.width = `${playerChar.exp/playerChar.expToLvl*100}%`
+    playerExpbarText.textContent = `${playerChar.exp}/${playerChar.expToLvl} XP`
     
-    makePlayerInfo(pc)
+    makePlayerInfo(playerChar)
 
     return
 }
@@ -180,4 +182,48 @@ function removeModFromArr (string, array) {
     array.splice(index, 1)
     
     return array
+}
+
+export function removePlayerStatus () {
+    playerChar.status = ''
+}
+
+export function decreaseBuffDuration () {
+    if (playerChar.buff) {
+        playerChar.buff.timeLeft--
+        if (playerChar.buff.timeLeft < 1) playerChar.buff = null
+    }
+}
+
+export function playerCharIsAlive() {
+    if (playerChar.hpLeft > 0)
+        return true
+    else
+        return false
+}
+
+export function updatePlayerMod (mod, changeAmount) {
+    playerChar.baseMods[mod] += changeAmount
+}
+// Using the consumable
+export function useConsumable (consumable, arrPos) {
+    let gives = playerChar.food[arrPos].gives // hpLeft, exp etc
+    let type = playerChar.food[arrPos].type
+    let amount = playerChar.food[arrPos].amount
+    
+    console.log(`${gives} ${type} ${amount}`)
+
+    if (gives === 'hpLeft') {
+        console.log('player hpLeft: ' + playerChar.hpLeft)
+        playerChar.hpLeft += amount
+        console.log('player hpLeft: ' + playerChar.hpLeft)
+        updateHp(playerChar)
+    }
+    if (gives === 'buff_drunk') {
+        playerChar.buff = {type: 'drunk', timeLeft: 3}
+        makePlayerCharDiv(playerChar)
+    }
+
+    playerChar.food[arrPos] = null,
+    document.querySelector(`.food-img-${arrPos}`).src = ''
 }

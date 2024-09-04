@@ -1,15 +1,15 @@
 import {rndInt, rndFromArr, createNode} from "./base_functions.js"
 import {wiki} from "./wiki.js"
-import {globalVars, updateHp, fadeOutEl} from "./main.js"
-import {makePlayerCharDiv} from "./player_char.js"
+import {eventTextContainer, eventText, windowHeaderBattle, updateHp, fadeOutEl, endEventBtn, hpPerLvlUp} from "./main.js"
+import {playerChar, makePlayerCharDiv} from "./player_char.js"
 import {endEvent} from "./event.js"
 
 // BATTLE EVENT
 let enemyImgContainer = document.getElementById('enemy-img-container')
-    enemyImgContainer.addEventListener("click", function (e) {
-        e.preventDefault()
-        doBattleTurns()
-  });
+enemyImgContainer.addEventListener("click", function (e) {
+    e.preventDefault()
+    doBattleTurns(playerChar)
+});
 
 let enemyType = 'enemy'
 let enemy = {}
@@ -31,11 +31,11 @@ export function battle (pc) {
             enemy = getChar()
             enemy.isPlayer = false
         }
-        enemy = structuredClone(enemies[rndFromArr(enemyLists.level8)])
+        enemy = structuredClone(wiki.enemies[rndFromArr(enemyLists.level8)])
     }
     
     let text = `It's a ${enemy.name.toUpperCase()}... FIGHT!`
-    globalVars.eventText.append(makeParagraph(text, 'event-text-row'))
+    eventText.append(makeParagraph(text, 'event-text-row'))
     makeBattleDiv(enemy)
 }
 
@@ -47,7 +47,7 @@ function makeBattleDiv (enemy) {
     //document.getElementById('enemy-img-container').style.cursor = 'pointer'
     //document.getElementById('enemy-img-container').style.pointerEvents = 'auto'
 
-    document.querySelector('.window-header').textContent = `${enemyType.toUpperCase()}`
+    windowHeaderBattle.textContent = `${enemyType.toUpperCase()}`
     document.querySelector('.enemy-info-line').textContent = `lvl ${enemy.level} ${enemy.name.toUpperCase()}`
     enemyImg.classList.remove('fade-out')
     enemyImg.src = `${enemy.img}`
@@ -57,17 +57,17 @@ function makeBattleDiv (enemy) {
 }
 
 
-function doBattleTurns() {
-    if (globalVars.playerChar.hpLeft < 1 || enemy.hpLeft < 1) {
-        endEvent()
+function doBattleTurns(playerChar) {
+    if (playerChar.hpLeft < 1 || enemy.hpLeft < 1) {
+        endEvent(playerChar)
     }
     let text = ''
-    let attOrder = decideFirstAttacker(globalVars.playerChar, enemy)
+    let attOrder = decideFirstAttacker(playerChar, enemy)
     let first = attOrder[0]
     let second = attOrder[1]
 
-    if (enemy.hpLeft < 1 || globalVars.playerChar.hpLeft < 1) {
-        globalVars.eventText.append(createNode('p', {className: 'battle-text-row', textContent: 'You cannot attack.'}))
+    if (enemy.hpLeft < 1 || playerChar.hpLeft < 1) {
+        eventText.append(createNode('p', {className: 'battle-text-row', textContent: 'You cannot attack.'}))
         return
     }
     // FIRST attacker attacks! 
@@ -78,8 +78,8 @@ function doBattleTurns() {
     }
    
     // automatically scroll to the bottom (to see newest text)
-    globalVars.eventText.scrollTop = globalVars.eventText.scrollHeight; // FIX DOESNT WORK NOW
-    globalVars.eventTextContainer.scrollTop = globalVars.eventTextContainer.scrollHeight; // FIX DOESNT WORK NOW
+    eventText.scrollTop = eventText.scrollHeight; // FIX DOESNT WORK NOW
+    eventTextContainer.scrollTop = eventTextContainer.scrollHeight; // FIX DOESNT WORK NOW
 }
 
 // NEW BATTLE FUNC
@@ -90,7 +90,7 @@ function doTurn(attacker, defender) {
     let target = defender
     // Check if statuses that need to be checked before attacking
     let canMove = canCharMove(attacker) 
-    if (!canMove) globalVars.eventText.append(makeParagraph(`${attacker.name.toUpperCase()} can't move due to ${attacker.status}`, 'battle-text-row'))
+    if (!canMove) eventText.append(makeParagraph(`${attacker.name.toUpperCase()} can't move due to ${attacker.status}`, 'battle-text-row'))
     //if (!canMove) text += `<p class="battle-text-row">${attacker.name.toUpperCase()} can't move due to ${attacker.status}</p>`
     if (attacker.status === 'stun') attacker.status = ''
     // If attacker can move, do skill
@@ -162,19 +162,19 @@ function doSkill (attacker, target, textClass) {
         }
         target.hpLeft -= power
         text = `${critText} ${attacker.name.toUpperCase()} used ${skillUsed.name.toUpperCase()} on ${target.name.toUpperCase()} for ${power} DMG!`
-        globalVars.eventText.append(makeParagraph(text, `${textClass} ${textClassAdd}`))
+        eventText.append(makeParagraph(text, `${textClass} ${textClassAdd}`))
     }
 
     if (skillUsed.type === 'heal') {
         target.hpLeft += power
         if (target.hpLeft > target.hpMax) {target.hpLeft = target.hpMax}
         text = `${critText} ${attacker.name.toUpperCase()} used ${skillUsed.name.toUpperCase()} on ${target.name.toUpperCase()} and healed ${power} hp!`
-        globalVars.eventText.append(makeParagraph(text, `${textClass} ${textClassAdd}`))
+        eventText.append(makeParagraph(text, `${textClass} ${textClassAdd}`))
     }
 
     if (skillUsed.type === 'status') {
         text = `${critText} ${attacker.name.toUpperCase()} used ${skillUsed.name.toUpperCase()} on ${target.name.toUpperCase()}!`
-        globalVars.eventText.append(makeParagraph(text, `${textClass} ${textClassAdd}`))
+        eventText.append(makeParagraph(text, `${textClass} ${textClassAdd}`))
     }
     text += checkSkillEffects(skillUsed, attacker, target, power) // Check if skill has EFFECT that can give STATUS or Lifesteal etc and if it is to be used
 }
@@ -199,7 +199,7 @@ function checkSkillEffects(skillUsed, user, target, power) {
         let lifeStolen = Math.round(power/2)
         user.hpLeft += lifeStolen
         text = `${user.name.toUpperCase()} stole ${lifeStolen} HP!`
-        globalVars.eventText.append(makeParagraph(text, 'battle-text-row'))
+        eventText.append(makeParagraph(text, 'battle-text-row'))
     }
 }
 
@@ -208,7 +208,7 @@ function proccStatus (user) {
     if (user.status === 'bleed') {
         let bleedDmg = rndInt(1,3)
         text = `${user.name.toUpperCase()} is Bleeding and takes ${bleedDmg} dmg`
-        globalVars.eventText.append(makeParagraph(text, 'battle-text-row'))
+        eventText.append(makeParagraph(text, 'battle-text-row'))
         user.hpLeft -= bleedDmg
     }
 }
@@ -218,8 +218,8 @@ function checkIfDead (char, charsEnemy, textClass) {
     if (char.hpLeft <= 0) {
         char.hpLeft = 0
         text =  `${char.name.toUpperCase()} DIED!`
-        globalVars.eventText.append(makeParagraph(text, `${textClass} battle-text-row`))
-        globalVars.endEventBtn.style.display = 'inline-block'
+        eventText.append(makeParagraph(text, `${textClass} battle-text-row`))
+        endEventBtn.style.display = 'inline-block'
         if (char.isPlayer) {
             char.food = []
         }
@@ -239,11 +239,11 @@ function checkStatusApplication (skill, target) {
     if (rndInt(1,100) <= skill.effectChance) {
         if (target.status === skill.effect) {
             text = `${target.name.toUpperCase()} is already affected by ${skill.effect.toUpperCase()}`
-            globalVars.eventText.append(makeParagraph(text, 'battle-text-row'))
+            eventText.append(makeParagraph(text, 'battle-text-row'))
         } else {
             target.status = skill.effect
             text = `${target.name.toUpperCase()} is now affected by ${skill.effect.toUpperCase()}`
-            globalVars.eventText.append(makeParagraph(text, 'battle-text-row'))
+            eventText.append(makeParagraph(text, 'battle-text-row'))
         }
     }
 }
@@ -272,8 +272,6 @@ function rollPower(skill, user, target)  {
 // char is always playerChar
 function giveExpAndUpdate(char, enemy) {
     let text = ''
-    let expBar = document.querySelector('.pc-expbar-over')
-    let expText = document.querySelector('#pc-exp-text')
     let givenGold = rndInt(enemy.level, enemy.level*4)
     let expFormula = Math.floor( (enemy.level * 3) + (enemy.hpMax/3) *  (1 + (char.totalMods.int / 10) ) )
     let givenExp = rndInt(expFormula-2, expFormula+2)
@@ -283,11 +281,11 @@ function giveExpAndUpdate(char, enemy) {
         let foodType = wiki.food['small_potion']
         giveFood(char, foodType)
         text = `${char.name} got a ${foodType.name}`
-        globalVars.eventText.append(makeParagraph(text, 'battle-text-row'))
+        eventText.append(makeParagraph(text, 'battle-text-row'))
     }
    
     text = `${char.name} got ${givenExp} exp and ${givenGold} gold!`
-    globalVars.eventText.append(makeParagraph(text, 'battle-text-row'))
+    eventText.append(makeParagraph(text, 'battle-text-row'))
 
     char.gold += givenGold
     // If levelup
@@ -313,17 +311,17 @@ function checkLevelUp (char, givenExp) {
         char.level++
         char.exp = overkillExp
         char.expToLvl = Math.floor(char.expToLvl * 1.2)
-        char.hpMax += globalVars.hpPerLvlUp
-        char.hpLeft += globalVars.hpPerLvlUp
+        char.hpMax += hpPerLvlUp
+        char.hpLeft += hpPerLvlUp
         char.baseMods[attrSelected]++
 
         if (char.hpLeft > char.hpMax) {char.hpLeft = char.hpMax}
         text = makeParagraph(`${char.name} LVL UP!`, 'battle-text-row')
-        globalVars.eventText.append(text)
+        eventText.append(text)
         text = makeParagraph(`${char.name} is now lvl ${char.level}.`, 'battle-text-row')
-        globalVars.eventText.append(text)
+        eventText.append(text)
         text = makeParagraph(`${char.name}'s ${attrSelected.toUpperCase()} +${raiseAmount}`, 'battle-text-row')
-        globalVars.eventText.append(text)
+        eventText.append(text)
     } else {
         char.exp += givenExp
     }

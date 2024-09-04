@@ -17,7 +17,7 @@
         height: 33%;
         flex-grow: 1
     }
-    #event-text-container {
+    .event-text-container {
         max-height: 25%;
     }
 }
@@ -39,7 +39,7 @@
        flex-grow: 1;
        width: 34%;
     }
-    #event-text-container {
+    .event-text-container {
         height: 100%;
         width: 33%;
     }
@@ -166,7 +166,7 @@ hr {
     text-align: right;
 }
 
-#get-player-char-btn {
+#new-game-btn {
     height: 30px;
 }
 
@@ -446,7 +446,7 @@ hr {
 .water {color: rgb(95, 176, 252);}
 
 /* EVENT TEXT */
-#event-text-container {
+.event-text-container {
     display: none;
     vertical-align: top;
     background-color: rgb(49, 49, 53);

@@ -1,40 +1,33 @@
 import {createNode} from "./base_functions.js"
-import {globalVars, centerPopup, updateHp} from "./main.js"
+import {navbarTop, popupDiv, popupHeader, popupGraphic, popupText, togglePopupDiv, centerPopup, currentLocationName, playerEquipmentDiv} from "./main.js"
+import {useConsumable} from "./player_char.js"
 
-export function makePlayerInfo (pc) {
+export function makePlayerInfo (playerChar) {
     let buffText = '-'
-    if (pc.buff) buffText = pc.buff.type
+    if (playerChar.buff) buffText = playerChar.buff.type
 
-    document.querySelector('.pc-info-line.name').textContent = `${pc.name.toUpperCase()} ${pc.lastName.toUpperCase()}`
-    document.querySelector('.pc-info-line.trait').textContent = `${pc.trait.name.toUpperCase()} ${pc.race.name.toUpperCase()} ${pc.gender.toUpperCase()}`
-    document.querySelector('.pc-info-line.joblvl').textContent = `lvl ${pc.level} ${pc.job.name.toUpperCase()}`
-    document.querySelector('.pc-info-line.atk').textContent = `${pc.totalMods.dmg}`
-    document.querySelector('.pc-info-line.def').textContent = `${pc.totalMods.def}`
-    makeAttrEl(pc, document.querySelector('.pc-attr-container'))
-    makeResistanceEl(pc, document.querySelector('.res-container'))
-    document.querySelector('.pc-info-line.location').textContent = `LOCATION: ${globalVars.currentLocationName}`
-    document.querySelector('.pc-info-line.gold').textContent = `${pc.gold}`
+    document.querySelector('.pc-info-line.name').textContent = `${playerChar.name.toUpperCase()} ${playerChar.lastName.toUpperCase()}`
+    document.querySelector('.pc-info-line.trait').textContent = `${playerChar.trait.name.toUpperCase()} ${playerChar.race.name.toUpperCase()} ${playerChar.gender.toUpperCase()}`
+    document.querySelector('.pc-info-line.joblvl').textContent = `lvl ${playerChar.level} ${playerChar.job.name.toUpperCase()}`
+    document.querySelector('.pc-info-line.atk').textContent = `${playerChar.totalMods.dmg}`
+    document.querySelector('.pc-info-line.def').textContent = `${playerChar.totalMods.def}`
+    makeAttrEl(playerChar, document.querySelector('.pc-attr-container'))
+    makeResistanceEl(playerChar, document.querySelector('.res-container'))
+    document.querySelector('.pc-info-line.location').textContent = `LOCATION: ${currentLocationName}`
+    document.querySelector('.pc-info-line.gold').textContent = `${playerChar.gold}`
     document.querySelector('.pc-info-line.buff').textContent = `BUFF: ${buffText}`
-    document.querySelector('.pc-info-line.skill-1').textContent = `Skill 1: ${pc.skills[0].name.toUpperCase()}`
-    document.querySelector('.pc-info-line.skill-1').addEventListener('click', () => clickSkill(0))
-    makeEqElement(pc)
+    document.querySelector('.pc-info-line.skill-1').textContent = `Skill 1: ${playerChar.skills[0].name.toUpperCase()}`
+    document.querySelector('.pc-info-line.skill-1').addEventListener('click', () => clickSkill(playerChar, 0))
+    makeEqElement(playerChar)
     
-    if (pc.food[0]) {
-        document.querySelector('.food-img-0').src = `${pc.food[0].img}` || ''
-        document.querySelector('.food-img-0').addEventListener('click', () => clickConsumable(0))
-    } else  { 
-        document.querySelector('.food-img-0').src = ''
-    }
-    if (pc.food[1]) {
-        document.querySelector('.food-img-1').src = `${pc.food[1].img}` || ''
-        document.querySelector('.food-img-1').addEventListener('click', () => clickConsumable(1))
-    } else  { 
-        document.querySelector('.food-img-1').src = ''
-    }if (pc.food[2]) {
-        document.querySelector('.food-img-2').src = `${pc.food[2].img}` || ''
-        document.querySelector('.food-img-2').addEventListener('click', () => clickConsumable(2))
-    } else  { 
-        document.querySelector('.food-img-2').src = ''
+    const foodSlots = 3
+    for (let i = 0; i < foodSlots; i++) {
+        if (playerChar.food[i]) {
+            document.querySelector(`.food-img-${i}`).src = `${playerChar.food[i].img}` || ''
+            document.querySelector(`.food-img-${i}`).addEventListener('click', () => clickConsumable(playerChar, i))
+        } else  { 
+            document.querySelector(`.food-img-${i}`).src = ''
+        }
     }
 }
 
@@ -71,49 +64,43 @@ function makeResistanceEl (pc, parentEl) {
         let resDiv = createNode('div', {textContent: `${pc.totalMods[modName]}%`, style: {display: 'inline-block', width: '49%'}})
         resDiv.prepend(resIcon)
         parentEl.append(resDiv)
-    }); 
+    });
 }
 
-function makeEqElement (pc) {
-    let eqDiv = document.querySelector('.pc-eq-info')
-    eqDiv.innerHTML = ''
+function makeEqElement (playerChar) {
+    playerEquipmentDiv.innerHTML = ''
     let eqTypes = ['head', 'weapon', 'body', 'gloves', 'trinket', 'boots']
 
     eqTypes.forEach((item) => {
-        if (pc.eq[item]) {
+        if (playerChar.eq[item]) {
             let lineDiv = createNode('div', {className: `eq-info-line ${item} clickable` })
-            lineDiv.addEventListener('click', () => clickEq(item))
+            lineDiv.addEventListener('click', () => clickEq(playerChar, item))
             let icon = createNode('i', {className: `icon-${item}`})
-            let text = createNode('span', {textContent: `${pc.eq[item].name}`, className: `${pc.eq[item].rarity}` })
+            let text = createNode('span', {textContent: `${playerChar.eq[item].name}`, className: `${playerChar.eq[item].rarity}` })
             lineDiv.append(icon, text)
-            eqDiv.append(lineDiv)
+            playerEquipmentDiv.append(lineDiv)
         } else {
             let lineDiv = createNode('div', {className: `pc-info-line ${item}`})
             let icon = createNode('i', {className: `icon-${item}`})
             lineDiv.append(icon)
-            eqDiv.append(lineDiv)
+            playerEquipmentDiv.append(lineDiv)
         }
     });
 }
 
-function clickEq (eqClicked) {
-    let header = document.querySelector('.popup-header')
+function clickEq (playerChar, eqClicked) {
+    let header = popupHeader
     header.textContent = ''
-    let item = globalVars.playerChar.eq[eqClicked]
+    let item = playerChar.eq[eqClicked]
 
-    document.querySelector('.popup-graphic').innerHTML = ''
-    document.querySelector('.popup-text').innerHTML = ''
-    document.getElementById('button-bar').classList.add('unclickable')
-  
-    globalVars.popupDiv.style.display = 'block'
-    centerPopup(globalVars.popupDiv)
-
+    togglePopupDiv()
+    centerPopup(popupDiv)
     // HEADER
     let headerText = createNode('span', { textContent: item.name.toUpperCase(), className: item.rarity })
     header.append(headerText)
     // GRAPHIC / ICON
     let graphic = createNode( 'i', { className: `icon-${item.icon}`, style: {fontSize: '24px'} } )
-    document.querySelector('.popup-graphic').append(graphic)
+    popupGraphic.append(graphic)
     // Item type, rarity then mods, making sure dmg, def is top if those exist
     let textDiv = document.querySelector('.popup-text')
     textDiv.append( createNode('p', { textContent: `Type: ${item.type.toUpperCase()}`, style: {marginTop: '10px'}}) )
@@ -141,111 +128,78 @@ function clickEq (eqClicked) {
         }
     }
     
-
     let btn = createNode('button', { className: 'btn-medium',textContent: 'OK' })
-    btn.addEventListener('click', () => closePopup())
-    textDiv.append(btn)
+    btn.addEventListener('click', () => togglePopupDiv())
+    textDiv.append(btn) 
 }
 
 // CLICKING skills etc on char screen
-function clickSkill (arrPos) {
-    document.querySelector('.popup-graphic').innerHTML = ''
-    document.querySelector('.popup-text').innerHTML = ''
+function clickSkill (playerChar, arrPos) {
+    popupGraphic.innerHTML = ''
+    popupText.innerHTML = ''
 
-    let skill = globalVars.playerChar.skills[arrPos]
+    let skill = playerChar.skills[arrPos]
     let dmgOrHealText = 'Damage'
     if (skill.type === 'heal') dmgOrHealText = 'Heal'
     let effectText = '-'
     if (skill.effect) effectText = `${skill.effectChance}% chance to ${skill.effect.toUpperCase()}`
-    let boostedText = ''
-    /*if (skill.type === 'damage' || skill.type === 'heal') {
-        boostedText = `<p>${skill.type.toUpperCase()} boosted by ${icons[skill.attribute]} ${skill.attribute.toUpperCase()}</p>`
-    }*/
 
-    document.getElementById('button-bar').classList.add('unclickable')
+    navbarTop.classList.add('unclickable')
 
-    globalVars.popupDiv.style.display = 'block'
-    centerPopup(globalVars.popupDiv)
+    popupDiv.style.display = 'block'
+    centerPopup(popupDiv)
     
-    document.querySelector('.popup-header').textContent = skill.name
+    popupHeader.textContent = skill.name
     let graphic = createNode('i', {className: `icon-${skill.attribute}`, style: {fontSize: '24px', marginTop: '10px'}})
-    document.querySelector('.popup-graphic').append(graphic)
+    popupGraphic.append(graphic)
 
-    let textDiv = document.querySelector('.popup-text')
-    textDiv.append( createNode('p', {textContent: `Type: ${skill.type}`}) ) 
-    textDiv.append( createNode('p', {textContent: `Chance to use: ${skill.chance}%`}) )
-    textDiv.append( createNode('p', {textContent: `${dmgOrHealText}: ${skill.power || '-'}`}) )
-    textDiv.append( createNode('p', {textContent: `Crit: ${skill.critChance}`}) )
-    textDiv.append( createNode('p', {textContent: `Extra effect: ${effectText}`}) )
+    popupText.append( createNode('p', {textContent: `Type: ${skill.type}`}) ) 
+    popupText.append( createNode('p', {textContent: `Chance to use: ${skill.chance}%`}) )
+    popupText.append( createNode('p', {textContent: `${dmgOrHealText}: ${skill.power || '-'}`}) )
+    popupText.append( createNode('p', {textContent: `Crit: ${skill.critChance}`}) )
+    popupText.append( createNode('p', {textContent: `Extra effect: ${effectText}`}) )
     if (skill.type === 'damage' || skill.type === 'heal') {
         let text = `${skill.type.toUpperCase()} boosted by ${skill.attribute.toUpperCase()}`
-        textDiv.append( createNode('p', {textContent: text}) ) 
+        popupText.append( createNode('p', {textContent: text}) ) 
     }
     let btn = createNode('button', {className: 'btn-medium',textContent: 'OK'})
-    btn.addEventListener('click', () => closePopup())
-    textDiv.append(btn)
+    btn.addEventListener('click', () => togglePopupDiv())
+    popupText.append(btn)
 }
 
 // CONSUMABLE STUFF
 // Clicking the consumable
-function clickConsumable (arrPos) {
-    if (!globalVars.playerChar.food[arrPos]) return
-    document.querySelector('.popup-graphic').innerHTML = ''
-    document.querySelector('.popup-text').innerHTML = ''
-    document.getElementById('button-bar').classList.add('unclickable')
-    
-    globalVars.popupDiv.style.display = 'block'
-    centerPopup(globalVars.popupDiv)
+function clickConsumable (playerChar, arrPos) {
+    if (!playerChar.food[arrPos]) return
+    popupGraphic.innerHTML = ''
+    popupText.innerHTML = ''
+    navbarTop.classList.add('unclickable')
+    popupDiv.style.display = 'block'
+    centerPopup(popupDiv)
 
-    document.querySelector('.popup-header').textContent = globalVars.playerChar.food[arrPos].name
+    document.querySelector('.popup-header').textContent = playerChar.food[arrPos].name
     
-    let graphic = createNode('img', { src: globalVars.playerChar.food[arrPos].img, style:{width: '24px'} })
+    let graphic = createNode('img', { src: playerChar.food[arrPos].img, style:{width: '24px'} })
 
     let textDiv = document.querySelector('.popup-text')
-    textDiv.append(graphic, createNode('p', {textContent: globalVars.playerChar.food[arrPos].infoText}) )
+    textDiv.append(graphic, createNode('p', {textContent: playerChar.food[arrPos].infoText}) )
 
     let btnYes = createNode('button', { className: 'btn-medium', textContent: 'YES' })
-    btnYes.addEventListener('click', () => consumableChoice('yes', arrPos))
+    btnYes.addEventListener('click', () => consumableChoice(playerChar, 'yes', arrPos))
     let btnNo = createNode('button', { className: 'btn-medium', textContent: 'NO' })
-    btnNo.addEventListener('click', () => consumableChoice('no', arrPos))
+    btnNo.addEventListener('click', () => consumableChoice(playerChar, 'no', arrPos))
     textDiv.append(btnYes, btnNo)
 
 }
 // Choosing whether or not to use consumable/food
-function consumableChoice (answer, arrPos) {
+function consumableChoice (playerChar, answer, arrPos) {
     let arrInt = parseInt(arrPos)
     if (answer === 'no') {
         
     }
     if (answer === 'yes') {
-        useConsumable(arrInt) 
+        useConsumable(playerChar.food[arrPos], arrInt) 
     }
-    closePopup()
-}
-// Using the consumable
-function useConsumable (arrPos) {
-    let gives = globalVars.playerChar.food[arrPos].gives
-    let type = globalVars.playerChar.food[arrPos].type
-    let amount = globalVars.playerChar.food[arrPos].amount
-    
-    if (type === 'heal') {
-        globalVars.playerChar[gives] += amount
-        updateHp(globalVars.playerChar)
-    }
-    if (gives === 'buff_drunk') {
-        globalVars.playerChar.buff = {type: 'drunk', timeLeft: 3}
-        makePlayerCharDiv(globalVars.playerChar)
-    }
-
-    globalVars.playerChar.food[arrPos] = null,
-    document.querySelector(`.food-img-${arrPos}`).src = ''
+    togglePopupDiv()
 }
 
-
-
-function closePopup () {
-    document.querySelector('.popup-graphic').textContent = null
-    document.querySelector('.popup-text').textContent = null
-    globalVars.popupDiv.style.display = 'none'
-    document.getElementById('button-bar').classList.remove('unclickable')
-}

@@ -1,5 +1,6 @@
 import {rndInt, createNode} from "./base_functions.js"
-import {globalVars, updateHp} from "./main.js"
+import {eventText, updateHp, endEventBtn} from "./main.js"
+import {playerChar} from "./player_char.js"
 
 export function healer () {
     const amountRestored = rndInt(30, 45)
@@ -11,11 +12,9 @@ export function healer () {
     document.querySelector('.event-sprite-img').src = 'img/events/healer/healer_1.png'
     let text = createNode('p', {textContent: 'You met healer Brevenin!'})
     let text2 = createNode('p', {textContent: `He heals you, restoring ${amountRestored} HP.`})
-    globalVars.eventText.append(text, text2)
+    eventText.append(text, text2)
 
-    globalVars.playerChar.hpLeft += amountRestored
-    if (globalVars.playerChar.hpLeft > globalVars.playerChar.hpMax) globalVars.playerChar.hpLeft = globalVars.playerChar.hpMax
-    updateHp(globalVars.playerChar)
+    updateHp(playerChar, amountRestored)
 
-    globalVars.endEventBtn.style.display = 'inline-block' // end event btn
+    endEventBtn.style.display = 'inline-block' // end event btn
 }

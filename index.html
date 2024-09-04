@@ -7,7 +7,7 @@
         <title>Roguelite</title>
         <link rel="icon" type="image/x-icon" href="favicon2.png">
         <link rel="stylesheet" href="style.css">
-        <script type="module" src="js/main.js" defer></script>
+        <script type="module" src="js/main.js"></script>
     </head>
     <body>
 
@@ -15,7 +15,7 @@
 
         <div id="game">
             <div class="game-area" id="button-bar">
-                <button id="get-player-char-btn">START</button>
+                <button id="new-game-btn">NEW GAME</button>
                 <button id="event-start-btn">EVENT</button>
                 <button id="event-end-btn" >END EVENT</button>
             </div>
@@ -77,9 +77,9 @@
                     </div>
                 </div>
 
-                <div class="info-card" id="event-text-container">
+                <div class="info-card event-text-container">
                     <p class="window-header" id="event-header"></p>
-                    <div id="event-text"></div>
+                    <div class="event-text"></div>
                 </div>
 
                 <div class="info-card event-div">
@@ -89,7 +89,7 @@
                 </div>
 
                 <div class="info-card battle-div" style="display:none">
-                    <p class="window-header"></p>
+                    <p class="window-header-battle"></p>
                     <hr>
                     <p class="enemy-info-line name"></p>
                     <hr>

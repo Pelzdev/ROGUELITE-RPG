@@ -1,50 +1,51 @@
 import {wiki} from "./wiki.js"
-import {rndInt, getElementSize} from "./base_functions.js"
-import {getChar, makePlayerCharDiv} from "./player_char.js"
+import {rndInt, getElementSize, gameW, gameH, portrait} from "./base_functions.js"
+import {playerChar, getChar, makePlayerCharDiv} from "./player_char.js"
 import {startEvent, endEvent} from "./event.js"
 
 // ELEMENTS 
-export const globalVars = {
-    gameDiv: document.getElementById('game'),
-    gameStartArea: document.getElementById('game-start-area'), // Start "menu" area
-    gameRow1: document.getElementById('game-row-1'), // Area when playing, aka seeing the char, battles events etc
-    popupDiv: document.querySelector('.popup-div'),
-    // TOP/MAIN BUTTONS
-    getPlayerCharBtn: document.getElementById('get-player-char-btn'),
-    eventStartBtn: document.getElementById('event-start-btn'),
-    // PLAYER
-    playerSpriteDiv: document.getElementById('pc-img-container'),
-    playerSpriteEl: document.querySelector('.player-sprite'),
-    playerCharInfoEl1: document.getElementById('player-char-info1'),
-    playerCharInfoEl2: document.getElementById('player-char-info2'),
-    // EVENT
-    eventDiv: document.querySelector('.event-div'),
-    eventHeader: document.getElementById('event-header'),
-    eventTextContainer: document.getElementById('event-text-container'),
-    eventText: document.getElementById('event-text'),
-    endEventBtn: document.getElementById('event-end-btn'),
-    // BATTLE
-    battleDiv: document.querySelector('.battle-div'),
-    gameW: 0, 
-    gameH: 0,
-    portrait: false,
-    landscape: true,
-    // CHAR stuff
-    sizeMulti: 1.3, // for char and enemy sprites
-    hpPerLvlUp: 5,
-    playerChar: {},
-    currentEvent: '',
-    eventsDone: 0,
-    // Location (changes BG etc, will add more later)
-    currentLocationType: 'woods',
-    currentLocationName: 'Wolfroy Grove',
-    locationBg: `img/location_bg/woods/${rndInt(0,7)}.png`,
-    innBg: 'img/location_bg/woods/bg_inn.png',
-}
+export const gameStartArea = document.getElementById('game-start-area') // Area shown before clicking start, to be added here is overall player stuff like saving, highscore etc
+export const gameDiv = document.getElementById('game')
+export const gameRow1 = document.getElementById('game-row-1') // Area when playing, aka seeing the char, battles events etc
+export const navbarTop = document.getElementById('button-bar')
+export const newGameBtn = document.getElementById('new-game-btn') // Formerly getPlayerCharBtn
+export const eventStartBtn = document.getElementById('event-start-btn')
+export const popupDiv = document.querySelector('.popup-div')
+export const popupHeader = document.querySelector('.popup-header')
+export const popupGraphic = document.querySelector('.popup-graphic')
+export const popupText = document.querySelector('.popup-text')
+// ELEMENTS (Player)
+export const playerSpriteInfoCard =  document.querySelector('.player-sprite') // Formerly playerSpriteEl
+export const playerSpriteContainer = document.getElementById('pc-img-container')
+export const playerHpbarOver = document.querySelector('.pc-hpbar-over')
+export const playerHpbarText = document.getElementById('pc-hp-text')
+export const playerExpbarOver = document.querySelector('.pc-expbar-over')
+export const playerExpbarText = document.getElementById('pc-exp-text')
+export const playerCharInfoEl1 = document.getElementById('player-char-info1')
+export const playerCharInfoEl2 = document.getElementById('player-char-info2')
+export const playerEquipmentDiv = document.querySelector('.pc-eq-info')
+// ELEMENTS (Event)
+export const eventDiv = document.querySelector('.event-div')
+export const eventHeader = document.getElementById('event-header')
+export const eventTextContainer = document.querySelector('.event-text-container')
+export const eventText = document.querySelector('.event-text')
+export const endEventBtn = document.getElementById('event-end-btn')
+export const eventSprite = document.querySelector('.event-sprite-img') // The image of the char/creature itself
+export const enemySpriteContainer = document.getElementById('enemy-img-container')
+export const battleDiv = document.querySelector('.battle-div')
+export const windowHeaderBattle = document.querySelector('.window-header-battle')
+// GAMEPLAY 
+export let currentLocationType = 'woods'
+export let currentLocationName = 'Wolfroy Grove'
+export let locationBg = `img/location_bg/woods/${rndInt(0,7)}.png`
+export let innBg = 'img/location_bg/woods/bg_inn.png'
+export let eventsDone = 0
+export const hpPerLvlUp = 5
+export const sizeMulti = 1.3
 
-document.getElementById('get-player-char-btn').addEventListener("click", () => getPlayerChar())
-document.getElementById('event-start-btn').addEventListener("click", () => startEvent(globalVars.playerChar))
-document.getElementById('event-end-btn').addEventListener("click", () => endEvent())
+newGameBtn.addEventListener("click", () => startNewGame())
+eventStartBtn.addEventListener("click", () => startEvent(playerChar))
+endEventBtn.addEventListener("click", () => endEvent())
 
 // ICONS
 const icons = {
@@ -84,56 +85,60 @@ const icons = {
 // #######################################
 
 
-function getPlayerChar () {
-    globalVars.gameStartArea.style.display = 'none' // Hide game start area
-    globalVars.gameRow1.style.display = 'flex' // Show the area for PLAYING aka seeing char, battles etc
-    globalVars.playerCharInfoEl1.style.display = 'inline-block'
-    globalVars.playerCharInfoEl1.style.display = 'inline-block' // CHECK THIS
-    globalVars.playerChar = getChar('human')
-    makePlayerCharDiv(globalVars.playerChar)
-    globalVars.eventStartBtn.style.display = 'inline'
-    globalVars.getPlayerCharBtn.style.display = 'none'
+function startNewGame () {
+    gameStartArea.style.display = 'none' // Hide game start area
+    gameRow1.style.display = 'flex' // Show the area for PLAYING aka seeing char, battles etc
+    playerCharInfoEl1.style.display = 'inline-block'
+    getChar()
+    makePlayerCharDiv()
+    eventStartBtn.style.display = 'inline'
+    newGameBtn.style.display = 'none'
 }
 
-export function updateHp (char) {
+export function updateHp (char, hpChange) {
+    if (hpChange) {
+        char.hpMax += hpChange
+        char.hpLeft += hpChange
+    }
+    
     if (char.hpLeft > char.hpMax) char.hpLeft = char.hpMax
     if (char.hpLeft < 0) char.hpLeft = 0
 
     let hpBar, hpText
     if (char.isPlayer === true) {
-        hpBar = document.querySelector('.pc-hpbar-over')
-        hpText = document.querySelector('#pc-hp-text')
+        hpBar = playerHpbarOver
+        hpText = playerHpbarText
     } else {
         hpBar = document.querySelector('.enemy-hpbar-over')
         hpText = document.querySelector('#enemy-hp-text')
     }
 
     hpBar.style=`width:${char.hpLeft/char.hpMax*100}%`
-    hpText.innerHTML = `${char.hpLeft}/${char.hpMax} HP`
+    hpText.textContent = `${char.hpLeft}/${char.hpMax} HP`
 }
 
-export function centerPopup (el) {
+export function centerPopup () {
+    let el = popupDiv
     let elW = getElementSize(el, 'width')
     let elH = getElementSize(el, 'height')
-    el.style.top = `${0.5*globalVars.gameH - elH/2}px`
-    el.style.left = `${0.5*globalVars.gameW - elW/2}px`
-    if (!globalVars.portrait) {
-        el.style.top = `${0.5*globalVars.gameH - elH/2}px`
-        el.style.left = `${0.43*globalVars.gameW - elW/2}px`
+    el.style.top = `${0.5*gameH - elH/2}px`
+    el.style.left = `${0.5*gameW - elW/2}px`
+    if (!portrait) {
+        el.style.top = `${0.5*gameH - elH/2}px`
+        el.style.left = `${0.43*gameW - elW/2}px`
     } else {
-        el.style.top = `${0.4*globalVars.gameH - elH/2}px`
-        el.style.left = `${0.5*globalVars.gameW - elW/2}px`
+        el.style.top = `${0.4*gameH - elH/2}px`
+        el.style.left = `${0.5*gameW - elW/2}px`
     }
-    
 }
 
 export function getSkillIcon (skill) {
     return icons[skill.attribute]
 }
 
-export function updateBg (targetDiv, event) {
-    let bgUrl = globalVars.locationBg
-    if (event === 'inn') bgUrl = globalVars.innBg
+export function updateBg (targetDiv, currentEvent) {
+    let bgUrl = locationBg
+    if (currentEvent === 'inn') bgUrl = innBg
 
     targetDiv.style.background = `url(${bgUrl}) rgba(0, 0, 0, 0.3)`
     targetDiv.style.backgroundBlendMode = 'multiply'
@@ -143,4 +148,29 @@ export function updateBg (targetDiv, event) {
 
 export function fadeOutEl(el) {
     el.classList.add('fade-out')
+}
+
+export function togglePopupDiv () {
+    document.querySelector('.popup-graphic').innerHTML = ''
+    document.querySelector('.popup-text').innerHTML = ''
+
+    if (popupDiv.style.display === 'block') {
+        popupDiv.style.display = 'none'
+        document.getElementById('button-bar').classList.remove('unclickable')
+    }
+    else {
+        popupDiv.style.display = 'block'
+        document.getElementById('button-bar').classList.add('unclickable')
+    }      
+}
+
+export function addToEventsDone () {
+    eventsDone++
+}
+
+export function changeLocationBg () {
+    let location = ''
+    if (currentLocationType === 'woods') location = 'woods'
+    locationBg = `img/location_bg/${location}/${rndInt(0,7)}.png`;console.log(`changed BG, eventsDone: ${eventsDone}`);
+    updateBg(playerSpriteInfoCard)
 }

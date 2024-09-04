@@ -1,4 +1,9 @@
-import {globalVars, centerPopup} from "./main.js"
+import {gameDiv, popupDiv, centerPopup} from "./main.js"
+
+export let gameW = 0
+export let gameH = 0
+export let portrait = false
+export let landscape = true
 
 export function rndInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min
@@ -37,33 +42,33 @@ export function getHighestAttr (attrObj) {
 // DOM stuff
 // Check for orientation change of device
 window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
-    globalVars.gameW = getElementSize(globalVars.gameDiv, 'width')
-    globalVars.gameH = getElementSize(globalVars.gameDiv, 'height')
-    globalVars.portrait = e.matches;
+    gameW = getElementSize(gameDiv, 'width')
+    gameH = getElementSize(gameDiv, 'height')
+    portrait = e.matches;
 
-    centerPopup(globalVars.popupDiv)
+    centerPopup(popupDiv)
 });
 
 window.onresize = function() { 
     console.log(`Window size changed!, H:${window.innerHeight}, W:${window.innerWidth}`)
-    globalVars.gameW = getElementSize(globalVars.gameDiv, 'width')
-    globalVars.gameH = getElementSize(globalVars.gameDiv, 'height')
-    centerPopup(globalVars.popupDiv)
+    gameW = getElementSize(gameDiv, 'width')
+    gameH = getElementSize(gameDiv, 'height')
+    centerPopup(popupDiv)
 };
 
 // CHECK PORTRAIT/LANDSCAPE OF DEVICE
 document.addEventListener("DOMContentLoaded", function(event){
     console.log(`DOMContentloaded`)
     setTimeout( function(){ window.scrollTo(0, 1); }, 100 );
-    globalVars.gameW = getElementSize(globalVars.gameDiv, 'width')
-    globalVars.gameH = getElementSize(globalVars.gameDiv, 'height')
+    gameW = getElementSize(gameDiv, 'width')
+    gameH = getElementSize(gameDiv, 'height')
 
-    globalVars.portrait = window.matchMedia("(orientation: portrait)").matches; // returns true if portrait
+    portrait = window.matchMedia("(orientation: portrait)").matches; // returns true if portrait
 
-    if (globalVars.portrait) {
+    if (portrait) {
         console.log('Orientation changed to: Portrait')
     }
-    if (!globalVars.portrait) {
+    if (!portrait) {
         
     }
 });
