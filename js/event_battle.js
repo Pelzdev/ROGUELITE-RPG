@@ -3,7 +3,6 @@ import {wiki} from "./wiki.js"
 import {fadeOutEl, hpPerLvlUp} from "./main.js"
 import {playerChar, makePlayerCharDiv, getItem, getChar, updateHp} from "./player_char.js"
 import {endEvent, endEventBtn, eventTextContainer, eventText, windowHeaderBattle} from "./event.js"
-import {chooseEq, changeCurrentEqLoot} from "./choose_eq.js"
 
 // BATTLE EVENT
 let enemyImgContainer = document.getElementById('enemy-img-container')
@@ -12,7 +11,7 @@ enemyImgContainer.addEventListener("click", function (e) {
     doBattleTurns(playerChar)
 });
 
-let gotEqLoot = false
+export let gotEqLoot = false
 let enemyType = 'enemy'
 let enemy = {}
 const enemyLists = {
@@ -59,11 +58,7 @@ function makeBattleDiv (enemy) {
 
 function doBattleTurns(playerChar) {
     if (playerChar.hpLeft < 1 || enemy.hpLeft < 1) {
-        if (gotEqLoot) {
-            let eqType = rndFromArr(wiki.eqTypes)
-            changeCurrentEqLoot(getItem(eqType))
-            chooseEq(playerChar)
-        } else endEvent(playerChar)
+        endEvent(playerChar)
     }
 
     let attOrder = decideFirstAttacker(playerChar, enemy)

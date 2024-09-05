@@ -23,12 +23,15 @@ export const wiki = {
         // base skill (used if other skill isn't)
         attack:             {name: 'attack',        target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'str', chance: 100, power: 20,   effect: null,        effectChance: null, critChance: 5},
         // other skills
-        bash_1:             {name: 'bash I',        target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'str', chance: 30,  power: 30,   effect: 'stun',      effectChance: 25,   critChance: 5},
+        bash_1:             {name: 'bash I',        target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'str', chance: 30,  power: 35,   effect: 'stun',      effectChance: 25,   critChance: 5},
         bite_1:             {name: 'bite I',        target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'agi', chance: 50,  power: 25,   effect: 'bleed',     effectChance: 30,   critChance: 10},
         body_slam_1:        {name: 'body slam I',   target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'end', chance: 35,  power: 25,   effect: 'stun',      effectChance: 25,   critChance: 5},
         eviscerate_1:       {name: 'eviscerate I',  target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'agi', chance: 30,  power: 30,   effect: 'bleed',     effectChance: 50,   critChance: 5},
-        gamble_1:           {name: 'gamble I',      target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'lck', chance: 50,  power: 25,   effect: null,        effectChance: 0,    critChance: 20},
+        back_stab_1:        {name: 'back stab I',   target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'agi', chance: 20,  power: 30,   effect: null,        effectChance: null, critChance: 50},
+        play_it_safe_1:     {name: 'play it safe I',target: 'self',  isSpell: true,  type: 'heal',   element: 'physical', attribute: 'lck', chance: 25,  power: 30,   effect: null,        effectChance: null, critChance: 5},
+        risky_hit_1:        {name: 'risky hit I',   target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'lck', chance: 50,  power: 20,   effect: null,        effectChance: 0,    critChance: 40},
         tusk_attack_1:      {name: 'tusk attack I', target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'str', chance: 40,  power: 20,   effect: 'bleed',     effectChance: 30,   critChance: 5},
+        holy_strike_1:      {name: 'holy strike I', target: 'enemy', isSpell: false, type: 'damage', element: 'holy',     attribute: 'int', chance: 40,  power: 25,   effect: null,        effectChance: null, critChance: 5},
         heal_self_1:        {name: 'heal self I',   target: 'self',  isSpell: true,  type: 'heal',   element: 'holy',     attribute: 'int', chance: 25,  power: 30,   effect: null,        effectChance: null, critChance: 5},
         fire_bolt_1:        {name: 'fire bolt I',   target: 'enemy', isSpell: true,  type: 'damage', element: 'fire',     attribute: 'int', chance: 50,  power: 35,   effect: null,        effectChance: null, critChance: 5},
         ice_bolt_1:         {name: 'ice bolt I',    target: 'enemy', isSpell: true,  type: 'damage', element: 'cold',     attribute: 'int', chance: 50,  power: 35,   effect: null,        effectChance: null, critChance: 5},
@@ -79,6 +82,43 @@ export const wiki = {
         },
         boots: {
             old_boots: {name: 'old boots',       desc: 'Old boots.', type: 'boots', icon: 'boots', rarity: 'common', mods: {}}
+        }
+    },
+    jobs: {
+        archer: {
+            name: 'archer',
+            mods: {str: 1, agi: 1, dex: 3},
+            startSkills: ['power_shot_1', 'quick_shot_1']
+        },
+        bard: {
+            name: 'bard',
+            mods: {dex: 1, chr: 4},
+            startSkills: ['scream_1', 'attract_1']
+        },
+        gambler: {
+            name: 'gambler',
+            mods: {dex: 1, chr: 1, lck: 3},
+            startSkills: ['risky_hit_1', 'play_it_safe_1']
+        },
+        mage: {
+            name: 'mage',
+            mods: {int: 4, lck: 1},
+            startSkills: ['fire_bolt_1', 'ice_bolt_1', 'spark_1', 'siphon_life_1']
+        },
+        priest: {
+            name: 'priest',
+            mods: {int: 3, chr: 1, lck: 1},
+            startSkills: ['heal_self_1', 'holy_strike_1']
+        },
+        rogue: {
+            name: 'rogue',
+            mods: {agi: 3, dex: 1, lck: 1},
+            startSkills: ['eviscerate_1', 'back_stab_1']
+        },
+        warrior: {
+            name: 'warrior',
+            mods: {end: 2, str: 2, agi: 1},
+            startSkills: ['bash_1', 'body_slam_1']
         }
     },
     races: {
@@ -161,43 +201,6 @@ export const wiki = {
                 female: ['Saphira', 'Liora', 'Vespera', 'Thalindra', 'Sylara', 'Elysia', 'Willow', 'Callista', 'Aelara', 'Luna', 'Lunaflight', 'Aelaril', 'Moonstone', 'Lunareen', 'Ivy', 'Elianna', 'Kaelith', 'Nyxora', 'Thalia', 'Zenobia', 'Lunara', 'Thissa', 'Eirwynn', 'Aurora']
             },
             lastNames: ['Cloudstrider', 'Skywatcher', 'Skywhisper', 'Featherheart', 'Starcaller', 'Nightwing', 'Songflame', 'Moonshadow', 'Talonstrike', 'Owlheart', 'Feathersong']
-        }
-    },
-    jobs: {
-        archer: {
-            name: 'archer',
-            mods: {str: 1, agi: 1, dex: 3},
-            startSkills: ['power_shot_1', 'quick_shot_1']
-        },
-        bard: {
-            name: 'bard',
-            mods: {dex: 1, chr: 4},
-            startSkills: ['scream_1', 'attract_1']
-        },
-        gambler: {
-            name: 'gambler',
-            mods: {dex: 1, chr: 1, lck: 3},
-            startSkills: ['gamble_1']
-        },
-        mage: {
-            name: 'mage',
-            mods: {int: 4, lck: 1},
-            startSkills: ['fire_bolt_1', 'ice_bolt_1', 'spark_1', 'siphon_life_1']
-        },
-        priest: {
-            name: 'priest',
-            mods: {int: 3, chr: 1, lck: 1},
-            startSkills: ['heal_self_1']
-        },
-        rogue: {
-            name: 'rogue',
-            mods: {agi: 3, dex: 1, lck: 1},
-            startSkills: ['eviscerate_1']
-        },
-        warrior: {
-            name: 'warrior',
-            mods: {end: 2, str: 2, agi: 1},
-            startSkills: ['bash_1', 'body_slam_1']
         }
     },
     traits: {

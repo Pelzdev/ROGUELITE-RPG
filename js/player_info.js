@@ -1,5 +1,5 @@
 import {createNode} from "./base_functions.js"
-import {navbarTop, popupDiv, popupHeader, popupGraphic, popupText, togglePopupDiv, centerPopup, currentLocationName} from "./main.js"
+import {popupDiv, popupHeader, popupGraphic, popupText, togglePopupDiv, centerPopup, currentLocationName} from "./main.js"
 import {playerChar, useConsumable, playerSpriteContainer, playerSpriteInfoCard} from "./player_char.js"
 
 export const playerCharInfoEl1 = document.getElementById('player-char-info1')
