@@ -3,6 +3,7 @@ import {wiki} from "./wiki.js"
 import {fadeOutEl, hpPerLvlUp} from "./main.js"
 import {playerChar, makePlayerCharDiv, getItem, getChar, updateHp} from "./player_char.js"
 import {endEvent, endEventBtn, eventTextContainer, eventText, windowHeaderBattle} from "./event.js"
+import {changeCurrentEqLoot, chooseEq} from "./choose_eq.js"
 
 // BATTLE EVENT
 let enemyImgContainer = document.getElementById('enemy-img-container')
@@ -58,7 +59,11 @@ function makeBattleDiv (enemy) {
 
 function doBattleTurns(playerChar) {
     if (playerChar.hpLeft < 1 || enemy.hpLeft < 1) {
-        endEvent(playerChar)
+        if (gotEqLoot) {
+            const eqType = rndFromArr(wiki.eqTypes)
+            changeCurrentEqLoot(getItem(eqType))
+            chooseEq(playerChar)
+        } else endEvent(playerChar)
     }
 
     let attOrder = decideFirstAttacker(playerChar, enemy)
@@ -222,7 +227,6 @@ function checkIfDead (char, charsEnemy, textClass) {
         char.hpLeft = 0
         text =  `${char.name.toUpperCase()} DIED!`
         eventText.append(createP(text, `${textClass} battle-text-row`))
-        endEventBtn.style.display = 'inline-block'
         if (char.isPlayer) {
             char.food = []
         }
@@ -295,6 +299,7 @@ function giveExpAndUpdate(char, enemy) {
     // If levelup
     checkLevelUp(char, givenExp)
     makePlayerCharDiv(char)
+    if (!gotEqLoot) endEventBtn.style.display = 'inline-block'
 }
 
 export function giveFood (char, foodType) {
