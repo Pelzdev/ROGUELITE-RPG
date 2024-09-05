@@ -314,14 +314,14 @@ function checkLevelUp (char, givenExp) {
     if (char.exp + givenExp >= char.expToLvl) {
         let overkillExp = (char.exp + givenExp) - char.expToLvl
         let attrSelected = rndFromArr( ['end', 'str', 'agi', 'dex', 'int', 'chr', 'lck'] )
-        let raiseAmount = rndFromArr( [1,1,1,1,1, 1,1,1,1,1, 1,1,1,1,2] )
+        let raiseAmount = rndInt(2,3)
 
         char.level++
         char.exp = overkillExp
         char.expToLvl = Math.floor(char.expToLvl * 1.2)
         char.hpMax += hpPerLvlUp
         char.hpLeft += hpPerLvlUp
-        char.baseMods[attrSelected]++
+        char.baseMods[attrSelected] += raiseAmount
 
         if (char.hpLeft > char.hpMax) {char.hpLeft = char.hpMax}
         text = createP(`${char.name} LVL UP!`, 'battle-text-row')

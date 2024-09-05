@@ -4,7 +4,7 @@ import {playerChar, makePlayerCharDiv, addPlayerHpMax} from "./player_char.js"
 
 let trainCost = 0
 let attrToTrain = ''
-let trainAmount = 1
+let trainAmount = 2
 let extraAttr = null
 let attrToTrainText = ''
 
