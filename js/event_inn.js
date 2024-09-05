@@ -6,11 +6,9 @@ import {makePlayerCharDiv} from "./player_char.js"
 
 // INN EVENT
 let innCost = 15
-let innHeal = 25
 
 export function inn (playerChar) {
-    innCost = rndInt(15,25)
-    innHeal = rndInt(25, 40)
+    innCost = rndInt(25, 35)
 
     const maxH = 80
     const charHeight = 180
@@ -43,10 +41,8 @@ export function inn (playerChar) {
 function innYes (playerChar) {
     document.querySelector('.event-btn-div').style.display = 'none'
     playerChar.gold -= innCost
-    playerChar.hpLeft += 25
-    if (playerChar.hpLeft > playerChar.hpMax) {
-        playerChar.hpLeft = playerChar.hpMax
-    }
+    playerChar.hpLeft = playerChar.hpMax
+    
     let br = createNode('br', {className: null})
     let text = createNode('span', {textContent: ` You paid ${innCost} `})
     let icon = createNode('i', {className:  'icon-gold'})

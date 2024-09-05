@@ -157,7 +157,7 @@ function doSkill (attacker, target, textClass) {
     let power = rollPower(skillUsed, attacker, target) // Roll skill damage (TO DO FIX DMG)
     //Check skill type (dmg, heal, status)
     if (skillUsed.type === 'damage') {
-        // Check crit
+        // Check CRIT!
         if (rndInt(1, 100) < (skillUsed.critChance + attacker.totalMods.lck) ) {
             power = power*2
             critText = 'CRIT!'
@@ -256,20 +256,20 @@ function checkStatusApplication (skill, target) {
 function rollPower(skill, user, target)  {
     let userDmg = user.totalMods.dmg
     let targetDef = target.totalMods.def
+    
+    let powerCalc
+    let attributeUsed = skill.attribute
+    let attrValue = user.totalMods[attributeUsed]
+    let attrMulti = 1 + (user.totalMods[attributeUsed] / 10)
+ 
+    // Actual calculation of dmg/heal
+    if (skill.isSpell) {
+        powerCalc = (skill.power + (attrValue/2)) / 4
+    } else {
+        powerCalc = ( userDmg + (attrValue/3) + (skill.power/5) / targetDef) // if pow 30, attr 10, user.dmg 5, enemy.def 2: 5 + 3 + 6 / 2 = 7
+        //powerCalc = (skill.power + (userDmg*4)) / (targetDef* 2) // if pow 30, attr 10, user.dmg 5, enemy.def 2: 7,5
+    }
 
-    let attrMulti = 1
-    let attributeUsed = ''
-    let dmgVary = 1
-    if (skill.attribute === 'best') {
-        attributeUsed = getHighestAttr(user.totalMods) // FIX
-        attrMulti = 1 + ((user.totalMods[attributeUsed] / 10))
-    }
-    else if (skill.attribute != null) {
-        attributeUsed = skill.attribute
-        attrMulti = 1 + (user.totalMods[attributeUsed] / 10)
-    }
-    let powerCalc = (skill.power + (userDmg*5)) / (targetDef* 3) // if pow 30, attr 10, user.dmg 5, enemy.def 2: 7,5
-    if (skill.type === 'heal') powerCalc = skill.power/4
     let power = 1 + Math.round(rndInt(powerCalc*0.75, powerCalc))
     return power
 }
