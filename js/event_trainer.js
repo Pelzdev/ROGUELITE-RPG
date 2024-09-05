@@ -11,6 +11,7 @@ let attrToTrainText = ''
 let btnDiv = ''
 
 export function trainer (selectedTrainer) {
+    extraAttr = null
     let trainerChosen = ''
     let rndNum = rndInt(1, 100)
     if (rndNum <= 13) {trainerChosen = 'thorom'; attrToTrain = 'end'}

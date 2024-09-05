@@ -266,7 +266,6 @@ function rollPower(skill, user, target)  {
         powerCalc = (skill.power + (attrValue/2)) / 4
     } else {
         powerCalc = ( userDmg + (attrValue/3) + (skill.power/5) / targetDef) // if pow 30, attr 10, user.dmg 5, enemy.def 2: 5 + 3 + 6 / 2 = 7
-        //powerCalc = (skill.power + (userDmg*4)) / (targetDef* 2) // if pow 30, attr 10, user.dmg 5, enemy.def 2: 7,5
     }
 
     let power = 1 + Math.round(rndInt(powerCalc*0.75, powerCalc))
