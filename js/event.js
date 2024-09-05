@@ -1,4 +1,4 @@
-import {eventDiv, eventHeader, eventTextContainer, eventText, playerCharInfoEl1, playerCharInfoEl2, battleDiv, addToEventsDone, eventsDone, updateBg, eventStartBtn, endEventBtn, changeLocationBg, newGameBtn} from "./main.js"
+import {updateBg, changeLocationBg, newGameBtn, eventStartBtn} from "./main.js"
 import {rndInt} from "./base_functions.js"
 import {trainer} from "./event_trainer.js"
 import {battle} from "./event_battle.js"
@@ -6,8 +6,25 @@ import {inn} from "./event_inn.js"
 import {healer} from "./event_healer.js"
 import {makePlayerCharDiv, removePlayerStatus, decreaseBuffDuration, playerCharIsAlive} from "./player_char.js"
 import {oracle} from "./event_oracle.js"
+import {closePlayerInfoElements, playerCharInfoEl1, playerCharInfoEl2} from "./player_info.js"
+
+export const eventDiv = document.querySelector('.event-div')
+export const eventHeader = document.getElementById('event-header')
+export const eventTextContainer = document.querySelector('.event-text-container')
+export const eventText = document.querySelector('.event-text')
+export const endEventBtn = document.getElementById('event-end-btn')
+export const eventSprite = document.querySelector('.event-sprite-img') // The image of the char/creature itself
+export const enemySpriteContainer = document.getElementById('enemy-img-container')
+export const battleDiv = document.querySelector('.battle-div')
+export const windowHeaderBattle = document.querySelector('.window-header-battle')
+
+endEventBtn.addEventListener("click", () => endEvent())
 
 export let currentEvent = ''
+export let eventsDone = 0
+export function addToEventsDone () {
+    eventsDone++
+}
 
 export function startEvent (playerChar) {
     addToEventsDone()
@@ -49,27 +66,19 @@ export function startEvent (playerChar) {
     }
 
     eventHeader.textContent = `${currentEvent.toUpperCase()}!`
-
     eventDiv.classList.add(currentEvent)
     
-    playerCharInfoEl1.style.display = 'none'
-    playerCharInfoEl2.style.display = 'none'
+    closePlayerInfoElements()
     eventStartBtn.style.display = 'none'
     eventTextContainer.style.display = 'block'
 }
 
-
 export function endEvent(playerChar) {
-    if (currentEvent === 'battle') battleDiv.style.display = 'none'
-    eventText.innerHTML = '' // empty event text where battle text shows up
-    endEventBtn.style.display = 'none' // remove btn to end event since we already clicked it 
-    eventDiv.style.display = 'none' // remove event div since we ended event
-    eventTextContainer.style.display = 'none'
+    emptyAndCloseEventElements(currentEvent)
     // Remove player status
     removePlayerStatus()
     // Remove 1 from buff timeLeft, if it reaches 0, remove buff
     decreaseBuffDuration()
-
     // Remove the class added for event
     eventDiv.classList.remove(currentEvent)
     
@@ -90,8 +99,11 @@ export function endEvent(playerChar) {
     playerCharInfoEl2.style.display = 'block'
 }
 
-function hideElements(...elArr) {
-    for (let i = 0; i < elArr.length; i++) {
-        elArr[i].style.display = 'none'
-    }
+export function emptyAndCloseEventElements (currentEvent) {
+    if (currentEvent === 'battle') battleDiv.style.display = 'none'
+    eventText.innerHTML = '' // empty event text where battle text shows up
+    endEventBtn.style.display = 'none' // remove btn to end event since we already clicked it 
+    eventDiv.style.display = 'none' // remove event div since we ended event
+    eventTextContainer.style.display = 'none'
+    eventDiv.classList.remove(currentEvent)
 }

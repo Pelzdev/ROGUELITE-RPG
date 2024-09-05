@@ -1,8 +1,8 @@
 import {rndInt, rndFromArr, createNode, shuffleArray} from "./base_functions.js"
 import {wiki} from "./wiki.js"
-import {eventTextContainer, eventText, windowHeaderBattle, updateHp, fadeOutEl, endEventBtn, hpPerLvlUp} from "./main.js"
-import {playerChar, makePlayerCharDiv, getItem, getChar} from "./player_char.js"
-import {endEvent} from "./event.js"
+import {fadeOutEl, hpPerLvlUp} from "./main.js"
+import {playerChar, makePlayerCharDiv, getItem, getChar, updateHp} from "./player_char.js"
+import {endEvent, endEventBtn, eventTextContainer, eventText, windowHeaderBattle} from "./event.js"
 import {chooseEq, changeCurrentEqLoot} from "./choose_eq.js"
 
 // BATTLE EVENT
@@ -65,7 +65,7 @@ function doBattleTurns(playerChar) {
             chooseEq(playerChar)
         } else endEvent(playerChar)
     }
-    let text = ''
+
     let attOrder = decideFirstAttacker(playerChar, enemy)
     let first = attOrder[0]
     let second = attOrder[1]
@@ -80,7 +80,6 @@ function doBattleTurns(playerChar) {
     if (second.hpLeft > 0) {
         doTurn(second, first)
     }
-   
     // automatically scroll to the bottom (to see newest text)
     eventText.scrollTop = eventText.scrollHeight; // FIX DOESNT WORK NOW
     eventTextContainer.scrollTop = eventTextContainer.scrollHeight; // FIX DOESNT WORK NOW
@@ -189,14 +188,12 @@ function checkSkillToUse (attacker) {
     let arrayOrder = shuffleArray(arrayFromZeroToX(attacker.skills.length))
 
     for (const index of arrayOrder) {
-        console.log(index);
         // if skill's chance to procc is higher than rnd 1-100 choose that skill otherwise do default attack
         if (rndInt(1,100) < attacker.skills[index].chance) {
             chosenSkill = attacker.skills[index]
             break
         }
     }
-    console.log(chosenSkill)
     return chosenSkill
 }
 
@@ -299,12 +296,10 @@ function giveExpAndUpdate(char, enemy) {
    
     text = `${char.name} got ${givenExp} exp and ${givenGold} gold!`
     eventText.append(createP(text, 'battle-text-row'))
-
     char.gold += givenGold
     // If levelup
     checkLevelUp(char, givenExp)
     makePlayerCharDiv(char)
-    
 }
 
 export function giveFood (char, foodType) {

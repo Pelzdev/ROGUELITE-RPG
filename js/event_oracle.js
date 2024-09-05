@@ -1,4 +1,4 @@
-import {eventText, endEventBtn} from "./main.js"
+import {eventText, endEventBtn} from "./event.js"
 import {playerChar} from "./player_char.js"
 import {createNode} from "./base_functions.js"
 

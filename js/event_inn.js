@@ -1,5 +1,5 @@
 import {rndInt, createNode} from "./base_functions.js"
-import {eventText, endEventBtn} from "./main.js"
+import {eventText, endEventBtn} from "./event.js"
 import {getFirstEmptyfoodSlot, giveFood} from "./event_battle.js"
 import {wiki} from "./wiki.js"
 import {makePlayerCharDiv} from "./player_char.js"

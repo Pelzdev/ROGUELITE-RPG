@@ -1,6 +1,10 @@
 import {createNode} from "./base_functions.js"
-import {navbarTop, popupDiv, popupHeader, popupGraphic, popupText, togglePopupDiv, centerPopup, currentLocationName, playerEquipmentDiv} from "./main.js"
-import {playerChar, useConsumable} from "./player_char.js"
+import {navbarTop, popupDiv, popupHeader, popupGraphic, popupText, togglePopupDiv, centerPopup, currentLocationName} from "./main.js"
+import {playerChar, useConsumable, playerSpriteContainer, playerSpriteInfoCard} from "./player_char.js"
+
+export const playerCharInfoEl1 = document.getElementById('player-char-info1')
+export const playerCharInfoEl2 = document.getElementById('player-char-info2')
+export const playerEquipmentDiv = document.querySelector('.pc-eq-info')
 
 document.querySelector('.pc-info-line.skill-0').addEventListener('click', () => clickSkill(playerChar, 0))
 document.querySelector('.pc-info-line.skill-1').addEventListener('click', () => clickSkill(playerChar, 1))
@@ -43,21 +47,21 @@ export function makePlayerInfo (playerChar) {
     }
 }
 
-function makeAttrEl (pc, parentEl) {
+function makeAttrEl (playerChar, parentEl) {
     parentEl.innerHTML = ''
-    const statBarPercentMulti = 2 // aka 1 point = 5% of bar filled
+    const statBarPercentMulti = 2 // aka 1 point = 2% of bar filled
     let attrTypes = ['end', 'str', 'agi', 'dex', 'int', 'chr', 'lck']
 
     attrTypes.forEach((item) => {
-        let attrText = createNode('p', { textContent: `${pc.totalMods[item]}`, style: {display: 'inline-block'} })
+        let attrText = createNode('p', { textContent: `${playerChar.totalMods[item]}`, style: {display: 'inline-block'} })
         let attrIcon = createNode('i', { className: `icon-${item}`} )
         let statBarUnder = createNode('div', {className: 'pc-statbar-under'})
-        let statBarOver = createNode('div', {className: 'pc-statbar-over', style: {width: `${pc.totalMods[item]*statBarPercentMulti}%`}})
+        let statBarOver = createNode('div', {className: 'pc-statbar-over', style: {width: `${playerChar.totalMods[item]*statBarPercentMulti}%`}})
         statBarUnder.appendChild(statBarOver)
 
         let attrInfoLine = createNode('div', {className: 'attr-info-line'})
         attrInfoLine.append(attrIcon, attrText, statBarUnder)
-        if (pc.totalMods[item] < 10) {
+        if (playerChar.totalMods[item] < 10) {
             let addZero = createNode('p', { textContent: '0', style: { color: 'rgba(255,255,255,0.3)', display: 'inline-block' } })
             attrInfoLine.append(addZero)
         }
@@ -79,14 +83,24 @@ function makeResistanceEl (pc, parentEl) {
     });
 }
 
+playerEquipmentDiv.addEventListener('click', function (event) {
+    let target = event.target
+    let section = target.closest(".clickable");
+    if (section === null) return
+
+    let eqTypes = ['head', 'weapon', 'body', 'gloves', 'trinket', 'boots']
+    for (const eqType of eqTypes) {
+        if (section.classList.contains(eqType)) clickEq(playerChar, eqType) 
+    }
+})
+
 function makeEqElement (playerChar, targetElement) {
     targetElement.innerHTML = ''
     let eqTypes = ['head', 'weapon', 'body', 'gloves', 'trinket', 'boots']
 
     eqTypes.forEach((item) => {
         if (playerChar.eq[item]) {
-            let lineDiv = createNode('div', {className: `eq-info-line ${item} clickable` })
-            lineDiv.addEventListener('click', () => clickEq(playerChar, item))
+            let lineDiv = createNode('div', {className: `eq-info-line ${item} clickable`})
             let icon = createNode('i', {className: `icon-${item}`})
             let text = createNode('span', {textContent: `${playerChar.eq[item].name}`, className: `${playerChar.eq[item].rarity}` })
             lineDiv.append(icon, text)
@@ -147,12 +161,8 @@ function clickEq (playerChar, eqClicked) {
 // CLICKING skills etc on char screen
 function clickSkill (playerChar, arrPos) {
     if (!playerChar.skills[arrPos]) return
-    navbarTop.classList.add('unclickable')
-    popupDiv.style.display = 'block'
+    togglePopupDiv()
     centerPopup(popupDiv)
-
-    popupGraphic.innerHTML = ''
-    popupText.innerHTML = ''
 
     let skill = playerChar.skills[arrPos]
     let dmgOrHealText = 'DAMAGE'
@@ -181,8 +191,6 @@ function clickSkill (playerChar, arrPos) {
 // CONSUMABLE STUFF
 // Clicking the consumable
 function clickConsumable (playerChar, arrPos) {
-    console.log('clicked on consumable on arrPos: ' + arrPos)
-    console.log(playerChar.food)
     if (!playerChar.food[arrPos]) return
     togglePopupDiv()
     centerPopup(popupDiv)
@@ -203,12 +211,21 @@ function clickConsumable (playerChar, arrPos) {
 // Choosing whether or not to use consumable/food
 function consumableChoice (playerChar, answer, arrPos) {
     let arrInt = parseInt(arrPos)
-    if (answer === 'no') {
-        
-    }
+    if (answer === 'no') {}
     if (answer === 'yes') {
         useConsumable(playerChar.food[arrPos], arrInt) 
     }
     togglePopupDiv()
 }
 
+export function closePlayerInfoElements () {
+    playerCharInfoEl1.style.display = 'none'
+    playerCharInfoEl2.style.display = 'none'
+}
+
+export function showFullPlayerInfo() {
+    playerSpriteContainer.style.display = 'block'
+    playerSpriteInfoCard.style.display = 'block'
+    playerCharInfoEl1.style.display = 'block'
+    playerCharInfoEl2.style.display = 'block'
+}

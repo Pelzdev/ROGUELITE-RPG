@@ -1,6 +1,9 @@
-import {createNode} from "./base_functions.js"
-import {gameRow1, battleDiv, eventText, endEventBtn, eventDiv, eventTextContainer, playerSpriteInfoCard, playerCharInfoEl1, playerCharInfoEl2, eventStartBtn} from "./main.js"
-import {playerChar, makePlayerCharDiv} from "./player_char.js"
+import {createNode, rndGetPropertyCloned} from "./base_functions.js"
+import {gameRow1, eventStartBtn} from "./main.js"
+import {playerChar, makePlayerCharDiv, playerSpriteInfoCard, playerSpriteContainer} from "./player_char.js"
+import {emptyAndCloseEventElements, currentEvent} from "./event.js"
+import {showFullPlayerInfo} from "./player_info.js"
+import {wiki} from "./wiki.js"
 
 // What current loot is
 let currentEqLoot
@@ -14,30 +17,32 @@ let newItemBtn = createNode('button', { textContent: 'TAKE NEW', style: {display
 newItemBtn.addEventListener('click', () => eqChoiceClick('new'))
 
 export function chooseEq (playerChar) {
-    let newDiv = createNode('div', {className: 'compare-eq-window', style: {width: '100%', textAlign: 'center'}})
-    let text = createNode('p', {textContent: 'You got loot! Which item do you want? Your current item is the LEFT one.', style: {marginBottom: '20px'}})
-    let currentItemDiv = createEqItemDiv(playerChar.eq[currentEqLoot.type])
-    let newItemDiv = createEqItemDiv(currentEqLoot)
-
-    let btnDiv = createNode('div', {className: 'btn-medium', style: {display: 'block', width: '100%', marginTop: '20px'}})
-
-    btnDiv.append(oldItemBtn, newItemBtn)
-
-    //btn.addEventListener('click', () => togglePopupDiv())
-    newDiv.append(text, currentItemDiv, newItemDiv, btnDiv)
-    gameRow1.append(newDiv)
-    
     // Close everything that is should be closed
-    battleDiv.style.display = 'none'
-    eventText.innerHTML = '' // empty event text where battle text shows up
-    endEventBtn.style.display = 'none' // remove btn to end event since we already clicked it 
-    eventDiv.style.display = 'none' // remove event div since we ended event
-    eventTextContainer.style.display = 'none'
+    emptyAndCloseEventElements(currentEvent)
     playerSpriteInfoCard.style.display = 'none'
+    // Make elements etc
+    let newDiv = createNode('div', {className: 'compare-eq-window', style: {width: '100%', textAlign: 'center'}})
+    let text = createNode('p', {textContent: 'You got loot! Take the item you want to keep.', style: {marginBottom: '20px'}})
+    // Make looted item element
+    let newItemDiv = createEqItemDiv(currentEqLoot)
+    // Make button div to choose item
+    let btnDiv = createNode('div', {className: 'btn-medium', style: {display: 'block', width: '100%', marginTop: '20px'}})
+    // Check if player has item in that slot
+    let currentItemDiv = ''
+    if (playerChar.eq[currentEqLoot.type]) {
+        currentItemDiv = createEqItemDiv(playerChar.eq[currentEqLoot.type])
+        newItemBtn.textContent = 'TAKE NEW'
+        btnDiv.append(oldItemBtn, newItemBtn)
+        newDiv.append(text, currentItemDiv, newItemDiv, btnDiv)
+    } else {
+        newItemBtn.textContent = 'TAKE'
+        btnDiv.append(newItemBtn)
+        newDiv.append(text, newItemDiv, btnDiv)
+    }
+    gameRow1.append(newDiv)
 }
 
 function eqChoiceClick (choice) {
-    console.log('clicked a eq loot choice')
     if (choice === 'old') {
         makePlayerCharDiv(playerChar)
     }
@@ -46,9 +51,7 @@ function eqChoiceClick (choice) {
         makePlayerCharDiv(playerChar)
     }
     document.querySelector('.compare-eq-window').remove()
-    playerSpriteInfoCard.style.display = 'block'
-    playerCharInfoEl1.style.display = 'block'
-    playerCharInfoEl2.style.display = 'block'
+    showFullPlayerInfo()
     eventStartBtn.style.display = 'inline-block'
 }
 
@@ -92,10 +95,8 @@ function createEqItemDiv (item) {
             textDiv.append(resLine)
         }
     }
-
     container.append(header, graphic, textDiv)
 
     return container
 }
 
-//item.modTiers[mod]: 2 (etc)

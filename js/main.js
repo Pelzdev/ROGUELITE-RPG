@@ -1,7 +1,8 @@
 import {wiki} from "./wiki.js"
 import {rndInt, getElementSize, gameW, gameH, portrait} from "./base_functions.js"
-import {playerChar, getChar, makePlayerCharDiv} from "./player_char.js"
-import {startEvent, endEvent} from "./event.js"
+import {playerChar, getChar, makePlayerCharDiv, playerSpriteInfoCard} from "./player_char.js"
+import {startEvent, endEvent, eventsDone} from "./event.js"
+import {playerCharInfoEl1} from "./player_info.js"
 
 // ELEMENTS 
 export const gameStartArea = document.getElementById('game-start-area') // Area shown before clicking start, to be added here is overall player stuff like saving, highscore etc
@@ -15,37 +16,17 @@ export const popupHeader = document.querySelector('.popup-header')
 export const popupGraphic = document.querySelector('.popup-graphic')
 export const popupText = document.querySelector('.popup-text')
 // ELEMENTS (Player)
-export const playerSpriteInfoCard =  document.querySelector('.player-sprite') // Formerly playerSpriteEl
-export const playerSpriteContainer = document.getElementById('pc-img-container')
-export const playerHpbarOver = document.querySelector('.pc-hpbar-over')
-export const playerHpbarText = document.getElementById('pc-hp-text')
-export const playerExpbarOver = document.querySelector('.pc-expbar-over')
-export const playerExpbarText = document.getElementById('pc-exp-text')
-export const playerCharInfoEl1 = document.getElementById('player-char-info1')
-export const playerCharInfoEl2 = document.getElementById('player-char-info2')
-export const playerEquipmentDiv = document.querySelector('.pc-eq-info')
 // ELEMENTS (Event)
-export const eventDiv = document.querySelector('.event-div')
-export const eventHeader = document.getElementById('event-header')
-export const eventTextContainer = document.querySelector('.event-text-container')
-export const eventText = document.querySelector('.event-text')
-export const endEventBtn = document.getElementById('event-end-btn')
-export const eventSprite = document.querySelector('.event-sprite-img') // The image of the char/creature itself
-export const enemySpriteContainer = document.getElementById('enemy-img-container')
-export const battleDiv = document.querySelector('.battle-div')
-export const windowHeaderBattle = document.querySelector('.window-header-battle')
 // GAMEPLAY 
 export let currentLocationType = 'woods'
 export let currentLocationName = 'Wolfroy Grove'
 export let locationBg = `img/location_bg/woods/${rndInt(0,7)}.png`
 export let innBg = 'img/location_bg/woods/bg_inn.png'
-export let eventsDone = 0
 export const hpPerLvlUp = 5
 export const sizeMulti = 1.3
 
-newGameBtn.addEventListener("click", () => startNewGame())
 eventStartBtn.addEventListener("click", () => startEvent(playerChar))
-endEventBtn.addEventListener("click", () => endEvent())
+newGameBtn.addEventListener("click", () => startNewGame())
 
 // ICONS
 const icons = {
@@ -95,27 +76,6 @@ function startNewGame () {
     newGameBtn.style.display = 'none'
 }
 
-export function updateHp (char, hpChange) {
-    if (hpChange) {
-        char.hpLeft += hpChange
-    }
-    
-    if (char.hpLeft > char.hpMax) char.hpLeft = char.hpMax
-    if (char.hpLeft < 0) char.hpLeft = 0
-
-    let hpBar, hpText
-    if (char.isPlayer === true) {
-        hpBar = playerHpbarOver
-        hpText = playerHpbarText
-    } else {
-        hpBar = document.querySelector('.enemy-hpbar-over')
-        hpText = document.querySelector('#enemy-hp-text')
-    }
-
-    hpBar.style=`width:${char.hpLeft/char.hpMax*100}%`
-    hpText.textContent = `${char.hpLeft}/${char.hpMax} HP`
-}
-
 export function centerPopup () {
     let el = popupDiv
     let elW = getElementSize(el, 'width')
@@ -158,10 +118,6 @@ export function togglePopupDiv () {
         popupDiv.style.display = 'block'
         document.getElementById('button-bar').classList.add('unclickable')
     }      
-}
-
-export function addToEventsDone () {
-    eventsDone++
 }
 
 export function changeLocationBg () {

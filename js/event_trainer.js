@@ -1,5 +1,5 @@
 import {rndInt, createNode} from "./base_functions.js"
-import {eventSprite, eventText, updateHp, endEventBtn} from "./main.js"
+import {eventSprite, eventText, endEventBtn} from "./event.js"
 import {playerChar, makePlayerCharDiv, addPlayerHpMax} from "./player_char.js"
 
 let trainCost = 0

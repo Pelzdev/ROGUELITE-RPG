@@ -1,7 +1,14 @@
 import {wiki} from "./wiki.js"
 import {rndGetPropertyCloned, rndFromArr, rndInt} from "./base_functions.js"
-import {updateBg, playerSpriteInfoCard, playerHpbarOver, playerHpbarText, playerExpbarOver, playerExpbarText, updateHp} from "./main.js"
+import {updateBg} from "./main.js"
 import {makePlayerInfo} from "./player_info.js"
+
+export const playerSpriteInfoCard =  document.querySelector('.player-sprite') // Formerly playerSpriteEl
+export const playerSpriteContainer = document.getElementById('pc-img-container')
+export const playerHpbarOver = document.querySelector('.pc-hpbar-over')
+export const playerHpbarText = document.getElementById('pc-hp-text')
+export const playerExpbarOver = document.querySelector('.pc-expbar-over')
+export const playerExpbarText = document.getElementById('pc-exp-text')
 
 export let playerChar = {}
 
@@ -21,12 +28,12 @@ export function getChar (playerOrEnemy) {
         level: 1,
         baseMods: structuredClone(wiki.baseMods), // TESTING
         eq: {
-            head: getItem('head'),
-            weapon: getItem('weapon'),
-            body: getItem('body'),
-            gloves: getItem('gloves'),
-            trinket: getItem('trinket'),
-            boots: getItem('boots')
+            head: rndInt(1,2) > 1 ? getItem('head') : '',
+            weapon: rndInt(1,2) > 1 ? getItem('weapon') : '',
+            body: rndInt(1,2) > 1 ? getItem('body') : '',
+            gloves: rndInt(1,2) > 1 ? getItem('gloves') : '',
+            trinket: rndInt(1,2) > 1 ? getItem('trinket') : '',
+            boots: rndInt(1,2) > 1 ? getItem('boots') : '',
         }
     }
     char.totalMods = getTotalMods(char)
@@ -54,10 +61,8 @@ export function makePlayerCharDiv () {
     // Make sure attributes, hp etc is up-to-date
     playerChar.totalMods = getTotalMods(playerChar)
     playerChar.hpMax = 50 + (playerChar.totalMods.end * 5) + playerChar.level * 5
-
     const maxH = 85
     const spriteH = (playerChar.height / 200) * maxH
-
     // change stuff inside player image container ('.player-sprite')
     let sprite = document.querySelector('.sprite')
     sprite.src =`${playerChar.img}`
@@ -66,7 +71,6 @@ export function makePlayerCharDiv () {
     playerHpbarText.textContent = `${playerChar.hpLeft}/${playerChar.hpMax} HP` 
     playerExpbarOver.style.width = `${playerChar.exp/playerChar.expToLvl*100}%`
     playerExpbarText.textContent = `${playerChar.exp}/${playerChar.expToLvl} XP`
-    
     makePlayerInfo(playerChar)
 
     return
@@ -171,7 +175,7 @@ function getMod (item) {
     }
     // Remove already used mods
     for (const mod of Object.keys(item.mods)) {
-        availableMods = removeModFromArr(mod, availableMods)
+        if (mod !== 'dmg') availableMods = removeModFromArr(mod, availableMods)
     }
     // Choose mod from available mods (after filtering availableMods)
     let mod = rndFromArr(availableMods)
@@ -244,4 +248,25 @@ export function useConsumable (consumable, arrPos) {
 
     playerChar.food[arrPos] = null,
     document.querySelector(`.food-img-${arrPos}`).src = ''
+}
+
+export function updateHp (char, hpChange) {
+    if (hpChange) {
+        char.hpLeft += hpChange
+    }
+    
+    if (char.hpLeft > char.hpMax) char.hpLeft = char.hpMax
+    if (char.hpLeft < 0) char.hpLeft = 0
+
+    let hpBar, hpText
+    if (char.isPlayer === true) {
+        hpBar = playerHpbarOver
+        hpText = playerHpbarText
+    } else {
+        hpBar = document.querySelector('.enemy-hpbar-over')
+        hpText = document.querySelector('#enemy-hp-text')
+    }
+
+    hpBar.style=`width:${char.hpLeft/char.hpMax*100}%`
+    hpText.textContent = `${char.hpLeft}/${char.hpMax} HP`
 }

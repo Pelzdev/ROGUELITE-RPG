@@ -21,21 +21,14 @@ TODO:
 - Running log that player can look at
 - SAVE LOCALLY (and add continue)
 
-###Agoknee tips:###
-https://github.com/Pelzdev/ROGUELITE-RPG/blob/main/index.html#L117-L127
-eliminate these lines. add one single <script> tag to your <head> (main.js). ideally you add type="module" and start using modules, but at least add defer
-inside main.js, import the other scripts (at the top)
 
-get rid of all the JS in your HTML. move it all to main.js (or an appropriate module imported by main.js) using addEventListener().
-https://github.com/Pelzdev/ROGUELITE-RPG/blob/main/index.html#L17-L19
-https://github.com/Pelzdev/ROGUELITE-RPG/blob/main/index.html#L66
-https://github.com/Pelzdev/ROGUELITE-RPG/blob/main/index.html#L72-L74
+// My "states": When going to playerCharInfo need to close:
 
-https://github.com/Pelzdev/ROGUELITE-RPG/blob/main/index.html#L72-L74
-could combine these into a single event listener/handler (event delegation)
 
-https://github.com/Pelzdev/ROGUELITE-RPG/blob/main/index.html#L17-L19
-could combine these into a single button element and a single event listener/handler
+
+
+
+
 
 
 

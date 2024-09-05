@@ -1,6 +1,6 @@
 import {rndInt, createNode} from "./base_functions.js"
-import {eventText, updateHp, endEventBtn} from "./main.js"
-import {playerChar} from "./player_char.js"
+import {eventText, endEventBtn} from "./event.js"
+import {playerChar, updateHp} from "./player_char.js"
 
 export function healer () {
     const amountRestored = rndInt(30, 45)
