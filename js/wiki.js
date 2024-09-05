@@ -252,7 +252,7 @@ export const wiki = {
             totalMods: {dmg: 3, def: 3, str: 1, agi: 3, int: 1, chr: 1, lck: 3},
             dmg: 3, def: 3,
             totalAttr: {str: 1, agi: 3, int: 1, chr: 1, lck: 3},
-            skills: 'attack', 
+            skills: ['attack'], 
             status: '',
             img: 'img/enemies/mouse_small.png',
             height: 60, 
@@ -266,7 +266,7 @@ export const wiki = {
             totalMods: {dmg: 4, def: 3, end: 1, str: 1, agi: 3, dex: 1, int: 1, chr: 1, lck: 1},
             dmg: 4, def: 3,
             totalAttr: {str: 1, agi: 3, int: 1, chr: 1, lck: 1},
-            skills: 'attack',
+            skills: ['attack'],
             status: '',
             img: 'img/enemies/forest_gecko.png',
             height: 100
@@ -280,7 +280,7 @@ export const wiki = {
             totalMods: {dmg: 4, def: 3, end: 1, str: 2, agi: 4, dex: 1, int: 2, chr: 1, lck: 1},
             dmg: 4, def: 3,
             totalAttr: {str: 2, agi: 4, int: 2, chr: 1, lck: 1},
-            skills: 'attack',
+            skills: ['attack'],
             status: '',
             img: 'img/enemies/goblin_bat.png',
             height: 60
@@ -294,7 +294,7 @@ export const wiki = {
             totalMods: {dmg: 5, def: 3, end: 2, str: 2, agi: 4, dex: 3, int: 3, chr: 1, lck: 3},
             dmg: 5, def: 3,
             totalAttr: {str: 2, agi: 4, int: 3, chr: 1, lck: 3},
-            skills: 'eviscerate_1', 
+            skills: ['eviscerate_1'], 
             status: '',
             img: 'img/enemies/mouse_assassin.png',
             height: 80
@@ -308,7 +308,7 @@ export const wiki = {
             totalMods: {dmg: 5, def: 4, end: 4, str: 3, agi: 3, dex: 2, int: 2, chr: 1, lck: 1},
             dmg: 5, def: 4,
             totalAttr: {str: 3, agi: 3, int: 2, chr: 1, lck: 1},
-            skills: 'attack',
+            skills: ['attack'],
             status: '',
             img: 'img/enemies/goblin_warrior_small.png',
             height: 130
@@ -322,7 +322,7 @@ export const wiki = {
             totalMods: {dmg: 6, def: 7, end: 6, str: 6, agi: 5, dex: 1, int: 1, chr: 1, lck: 2},
             dmg: 6, def: 7,
             totalAttr: {str: 6, agi: 5, int: 1, chr: 1, lck: 2},
-            skills: 'attack',
+            skills: ['attack'],
             status: '',
             img: 'img/enemies/boar.png',
             height: 110
@@ -336,7 +336,7 @@ export const wiki = {
             totalMods: {dmg: 7, def: 4, end: 5, str: 5, agi: 6, dex: 1, int: 1, chr: 1, lck: 1},
             dmg: 7, def: 4,
             totalAttr: {str: 5, agi: 6, int: 1, chr: 1, lck: 1},
-            skills: 'attack',
+            skills: ['attack'],
             status: '',
             img: 'img/enemies/rabid_deer.png',
             height: 130
@@ -350,7 +350,7 @@ export const wiki = {
             totalMods: {dmg: 6, def: 4, end: 4, str: 4, agi: 5, dex: 2, int: 3, chr: 2, lck: 4},
             dmg: 6, def: 4,
             totalAttr: {str: 4, agi: 5, int: 3, chr: 2, lck: 4},
-            skills: 'bite_1',
+            skills: ['bite_1'],
             status: '',
             img: 'img/enemies/young_wolf.png',
             height: 100
@@ -364,7 +364,7 @@ export const wiki = {
             totalMods: {dmg: 6, def: 8, end: 7, str: 3, agi: 2, dex: 2, int: 4, chr: 3, lck: 3},
             dmg: 6, def: 8,
             totalAttr: {str: 3, agi: 2, int: 4, chr: 3, lck: 3},
-            skills: 'scream_1',
+            skills: ['scream_1'],
             status: '',
             img: 'img/enemies/crob2.png',
             height: 110
@@ -394,7 +394,7 @@ export const wiki = {
             totalMods: {dmg: 10, def: 8, end: 10, str: 7, agi: 2, dex:2, int: 2, chr: 1, lck: 1},
             dmg: 10, def: 8,
             totalAttr: {str: 7, agi: 2, int: 2, chr: 1, lck: 1},
-            skills: 'bash_1',
+            skills: ['bash_1'],
             status: '',
             img: 'img/enemies/bosses/troll_forest.png',
         }

@@ -91,6 +91,7 @@ export function getCenterOfEl (el, xOrY) {
     if (xOrY === 'y') return centerY
 }
 
+// Function made by P35
 export function createNode (tagName, { className, classList, style, textContent, ...attributes }) {
     const node = document.createElement(tagName);
 
@@ -111,4 +112,14 @@ export function createNode (tagName, { className, classList, style, textContent,
 return node;
 }
 
-
+// The Fisher-Yates algorithm to randomly sort arrays and return a new shuffled array
+export function shuffleArray (array) {
+	let shuffled = [...array]
+	for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = shuffled[i];
+        shuffled[i] = shuffled[j];
+        shuffled[j] = temp;
+    }
+    return shuffled
+}

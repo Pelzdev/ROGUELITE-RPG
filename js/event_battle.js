@@ -1,4 +1,4 @@
-import {rndInt, rndFromArr, createNode} from "./base_functions.js"
+import {rndInt, rndFromArr, createNode, shuffleArray} from "./base_functions.js"
 import {wiki} from "./wiki.js"
 import {eventTextContainer, eventText, windowHeaderBattle, updateHp, fadeOutEl, endEventBtn, hpPerLvlUp} from "./main.js"
 import {playerChar, makePlayerCharDiv, getItem, getChar} from "./player_char.js"
@@ -183,12 +183,20 @@ function doSkill (attacker, target, textClass) {
 }
 
 function checkSkillToUse (attacker) {
-    let chosenSkill
-    if (rndInt(1,100) < attacker.skills[0].chance) {
-        chosenSkill = attacker.skills[0]
-    } else {
-        chosenSkill = wiki.skills.attack
+    // Set attack as default skill
+    let chosenSkill = wiki.skills.attack
+    // Make an array like [0,1,2... to X-1] where X is number of skills attacker has to choose from, then randomize it
+    let arrayOrder = shuffleArray(arrayFromZeroToX(attacker.skills.length))
+
+    for (const index of arrayOrder) {
+        console.log(index);
+        // if skill's chance to procc is higher than rnd 1-100 choose that skill otherwise do default attack
+        if (rndInt(1,100) < attacker.skills[index].chance) {
+            chosenSkill = attacker.skills[index]
+            break
+        }
     }
+    console.log(chosenSkill)
     return chosenSkill
 }
 
@@ -338,4 +346,12 @@ export function getFirstEmptyfoodSlot (char) {
     if (!char.food[1]) {return 1}
     if (!char.food[2]) {return 2}
     return 'none'
+}
+
+function arrayFromZeroToX (x) {
+    let newArray = []
+    for (let i = 0; i < x; i++) {
+        newArray.push(i)
+    }
+    return newArray
 }

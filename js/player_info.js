@@ -2,6 +2,9 @@ import {createNode} from "./base_functions.js"
 import {navbarTop, popupDiv, popupHeader, popupGraphic, popupText, togglePopupDiv, centerPopup, currentLocationName, playerEquipmentDiv} from "./main.js"
 import {playerChar, useConsumable} from "./player_char.js"
 
+document.querySelector('.pc-info-line.skill-0').addEventListener('click', () => clickSkill(playerChar, 0))
+document.querySelector('.pc-info-line.skill-1').addEventListener('click', () => clickSkill(playerChar, 1))
+
 const foodSlots = 3
 for (let i = 0; i < foodSlots; i++) {
     document.querySelector(`.food-img-${i}`).addEventListener('click', () => clickConsumable(playerChar, i))
@@ -22,12 +25,13 @@ export function makePlayerInfo (playerChar) {
     document.querySelector('.pc-info-line.gold').textContent = `${playerChar.gold}`
     document.querySelector('.pc-info-line.buff').textContent = `BUFF: ${buffText}`
     // SKILLS
-    document.querySelector('.pc-info-line.skill-1').innerHTML = ''
-    let skillIcon = createNode('i', {className: `icon-${playerChar.skills[0].element}`})
-    let attributeIcon = createNode('i', {className: `icon-${playerChar.skills[0].attribute}`, style: {marginRight: '5px'}})
-    let skillText = createNode('span', {textContent: `${playerChar.skills[0].name.toUpperCase()}`})
-    document.querySelector('.pc-info-line.skill-1').append(skillIcon, attributeIcon, skillText)
-    document.querySelector('.pc-info-line.skill-1').addEventListener('click', () => clickSkill(playerChar, 0))
+    for (let i = 0; i < playerChar.skills.length; i++) {
+        document.querySelector(`.pc-info-line.skill-${i}`).textContent = ''
+        let skillIcon = createNode('i', {className: `icon-${playerChar.skills[i].element}`})
+        let attributeIcon = createNode('i', {className: `icon-${playerChar.skills[i].attribute}`, style: {marginRight: '5px'}})
+        let skillText = createNode('span', {textContent: `${playerChar.skills[i].name.toUpperCase()}`})
+        document.querySelector(`.pc-info-line.skill-${i}`).append(skillIcon, attributeIcon, skillText)
+    }
     makeEqElement(playerChar, playerEquipmentDiv)
     
     for (let i = 0; i < foodSlots; i++) {
@@ -142,6 +146,7 @@ function clickEq (playerChar, eqClicked) {
 
 // CLICKING skills etc on char screen
 function clickSkill (playerChar, arrPos) {
+    if (!playerChar.skills[arrPos]) return
     navbarTop.classList.add('unclickable')
     popupDiv.style.display = 'block'
     centerPopup(popupDiv)

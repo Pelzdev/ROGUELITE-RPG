@@ -1,6 +1,6 @@
 import {wiki} from "./wiki.js"
-import {rndGetPropertyCloned, rndFromArr, rndInt, createNode} from "./base_functions.js"
-import {gameRow1, battleDiv, updateBg, playerSpriteInfoCard, playerHpbarOver, playerHpbarText, playerExpbarOver, playerExpbarText, updateHp} from "./main.js"
+import {rndGetPropertyCloned, rndFromArr, rndInt} from "./base_functions.js"
+import {updateBg, playerSpriteInfoCard, playerHpbarOver, playerHpbarText, playerExpbarOver, playerExpbarText, updateHp} from "./main.js"
 import {makePlayerInfo} from "./player_info.js"
 
 export let playerChar = {}
@@ -175,18 +175,18 @@ function getMod (item) {
     }
     // Choose mod from available mods (after filtering availableMods)
     let mod = rndFromArr(availableMods)
-    let amount = rndInt(1,3)
-    if (mod.includes('Res')) amount = rndInt(5, 10) // Resistances can roll differently, will add to rolls later
-
     // Check tier of mod roll
-    if (rndInt(1,10) <= 3) {
-        amount = Math.round(rndInt(amount, amount*2))
-        item.modTiers[mod] = 2
-    } else {
-        item.modTiers[mod] = 1
-    }
+    let multiplier = 1
+    let rndNum = rndInt(1,10)
+    if (rndNum >= 5) {multiplier = 1.5}
+    else if (rndNum >= 8) {multiplier = 2}
+    else {multiplier = 2.5}
+    
+    let roll = rndInt(1,3) * multiplier
+    if (mod.includes('Res')) roll = rndInt(1, 10) * multiplier// Resistances can roll differently, will add to rolls later
 
-    item.mods[mod] = amount
+    
+    item.mods[mod] = Math.round(roll)
 }
 
 function removeModFromArr (string, array) {
