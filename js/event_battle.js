@@ -18,8 +18,8 @@ let enemyType = 'enemy'
 let enemy = {}
 const enemyLists = {
     level1: ['mouse', 'forest_gecko', 'goblin_bat', 'mouse_assassin', 'goblin'],
-    level5: ['forest_gecko', 'goblin_bat', 'mouse_assassin', 'goblin', 'boar', 'rabid_deer', 'young_wolf', 'crob'],
-    level8: ['goblin', 'boar', 'young_wolf', 'crob', 'boarian_marauder', 'troll_forest']
+    level5: ['goblin_bat', 'mouse_assassin', 'goblin', 'boar', 'rabid_deer', 'young_wolf', 'ember_demon', 'crob'],
+    level8: ['goblin', 'boar', 'young_wolf', 'ember_demon', 'crob', 'boarian_marauder', 'troll_forest']
 }
 
 export function battle (playerChar) {

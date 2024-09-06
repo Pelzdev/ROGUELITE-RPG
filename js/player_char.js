@@ -230,9 +230,7 @@ export function useConsumable (consumable, arrPos) {
     console.log(`${gives} ${type} ${amount}`)
 
     if (gives === 'hpLeft') {
-        console.log('player hpLeft: ' + playerChar.hpLeft)
         playerChar.hpLeft += amount
-        console.log('player hpLeft: ' + playerChar.hpLeft)
         updateHp(playerChar)
     }
     if (gives === 'buff_drunk') {

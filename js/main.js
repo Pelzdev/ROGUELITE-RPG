@@ -30,29 +30,11 @@ newGameBtn.addEventListener('click', () => startNewGame())
 eventStartBtn.addEventListener('click', () => startEvent(playerChar))
 
 backToStartBtn.addEventListener('click', function () {
-    savePlayerChar(playerChar)
-    gameStartArea.style.display = 'block' // Show game start area
-    //closeFullPlayerInfo()
-    backToStartBtn.style.display = 'none'
-    eventStartBtn.style.display = 'none'
-    gameRow1.style.display = 'none'
-
-    if (playerChar.hpLeft < 1) {
-        newGameBtn.style.display = 'inline-block' // Show start new game button if char is dead
-        addCharToHallOfFame(playerChar)
-    }
-    if (playerChar.hpLeft > 0) continueGameBtn.style.display = 'inline-block' // Show continue game button if char is alive
-    showGameStartInfo()
+    clickBackToStartBtn()
 })
 
 continueGameBtn.addEventListener('click', function () {
-    continueGameBtn.style.display = 'none'
-    backToStartBtn.style.display = 'inline-block'
-    gameStartArea.style.display = 'none'
-    eventStartBtn.style.display = 'inline-block'
-    showFullPlayerInfo()
-    gameRow1.style.display = 'flex'
-    console.log('continue game...')
+    clickContinueGameBtn()
 })
 
 // ICONS
@@ -153,6 +135,31 @@ export function togglePopupDiv () {
 export function changeLocationBg () {
     let location = ''
     if (currentLocationType === 'woods') location = 'woods'
-    locationBg = `img/location_bg/${location}/${rndInt(0,7)}.png`;console.log(`changed BG, eventsDone: ${eventsDone}`);
+    locationBg = `img/location_bg/${location}/${rndInt(0,7)}.png`
     updateBg(playerSpriteInfoCard)
+}
+
+function clickBackToStartBtn () {
+    savePlayerChar(playerChar)
+    gameStartArea.style.display = 'block' // Show game start area
+    //closeFullPlayerInfo()
+    backToStartBtn.style.display = 'none'
+    eventStartBtn.style.display = 'none'
+    gameRow1.style.display = 'none'
+
+    if (playerChar.hpLeft < 1) {
+        newGameBtn.style.display = 'inline-block' // Show start new game button if char is dead
+        addCharToHallOfFame(playerChar)
+    }
+    if (playerChar.hpLeft > 0) continueGameBtn.style.display = 'inline-block' // Show continue game button if char is alive
+    showGameStartInfo()
+}
+
+function clickContinueGameBtn () {
+    continueGameBtn.style.display = 'none'
+    backToStartBtn.style.display = 'inline-block'
+    gameStartArea.style.display = 'none'
+    eventStartBtn.style.display = 'inline-block'
+    showFullPlayerInfo()
+    gameRow1.style.display = 'flex'
 }

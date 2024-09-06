@@ -342,6 +342,18 @@ export const wiki = {
             img: 'img/enemies/young_wolf.png',
             height: 100
         },
+        ember_demon: {
+            name: 'Ember Demon',
+            isPlayer: false,
+            level: 5, 
+            hpMax: 45, 
+            hpLeft: 45,
+            totalMods: {dmg: 6, def: 4, end: 5, str: 4, agi: 5, dex: 2, int: 7, chr: 2, lck: 4},
+            skills: ['fire_bolt_1'],
+            status: '',
+            img: 'img/enemies/ember_demon.png',
+            height: 100
+        },
         crob: {
             name: 'Crob',
             isPlayer: false,
@@ -379,7 +391,7 @@ export const wiki = {
             totalAttr: {str: 7, agi: 2, int: 2, chr: 1, lck: 1},
             skills: ['bash_1'],
             status: '',
-            img: 'img/enemies/bosses/troll_forest.png',
+            img: 'img/enemies/troll_forest.png',
         }
     },
     genderSymbol: {
