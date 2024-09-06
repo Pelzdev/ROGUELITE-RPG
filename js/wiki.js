@@ -268,7 +268,7 @@ export const wiki = {
             skills: ['attack'],
             status: '',
             img: 'img/enemies/forest_gecko.png',
-            height: 100
+            height: 140
         },
         goblin_bat: {
             name: 'Goblin Bat',
@@ -352,7 +352,19 @@ export const wiki = {
             skills: ['fire_bolt_1'],
             status: '',
             img: 'img/enemies/ember_demon.png',
-            height: 100
+            height: 130
+        },
+        goblin_frost_mage: {
+            name: 'Goblin Frost Mage',
+            isPlayer: false,
+            level: 5, 
+            hpMax: 45, 
+            hpLeft: 45,
+            totalMods: {dmg: 3, def: 3, end: 4, str: 3, agi: 6, dex: 3, int: 7, chr: 2, lck: 3},
+            skills: ['ice_bolt_1'],
+            status: '',
+            img: 'img/enemies/goblin_frost_mage.png',
+            height: 130
         },
         crob: {
             name: 'Crob',

@@ -18,7 +18,7 @@ let enemyType = 'enemy'
 let enemy = {}
 const enemyLists = {
     level1: ['mouse', 'forest_gecko', 'goblin_bat', 'mouse_assassin', 'goblin'],
-    level5: ['goblin_bat', 'mouse_assassin', 'goblin', 'boar', 'rabid_deer', 'young_wolf', 'ember_demon', 'crob'],
+    level5: ['goblin_bat', 'mouse_assassin', 'goblin', 'boar', 'rabid_deer', 'young_wolf', 'ember_demon', 'goblin_frost_mage', 'crob'],
     level8: ['goblin', 'boar', 'young_wolf', 'ember_demon', 'crob', 'boarian_marauder', 'troll_forest']
 }
 

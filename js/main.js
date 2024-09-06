@@ -37,44 +37,6 @@ continueGameBtn.addEventListener('click', function () {
     clickContinueGameBtn()
 })
 
-// ICONS
-const icons = {
-    gold: '<i class="icon-gold"></i>',
-    heart: '<i class="icon-heart"></i>',
-    weapon: '<i class="icon-weapon"></i>',
-    shield: '<i class="icon-shield"></i>',
-    amulet: '<i class="icon-amulet"></i>',
-    body: '<i class="icon-body"></i>',
-    gloves: '<i class="icon-gloves"></i>',
-    head: '<i class="icon-head"></i>',
-    ring: '<i class="icon-ring"></i>',
-    trinket: '<i class="icon-trinket"></i>',
-    boots: '<i class="icon-boots"></i>',
-    blood: '<i class="icon-blood"></i>',
-    charmed: '<i class="icon-charmed"></i>',
-    love: '<i class="icon-love"></i>',
-    sleep: '<i class="icon-sleep"></i>',
-    stunned: '<i class="icon-stunned"></i>',
-    cold: '<i class="icon-cold"></i>',
-    electric: '<i class="icon-electric"></i>',
-    fire: '<i class="icon-fire"></i>',
-    holy: '<i class="icon-holy"></i>',
-    nature: '<i class="icon-nature"></i>',
-    physical: '<i class="icon-physical"></i>',
-    poison: '<i class="icon-poison"></i>',
-    water: '<i class="icon-water"></i>',
-    chr: '<i class="icon-chr"></i>',
-    dex: '<i class="icon-dex"></i>',
-    end: '<i class="icon-end"></i>',
-    int: '<i class="icon-int"></i>',
-    lck: '<i class="icon-lck"></i>',
-    str: '<i class="icon-str"></i>',
-    agi: '<i class="icon-agi"></i>'
-}
-
-// #######################################
-
-
 function startNewGame () {
     backToStartBtn.style.display = 'inline-block'
     gameStartArea.style.display = 'none' // Hide game start area
