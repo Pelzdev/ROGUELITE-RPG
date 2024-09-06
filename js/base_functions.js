@@ -18,6 +18,13 @@ export function rndFromArr (arr) {
     return arr[rndInt(0, arr.length-1)]
 }
 
+export function removeIndexFromArr (string, array) {
+    let index = array.indexOf(string)
+    array.splice(index, 1)
+    
+    return array
+}
+
 // function returns a random value of a property of an object "cloned"
 export function rndGetPropertyCloned (obj) {
     let keys = Object.keys(obj)

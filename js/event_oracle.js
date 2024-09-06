@@ -1,48 +1,62 @@
 import {eventText, endEventBtn} from "./event.js"
 import {playerChar} from "./player_char.js"
-import {createNode} from "./base_functions.js"
+import {createNode, rndFromArr, removeIndexFromArr, rndInt} from "./base_functions.js"
+import {wiki} from "./wiki.js"
 
 let oracleName = 'Xander'
-let btnDiv = ''
+let eventBtnDiv = ''
 
 export function oracle () {
     const maxH = 80
     const charHeight = 190
     const spriteH = (charHeight / 200) * maxH
 
+    let newOrUpgradeSkill = 'upgrade'
+    let text = ''
     let skillArrPos = 0
-    
+    let newSkill = '' 
+
+    if (!playerChar.skills[1]) {newOrUpgradeSkill = 'new'}
+    else {skillArrPos = rndInt(0,1)}
+
     document.querySelector('.event-sprite-img').style.height = `${spriteH}%`
     document.querySelector('.event-sprite-img').src = 'img/events/oracle/0.png'
-    let text = createNode('p', {textContent: `${oracleName.toUpperCase()} will empower your ${playerChar.skills[0].name.toUpperCase()} skill.`})
-    btnDiv = createNode('div', {className: 'event-btn-div', style: {textAlign: 'center'}})
+    eventBtnDiv = createNode('div', {className: 'event-btn-div', style: {textAlign: 'center'}})
     let btn = createNode('button', {className: 'btn-medium', textContent: 'PROCEED'})
-    btn.addEventListener('click', () => upgradeSkill(playerChar, skillArrPos))
-    btnDiv.append(btn)
-    eventText.append(text, btnDiv)
+    if (newOrUpgradeSkill === 'upgrade') {
+        text = createNode('p', {textContent: `${oracleName.toUpperCase()} will empower your ${playerChar.skills[skillArrPos].name.toUpperCase()} skill.`})
+        btn.addEventListener('click', () => upgradeSkill(playerChar, skillArrPos))
+    }
+    if (newOrUpgradeSkill === 'new') {
+        newSkill = getRndAvailableSkill()
+        text = createNode('p', {textContent: `${oracleName.toUpperCase()} will teach you the skill ${newSkill.name.toUpperCase()}.`})
+        btn.addEventListener('click', () => giveNewSkill(playerChar, newSkill))
+    }
+    
+    eventBtnDiv.append(btn)
+    eventText.append(text, eventBtnDiv)
 }
 
 function upgradeSkill (playerChar, arrPos) {
-    btnDiv.style.display = 'none'
+    eventBtnDiv.style.display = 'none'
     let text = ''
     let skill = playerChar.skills[arrPos]
     let oldSkill = structuredClone(playerChar.skills[arrPos])
 
     if ([1,5,10].includes(skill.level)) {
-        //console.log(`${skill.name} has 1 roman numeral`)
         skill.name = skill.name.slice(0, -1)
     }
-    if ([2,4,6,9,11,15].includes(skill.level)) {
-        //console.log(`${skill.name} has 2 roman numerals`)
+    if ([2,4,6,9,11,15,20].includes(skill.level)) {
         skill.name = skill.name.slice(0, -2)
     }
-    if ([3,7,12,14].includes(skill.level)) {
-        //console.log(`${skill.name} has 3 roman numerals`)
+    if ([3,7,12,14,16].includes(skill.level)) {
         skill.name = skill.name.slice(0, -3)
     }
-    if ([8,13,17].includes(skill.level)) {
-        //console.log(`${skill.name} has 4 roman numerals`)
+    if ([8,13,17,19].includes(skill.level)) {
         skill.name = skill.name.slice(0, -4)
+    }
+    if ([18].includes(skill.level)) {
+        skill.name = skill.name.slice(0, -5)
     }
     // Add correct roman numeral to name, give skill +1 level, make text
     skill.name += romanNumerals[skill.level + 1]
@@ -63,24 +77,25 @@ function upgradeSkill (playerChar, arrPos) {
         text = createNode('p', {textContent: `This skill now does damage. Damage upgraded from 0 to ${skill.power}.`})
         eventText.append(text)
     }
-
     endEventBtn.style.display = 'inline-block' // end event btn
 }
 
-let romanNumerals = {
-    1: 'I',
-    2: 'II',
-    3: 'III',
-    4: 'VI',
-    5: 'V',
-    6: 'VI',
-    7: 'VII',
-    8: 'VIII',
-    9: 'IX',
-    10: 'X',
-    11: 'XI',
-    12: 'XII',
-    13: 'XIII',
-    14: 'XIV',
-    15: 'XV'
+const romanNumerals = {1: 'I', 2: 'II', 3: 'III', 4: 'VI', 5: 'V', 6: 'VI', 7: 'VII', 8: 'VIII', 9: 'IX', 10: 'X', 11: 'XI',12: 'XII',13: 'XIII',14: 'XIV',15: 'XV',16: 'XVI', 17: 'XVII', 18: 'XVIII', 19: 'XIX', 20: 'XX'}
+
+function giveNewSkill (playerChar, newSkill) {
+    playerChar.skills[1] = newSkill
+    playerChar.skills[1].level = 1
+    eventBtnDiv.style.display = 'none'
+    let text = createNode('p', {textContent: `${oracleName} taught you ${newSkill.name.toUpperCase()}!`})
+    eventText.append(text)
+    endEventBtn.style.display = 'inline-block' // end event btn
+}
+
+function getRndAvailableSkill () {
+    // make array of skills excluding 'attack' and the skill player already has
+    let availableSkills = removeIndexFromArr('attack', Object.keys(wiki.skills))
+    availableSkills = removeIndexFromArr(playerChar.skills[0], availableSkills)
+    let newSkill = structuredClone(wiki.skills[rndFromArr(availableSkills)])
+
+    return newSkill
 }

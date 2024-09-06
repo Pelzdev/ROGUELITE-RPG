@@ -263,9 +263,15 @@ function rollPower(skill, user, target)  {
  
     // Actual calculation of dmg/heal
     if (skill.isSpell) {
-        powerCalc = (skill.power + (attrValue/2)) / 4
+        powerCalc = (skill.power + (attrValue/2)) / 3
     } else {
         powerCalc = ( userDmg + (attrValue/3) + (skill.power/5) / targetDef) // if pow 30, attr 10, user.dmg 5, enemy.def 2: 5 + 3 + 6 / 2 = 7
+    }
+    // Check resistances
+    if (skill.target !== 'self') {
+        let skillElement = skill.element
+        let targetResMulti = (target.totalMods[skillElement + 'Res'] / 100) || 0 // if no resistance mod present, resistance is 0(%)
+        powerCalc = powerCalc - (powerCalc * targetResMulti)
     }
 
     let power = 1 + Math.round(rndInt(powerCalc*0.75, powerCalc))

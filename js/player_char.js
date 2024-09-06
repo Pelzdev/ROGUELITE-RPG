@@ -1,5 +1,5 @@
 import {wiki} from "./wiki.js"
-import {rndGetPropertyCloned, rndFromArr, rndInt} from "./base_functions.js"
+import {rndGetPropertyCloned, rndFromArr, rndInt, removeIndexFromArr} from "./base_functions.js"
 import {updateBg} from "./main.js"
 import {makePlayerInfo} from "./player_info.js"
 
@@ -171,19 +171,19 @@ function getMod (item) {
     let availableMods = Object.keys(wiki.baseMods)
     // Remove weapon mods from non-weapons
     if (item.type !== 'weapon') {
-        removeModFromArr('dmg', availableMods)
+        removeIndexFromArr('dmg', availableMods)
     }
     // Remove already used mods
     for (const mod of Object.keys(item.mods)) {
-        if (mod !== 'dmg') availableMods = removeModFromArr(mod, availableMods)
+        if (mod !== 'dmg') availableMods = removeIndexFromArr(mod, availableMods)
     }
     // Choose mod from available mods (after filtering availableMods)
     let mod = rndFromArr(availableMods)
     // Check tier of mod roll
     let multiplier = 1
     let rndNum = rndInt(1,10)
-    if (rndNum >= 5) {multiplier = 1.5}
-    else if (rndNum >= 8) {multiplier = 2}
+    if (rndNum >= 6 && rndNum <= 7) {multiplier = 1.5}
+    else if (rndNum >= 8 && rndNum <= 9) {multiplier = 2}
     else {multiplier = 2.5}
     
     let roll = rndInt(1,3) * multiplier
@@ -191,13 +191,6 @@ function getMod (item) {
 
     
     item.mods[mod] = Math.round(roll)
-}
-
-function removeModFromArr (string, array) {
-    let index = array.indexOf(string)
-    array.splice(index, 1)
-    
-    return array
 }
 
 export function removePlayerStatus () {
