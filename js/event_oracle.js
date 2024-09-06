@@ -29,6 +29,7 @@ export function oracle () {
     }
     if (newOrUpgradeSkill === 'new') {
         newSkill = getRndAvailableSkill()
+        newSkill.originalName = newSkill.name
         text = createNode('p', {textContent: `${oracleName.toUpperCase()} will teach you the skill ${newSkill.name.toUpperCase()}.`})
         btn.addEventListener('click', () => giveNewSkill(playerChar, newSkill))
     }
@@ -94,7 +95,7 @@ function giveNewSkill (playerChar, newSkill) {
 function getRndAvailableSkill () {
     // make array of skills excluding 'attack' and the skill player already has
     let availableSkills = removeIndexFromArr('attack', Object.keys(wiki.skills))
-    availableSkills = removeIndexFromArr(playerChar.skills[0], availableSkills)
+    availableSkills = removeIndexFromArr(playerChar.skills[0].originalName, availableSkills)
     let newSkill = structuredClone(wiki.skills[rndFromArr(availableSkills)])
 
     return newSkill

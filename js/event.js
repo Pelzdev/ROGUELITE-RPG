@@ -1,4 +1,4 @@
-import {updateBg, changeLocationBg, newGameBtn, eventStartBtn} from "./main.js"
+import {updateBg, changeLocationBg, newGameBtn, eventStartBtn, backToStartBtn} from "./main.js"
 import {rndInt} from "./base_functions.js"
 import {trainer} from "./event_trainer.js"
 import {battle} from "./event_battle.js"
@@ -68,22 +68,22 @@ export function startEvent (playerChar) {
     eventHeader.textContent = `${currentEvent.toUpperCase()}!`
     eventDiv.classList.add(currentEvent)
     
+
     closePlayerInfoElements()
+    backToStartBtn.style.display = 'none'
     eventStartBtn.style.display = 'none'
     eventTextContainer.style.display = 'block'
 }
 
 export function endEvent(playerChar) {
+    backToStartBtn.style.display = 'inline-block'
     emptyAndCloseEventElements(currentEvent)
-    // Remove player status
-    removePlayerStatus()
-    // Remove 1 from buff timeLeft, if it reaches 0, remove buff
-    decreaseBuffDuration()
+    removePlayerStatus() // Remove player status
+    decreaseBuffDuration() // Remove 1 from buff timeLeft, if it reaches 0, remove buff
     // Remove the class added for event
     eventDiv.classList.remove(currentEvent)
     
     if (!playerCharIsAlive()) {
-        newGameBtn.style.display = 'inline-block'
         eventStartBtn.style.display = 'none'
     } else {
         eventStartBtn.style.display = 'inline-block'

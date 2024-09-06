@@ -229,3 +229,9 @@ export function showFullPlayerInfo() {
     playerCharInfoEl1.style.display = 'block'
     playerCharInfoEl2.style.display = 'block'
 }
+
+export function closeFullPlayerInfo () {
+    playerSpriteInfoCard.style.display = 'none'
+    playerCharInfoEl1.style.display = 'none'
+    playerCharInfoEl2.style.display = 'none'
+}

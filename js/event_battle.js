@@ -1,4 +1,4 @@
-import {rndInt, rndFromArr, createNode, shuffleArray} from "./base_functions.js"
+import {rndInt, rndFromArr, shuffleArray} from "./base_functions.js"
 import {wiki} from "./wiki.js"
 import {fadeOutEl, hpPerLvlUp} from "./main.js"
 import {playerChar, makePlayerCharDiv, getItem, getChar, updateHp} from "./player_char.js"
@@ -13,6 +13,7 @@ enemyImgContainer.addEventListener("click", function (e) {
 });
 
 export let gotEqLoot = false
+
 let enemyType = 'enemy'
 let enemy = {}
 const enemyLists = {
@@ -297,7 +298,8 @@ function giveExpAndUpdate(char, enemy) {
         text = `${char.name} found new equipment1`
         eventText.append(createP(text, 'battle-text-row'))
     }
-   
+    
+    playerChar.enemiesKilled++
     text = `${char.name} got ${givenExp} exp and ${givenGold} gold!`
     eventText.append(createP(text, 'battle-text-row'))
     char.gold += givenGold

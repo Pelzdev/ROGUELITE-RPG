@@ -21,6 +21,7 @@ export function getChar (playerOrEnemy) {
         food: [wiki.food.small_potion],
         status: '',
         buff: false,
+        enemiesKilled: 0,
         race: rndGetPropertyCloned(wiki.races),
         job: rndGetPropertyCloned(wiki.jobs),
         trait: rndGetPropertyCloned(wiki.traits),

@@ -22,7 +22,17 @@ TODO:
 - SAVE LOCALLY (and add continue)
 
 
+// LOCAL STORAGE STUFF: (https://blog.logrocket.com/localstorage-javascript-complete-guide/)
+How does localStorage work?
+You’ve heard it repeatedly by now — localStorage stores data. And, if you’re storing data, it means you may need to retrieve it later. In this section, we’ll explore exactly how localStorage works. Here’s a rundown of how it works:
 
+setItem(): Adds key and value to localStorage
+getItem(): Retrieves/gets items from localStorage
+removeItem(): Removes an item from localStorage
+clear(): Clears all data from localStorage
+key(): Passes a number to retrieve the key of a localStorage
+
+Agoknee:  do not store every tiny item in a separate index of localStorage. utilize JSON.stringify() and JSON.parse() to store arrays/objects.
 
 
 

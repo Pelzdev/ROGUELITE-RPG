@@ -1,5 +1,5 @@
 import {createNode} from "./base_functions.js"
-import {gameRow1, eventStartBtn} from "./main.js"
+import {gameRow1, eventStartBtn, backToStartBtn} from "./main.js"
 import {playerChar, makePlayerCharDiv, playerSpriteInfoCard} from "./player_char.js"
 import {emptyAndCloseEventElements, currentEvent} from "./event.js"
 import {showFullPlayerInfo} from "./player_info.js"
@@ -49,6 +49,7 @@ function eqChoiceClick (choice) {
         playerChar.eq[currentEqLoot.type] = currentEqLoot
         makePlayerCharDiv(playerChar)
     }
+    backToStartBtn.style.display = 'inline-block'
     document.querySelector('.compare-eq-window').remove()
     showFullPlayerInfo()
     eventStartBtn.style.display = 'inline-block'

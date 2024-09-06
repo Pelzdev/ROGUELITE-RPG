@@ -1,21 +1,23 @@
 import {rndInt, getElementSize, gameW, gameH, portrait} from "./base_functions.js"
 import {playerChar, getChar, makePlayerCharDiv, playerSpriteInfoCard} from "./player_char.js"
 import {startEvent, eventsDone} from "./event.js"
-import {playerCharInfoEl1} from "./player_info.js"
+import {playerCharInfoEl1, playerCharInfoEl2, showFullPlayerInfo} from "./player_info.js"
+import {savePlayerChar, addCharToHallOfFame} from "./save_and_load.js"
+import {showGameStartInfo, gameStartArea} from "./game_start.js"
 
 // ELEMENTS 
-export const gameStartArea = document.getElementById('game-start-area') // Area shown before clicking start, to be added here is overall player stuff like saving, highscore etc
 export const gameDiv = document.getElementById('game')
-export const gameRow1 = document.getElementById('game-row-1') // Area when playing, aka seeing the char, battles events etc
 export const navbarTop = document.getElementById('button-bar')
 export const newGameBtn = document.getElementById('new-game-btn') // Formerly getPlayerCharBtn
+export const continueGameBtn = document.getElementById('continue-game-btn') // 
+export const backToStartBtn = document.getElementById('back-to-start-btn')
+export const gameRow1 = document.getElementById('game-row-1') // Area when playing, aka seeing the char, battles events etc
 export const eventStartBtn = document.getElementById('event-start-btn')
 export const popupDiv = document.querySelector('.popup-div')
 export const popupHeader = document.querySelector('.popup-header')
 export const popupGraphic = document.querySelector('.popup-graphic')
 export const popupText = document.querySelector('.popup-text')
-// ELEMENTS (Player)
-// ELEMENTS (Event)
+
 // GAMEPLAY 
 export let currentLocationType = 'woods'
 export let currentLocationName = 'Wolfroy Grove'
@@ -24,8 +26,34 @@ export let innBg = 'img/location_bg/woods/bg_inn.png'
 export const hpPerLvlUp = 5
 export const sizeMulti = 1.3
 
-eventStartBtn.addEventListener("click", () => startEvent(playerChar))
-newGameBtn.addEventListener("click", () => startNewGame())
+newGameBtn.addEventListener('click', () => startNewGame())
+eventStartBtn.addEventListener('click', () => startEvent(playerChar))
+
+backToStartBtn.addEventListener('click', function () {
+    savePlayerChar(playerChar)
+    gameStartArea.style.display = 'block' // Show game start area
+    //closeFullPlayerInfo()
+    backToStartBtn.style.display = 'none'
+    eventStartBtn.style.display = 'none'
+    gameRow1.style.display = 'none'
+
+    if (playerChar.hpLeft < 1) {
+        newGameBtn.style.display = 'inline-block' // Show start new game button if char is dead
+        addCharToHallOfFame(playerChar)
+    }
+    if (playerChar.hpLeft > 0) continueGameBtn.style.display = 'inline-block' // Show continue game button if char is alive
+    showGameStartInfo()
+})
+
+continueGameBtn.addEventListener('click', function () {
+    continueGameBtn.style.display = 'none'
+    backToStartBtn.style.display = 'inline-block'
+    gameStartArea.style.display = 'none'
+    eventStartBtn.style.display = 'inline-block'
+    showFullPlayerInfo()
+    gameRow1.style.display = 'flex'
+    console.log('continue game...')
+})
 
 // ICONS
 const icons = {
@@ -66,9 +94,12 @@ const icons = {
 
 
 function startNewGame () {
+    backToStartBtn.style.display = 'inline-block'
     gameStartArea.style.display = 'none' // Hide game start area
     gameRow1.style.display = 'flex' // Show the area for PLAYING aka seeing char, battles etc
+    playerSpriteInfoCard.style.display = 'inline-block'
     playerCharInfoEl1.style.display = 'inline-block'
+    playerCharInfoEl2.style.display = 'inline-block'
     getChar()
     makePlayerCharDiv()
     eventStartBtn.style.display = 'inline'
