@@ -3,30 +3,23 @@
 - Drunk buff added, does nothing for now.
 
 ### Attribute stuff ###
-CHR now gives a discount on trainers and inn costs (-chr to gold cost)
-END now gives more hp
-INT now gives more exp
+CHR gives a discount on trainers and inn costs (-chr% to gold cost)
+END gives more hp
+INT gives more exp
 LCK gives chance to crit
 
 
 TODO:
-- IMPORT js to main instead of all in html, see below
+[X] IMPORT js to main instead of all in html, see below
 [X] ADD INFO POPUP for players skill
 [X] ADD END and DEX TRAINER
-- INCORPORATE DMG AND DEF
-- add simple EQ (weap / armor / trinket?) ONGOING
+[X] INCORPORATE DMG AND DEF
+[X] add simple EQ (weap / armor / trinket?)
 - add skillcheck events (aka get something if a certain attribute is high enough)
-[X]add skilltrainers that boosts skills
+[X] add skilltrainers that boosts skills
 - icons for status?
 - Running log that player can look at
 - SAVE LOCALLY (and add continue)
-
-
-// My "states": When going to playerCharInfo need to close:
-
-
-
-
 
 
 
@@ -34,14 +27,6 @@ TODO:
 
 
 // DMG Calc stuff
-//Current 
-let dmgCalcCURRENT = Math.round(skill.power/5 * attrMulti) // if pow is 30 and attr 10: 6.6 | if pow is 60 and attr is 20: 14.4
-let dmgCalcNEW = (skill.power/5 + user.dmg) * attrMulti // if pow 30, dmg is 5 and attr 10: does 12.1 | if pow 30, dmg is 8 and attr 10: does 15,4
-
-
-
-
-
 // PKMN DMG CALC
 function pkmnDmgCalc (skill, user, target) {
     let critical = 1

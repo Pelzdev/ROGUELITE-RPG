@@ -1,7 +1,7 @@
 import {updateBg, changeLocationBg, newGameBtn, eventStartBtn} from "./main.js"
 import {rndInt} from "./base_functions.js"
 import {trainer} from "./event_trainer.js"
-import {battle, gotEqLoot} from "./event_battle.js"
+import {battle} from "./event_battle.js"
 import {inn} from "./event_inn.js"
 import {healer} from "./event_healer.js"
 import {makePlayerCharDiv, removePlayerStatus, decreaseBuffDuration, playerCharIsAlive} from "./player_char.js"

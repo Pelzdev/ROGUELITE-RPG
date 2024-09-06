@@ -8,7 +8,9 @@ import {makePlayerCharDiv} from "./player_char.js"
 let innCost = 15
 
 export function inn (playerChar) {
-    innCost = rndInt(25, 35)
+    innCost = rndInt(30, 40)
+    let chrDiscount = Math.round(innCost * (playerChar.totalMods.chr / 100))
+    innCost -= chrDiscount
 
     const maxH = 80
     const charHeight = 180
@@ -21,9 +23,9 @@ export function inn (playerChar) {
     document.querySelector('.event-sprite-img').style.height = `${spriteH}%`
     document.querySelector('.event-sprite-img').src = 'img/events/inn/innkeeper.png'
     // Event text in text-div
-    let text1 = createNode('span', {textContent: `The inn looks inviting. Do you want to pay innkeeper Aerion ${innCost} `})
+    let text1 = createNode('span', {textContent: `The inn looks inviting. Do you want to pay innkeeper Aerion ${innCost}`})
     let icon = createNode('i', {className:  'icon-gold icon-inn-1'})
-    let text2 = createNode('span', {textContent: ` (discounted by ${playerChar.totalMods.chr}), to stay the night? You have ${playerChar.gold}. `})
+    let text2 = createNode('span', {textContent: ` (discounted by ${chrDiscount}), to stay the night? You have ${playerChar.gold}`})
     let icon2 = createNode('i', {className:  'icon-gold icon-inn-2'})
     // Buttons inside text-div
     let btnDiv = createNode('div', {className: 'event-btn-div', style: {display: 'inline-block'}})

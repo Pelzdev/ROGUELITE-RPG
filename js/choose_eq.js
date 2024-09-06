@@ -1,9 +1,8 @@
-import {createNode, rndGetPropertyCloned} from "./base_functions.js"
+import {createNode} from "./base_functions.js"
 import {gameRow1, eventStartBtn} from "./main.js"
-import {playerChar, makePlayerCharDiv, playerSpriteInfoCard, playerSpriteContainer} from "./player_char.js"
+import {playerChar, makePlayerCharDiv, playerSpriteInfoCard} from "./player_char.js"
 import {emptyAndCloseEventElements, currentEvent} from "./event.js"
 import {showFullPlayerInfo} from "./player_info.js"
-import {wiki} from "./wiki.js"
 
 // What current loot is
 let currentEqLoot

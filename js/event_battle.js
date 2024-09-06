@@ -18,7 +18,7 @@ let enemy = {}
 const enemyLists = {
     level1: ['mouse', 'forest_gecko', 'goblin_bat', 'mouse_assassin', 'goblin'],
     level5: ['forest_gecko', 'goblin_bat', 'mouse_assassin', 'goblin', 'boar', 'rabid_deer', 'young_wolf', 'crob'],
-    level8: ['mouse_assassin', 'goblin', 'boar', 'young_wolf', 'crob', 'boarian_marauder', 'troll_forest']
+    level8: ['goblin', 'boar', 'young_wolf', 'crob', 'boarian_marauder', 'troll_forest']
 }
 
 export function battle (playerChar) {
@@ -71,7 +71,7 @@ function doBattleTurns(playerChar) {
     let second = attOrder[1]
 
     if (enemy.hpLeft < 1 || playerChar.hpLeft < 1) {
-        eventText.append(createNode('p', {className: 'battle-text-row', textContent: 'You cannot attack.'}))
+        //eventText.append(createNode('p', {className: 'battle-text-row', textContent: 'You cannot attack.'}))
         return
     }
     // FIRST attacker attacks! 

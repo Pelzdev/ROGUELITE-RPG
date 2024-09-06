@@ -1,7 +1,6 @@
-import {wiki} from "./wiki.js"
 import {rndInt, getElementSize, gameW, gameH, portrait} from "./base_functions.js"
 import {playerChar, getChar, makePlayerCharDiv, playerSpriteInfoCard} from "./player_char.js"
-import {startEvent, endEvent, eventsDone} from "./event.js"
+import {startEvent, eventsDone} from "./event.js"
 import {playerCharInfoEl1} from "./player_info.js"
 
 // ELEMENTS 
