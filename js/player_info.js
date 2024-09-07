@@ -5,9 +5,10 @@ import {playerChar, useConsumable, playerSpriteContainer, playerSpriteInfoCard} 
 export const playerCharInfoEl1 = document.getElementById('player-char-info1')
 export const playerCharInfoEl2 = document.getElementById('player-char-info2')
 export const playerEquipmentDiv = document.querySelector('.pc-eq-info')
+export const playerSkillDiv = document.querySelector('.pc-skill-info')
 
-document.querySelector('.pc-info-line.skill-0').addEventListener('click', () => clickSkill(playerChar, 0))
-document.querySelector('.pc-info-line.skill-1').addEventListener('click', () => clickSkill(playerChar, 1))
+//document.querySelector('.pc-info-line.skill-0').addEventListener('click', () => clickSkill(playerChar, 0))
+//document.querySelector('.pc-info-line.skill-1').addEventListener('click', () => clickSkill(playerChar, 1))
 
 const foodSlots = 3
 for (let i = 0; i < foodSlots; i++) {
@@ -29,13 +30,7 @@ export function makePlayerInfo (playerChar) {
     document.querySelector('.pc-info-line.gold').textContent = `${playerChar.gold}`
     document.querySelector('.pc-info-line.buff').textContent = `BUFF: ${buffText}`
     // SKILLS
-    for (let i = 0; i < playerChar.skills.length; i++) {
-        document.querySelector(`.pc-info-line.skill-${i}`).textContent = ''
-        let skillIcon = createNode('i', {className: `icon-${playerChar.skills[i].element}`})
-        let attributeIcon = createNode('i', {className: `icon-${playerChar.skills[i].attribute}`, style: {marginRight: '5px'}})
-        let skillText = createNode('span', {textContent: `${playerChar.skills[i].name.toUpperCase()}`})
-        document.querySelector(`.pc-info-line.skill-${i}`).append(skillIcon, attributeIcon, skillText)
-    }
+    makeSkillEl(playerChar, playerSkillDiv)
     makeEqElement(playerChar, playerEquipmentDiv)
     
     for (let i = 0; i < foodSlots; i++) {
@@ -74,6 +69,9 @@ function makeResistanceEl (pc, parentEl) {
     parentEl.innerHTML = ''
     let resTypes = ['physical', 'fire', 'cold', 'electric', 'water', 'nature', 'poison', 'holy', 'love']
 
+    let headerText = createNode('p', {textContent: 'RESISTS'})
+    parentEl.append (headerText)
+
     resTypes.forEach((item) => {
         let modName = `${item}Res`
         let resIcon = createNode('i', {className: `icon-${item}`})
@@ -81,6 +79,22 @@ function makeResistanceEl (pc, parentEl) {
         resDiv.prepend(resIcon)
         parentEl.append(resDiv)
     });
+}
+
+function makeSkillEl (playerChar, targetElement) {
+    targetElement.innerHTML = ''
+    let headerText = createNode('p', {textContent: 'SKILLS'})
+    targetElement.append(headerText)
+
+    for (let i = 0; i < playerChar.skills.length; i++) {
+        let skillRow = createNode('div', {className: 'pc-info-line'})
+        let skillIcon = createNode('i', {className: `icon-${playerChar.skills[i].element}`})
+        let attributeIcon = createNode('i', {className: `icon-${playerChar.skills[i].attribute}`, style: {marginRight: '5px'}})
+        let skillText = createNode('span', {textContent: `${playerChar.skills[i].name.toUpperCase()}`, className: 'clickable'})
+        skillRow.append(skillIcon, attributeIcon, skillText)
+        skillRow.addEventListener('click', () => clickSkill(playerChar, i))
+        targetElement.append(skillRow)
+    }
 }
 
 playerEquipmentDiv.addEventListener('click', function (event) {
@@ -97,6 +111,9 @@ playerEquipmentDiv.addEventListener('click', function (event) {
 function makeEqElement (playerChar, targetElement) {
     targetElement.innerHTML = ''
     let eqTypes = ['head', 'weapon', 'body', 'gloves', 'trinket', 'boots']
+
+    let headerText = createNode('p', {textContent: 'EQUIP'})
+    targetElement.append(headerText)
 
     eqTypes.forEach((item) => {
         if (playerChar.eq[item]) {

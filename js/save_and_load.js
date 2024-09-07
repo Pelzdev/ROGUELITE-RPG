@@ -1,3 +1,8 @@
+import { showGameStartInfo } from "./game_start.js"
+import { setPlayerChar, makePlayerCharDiv, playerChar } from "./player_char.js"
+import { makePlayerInfo } from "./player_info.js"
+import { newGameBtn, continueGameBtn } from "./main.js"
+
 export function savePlayerChar (playerChar) {
     localStorage.setItem('currentChar', JSON.stringify(playerChar))
 }
@@ -34,3 +39,16 @@ export function loadHallOfFame () {
 export function clearGameHistory () {
     localStorage.removeItem("hallOfFameArray")
 }
+
+
+// Check if current char on page load
+document.addEventListener("DOMContentLoaded", function(event) {
+    if (currentCharExists()) {
+        showGameStartInfo ()
+        setPlayerChar(loadCurrentChar())
+        makePlayerCharDiv()
+        makePlayerInfo(playerChar)
+        newGameBtn.style.display = 'none'
+        continueGameBtn.style.display = 'inline-block'
+    }
+});

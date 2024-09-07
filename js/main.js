@@ -1,7 +1,7 @@
 import {rndInt, getElementSize, gameW, gameH, portrait} from "./base_functions.js"
 import {playerChar, getChar, makePlayerCharDiv, playerSpriteInfoCard} from "./player_char.js"
 import {startEvent} from "./event.js"
-import {playerCharInfoEl1, playerCharInfoEl2, showFullPlayerInfo} from "./player_info.js"
+import {playerCharInfoEl1, playerCharInfoEl2} from "./player_info.js"
 import {savePlayerChar, addCharToHallOfFame} from "./save_and_load.js"
 import {showGameStartInfo, gameStartArea} from "./game_start.js"
 
@@ -104,7 +104,6 @@ export function changeLocationBg () {
 function clickBackToStartBtn () {
     savePlayerChar(playerChar)
     gameStartArea.style.display = 'block' // Show game start area
-    //closeFullPlayerInfo()
     backToStartBtn.style.display = 'none'
     eventStartBtn.style.display = 'none'
     gameRow1.style.display = 'none'
@@ -122,6 +121,5 @@ function clickContinueGameBtn () {
     backToStartBtn.style.display = 'inline-block'
     gameStartArea.style.display = 'none'
     eventStartBtn.style.display = 'inline-block'
-    showFullPlayerInfo()
     gameRow1.style.display = 'flex'
 }

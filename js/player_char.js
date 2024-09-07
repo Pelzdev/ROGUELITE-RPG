@@ -187,14 +187,13 @@ function getMod (item) {
     // Check tier of mod roll
     let multiplier = 1
     let rndNum = rndInt(1,10)
-    if (rndNum >= 6 && rndNum <= 7) {multiplier = 1.5}
-    else if (rndNum >= 8 && rndNum <= 9) {multiplier = 2}
-    else {multiplier = 2.5}
+    if (rndNum >= 6 && rndNum <= 7) {multiplier = 1.33}
+    else if (rndNum >= 8 && rndNum <= 9) {multiplier = 1.66}
+    else {multiplier = 2}
     
     let roll = rndInt(1,3) * multiplier
     if (mod.includes('Res')) roll = rndInt(1, 10) * multiplier// Resistances can roll differently, will add to rolls later
 
-    
     item.mods[mod] = Math.round(roll)
 }
 
