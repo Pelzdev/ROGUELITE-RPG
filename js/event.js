@@ -1,12 +1,13 @@
-import {updateBg, changeLocationBg, newGameBtn, eventStartBtn, backToStartBtn} from "./main.js"
-import {rndInt} from "./base_functions.js"
-import {trainer} from "./event_trainer.js"
-import {battle} from "./event_battle.js"
-import {inn} from "./event_inn.js"
-import {healer} from "./event_healer.js"
-import {makePlayerCharDiv, removePlayerStatus, decreaseBuffDuration, playerCharIsAlive} from "./player_char.js"
-import {oracle} from "./event_oracle.js"
-import {closePlayerInfoElements, playerCharInfoEl1, playerCharInfoEl2} from "./player_info.js"
+import { updateBg, changeLocationBg, eventStartBtn, backToStartBtn } from "./main.js"
+import { rndInt } from "./base_functions.js"
+import { trainer } from "./event_trainer.js"
+import { battle } from "./event_battle.js"
+import { inn } from "./event_inn.js"
+import { healer } from "./event_healer.js"
+import { makePlayerCharDiv, removePlayerStatus, decreaseBuffDuration, playerCharIsAlive } from "./player_char.js"
+import { oracle } from "./event_oracle.js"
+import { closePlayerInfoElements, playerCharInfoEl1, playerCharInfoEl2 } from "./player_info.js"
+import { savePlayerChar } from "./save_and_load.js"
 
 export const eventDiv = document.querySelector('.event-div')
 export const eventHeader = document.getElementById('event-header')
@@ -93,6 +94,7 @@ export function endEvent(playerChar) {
         changeLocationBg()
     }
 
+    savePlayerChar(playerChar)
     makePlayerCharDiv(playerChar)
     playerCharInfoEl1.style.display = 'block'
     playerCharInfoEl2.style.display = 'block'
