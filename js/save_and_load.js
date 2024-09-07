@@ -6,6 +6,12 @@ export function loadCurrentChar () {
     return JSON.parse(localStorage.getItem('currentChar'))
 }
 
+export function currentCharExists() {
+    if (localStorage.hasOwnProperty('currentChar')) {
+        return true
+    } else return false
+}
+
 export function addCharToHallOfFame (playerChar) {
     let hallOfFameArray = JSON.parse(localStorage.getItem('hallOfFameArray')) // load the array
     

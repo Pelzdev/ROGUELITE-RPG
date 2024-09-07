@@ -10,6 +10,7 @@ LCK gives chance to crit
 
 
 TODO:
+- PUT IN ON PAGE LOAD: IF CURRENT CHAR IS SAVED: LOAD IT, SET PLAYERCHAR TO IT, DONT SHOW START BUTTON, SHOW CONTINUE
 [X] IMPORT js to main instead of all in html, see below
 [X] ADD INFO POPUP for players skill
 [X] ADD END and DEX TRAINER

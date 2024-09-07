@@ -1,6 +1,6 @@
 import {rndInt, getElementSize, gameW, gameH, portrait} from "./base_functions.js"
 import {playerChar, getChar, makePlayerCharDiv, playerSpriteInfoCard} from "./player_char.js"
-import {startEvent, eventsDone} from "./event.js"
+import {startEvent} from "./event.js"
 import {playerCharInfoEl1, playerCharInfoEl2, showFullPlayerInfo} from "./player_info.js"
 import {savePlayerChar, addCharToHallOfFame} from "./save_and_load.js"
 import {showGameStartInfo, gameStartArea} from "./game_start.js"

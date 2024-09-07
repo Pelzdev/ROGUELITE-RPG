@@ -12,6 +12,10 @@ export const playerExpbarText = document.getElementById('pc-exp-text')
 
 export let playerChar = {}
 
+export function setPlayerChar (char) {
+    playerChar = char
+}
+
 export function getChar (playerOrEnemy) {
     let char = {
         isPlayer: true,

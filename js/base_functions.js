@@ -1,4 +1,8 @@
-import {gameDiv, popupDiv, centerPopup} from "./main.js"
+import {gameDiv, popupDiv, centerPopup, newGameBtn, continueGameBtn} from "./main.js"
+import { loadCurrentChar, currentCharExists } from "./save_and_load.js"
+import { setPlayerChar, playerChar, makePlayerCharDiv } from "./player_char.js"
+import { makePlayerInfo } from "./player_info.js"
+import { showGameStartInfo } from "./game_start.js"
 
 export let gameW = 0
 export let gameH = 0
@@ -66,6 +70,7 @@ window.onresize = function() {
 // CHECK PORTRAIT/LANDSCAPE OF DEVICE
 document.addEventListener("DOMContentLoaded", function(event){
     console.log(`DOMContentloaded`)
+
     setTimeout( function(){ window.scrollTo(0, 1); }, 100 );
     gameW = getElementSize(gameDiv, 'width')
     gameH = getElementSize(gameDiv, 'height')
@@ -130,3 +135,16 @@ export function shuffleArray (array) {
     }
     return shuffled
 }
+
+
+
+document.addEventListener("DOMContentLoaded", function(event) {
+    if (currentCharExists()) {
+        showGameStartInfo ()
+        setPlayerChar(loadCurrentChar())
+        makePlayerCharDiv()
+        makePlayerInfo(playerChar)
+        newGameBtn.style.display = 'none'
+        continueGameBtn.style.display = 'inline-block'
+    }
+});
