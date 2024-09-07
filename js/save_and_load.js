@@ -48,7 +48,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
         setPlayerChar(loadCurrentChar())
         makePlayerCharDiv()
         makePlayerInfo(playerChar)
-        newGameBtn.style.display = 'none'
-        continueGameBtn.style.display = 'inline-block'
+        if (loadCurrentChar().hpLeft < 1) {
+            newGameBtn.style.display = 'inline-block'
+            continueGameBtn.style.display = 'none'
+        } else {
+            newGameBtn.style.display = 'none'
+            continueGameBtn.style.display = 'inline-block'
+        }
     }
 });
