@@ -39,7 +39,7 @@ export function battle (playerChar) {
         }
     }
 
-    if (enemyType !== 'adventurer') setEnemySkill(enemy, enemy.skills[0])
+    if (enemyType !== 'adventurer') enemy.skills[0] = wiki.skills[enemy.skills[0]]
 
     let text = `It's a ${enemy.name.toUpperCase()}... FIGHT!`
     eventText.append(createP(text, 'event-text-row'))

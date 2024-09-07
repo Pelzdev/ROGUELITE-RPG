@@ -93,7 +93,7 @@ function getCharSprite (char) {
     return `img/chars/${char.race.name}/${char.job.name}/${char.gender}/${imgNum}.png`
 }
 // Calculate modstuff
-function getTotalMods (char) {
+export function getTotalMods (char) {
     // first all equipment
     let eqTypeArr = wiki.eqTypes
     let arrayOfModObj = []

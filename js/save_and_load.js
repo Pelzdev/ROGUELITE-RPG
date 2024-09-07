@@ -1,5 +1,5 @@
 import { showGameStartInfo } from "./game_start.js"
-import { setPlayerChar, makePlayerCharDiv, playerChar } from "./player_char.js"
+import { setPlayerChar, makePlayerCharDiv, playerChar, getTotalMods } from "./player_char.js"
 import { makePlayerInfo } from "./player_info.js"
 import { newGameBtn, continueGameBtn } from "./main.js"
 
@@ -18,14 +18,17 @@ export function currentCharExists() {
 }
 
 export function addCharToHallOfFame (playerChar) {
+    let hallOfFamer = structuredClone(playerChar)
+    hallOfFamer.score = getPlayerCharScore()
     let hallOfFameArray = JSON.parse(localStorage.getItem('hallOfFameArray')) // load the array
     
     if (!hallOfFameArray) {
-        let newArray = [playerChar]
+        let newArray = [hallOfFamer]
         localStorage.setItem('hallOfFameArray', JSON.stringify(newArray))
     } else {
         console.log('hall of fame array exists')
-        hallOfFameArray.push(playerChar)
+        hallOfFameArray.push(hallOfFamer)
+        hallOfFameArray = sortHallOfFame(hallOfFameArray)
         localStorage.setItem('hallOfFameArray', JSON.stringify(hallOfFameArray))
     }
 
@@ -38,8 +41,8 @@ export function loadHallOfFame () {
 
 export function clearGameHistory () {
     localStorage.removeItem("hallOfFameArray")
+    localStorage.removeItem("currentChar")
 }
-
 
 // Check if current char on page load
 document.addEventListener("DOMContentLoaded", function(event) {
@@ -57,3 +60,30 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
     }
 });
+
+// Calculate score of player char (to be used on saveCurrentChar)
+function getPlayerCharScore () {
+    let score = (playerChar.level * 2) + (playerChar.enemiesKilled) + calcTotalModScore(playerChar)
+    return score
+}
+
+function calcTotalModScore (playerChar) {
+    let score = 0
+    let totalMods = getTotalMods(playerChar)
+    console.log(Object.keys(totalMods))
+    // Loop through all equipment of playerChar
+    for (const mod of Object.keys(totalMods)) {
+        if (mod.includes('Res')) score += totalMods[mod]
+        else score += totalMods[mod] * 2
+    }
+    console.log(score)
+    return Math.round(score)
+}
+
+function compareNumbers(a, b) {
+    return b.score - a.score;
+}
+
+function sortHallOfFame (hallOfFameArray) {
+    return hallOfFameArray.sort(compareNumbers)
+}
