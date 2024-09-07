@@ -29,11 +29,11 @@ export function addToEventsDone () {
 export function startEvent (playerChar) {
     addToEventsDone()
     let rndNum = rndInt(1,100)
-    if (rndNum <= 10) currentEvent = 'inn'
-    if (rndNum > 10 && rndNum <= 16) currentEvent = 'healer'
-    if (rndNum > 16 && rndNum <= 26) currentEvent = 'trainer'
-    if (rndNum > 26 && rndNum <= 30) currentEvent = 'oracle'
-    if (rndNum > 30) currentEvent = 'battle'
+    if (rndNum <= 8) currentEvent = 'inn'
+    if (rndNum > 8 && rndNum <= 14) currentEvent = 'healer'
+    if (rndNum > 14 && rndNum <= 22) currentEvent = 'trainer'
+    if (rndNum > 22 && rndNum <= 26) currentEvent = 'oracle'
+    if (rndNum > 26) currentEvent = 'battle'
 
     updateBg(eventDiv, currentEvent)
 

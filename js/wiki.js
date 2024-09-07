@@ -23,25 +23,25 @@ export const wiki = {
         // base skill (used if other skill isn't)
         attack:             {name: 'attack',        target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'str', chance: 100, power: 20,   effect: null,        effectChance: null, critChance: 5},
         // other skills
-        bash_1:             {name: 'bash I',        target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'str', chance: 30,  power: 35,   effect: 'stun',      effectChance: 25,   critChance: 5},
-        bite_1:             {name: 'bite I',        target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'agi', chance: 50,  power: 25,   effect: 'bleed',     effectChance: 30,   critChance: 10},
-        body_slam_1:        {name: 'body slam I',   target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'end', chance: 35,  power: 25,   effect: 'stun',      effectChance: 25,   critChance: 5},
-        eviscerate_1:       {name: 'eviscerate I',  target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'agi', chance: 30,  power: 30,   effect: 'bleed',     effectChance: 50,   critChance: 5},
+        bash_1:             {name: 'bash I',        target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'str', chance: 20,  power: 35,   effect: 'stun',      effectChance: 25,   critChance: 5},
+        bite_1:             {name: 'bite I',        target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'agi', chance: 35,  power: 25,   effect: 'bleed',     effectChance: 30,   critChance: 10},
+        body_slam_1:        {name: 'body slam I',   target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'end', chance: 25,  power: 25,   effect: 'stun',      effectChance: 25,   critChance: 5},
+        eviscerate_1:       {name: 'eviscerate I',  target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'agi', chance: 25,  power: 30,   effect: 'bleed',     effectChance: 50,   critChance: 5},
         back_stab_1:        {name: 'back stab I',   target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'agi', chance: 20,  power: 30,   effect: null,        effectChance: null, critChance: 50},
-        play_it_safe_1:     {name: 'play it safe I',target: 'self',  isSpell: true,  type: 'heal',   element: 'physical', attribute: 'lck', chance: 25,  power: 30,   effect: null,        effectChance: null, critChance: 5},
-        risky_hit_1:        {name: 'risky hit I',   target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'lck', chance: 50,  power: 20,   effect: null,        effectChance: 0,    critChance: 40},
-        tusk_attack_1:      {name: 'tusk attack I', target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'str', chance: 40,  power: 20,   effect: 'bleed',     effectChance: 30,   critChance: 5},
-        holy_strike_1:      {name: 'holy strike I', target: 'enemy', isSpell: false, type: 'damage', element: 'holy',     attribute: 'int', chance: 40,  power: 25,   effect: null,        effectChance: null, critChance: 5},
-        heal_self_1:        {name: 'heal self I',   target: 'self',  isSpell: true,  type: 'heal',   element: 'holy',     attribute: 'int', chance: 25,  power: 30,   effect: null,        effectChance: null, critChance: 5},
+        play_it_safe_1:     {name: 'play it safe I',target: 'self',  isSpell: true,  type: 'heal',   element: 'physical', attribute: 'lck', chance: 20,  power: 30,   effect: null,        effectChance: null, critChance: 5},
+        risky_hit_1:        {name: 'risky hit I',   target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'lck', chance: 35,  power: 20,   effect: null,        effectChance: 0,    critChance: 40},
+        tusk_attack_1:      {name: 'tusk attack I', target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'str', chance: 25,  power: 20,   effect: 'bleed',     effectChance: 30,   critChance: 5},
+        holy_strike_1:      {name: 'holy strike I', target: 'enemy', isSpell: false, type: 'damage', element: 'holy',     attribute: 'int', chance: 25,  power: 25,   effect: null,        effectChance: null, critChance: 5},
+        heal_self_1:        {name: 'heal self I',   target: 'self',  isSpell: true,  type: 'heal',   element: 'holy',     attribute: 'int', chance: 20,  power: 30,   effect: null,        effectChance: null, critChance: 5},
         fire_bolt_1:        {name: 'fire bolt I',   target: 'enemy', isSpell: true,  type: 'damage', element: 'fire',     attribute: 'int', chance: 50,  power: 35,   effect: null,        effectChance: null, critChance: 5},
         ice_bolt_1:         {name: 'ice bolt I',    target: 'enemy', isSpell: true,  type: 'damage', element: 'cold',     attribute: 'int', chance: 50,  power: 35,   effect: null,        effectChance: null, critChance: 5},
         spark_1:            {name: 'spark I',       target: 'enemy', isSpell: true,  type: 'damage', element: 'electric', attribute: 'int', chance: 50,  power: 35,   effect: null,        effectChance: null, critChance: 5},
-        siphon_life_1:      {name: 'siphon life I', target: 'enemy', isSpell: true,  type: 'damage', element: 'physical', attribute: 'int', chance: 30,  power: 20,   effect: 'lifesteal', effectChance: 100,  critChance: 5},
-        power_shot_1:       {name: 'power shot I',  target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'dex', chance: 30,  power: 40,   effect: 'stun',      effectChance: 15,   critChance: 10},
-        quick_shot_1:       {name: 'quick shot I',  target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'dex', chance: 50,  power: 25,   effect: null,        effectChance: null, critChance: 5},
-        scream_1:           {name: 'scream I',      target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'chr', chance: 30,  power: 30,   effect: 'stun',      effectChance: 30,   critChance: 5},
-        attract_1:          {name: 'attract I',     target: 'enemy', isSpell: true,  type: 'status', element: 'love',     attribute: 'chr', chance: 30,  power: null, effect: 'charm',     effectChance: 100,  critChance: 5},
-        rabid_bite_1:       {name: 'rabid bite I',  target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'agi', chance: 40,  power: 25,   effect: 'poison',    effectChance: 100,  critChance: 5}
+        siphon_life_1:      {name: 'siphon life I', target: 'enemy', isSpell: true,  type: 'damage', element: 'physical', attribute: 'int', chance: 20,  power: 20,   effect: 'lifesteal', effectChance: 100,  critChance: 5},
+        power_shot_1:       {name: 'power shot I',  target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'dex', chance: 20,  power: 40,   effect: 'stun',      effectChance: 15,   critChance: 10},
+        quick_shot_1:       {name: 'quick shot I',  target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'dex', chance: 35,  power: 25,   effect: null,        effectChance: null, critChance: 5},
+        scream_1:           {name: 'scream I',      target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'chr', chance: 20,  power: 30,   effect: 'stun',      effectChance: 30,   critChance: 5},
+        attract_1:          {name: 'attract I',     target: 'enemy', isSpell: true,  type: 'status', element: 'love',     attribute: 'chr', chance: 20,  power: null, effect: 'charm',     effectChance: 100,  critChance: 5},
+        rabid_bite_1:       {name: 'rabid bite I',  target: 'enemy', isSpell: false, type: 'damage', element: 'physical', attribute: 'agi', chance: 30,  power: 25,   effect: 'poison',    effectChance: 100,  critChance: 5}
     },
     food: {
         small_potion: {
@@ -66,22 +66,23 @@ export const wiki = {
     eqTypes: ['head', 'weapon', 'body', 'gloves', 'trinket', 'boots'],
     eq: {
         head: {
-            wool_cap: {name: 'wool cap',         desc: 'A wool cap.', type: 'head', icon: 'head', rarity: 'common', mods: {}},
+            wool_cap:       {name: 'wool cap',      type: 'head',   icon: 'head',     rarity: 'common', mods: {}},
         },
         weapon: {
-            wooden_sword: {name: 'wooden sword', desc: 'A wooden sword, mostly for training', type: 'weapon', icon: 'weapon', rarity: 'common', mods: {dmg: 2}},
+            wooden_sword:   {name: 'wooden sword',  type: 'weapon', icon: 'weapon',   rarity: 'common', mods: {dmg: 2}},
+            //wooden_bow:     {name: 'wooden bow',    type: 'weapon', icon: 'weapon',   rarity: 'common', mods: {dmg: 2}},
         },
         body: {
-            wool_shirt: {name: 'wool shirt',     desc: 'A wool shirt', type: 'body', icon: 'body', rarity: 'common', mods: {}},
+            wool_shirt:     {name: 'wool shirt',    type: 'body',   icon: 'body',     rarity: 'common', mods: {}},
         },
         gloves: {
-            wool_gloves: {name: 'wool gloves',   desc: 'Wool gloves.', type: 'gloves', icon: 'gloves', rarity: 'common', mods: {}},
+            wool_gloves:    {name: 'wool gloves',   type: 'gloves', icon: 'gloves',   rarity: 'common', mods: {}},
         },
         trinket: {
-            rabbits_foot: {name: 'rabbits foot', desc: 'A lucky rabbits foot.', type: 'trinket', icon: 'trinket', rarity: 'common', mods: {lck: 2}}
+            rabbits_foot:   {name: 'rabbits foot',  type: 'trinket',icon: 'trinket',  rarity: 'common', mods: {lck: 2}}
         },
         boots: {
-            old_boots: {name: 'old boots',       desc: 'Old boots.', type: 'boots', icon: 'boots', rarity: 'common', mods: {}}
+            old_boots:      {name: 'old boots',     type: 'boots',  icon: 'boots',    rarity: 'common', mods: {}}
         }
     },
     jobs: {
@@ -269,6 +270,18 @@ export const wiki = {
             status: '',
             img: 'img/enemies/forest_gecko.png',
             height: 140
+        },
+        toxic_frog: {
+            name: 'Toxic Frog',
+            isPlayer: false,
+            level: 1, 
+            hpMax: 25, 
+            hpLeft: 25,
+            totalMods: {dmg: 3, def: 3, end: 2, str: 1, agi: 7, dex: 1, int: 3, chr: 1, lck: 1},
+            skills: ['attack'],
+            status: '',
+            img: 'img/enemies/toxic_frog.png',
+            height: 100
         },
         goblin_bat: {
             name: 'Goblin Bat',
