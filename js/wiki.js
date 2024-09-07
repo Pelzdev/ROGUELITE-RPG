@@ -1,3 +1,7 @@
+export function setEnemySkill (enemy, skill) {
+    enemy.skills[0] = wiki.skills[skill]
+}
+
 export const wiki = {
     baseMods: {
         dmg: 5,
@@ -398,7 +402,7 @@ export const wiki = {
             hpMax: 70, 
             hpLeft: 70,
             totalMods: {dmg: 7, def: 6, end: 7, str: 6, agi: 2, dex: 3, int: 3, chr: 1, lck: 3},
-            skills: 'bash_1',
+            skills: ['bash_1'],
             status: '',
             img: 'img/enemies/boarian_marauder.png',
             height: 110

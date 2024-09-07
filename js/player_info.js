@@ -222,7 +222,7 @@ function clickConsumable (playerChar, arrPos) {
     btnYes.addEventListener('click', () => consumableChoice(playerChar, 'yes', arrPos))
     let btnNo = createNode('button', { className: 'btn-medium', textContent: 'NO' })
     btnNo.addEventListener('click', () => consumableChoice(playerChar, 'no', arrPos))
-    popupText.append(btnYes, btnNo)
+    popupText.append(btnNo, btnYes)
 
 }
 // Choosing whether or not to use consumable/food

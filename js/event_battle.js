@@ -1,5 +1,5 @@
 import {rndInt, rndFromArr, shuffleArray} from "./base_functions.js"
-import {wiki} from "./wiki.js"
+import {wiki, setEnemySkill} from "./wiki.js"
 import {fadeOutEl, hpPerLvlUp} from "./main.js"
 import {playerChar, makePlayerCharDiv, getItem, getChar, updateHp} from "./player_char.js"
 import {endEvent, endEventBtn, eventTextContainer, eventText, windowHeaderBattle} from "./event.js"
@@ -32,13 +32,14 @@ export function battle (playerChar) {
     } else {
         if (rndNum > 9) {
             enemyType = 'adventurer'
-            enemy = getChar('enemy') // Wrong, makes the player...
+            enemy = getChar('enemy')
             enemy.isPlayer = false
         } else {
             enemy = structuredClone(wiki.enemies[rndFromArr(enemyLists.level8)])
         }
     }
-    if (enemyType !== 'adventurer') enemy.skills[0] = wiki.skills[enemy.skills[0]]
+
+    if (enemyType !== 'adventurer') setEnemySkill(enemy, enemy.skills[0])
 
     let text = `It's a ${enemy.name.toUpperCase()}... FIGHT!`
     eventText.append(createP(text, 'event-text-row'))
@@ -196,6 +197,7 @@ function checkSkillToUse (attacker) {
             break
         }
     }
+
     return chosenSkill
 }
 

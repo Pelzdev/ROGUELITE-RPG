@@ -31,8 +31,8 @@ export function chooseEq (playerChar) {
     if (playerChar.eq[currentEqLoot.type]) {
         currentItemDiv = createEqItemDiv(playerChar.eq[currentEqLoot.type])
         newItemBtn.textContent = 'TAKE NEW'
-        btnDiv.append(oldItemBtn, newItemBtn)
-        newDiv.append(text, currentItemDiv, newItemDiv, btnDiv)
+        btnDiv.append(newItemBtn, oldItemBtn)
+        newDiv.append(text, newItemDiv, currentItemDiv, btnDiv)
     } else {
         newItemBtn.textContent = 'TAKE'
         btnDiv.append(newItemBtn)
